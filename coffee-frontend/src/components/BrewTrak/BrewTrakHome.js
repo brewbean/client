@@ -1,5 +1,6 @@
 import React from 'react';
 
+import BrewTrakCard from './BrewTrakCard';
 
 function BrewTrakHome() {
     return (
@@ -20,7 +21,7 @@ function BrewTrakHome() {
             
             <p>Brewer Notes:</p>
             <input type='textbox'></input>
-
+            <BrewTrakCard/>
 
         </div>
     )
