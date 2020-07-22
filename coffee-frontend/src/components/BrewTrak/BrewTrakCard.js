@@ -1,6 +1,8 @@
 import React from 'react';
 
 import BrewTrakRating from './BrewTrakRating';
+import BrewTrakBeans from './BrewTrakBeans';
+
 const BrewTrakCard = () => {
     return(
         <div>   
@@ -11,6 +13,7 @@ const BrewTrakCard = () => {
 
             <div>James Brewer Note Component</div>
             <BrewTrakRating/>
+            <BrewTrakBeans/>
         </div>
     )
 }
