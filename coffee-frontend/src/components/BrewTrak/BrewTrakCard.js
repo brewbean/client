@@ -1,5 +1,6 @@
 import React from 'react';
 
+import BrewTrakComment from './BrewTrakComment';
 import BrewTrakRating from './BrewTrakRating';
 import BrewTrakBeans from './BrewTrakBeans';
 
@@ -18,7 +19,7 @@ const BrewTrakCard = () => {
                 <div>James Water Temperature Input Component</div>
             </div> 
 
-                <div>James Brewer Note Component</div>
+                <BrewTrakComment />
                 <BrewTrakRating/>
                 <BrewTrakBeans/>
         </div>
