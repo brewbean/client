@@ -20,7 +20,7 @@ const BrewTrakBeans = () => {
                     <option value="COSTA RICA VOLCAN AZUL">COSTA RICA VOLCAN AZUL</option>
                     <option value="SUPERNOVA ESPRESSO">SUPERNOVA ESPRESSO</option>
                 </select>
-                <img alt='' src={images[bean]}/>
+                <img class='coffee-image' alt='' src={images[bean]}/>
             </div>
         </div>
     )

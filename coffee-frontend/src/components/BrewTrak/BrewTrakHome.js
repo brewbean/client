@@ -1,30 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import BrewTrakCard from './BrewTrakCard';
 
-function BrewTrakHome() {
+import './BrewTrak.css';
+
+const BrewTrakHome = () => {
+    const [cards, addCards] = useState([1, 1])
     return (
         <div>
-            <h1>BrewTrak</h1>
-
-            <p>March 27, 2020</p>
-
-            <p>12:00 AM</p>
-
-            <p>Coffee Bean: Ethopian Yrgachiffe</p>
-
-            <p>Coffee Amount: 30g</p>
-
-            <p>Water Amount: 405g </p>
-
-            <p>Water Temperature: 200 F</p>
-            
-            <p>Brewer Notes:</p>
-            <input type='textbox'></input>
+            <h1>BrewTrak</h1><button onClick={() => {addCards(cards => [...cards, 1])}} >+</button>
             <BrewTrakCard/>
-
+            {cards.map(() =>
+                <BrewTrakCard/>
+            )};
         </div>
     )
 }
 
-export default BrewTrakHome
+export default BrewTrakHome;
+
