@@ -7,7 +7,7 @@ const images = {
     'COSTA RICA VOLCAN AZUL': 'https://abundanciacoffee.com/wp-content/uploads/2017/09/FCJVOLCANAZUL-1489780689.png',
     'SUPERNOVA ESPRESSO': 'https://cdn.shopify.com/s/files/1/1348/5769/products/supernova_1024x1024.png?v=1571438908'
 }
-const BrewTrakBeans = () => {
+const Beans = () => {
     const [bean, setBean] = useState("SUPERNOVA ESPRESSO");
     
     return(
@@ -26,4 +26,4 @@ const BrewTrakBeans = () => {
     )
 }
 
-export default BrewTrakBeans;
+export default Beans;

@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import BrewTrakHome from './components/BrewTrak/BrewTrakHome';
+import Home from './components/BrewTrak/Home';
 
 function App() {
   return (
     <div className="App">
-      <BrewTrakHome />
+      <Home />
     </div>
   );
 }

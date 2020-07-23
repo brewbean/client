@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const BrewTrakComment = () => {
+const Comment = () => {
 
     const [comment, setComment] = useState("Comment here...");
     return (
@@ -12,4 +12,4 @@ const BrewTrakComment = () => {
     )
 }
 
-export default BrewTrakComment;
+export default Comment;

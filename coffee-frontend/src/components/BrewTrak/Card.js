@@ -1,13 +1,17 @@
 import React from 'react';
 
-import BrewTrakComment from './BrewTrakComment';
-import BrewTrakRating from './BrewTrakRating';
-import BrewTrakBeans from './BrewTrakBeans';
+import Comment from './Comment';
+import Rating from './Rating';
+import Beans from './Beans';
 
+import CoffeeDetails from './CoffeeDetails'
 import './BrewTrak.css';
 
+import useBrewTrak from './useBrewTrak';
 
-const BrewTrakCard = () => {
+const Card = () => {
+    const {data, methods} = useBrewTrak();
+
     return(
         <div class='card'>  
             <div class='flexbox-horizontal'>
@@ -15,15 +19,15 @@ const BrewTrakCard = () => {
                 <div class='date'>Date Time: {Date()}</div>
                 <div>James Coffee Bean Input Component</div>
                 <div>James Coffee Grind Input Component</div>
-                <div>James Water Amount Input Component</div>
+                <div><CoffeeDetails {...data} {...methods}/></div>
                 <div>James Water Temperature Input Component</div>
             </div> 
 
-                <BrewTrakComment />
-                <BrewTrakRating/>
-                <BrewTrakBeans/>
+                <Comment />
+                <Rating/>
+                <Beans/>
         </div>
     )
 }
 
-export default BrewTrakCard;
+export default Card;

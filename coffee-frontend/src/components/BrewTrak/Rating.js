@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BrewTrakRating = () => {
+const Rating = () => {
     return(
         <div>   
             <div>Rating: 
@@ -16,4 +16,4 @@ const BrewTrakRating = () => {
     )
 }
 
-export default BrewTrakRating;
+export default Rating;
