@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.css';
+import {Switch, Route} from 'react-router-dom';
 import BrewTrakHome from './components/BrewTrak/BrewTrakHome';
 
 function App() {
   return (
-    <div className="App">
-      <BrewTrakHome />
-    </div>
+    <Switch>
+      <Route exact path='/' component={BrewTrakHome} />
+    </Switch>
   );
 }
 
