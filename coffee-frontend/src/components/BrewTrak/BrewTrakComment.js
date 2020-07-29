@@ -7,7 +7,6 @@ const BrewTrakComment = () => {
     return (
         <div>
             <textarea value={comment} onChange={(e) => setComment(e.target.value)} />
-
         </div>
     )
 }
