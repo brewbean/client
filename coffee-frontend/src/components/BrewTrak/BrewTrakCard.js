@@ -8,22 +8,22 @@ import './BrewTrak.css';
 
 
 const BrewTrakCard = () => {
-    return(
-        <div class='card'>  
-            <div class='flexbox-horizontal'>
+  return (
+    <div className='card'>
+      <div className='flexbox-horizontal'>
 
-                <div class='date'>Date Time: {Date()}</div>
-                <div>James Coffee Bean Input Component</div>
-                <div>James Coffee Grind Input Component</div>
-                <div>James Water Amount Input Component</div>
-                <div>James Water Temperature Input Component</div>
-            </div> 
+        <div className='date'>Date Time: {Date()}</div>
+        <div>James Coffee Bean Input Component</div>
+        <div>James Coffee Grind Input Component</div>
+        <div>James Water Amount Input Component</div>
+        <div>James Water Temperature Input Component</div>
+      </div>
 
-                <BrewTrakComment />
-                <BrewTrakRating/>
-                <BrewTrakBeans/>
-        </div>
-    )
+      <BrewTrakComment />
+      <BrewTrakRating />
+      <BrewTrakBeans />
+    </div>
+  )
 }
 
 export default BrewTrakCard;
