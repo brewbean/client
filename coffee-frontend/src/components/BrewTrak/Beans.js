@@ -20,7 +20,7 @@ const Beans = () => {
                     <option value="COSTA RICA VOLCAN AZUL">COSTA RICA VOLCAN AZUL</option>
                     <option value="SUPERNOVA ESPRESSO">SUPERNOVA ESPRESSO</option>
                 </select>
-                <img class='coffee-image' alt='' src={images[bean]}/>
+                <img className='coffee-image' alt='' src={images[bean]}/>
             </div>
         </div>
     )
