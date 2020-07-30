@@ -5,7 +5,7 @@ import CreateCard from './CreateCard';
 import './BrewTrak.css';
 
 import useBrewTrak from './useBrewTrak';
-
+import {useUser} from '../../context/userContext'
 const Home = () => {
     const foo = useUser();
     const [cards, addCards] = useState([1, 1]);
@@ -13,9 +13,9 @@ const Home = () => {
     return (
         <div>
         <h1>BrewTrak</h1><button onClick={() => { addCards(cards => [...cards, 1]) }} >+</button>
-        <BrewTrakCard />
+        <Card />
         {cards.map((c, i) =>
-            <BrewTrakCard key={i} />
+            <Card key={i} />
         )};
         </div>
     )
