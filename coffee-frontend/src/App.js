@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import BrewTrakHome from './components/BrewTrak/BrewTrakHome';
+import Home from './components/BrewTrak/';
 import { UserProvider, useUser } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
@@ -35,7 +35,7 @@ function App() {
     <>
       {/* NON-USER EXPERIENCE */}
       <Switch>
-        <Route exact path='/' component={BrewTrakHome} />
+        <Route exact path='/' component={Home} />
       </Switch>
       {/* USER EXPERIENCE */}
       <UserProvider>
