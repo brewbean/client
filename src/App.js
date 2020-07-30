@@ -5,6 +5,7 @@ import { UserProvider, useUser } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import Login from './components/Login';
+import PourGuide from './pages/PourGuide';
 
 
 function TestPage() {
@@ -36,6 +37,7 @@ function App() {
       {/* NON-USER EXPERIENCE */}
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route path='/pour-app' component={PourGuide} />
       </Switch>
       {/* USER EXPERIENCE */}
       <UserProvider>
