@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
 
-const BrewTrakComment = () => {
+const Comment = () => {
 
     const [comment, setComment] = useState("Comment here...");
     return (
         <div>
             <textarea value={comment} onChange={(e) => setComment(e.target.value)} />
+
         </div>
     )
 }
 
-export default BrewTrakComment;
+export default Comment;
