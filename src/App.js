@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from './components/BrewTrak/';
-import { UserProvider, useUser } from './context/userContext';
+import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import Login from './components/Login';
 import PourGuide from './pages/PourGuide';
+import Recipe from './pages/Recipe';
 
 
 function TestPage() {
-  const { user } = useUser();
   const [modalToggle, setToggle] = useState(false);
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -38,6 +38,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/pour-app' component={PourGuide} />
+        <Route path='/pour-editor' component={Recipe} />
       </Switch>
       {/* USER EXPERIENCE */}
       <UserProvider>
