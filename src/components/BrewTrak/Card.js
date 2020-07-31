@@ -10,22 +10,24 @@ import './BrewTrak.css';
 import useBrewTrak from './useBrewTrak';
 
 const Card = () => {
-    const {data, methods} = useBrewTrak();
 
     return(
-        <div className='card'>  
-            <div className='flexbox-horizontal'>
+        <div className="group flex flex-col px-2 py-2 text-sm leading-5 rounded-md font-medium text-gray-900 bg-gray-100">  
 
-                <div className='date'>Date Time: {Date()}</div>
-                <div>James Coffee Bean Input Component</div>
-                <div>James Coffee Grind Input Component</div>
-                <div><CoffeeDetails {...data} {...methods}/></div>
-                <div>James Water Temperature Input Component</div>
-            </div> 
+                <div className="flex">07/22/20</div>
+                <div className="flex">
+                    <div className="flex-col">
+                        <div className="flex pr-1">40g</div>
+                    </div>
+                    <div className="flex-col">
+                        <div className="flex px-1">560mL</div>
+                    </div>
+                    <div className="flex-col">
+                        <div className="flex px-1">200 C</div>
+                    </div>
 
-                <Comment />
-                <Rating/>
-                <Beans/>
+                </div>
+                <div className="flex">5.0/5.0</div>
         </div>
     )
 }

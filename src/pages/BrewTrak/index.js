@@ -6,7 +6,7 @@ const BrewTrakPage = props => {
 
   return (
     <div className='min-h-screen bg-white flex flex-col'>
-      <Header />
+      {/* <Header /> */}
       <div className="bg-gray-50 flex-1 flex items-stretch">
         <div className='max-w-7xl bg-pink w-full mx-auto p-4 sm:px-6 lg:px-8'>
           <BrewTrak/>
