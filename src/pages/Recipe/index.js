@@ -5,7 +5,7 @@ import StageInput from '../../components/StageInput';
 const DemoPage = props => {
   let [stages, setStages] = useState(['test'])
   return (
-    <div className='max-h-screen h-screen white flex flex-col'>
+    <div className='h-screen flex flex-col'>
       <Header />
       <div className='bg-gray-100 p-4 flex-1 overflow-y-scroll'>
         <div className='bg-white rounded shadow p-4 space-y-6'>
