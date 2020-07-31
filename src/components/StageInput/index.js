@@ -39,4 +39,4 @@ const StageInput = props => (
   </div>
 )
 
-export default StageInput
+export default StageInput;
