@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as Logo } from './droplet.svg';
 
 const Header = (props) => {
+  const [isOpen, setToggle] = useState(false);
+
   return (
-    <nav className="bg-white border-b border-gray-200">
+    <nav className="flex-none bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Logo className="fill-current text-red-400" />
+              <Logo className="fill-current text-yellow-400" />
               <h1 className="ml-2 font-extrabold tracking-wider text-blue-500">brewbean</h1>
             </div>
             <div className="hidden sm:-my-px sm:ml-6 sm:flex">
@@ -44,11 +46,12 @@ const Header = (props) => {
             </div>
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
-            <button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-              <svg className="block h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <button onClick={() => setToggle(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+              <svg className={`${!isOpen ? 'block' : 'hidden'} h-6 w-6`} stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
-              <svg className="hidden h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <svg className={`${isOpen ? 'block' : 'hidden'} h-6 w-6`} stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -57,7 +60,7 @@ const Header = (props) => {
       </div>
 
       {/* Change to block to see dropdown and hidden to hide - MOBILE */}
-      <div className="block sm:hidden">
+      <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="flex flex-col pt-2 pb-3">
           <button className="text-left pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">pour over app</button>
           <button className="text-left mt-1 pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">discover brews</button>
