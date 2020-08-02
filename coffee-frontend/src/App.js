@@ -5,7 +5,7 @@ import { UserProvider, useUser } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import Login from './components/Login';
-
+import CoffeeDetails from './components/BrewTrak/CoffeeDetails';
 
 function TestPage() {
   const { user } = useUser();
@@ -41,6 +41,7 @@ function App() {
       <UserProvider>
         <Switch>
           <Route path='/test' component={TestPage} />
+          <Route path='/brew-log' component={CoffeeDetails} />
         </Switch>
       </UserProvider>
     </>
