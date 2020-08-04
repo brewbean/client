@@ -9,7 +9,7 @@ import BrewInput from './components/BrewTrak/CreateBrew';
 import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
 import Recipe from './pages/Recipe';
-import { useBrewTrak } from './components/BrewTrak/useBrewTrak';
+
 
 function TestPage() {
   const history = useHistory();
@@ -42,7 +42,7 @@ function TestPage() {
 }
 
 function App() {
-  const { data, methods } = useBrewTrak();
+  
 
   return (
     <>
@@ -50,14 +50,13 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/pour-app' component={PourGuide} />
-        <Route path='/pour-editor' component={Recipe} />
+        <Route path='/recipe' component={Recipe} />
         <Route path='/timer' component={Timer} />
       </Switch>
       {/* USER EXPERIENCE */}
       <UserProvider>
         <Switch>
           <Route path='/test' component={TestPage} />
-          <Route path='/brew-log' render={props => <BrewInput {...data} {...methods} {...props} />} />
         </Switch>
       </UserProvider>
     </>
