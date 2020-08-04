@@ -5,15 +5,16 @@ import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import Login from './components/Login';
-import CoffeeDetails from './components/BrewTrak/CoffeeDetails';
+import BrewInput from './components/BrewTrak/CreateBrew';
 import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
 import Recipe from './pages/Recipe';
-
+import { useBrewTrak } from './components/BrewTrak/useBrewTrak';
 
 function TestPage() {
   const history = useHistory();
   const [modalToggle, setToggle] = useState(false);
+  
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Header />
@@ -41,6 +42,8 @@ function TestPage() {
 }
 
 function App() {
+  const { data, methods } = useBrewTrak();
+
   return (
     <>
       {/* NON-USER EXPERIENCE */}
@@ -54,7 +57,7 @@ function App() {
       <UserProvider>
         <Switch>
           <Route path='/test' component={TestPage} />
-          <Route path='/brew-log' component={CoffeeDetails} />
+          <Route path='/brew-log' render={props => <BrewInput {...data} {...methods} {...props} />} />
         </Switch>
       </UserProvider>
     </>

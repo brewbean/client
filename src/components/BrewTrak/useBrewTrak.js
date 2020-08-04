@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const useBrewTrak = () => {
+export const useBrewTrak = () => {
     /*
         CreateCard States
             NOTE: Initial states are temporary random defaults.

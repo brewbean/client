@@ -3,7 +3,9 @@ import InputRow from '../InputRow/index';
 import Dropdown from '../DropDown/index';
 import TextArea from '../TextArea/index';
 
-const BrewDetails = ({date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, bloomWaterAmount, bloomTime, brewComments, rating, setDate, setBeanWeight, setBrewType, setBeanGrind, setWaterAmount, setBeanType, setWaterTemp, setBloomWaterAmount, setBloomTime, setRating, setBrewComments}) => {
+
+
+const CreateBrew = ({date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, bloomWaterAmount, bloomTime, brewComments, rating, setDate, setBeanWeight, setBrewType, setBeanGrind, setWaterAmount, setBeanType, setWaterTemp, setBloomWaterAmount, setBloomTime, setRating, setBrewComments}) => {
 
     return (
         <div>
@@ -15,11 +17,11 @@ const BrewDetails = ({date, beanWeight, brewType, beanGrind, waterAmount, beanTy
             <InputRow value={waterTemp} onChange={setWaterTemp} placeholder='Enter water temperature' label='water temperature' />
             <InputRow value={bloomWaterAmount} onChange={setBloomWaterAmount} placeholder='Enter bloom water amount' label='bloom water amount' />
             <InputRow value={bloomTime} onChange={setBloomTime} placeholder='Enter bloom time' label='bloom time' />
-            <Dropdown value={rating} onChange={setRating} label="Rating"options={["1", "2", "3", "4", "5"]} />
+            <Dropdown value={rating} onChange={setRating} label="Rating" options={["1", "2", "3", "4", "5"]} />
             <TextArea value={brewComments} onChange={setBrewComments} placeholder='Enter comments here' label='brewer comments' />
 
         </div>
     )
 }
 
-export default BrewDetails;
+export default CreateBrew;
