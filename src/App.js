@@ -5,6 +5,7 @@ import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import Login from './components/Login';
+import BrewInput from './components/BrewTrak/CreateBrew';
 import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
 import Recipe from './pages/Recipe';
@@ -13,6 +14,7 @@ import Recipe from './pages/Recipe';
 function TestPage() {
   const history = useHistory();
   const [modalToggle, setToggle] = useState(false);
+  
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Header />
@@ -40,13 +42,15 @@ function TestPage() {
 }
 
 function App() {
+  
+
   return (
     <>
       {/* NON-USER EXPERIENCE */}
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/pour-app' component={PourGuide} />
-        <Route path='/pour-editor' component={Recipe} />
+        <Route path='/recipe' component={Recipe} />
         <Route path='/timer' component={Timer} />
       </Switch>
       {/* USER EXPERIENCE */}

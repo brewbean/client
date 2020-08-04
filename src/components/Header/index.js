@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ReactComponent as Logo } from './droplet.svg';
 
 const Header = (props) => {
   const [isOpen, setToggle] = useState(false);
@@ -10,8 +9,7 @@ const Header = (props) => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Logo className="fill-current text-yellow-400" />
-              <h1 className="ml-2 font-extrabold tracking-wider text-blue-500">brewbean</h1>
+              <h1 className="ml-2 font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></h1>
             </div>
             <div className="hidden sm:-my-px sm:ml-6 sm:flex">
               <button className="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-semibold leading-5 text-blue-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
