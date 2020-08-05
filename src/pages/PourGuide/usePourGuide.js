@@ -16,8 +16,9 @@ const recipes = [{
 
 const serve = 15; // 2 min 30 sec 
 
-export const useTimer = () => {
+export const usePourGuide = () => {
   const [stage, setStage] = useState('');
+  const [stageWeight, setStageWeight] = useState(0);
   const [remainingTime, setRemainingTime] = useState(0)
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -37,7 +38,7 @@ export const useTimer = () => {
         setSeconds(seconds => seconds + 1);
       }, 1000);
 
-      let findStage = recipes.find(r => seconds >= r.startTime && seconds <= r.endTime);
+      let findStage = recipes.find(r => seconds >= r.startTime && seconds < r.endTime);
       if (findStage === undefined) {
         let nextStage = recipes.find(r => r.startTime > seconds);
         if (nextStage !== undefined) {
@@ -49,6 +50,7 @@ export const useTimer = () => {
       } else {
         setRemainingTime(findStage.endTime - seconds)
         setStage(findStage.name)
+        setStageWeight(findStage.weight)
       }
 
       if (seconds === serve) {
@@ -65,15 +67,20 @@ export const useTimer = () => {
   }, [isActive, seconds]);
 
   return {
-    isActive,
-    stage,
-    stages: [...recipes.map(r => r.name), 'serve'],
-    remainingTime,
-    start,
-    stop,
-    reset,
-    seconds,
-    secondsString: timeString(seconds),
-    percent: (seconds / serve) * 100
+    data: {
+      isActive,
+      stage,
+      stages: [...recipes.map(r => r.name), 'serve'],
+      stageWeight,
+      remainingTime,
+      seconds,
+      timeString: timeString(seconds),
+      percent: (seconds / serve) * 100
+    },
+    handler: {
+      start,
+      stop,
+      reset,
+    }
   }
 }
