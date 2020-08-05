@@ -11,6 +11,7 @@ import {useUser} from '../../context/userContext'
 import Logs from './sampleLog';
 const Home = () => {
     const { data, methods } = useBrewTrak();
+    // console.log(methods);
     return (
 
     <div class="h-screen flex overflow-hidden bg-gray-100">
@@ -132,11 +133,9 @@ const Home = () => {
             <div>
             {Logs.map((l,i) => 
                 <div className="py-1">
-                    <Card key={i} {...l}/>
+                    <Card key={i} {...l} {...methods}/>
                 </div>
             )}
-            {/* <Card /> */}
-            
             </div>
             <nav class="mt-5 flex-1 px-2 bg-white">
                 <a href="#" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
@@ -189,7 +188,7 @@ const Home = () => {
             </div> */}
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
             {/* <!-- Replace with your content --> */}
-            <CardDetails {...data} logs={Logs}/>
+            <CardDetails {...data}/>
             {/* <div class="py-4">
                 <div class="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
             </div> */}

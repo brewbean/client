@@ -2,6 +2,7 @@ const Logs =
 [
   {
     "date": "7/22/20",
+    "brewType": "Pourover",
     "beanType": "Ethiopian",
     "beanWeight": "40g",
     "waterWeight": "560mL",
@@ -13,6 +14,7 @@ const Logs =
   }, 
   {
     "date": "7/23/20",
+    "brewType": "Pourover",
     "beanType": "Ethiopian",
     "beanWeight": "35g",
     "waterWeight": "520mL",
@@ -24,6 +26,7 @@ const Logs =
   },
   {
     "date": "7/24/20",
+    "brewType": "Pourover",
     "beanType": "Guatamala",
     "beanWeight": "35g",
     "waterWeight": "545mL",
