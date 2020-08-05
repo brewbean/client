@@ -1,10 +1,9 @@
 import React from 'react';
 
-import Comment from './Comment';
 import Rating from './Rating';
 import Beans from './Beans';
 
-import CoffeeDetails from './CoffeeDetails'
+import CreateBrew from './CreateBrew'
 import './BrewTrak.css';
 
 import useBrewTrak from './useBrewTrak';
