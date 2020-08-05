@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PourPlayer = ({ stage, stages, stageRemainingTime, weight, timeString, gif: Gif }) => {
+const PourPlayer = ({ percent, stage, stages, stageRemainingTime, weight, timeString, gif: Gif }) => {
   return (
     <div className='bg-white text-gray-800 rounded shadow p-4 h-full flex flex-col justify-between'>
       <h3 className='self-start text-3xl font-medium tracking-wide'>{weight}g</h3>
@@ -12,7 +12,9 @@ const PourPlayer = ({ stage, stages, stageRemainingTime, weight, timeString, gif
 
       <div className='flex flex-col items-center'>
         <h4 className='text-2xl font-semibold'>{stage}</h4>
-        <h5 className='text-lg'>continue for {stageRemainingTime} seconds</h5>
+        {stageRemainingTime > 0 &&
+          <h5 className='text-lg'>continue for {stageRemainingTime} seconds</h5>
+        }
       </div>
       <div>
         <div className='flex justify-between'>
@@ -21,7 +23,7 @@ const PourPlayer = ({ stage, stages, stageRemainingTime, weight, timeString, gif
           }
         </div>
         <div className="mt-4 h-1 bg-gray-200 rounded-full">
-          <div className="w-1/5 h-1 bg-blue-500 rounded-full relative">
+          <div style={{ width: `${percent}%`}} className="h-1 bg-blue-500 rounded-full relative">
           </div>
         </div>
       </div>
