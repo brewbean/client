@@ -6,13 +6,12 @@ const CardDetails = ({img,date,beanWeight,brewType,beanGrind,waterAmount,beanTyp
     return(
         <>  
 
-        <div className="text-2xl font-semibold text-gray-900">Card Details</div>
+        {/* <div className="text-2xl font-semibold text-gray-900">Card Details</div> */}
         <div className="flex">
-            <div className="flex-column px-10 mx-5 border-4 border-dashed border-gray-200 rounded-lg h-96">
+            <div className="flex-column px-10 mx-5 rounded-lg h-96">
                 <img className="w-40 h-40" src={img}/>
             </div>
           <div className = "flex-column">
-          <div>Img:{img}</div>
                <div>brewType: {brewType}</div>
                <div>beanType: {beanType}</div>
                <div>beanWeight: {beanWeight}</div>
