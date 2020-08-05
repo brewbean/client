@@ -5,8 +5,6 @@ import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import Login from './components/Login';
-import BrewInput from './components/BrewTrak/CreateBrew';
-import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
 import Recipe from './pages/Recipe';
 
@@ -51,7 +49,6 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path='/pour-app' component={PourGuide} />
         <Route path='/recipe' component={Recipe} />
-        <Route path='/timer' component={Timer} />
       </Switch>
       {/* USER EXPERIENCE */}
       <UserProvider>
