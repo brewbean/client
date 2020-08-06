@@ -17,6 +17,7 @@ export const useBrewTrak = () => {
     const [bloomTime, setBloomTime] = useState('');
     const [rating, setRating] = useState('');
     const [brewComments, setBrewComments] = useState('');
+    const [brewSelected, setBrewSelect] = useState(false);
 
     
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
@@ -36,6 +37,7 @@ export const useBrewTrak = () => {
         setBloomTime(card.bloomTime);
         setRating(card.rating);
         setBrewComments(card.brewComments);
+        setBrewSelect(true);
     }
     return (
         {
@@ -51,7 +53,8 @@ export const useBrewTrak = () => {
                 bloomWaterAmount,
                 bloomTime,
                 brewComments,
-                rating
+                rating,
+                brewSelected
             },
             methods: {
                 setDate: e => setDate(e.target.value),
