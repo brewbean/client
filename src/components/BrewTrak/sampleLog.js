@@ -5,10 +5,10 @@ const Logs =
     "brewType": "Pourover",
     "beanType": "Ethiopian",
     "beanWeight": "40g",
-    "waterWeight": "560mL",
+    "waterAmount": "560mL",
     "beanGrind": "Coarse",
     "waterTemp": "200C",
-    "comments": "It was dank. Best coffee ever.",
+    "brewComments": "It was dank. Best coffee ever.",
     "rating" : "5.0/5.0",  
     "img" : "https://images-na.ssl-images-amazon.com/images/I/71fsRaKdBiL._SL1000_.jpg"
   }, 
@@ -17,10 +17,10 @@ const Logs =
     "brewType": "Pourover",
     "beanType": "Ethiopian",
     "beanWeight": "35g",
-    "waterWeight": "520mL",
+    "waterAmount": "520mL",
     "beanGrind": "Coarse",
     "waterTemp": "200C",
-    "comments": "It was strong. Maybe less water.",
+    "brewComments": "It was strong. Maybe less water.",
     "rating" : "4.5/5.0",
     "img" : "https://images-na.ssl-images-amazon.com/images/I/71fsRaKdBiL._SL1000_.jpg"
   },
@@ -29,13 +29,12 @@ const Logs =
     "brewType": "Pourover",
     "beanType": "Guatamala",
     "beanWeight": "35g",
-    "waterWeight": "545mL",
+    "waterAmount": "545mL",
     "beanGrind": "Fine",
     "waterTemp": "200C",
-    "comments": "It was okay. Bit sour.",
+    "brewComments": "It was okay. Bit sour.",
     "rating" : "3.0/5.0",
     "img" : "https://cdn.shopify.com/s/files/1/1302/0311/products/guatemala-organic-light_grande.jpg?v=1591124661"
-
   }
 ]
 
