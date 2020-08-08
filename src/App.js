@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import Home from './components/BrewTrak/';
+import BrewTrak from './components/BrewTrak/';
 import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
@@ -8,6 +8,7 @@ import Login from './components/Login';
 import BrewInput from './components/BrewTrak/CreateBrew';
 import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
+import BrewTrakPage from './pages/BrewTrak';
 import Recipe from './pages/Recipe';
 
 
@@ -48,7 +49,7 @@ function App() {
     <>
       {/* NON-USER EXPERIENCE */}
       <Switch>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={BrewTrakPage} />
         <Route path='/pour-app' component={PourGuide} />
         <Route path='/recipe' component={Recipe} />
         <Route path='/timer' component={Timer} />
@@ -59,6 +60,11 @@ function App() {
           <Route path='/test' component={TestPage} />
         </Switch>
       </UserProvider>
+      <Switch>
+        <Route path = '/brewtrak' component={BrewTrakPage} />
+        <Route path = '/create' component={BrewInput} />
+
+      </Switch>
     </>
   );
 }
