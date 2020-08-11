@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import BrewTrak from './components/BrewTrak/';
 import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';

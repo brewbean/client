@@ -1,8 +1,19 @@
 import React from 'react';
 import Header from '../../components/Header';
 import BrewTrak from '../../components/BrewTrak';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_BARISTA } from '../../queries';
+
+
 
 const BrewTrakPage = props => {
+
+
+  // const data = useQuery(GET_BARISTA);
+  
+  // console.log("plswork", data);
+
+
 
   return (
     <div className='h-screen bg-white flex flex-col'>
