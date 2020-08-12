@@ -6,15 +6,15 @@ import { ApolloClient, createHttpLink, InMemoryCache, ApolloLink, concat } from 
 import { getMainDefinition } from '@apollo/client/utilities';
 import { setContext } from '@apollo/client/link/context';
 // import { config } from './constants';
+import { URI, token } from './constants';
 import App from './App';
 import './tailwind.generated.css';
 
-
 const httpLink = createHttpLink({
-  uri: config.GQL_URL
+  uri: URI // config.GQL_URL
 });
 
-const jwtToken = ''
+const jwtToken = token;
 
 const authMiddleWare= new ApolloLink((operation, forward)=>{
   operation.setContext({
@@ -29,8 +29,6 @@ const client = new ApolloClient({
   link: concat(authMiddleWare, httpLink),
   cache: new InMemoryCache()
 })
-
-
 
 ReactDOM.render(
   <React.StrictMode>

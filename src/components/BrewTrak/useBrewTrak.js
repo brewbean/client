@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { INSERT_RECIPE_ONE } from '../../queries';
 
 export const useBrewTrak = () => {
     /*
@@ -18,6 +20,7 @@ export const useBrewTrak = () => {
     const [rating, setRating] = useState('');
     const [brewComments, setBrewComments] = useState('');
     const [brewSelected, setBrewSelect] = useState(false);
+    const [insertRecipe, { data }] = useMutation(INSERT_RECIPE_ONE);
 
     
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
@@ -38,6 +41,23 @@ export const useBrewTrak = () => {
         setRating(card.rating);
         setBrewComments(card.brewComments);
         setBrewSelect(true);
+    }
+
+    const submitRecipe = () => {
+        const obj = {
+            object: {
+                "barista_id": 6,
+                "brew_type": brewType,
+                "bean_weight": beanWeight,
+                "bean_grind":beanGrind,
+                "water_temp": waterTemp,
+                "rating":rating,
+                "comment":brewComments,
+                "private": true,
+                "serving_amount": waterAmount 
+            }
+        }
+        console.log("Submit Recipe", obj);
     }
     return (
         {
@@ -68,7 +88,8 @@ export const useBrewTrak = () => {
                 setBloomTime: e => setBloomTime(e.target.value),
                 setRating: e => setRating(e.target.value),
                 setBrewComments: e => setBrewComments(e.target.value),
-                setCardValues
+                setCardValues,
+                submitRecipe
             }
         }
     )

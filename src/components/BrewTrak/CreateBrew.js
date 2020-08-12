@@ -2,11 +2,26 @@ import React, { useState } from 'react';
 import InputRow from '../InputRow/index';
 import Dropdown from '../DropDown/index';
 import TextArea from '../TextArea/index';
-
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { INSERT_RECIPE_ONE } from '../../queries';
 
 
 const CreateBrew = ({ date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, brewComments, rating, setDate, setBeanWeight, setBrewType, setBeanGrind, setWaterAmount, setBeanType, setWaterTemp, setBloomWaterAmount, setBloomTime, setRating, setBrewComments }) => {
-
+    const [insertRecipe, { data }] = useMutation(INSERT_RECIPE_ONE);
+    const obj = {
+            object: {
+                "barista_id": 6,
+                "brew_type": "pourover",
+                "bean_weight": 40,
+                "bean_grind":"fine",
+                "water_temp": 200,
+                "rating":4,
+                "comment":"It was dank part 2",
+                "private": true,
+                "serving_amount": 550
+            }
+        }
+    
     return (
         <div>
             <Dropdown value={brewType} onChange={setBrewType} options={["Pour Over", "Aeropress", "Siphon", "Moka Pot", "French Press"]} label="brew type" />
@@ -24,7 +39,7 @@ const CreateBrew = ({ date, beanWeight, brewType, beanGrind, waterAmount, beanTy
 
             {/* Next button to stage */}
             <div className='flex-none bg-white rounded shadow p-4'>
-                <button type="button" className="mt-2 w-full px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                <button onClick={() => insertRecipe({variables: obj})} type="button" className="mt-2 w-full px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
                     add recipe
             </button>
             </div>
