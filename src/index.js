@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient, createHttpLink, InMemoryCache, ApolloLink, concat } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { setContext } from '@apollo/client/link/context';
-import { config } from './constants';
+// import { config } from './constants';
 import App from './App';
 import './tailwind.generated.css';
 

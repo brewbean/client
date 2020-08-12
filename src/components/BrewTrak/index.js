@@ -11,6 +11,7 @@ import {useUser} from '../../context/userContext'
 import Logs from './sampleLog';
 const Home = () => {
     const { data, methods } = useBrewTrak();
+    
     return (
     <div class="h-screen flex overflow-hidden bg-white">
     {/* <!-- Off-canvas menu for mobile --> */}
