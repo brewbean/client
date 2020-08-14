@@ -10,14 +10,14 @@ export const useBrewTrak = () => {
     const [img, setImg] = useState('');
     const [date, setDate] = useState('');
     const [beanWeight, setBeanWeight] = useState('');
-    const [brewType, setBrewType] = useState('');
-    const [beanGrind, setBeanGrind] = useState('');
+    const [brewType, setBrewType] = useState('Pour Over');
+    const [beanGrind, setBeanGrind] = useState('Extra Fine');
     const [waterAmount, setWaterAmount] = useState('');
     const [beanType, setBeanType] = useState('');
     const [waterTemp, setWaterTemp] = useState('');
     const [bloomWaterAmount, setBloomWaterAmount] = useState('');
     const [bloomTime, setBloomTime] = useState('');
-    const [rating, setRating] = useState('');
+    const [rating, setRating] = useState('1');
     const [brewComments, setBrewComments] = useState('');
     const [brewSelected, setBrewSelect] = useState(false);
     const [insertRecipe, { data }] = useMutation(INSERT_RECIPE_ONE);
@@ -44,20 +44,18 @@ export const useBrewTrak = () => {
     }
 
     const submitRecipe = () => {
-        const obj = {
-            object: {
-                "barista_id": 6,
-                "brew_type": brewType,
-                "bean_weight": beanWeight,
-                "bean_grind":beanGrind,
-                "water_temp": waterTemp,
-                "rating":rating,
-                "comment":brewComments,
-                "private": true,
-                "serving_amount": waterAmount 
-            }
+        const object = {
+            "barista_id": 6, //temp-id
+            "brew_type": brewType,
+            "bean_weight": beanWeight,
+            "bean_grind": beanGrind,
+            "water_temp": waterTemp,
+            "rating": rating,
+            "comment": brewComments,
+            "private": true, //temp-setting
+            "serving_amount": waterAmount
         }
-        console.log("Submit Recipe", obj);
+        insertRecipe({ variables: { object }});
     }
     return (
         {

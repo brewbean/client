@@ -61,8 +61,6 @@ function App() {
       </UserProvider>
       <Switch>
         <Route path = '/brewtrak' component={BrewTrakPage} />
-        <Route path = '/create' component={BrewInput} />
-
       </Switch>
     </>
   );
