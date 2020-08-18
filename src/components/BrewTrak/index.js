@@ -6,14 +6,20 @@ import CardDetails from './CardDetails';
 import './BrewTrak.css';
 
 import useBrewTrak from './useBrewTrak';
-import {useUser} from '../../context/userContext'
+import { GET_ALL_RECIPE } from '../../queries';
+import { useQuery } from '@apollo/react-hooks';
 
-import Logs from './sampleLog';
+// import Logs from './sampleLog';
 const Home = () => {
     const { data, methods } = useBrewTrak();
     const history = useHistory();
     const match = useRouteMatch();
+    const { loading, error, data: logs} = useQuery(GET_ALL_RECIPE);
+    console.log("Logs:",logs);
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
     return (
+        
     <div class="h-screen flex overflow-hidden bg-white">
     {/* <!-- Off-canvas menu for mobile --> */}
         <div class="md:hidden">
@@ -32,7 +38,14 @@ const Home = () => {
 
 
                                 <div className="flex flex-row">
-                                    {Logs.map((l,i) => 
+                                    {logs.recipe.map((l,i) => 
+                                        <div className="py-2 mx-4">
+                                            <Card key={i} {...l} {...methods}/>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="flex flex-row">
+                                    {logs.recipe.map((l,i) => 
                                         <div className="py-2 mx-4">
                                             <Card key={i} {...l} {...methods}/>
                                         </div>
@@ -58,7 +71,7 @@ const Home = () => {
                                     add brew
                             </button>
                         <div>
-                        {Logs.map((l,i) => 
+                        {logs.recipe.map((l,i) => 
                             <div className="py-2 px-2">
                                 <Card key={i} {...l} {...methods}/>
                             </div>

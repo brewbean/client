@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { INSERT_RECIPE_ONE } from '../../queries';
+import { INSERT_RECIPE_ONE, GET_ALL_RECIPE } from '../../queries';
 
 export const useBrewTrak = () => {
     /*
@@ -21,25 +21,23 @@ export const useBrewTrak = () => {
     const [brewComments, setBrewComments] = useState('');
     const [brewSelected, setBrewSelect] = useState(false);
     const [insertRecipe, { data }] = useMutation(INSERT_RECIPE_ONE);
-
-    
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
     // but how to make both inputs respond when other is inputted?
     // if i want a ratio if 16 but type in 50g of coffee 
     const setCardValues = (card) => {
         console.log("Setting card value", card);
         setImg(card.img);
-        setDate(card.date);
-        setBeanWeight(card.beanWeight);
-        setBrewType(card.brewType);
-        setBeanGrind(card.beanGrind);
-        setWaterAmount(card.waterAmount);
-        setBeanType(card.beanType);
-        setWaterTemp(card.waterTemp);
-        setBloomWaterAmount(card.bloomWaterAmount);
-        setBloomTime(card.bloomTime);
+        setDate(card.date_added);
+        setBeanWeight(card.bean_weight);
+        setBrewType(card.brew_type);
+        setBeanGrind(card.bean_grind);
+        setWaterAmount(card.water_amount);
+        setBeanType(card.bean_type);
+        setWaterTemp(card.water_temp);
+        setBloomWaterAmount(card.bloom_water_amount);
+        setBloomTime(card.bloom_time);
         setRating(card.rating);
-        setBrewComments(card.brewComments);
+        setBrewComments(card.comment);
         setBrewSelect(true);
     }
 
@@ -55,7 +53,8 @@ export const useBrewTrak = () => {
             "private": true, //temp-setting
             "serving_amount": waterAmount
         }
-        insertRecipe({ variables: { object }});
+        insertRecipe({ variables: { object }}); 
+        console.log("SubMit Recipe data:", data);
     }
     return (
         {
@@ -73,6 +72,7 @@ export const useBrewTrak = () => {
                 brewComments,
                 rating,
                 brewSelected
+                // logs
             },
             methods: {
                 setDate: e => setDate(e.target.value),
