@@ -27,7 +27,7 @@ query get_recipes {
     rating 
     comment 
     private
-    # date_added 
+    date_added 
   }
 }
 `;

@@ -51,7 +51,7 @@ export const useBrewTrak = () => {
             "rating": rating,
             "comment": brewComments,
             "private": true, //temp-setting
-            "serving_amount": waterAmount
+            "water_amount": waterAmount
         }
         insertRecipe({ variables: { object }}); 
         console.log("SubMit Recipe data:", data);

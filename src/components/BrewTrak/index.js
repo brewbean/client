@@ -15,9 +15,9 @@ const Home = () => {
     const history = useHistory();
     const match = useRouteMatch();
     const { loading, error, data: logs} = useQuery(GET_ALL_RECIPE);
-    console.log("Logs:",logs);
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
+    
     return (
         
     <div class="h-screen flex overflow-hidden bg-white">
@@ -36,16 +36,8 @@ const Home = () => {
                                         add brew
                                     </button>
 
-
                                 <div className="flex flex-row">
-                                    {logs.recipe.map((l,i) => 
-                                        <div className="py-2 mx-4">
-                                            <Card key={i} {...l} {...methods}/>
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="flex flex-row">
-                                    {logs.recipe.map((l,i) => 
+                                    {logs.recipe.slice().sort((a, b) => b.id - a.id).map((l,i) => 
                                         <div className="py-2 mx-4">
                                             <Card key={i} {...l} {...methods}/>
                                         </div>
@@ -71,7 +63,7 @@ const Home = () => {
                                     add brew
                             </button>
                         <div>
-                        {logs.recipe.map((l,i) => 
+                        {logs.recipe.slice().sort((a, b) => b.id - a.id).map((l,i) => 
                             <div className="py-2 px-2">
                                 <Card key={i} {...l} {...methods}/>
                             </div>

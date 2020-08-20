@@ -8,7 +8,7 @@ const Card = ({img, date_added, brew_type, bean_type, bean_weight, water_amount,
                 <div className="flex">{date_added}</div>
                     <div className="flex">
                         <div className="flex-col">
-                            <div className="flex pr-1">{bean_type}</div>
+                            <div className="flex pr-1">Type: {bean_type}</div>
                         </div>
                         <div className="flex-col">
                             <div className="flex px-1">{bean_weight}g</div>
