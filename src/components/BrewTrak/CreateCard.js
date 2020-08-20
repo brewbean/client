@@ -15,8 +15,8 @@ const CreateCard = ({date, beanWeight, beanGrind, waterWeight, waterTemp, commen
     // const [beanType, setBeanType] = useState('ethiopian');
 
     return(
-        <div class='card'>  
-            <div class='flexbox-horizontal'>
+        <div className='card'>  
+            <div className='flexbox-horizontal'>
             <h1>CREATE CARD</h1>
             Date: <input value={date} onChange={setDate}/>
             Coffee Bean Weight: <input value={beanWeight} onChange={setBeanWeight}/>

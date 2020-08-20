@@ -1,21 +1,52 @@
 import React, { useState, useContext, createContext } from 'react';
+import axios from 'axios';
+import { AUTH_API } from '../config';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [state, setState] = useState({
-    user: {
-      name: 'Patrick'
+    barista: {
+      email: null,
+      displayName: null,
     },
+    token: null,
+    tokenExpiry: null,
+    status: 'success',
+    error: null,
   })
 
-  console.log("INIT")
-  // login
-  // logout
+
+
+  const login = async (email, password) => {
+    try {
+      const { data } = await axios.post(AUTH_API + '/auth/login', { email, password })
+      console.log('LOGIN DATA:', data);
+
+      setState({
+        ...state,
+        status: 'success',
+        token: data.token,
+        tokenExpiry: data.tokenExpiry,
+        barista: {
+          email: data.email,
+          displayName: data.displayName,
+        }
+      })
+    } catch ({ message }) {
+      setState({
+        ...state,
+        status: 'failed',
+        error: message
+      });
+    }
+  }
+
+  const logout = () => { }
 
   return (
-    <UserContext.Provider value={state}>
-      {children}
+    <UserContext.Provider value={{ ...state, login, logout }}>
+      {state.status === 'pending' ? '...loading' : children}
     </UserContext.Provider>
   )
 }

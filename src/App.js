@@ -4,7 +4,7 @@ import Home from './components/BrewTrak/';
 import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
-import Login from './components/Login';
+import Login from './pages/Login';
 import PourGuide from './pages/PourGuide';
 import Recipe from './pages/Recipe';
 
@@ -53,6 +53,7 @@ function App() {
       {/* USER EXPERIENCE */}
       <UserProvider>
         <Switch>
+          <Route path='/login' component={Login} />
           <Route path='/test' component={TestPage} />
         </Switch>
       </UserProvider>
