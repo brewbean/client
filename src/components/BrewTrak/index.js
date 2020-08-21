@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
-
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import Card from './Card';
 import CreateCard from './CreateCard';
 import CardDetails from './CardDetails';
 import './BrewTrak.css';
 
 import useBrewTrak from './useBrewTrak';
-import {useUser} from '../../context/userContext'
+import { GET_ALL_RECIPE } from '../../queries';
+import { useQuery } from '@apollo/react-hooks';
 
-import Logs from './sampleLog';
+// import Logs from './sampleLog';
 const Home = () => {
     const { data, methods } = useBrewTrak();
+    const history = useHistory();
+    const match = useRouteMatch();
+    const { loading, error, data: logs} = useQuery(GET_ALL_RECIPE);
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
+    
     return (
+        
     <div class="h-screen flex overflow-hidden bg-white">
     {/* <!-- Off-canvas menu for mobile --> */}
         <div class="md:hidden">
@@ -21,8 +29,15 @@ const Home = () => {
                         <div class="flex-1 pt-2 pb-4 overflow-y-auto">
                             <div class="px-2">
                                 <div className="flex items-center mx-4 py-2 text-md leading-5 font-bold text-gray-900">LOGS</div>
+                                    <button
+                                        onClick={() => history.push(`${match.url}/new`)}
+                                        type="button" 
+                                        className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                                        add brew
+                                    </button>
+
                                 <div className="flex flex-row">
-                                    {Logs.map((l,i) => 
+                                    {logs.recipe.slice().sort((a, b) => b.id - a.id).map((l,i) => 
                                         <div className="py-2 mx-4">
                                             <Card key={i} {...l} {...methods}/>
                                         </div>
@@ -41,8 +56,14 @@ const Home = () => {
                 <div class="flex flex-col h-0 flex-1 rounded-lg border-r border-gray-250 bg-blue-100">
                     <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                         <div className="flex items-center px-2 py-2 text-md leading-5 font-bold text-gray-900">LOGS</div>
+                            <button
+                                    onClick={() => history.push(`${match.url}/new`)}
+                                    type="button" 
+                                    className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                                    add brew
+                            </button>
                         <div>
-                        {Logs.map((l,i) => 
+                        {logs.recipe.slice().sort((a, b) => b.id - a.id).map((l,i) => 
                             <div className="py-2 px-2">
                                 <Card key={i} {...l} {...methods}/>
                             </div>

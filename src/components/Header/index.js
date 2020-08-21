@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 const Header = (props) => {
   const [isOpen, setToggle] = useState(false);
+  const history = useHistory();
 
   return (
     <nav className="flex-none bg-white border-b border-gray-200">
@@ -12,7 +13,9 @@ const Header = (props) => {
               <h1 className="ml-2 font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></h1>
             </div>
             <div className="hidden sm:-my-px sm:ml-6 sm:flex">
-              <button className="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-semibold leading-5 text-blue-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+              <button 
+                  onClick={() => history.push('/brewtrak') }
+                  className="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-semibold leading-5 text-blue-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
                 pour over app
                 </button>
               <button className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
