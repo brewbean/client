@@ -3,6 +3,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import DiscoverBrew from '../../components/DiscoverBrew';
+import DiscoverDetails from '../../components/DiscoverBrew/DiscoverDetails'
 import { useBrewTrak } from '../../components/BrewTrak/useBrewTrak';
 // import CreateBrew from '../../components/DiscoverBrew/CreateBrew';
 
@@ -16,6 +17,7 @@ const DiscoverBrewPage = props => {
         <div className='max-w-7xl bg-pink w-full mx-auto p-4 sm:px-6 lg:px-8'>
         <Switch>
           <Route exact path={`${match.url}/`} render={props => <DiscoverBrew {...props} {...data} {...methods}/> } /> 
+          <Route exact path={`${match.url}/details`} render={props => <DiscoverDetails {...props} {...data} {...methods}/> } /> 
           {/* <Route path={`${match.url}/new`} render={props => <CreateBrew {...props} {...data} {...methods} />} /> */}
         </Switch>
           

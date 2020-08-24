@@ -1,0 +1,53 @@
+
+import React from 'react';
+import Star from '../BrewTrak/star.png';
+
+const DiscoverDetails = () => {
+    return(
+        <div>
+        <div className="bg-gray-800 pb-32">
+            <header className="py-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-3xl leading-9 font-bold text-white">
+                Back
+                </h1>
+            </div>
+            </header>
+        </div>
+
+        <main className="-mt-32">
+            <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
+            {/* <!-- Replace with your content --> */}
+            <div class="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+                <div class="px-4 py-4 rounded-lg h-96">
+                    <div>
+                        <img className="w-32 h-32 flex-shrink-0 mx-auto bg-black" src={"https://images.squarespace-cdn.com/content/v1/54710d76e4b053a395dd2f01/1597965319369-0FRCXO82JL8WUZQYAIOE/ke17ZwdGBToddI8pDm48kCv_R9RbU3wbCTXpgfO_ztd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1Ubjls0Z3Tw6Qw-eartGLA4Smm4ykRLFDU4-T3RnetJKam7cT0R_dexc_UL_zbpz6JQ/Bag.png?format=1500w"} alt=""/>
+                        {/* <div className='text-3xl leading-9 font-bold'>ETHIOPIAN YIRGACHEFFE</div> */}
+                        <div className='text-2xl text-gray-400'>Stereoscope</div>
+                        <div className='text-3xl leading-9 font-bold'>ETHIOPIAN YIRGACHEFFE</div>
+                        
+                        <div className='flex items-center text-2xl leading-9'>
+                            <img className="w-5 h-5 mr-1" src={Star} alt='Star'/>:5.0/5.0
+                        </div>
+                        <div className='text-2xl font-bold'>$20</div>
+                        <div className='font-bold'>Profile Notes</div>
+                        <div>Blueberry, Peach, Honey</div>
+                        <div className='font-bold'>About this Coffee</div>
+                        <div>This was made from Ethiopia</div>
+                        <button
+                            type="button" 
+                            className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                            buy bean
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            {/* <!-- /End replace --> */}
+            </div>
+        </main>
+        </div>
+    )
+}
+
+export default DiscoverDetails;
