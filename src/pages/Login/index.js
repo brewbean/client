@@ -68,7 +68,7 @@ const Login = (props) => {
       </div>
 
       <div className="hidden lg:block relative w-0 flex-1">
-        <img className="absolute inset-0 h-full w-full object-cover" src={coffeeCover} alt="" />
+        <img className="absolute inset-0 h-full w-full object-cover" src={coffeeCover} alt="espresso" />
       </div>
     </div>
 

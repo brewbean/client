@@ -21,7 +21,6 @@ const UserProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const { data } = await axios.post(AUTH_API + '/auth/login', { email, password })
-      console.log('LOGIN DATA:', data);
 
       setState({
         ...state,
@@ -33,11 +32,11 @@ const UserProvider = ({ children }) => {
           displayName: data.displayName,
         }
       })
-    } catch ({ message }) {
+    } catch ({ response }) {
       setState({
         ...state,
         status: 'failed',
-        error: message
+        error: response.data.message
       });
     }
   }
@@ -57,7 +56,12 @@ const UserProvider = ({ children }) => {
  */
 const useUser = () => {
   const context = useContext(UserContext);
-  return context;
+  const isSuccess = context.status === 'success';
+  const isAuthenticated = context.barista.email && isSuccess;
+  return {
+    ...context,
+    isAuthenticated
+  };
 }
 
 export { UserProvider, useUser }
