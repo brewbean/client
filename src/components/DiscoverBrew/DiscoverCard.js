@@ -1,9 +1,20 @@
 import React from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
-const DiscoverCard = ({name, company_name, roast_type, region, profile_note, img}) => {
+
+
+
+const DiscoverCard = ({name, company_name, roast_type, region, profile_note, img, setBeanDetails}) => {
+    const bean = { name, company_name, roast_type, region, profile_note, img }
+    const history = useHistory(); 
+    let match = useRouteMatch();
+    const beanClicked = (bean) => {
+        history.push(`${match.url}/details`);
+        // setBeanDetails(bean)
+    }
     return (
         <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow">
-            <div className="flex-1 flex flex-col p-8">
+            <div className="flex-1 flex flex-col p-8" onClick={() => beanClicked(bean)} >
             <img className="w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full" src={img} alt=""/>
             <h3 className="mt-6 text-gray-900 text-sm leading-5 font-medium">{company_name}</h3>
             <dl className="mt-1 flex-grow flex flex-col justify-between">
@@ -14,8 +25,6 @@ const DiscoverCard = ({name, company_name, roast_type, region, profile_note, img
                 {
                     profile_note.map((x, i) => 
                      <span key={i} className="mx-1 px-2 py-1 text-teal-800 text-xs leading-4 font-medium bg-teal-100 rounded-full">{x}</span>
-
-                    
                 )}
                 </dd>
             </dl>

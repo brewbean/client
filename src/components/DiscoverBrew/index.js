@@ -1,9 +1,12 @@
 import React from 'react';
 import DiscoverCard from './DiscoverCard';
 import {sampleDetails} from './sampleDetails';
-const DiscoverBrew = () => {
+import { useDiscoverBean } from './useDiscoverBean';
+const DiscoverBrew  = () => {
     // let beanDetail = {name:"KENYA KAMWANGI", company_name:"Stereoscope", roast_type: "light", region: "Kirinyaga", profile_note: ["Red Grapefruit", "Cranberry"]}
     let beanDetail = sampleDetails;
+    const { data, methods } = useDiscoverBean();
+    
     console.log("Beandetail", beanDetail);
     return (
         <div>
@@ -22,7 +25,7 @@ const DiscoverBrew = () => {
             {/* <!-- Replace with your content --> */}
                 <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {beanDetail.map((x,i) =>
-                        <DiscoverCard  key={i} {...x}/>
+                        <DiscoverCard  key={i} {...x} { ...methods}/>
                     )}
                 </ul>
             {/* <!-- /End replace --> */}
