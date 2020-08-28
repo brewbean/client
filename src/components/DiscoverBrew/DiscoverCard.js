@@ -1,9 +1,6 @@
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
-
-
-
 const DiscoverCard = ({name, company_name, roast_type, region, profile_note, img, setBeanDetails}) => {
     const bean = { name, company_name, roast_type, region, profile_note, img }
     const history = useHistory(); 

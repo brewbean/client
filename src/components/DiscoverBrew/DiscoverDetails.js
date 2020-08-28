@@ -1,7 +1,22 @@
 
 import React from 'react';
 import Star from '../BrewTrak/star.png';
-const DiscoverDetails = ({ company_name, name, roast_type, country_id, farm_id, process, region, altitude, profile_note, about}) => {
+
+import { GET_SINGLE_BEAN } from '../../queries';
+import { useQuery } from '@apollo/react-hooks';
+
+const DiscoverDetails = () => {
+    const id = 1
+    const { loading, error, data } = useQuery(GET_SINGLE_BEAN, {
+        variables: { id },
+    });
+    
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
+
+    
+    console.log("Data", data);
+    const { company_name, name, about, profile_note } = data.bean_by_pk;
     return(
         <div>
         <div className="bg-gray-800 pb-32">
