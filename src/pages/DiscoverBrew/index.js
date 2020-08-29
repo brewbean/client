@@ -17,7 +17,8 @@ const DiscoverBrewPage = props => {
         <div className='max-w-7xl bg-pink w-full mx-auto p-4 sm:px-6 lg:px-8'>
         <Switch>
           <Route exact path={`${match.url}/`} render={props => <DiscoverBrew {...props} {...data} {...methods}/> } /> 
-          <Route exact path={`${match.url}/details`} render={props => <DiscoverDetails {...props} {...data}/> } /> 
+          <Route path = {`${match.url}/details/:id`} render={props => <DiscoverDetails {...props}/> } />
+
           {/* <Route path={`${match.url}/new`} render={props => <CreateBrew {...props} {...data} {...methods} />} /> */}
         </Switch>
           

@@ -5,8 +5,8 @@ import Star from '../BrewTrak/star.png';
 import { GET_SINGLE_BEAN } from '../../queries';
 import { useQuery } from '@apollo/react-hooks';
 
-const DiscoverDetails = () => {
-    const id = 1
+const DiscoverDetails = (props) => {
+    const id = props.match.params.id
     const { loading, error, data } = useQuery(GET_SINGLE_BEAN, {
         variables: { id },
     });

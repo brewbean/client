@@ -1,12 +1,12 @@
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
-const DiscoverCard = ({name, company_name, roast_type, region, profile_note, img, setBeanDetails}) => {
+const DiscoverCard = ({id, name, company_name, roast_type, region, profile_note, img, setBeanDetails}) => {
     const bean = { name, company_name, roast_type, region, profile_note, img }
     const history = useHistory(); 
     let match = useRouteMatch();
     const beanClicked = (bean) => {
-        history.push(`${match.url}/details`);
+        history.push(`${match.url}/details/${id}`);
         // setBeanDetails(bean)
     }
     return (
