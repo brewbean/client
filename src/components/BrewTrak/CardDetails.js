@@ -17,7 +17,7 @@ const CardDetails = ({ img, date, beanWeight, brewType, beanGrind, waterAmount, 
              :
              <>
                 <div className="flex-column px-10 mx-5 rounded-lg h-96">
-                    <img className="w-40 h-40 pt-2" src={img} alt='coffee bean'/>
+                    <img className="w-40 h-40 pt-2" src={img} alt='No coffee available!'/>
                 </div>
                     <div className = "flex-column">
                         <div className='text-2xl font-medium'>{beanType}</div>

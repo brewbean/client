@@ -36,8 +36,8 @@ const BrewTrak = () => {
 
                                 <div className="flex flex-row">
                                     {logs.recipe.map((l,i) => 
-                                        <div className="py-2 mx-4">
-                                            <Card key={i} {...l} {...methods}/>
+                                        <div key={i} className="py-2 mx-4">
+                                            <Card {...l} {...methods}/>
                                         </div>
                                     )}
                                 </div>
@@ -61,9 +61,9 @@ const BrewTrak = () => {
                                     add brew
                             </button>
                         <div>
-                        {logs.recipe.slice().sort((a, b) => b.id - a.id).map((l,i) => 
-                            <div className="py-2 px-2">
-                                <Card key={i} {...l} {...methods}/>
+                        {logs.recipe.map((l,i) => 
+                            <div key={i} className="py-2 px-2">
+                                <Card {...l} {...methods}/>
                             </div>
                         )}
                         </div>
@@ -72,7 +72,7 @@ const BrewTrak = () => {
             </div>
         </div>
         <div className="flex flex-col w-0 flex-1 overflow-hidden">
-        <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabindex="0">
+        <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabIndex="0">
             <div className="pt-2 pb-6 md:py-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 rounded-lg">
                 <CardDetails {...data}/>

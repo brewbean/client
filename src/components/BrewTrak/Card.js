@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Card = ({img, date_added, brew_type, bean_type, bean_weight, water_amount, bean_grind, water_temp, comment, rating, setCardValues}) => {
+const Card = ({bean, date_added, brew_type, bean_type, bean_weight, water_amount, bean_grind, water_temp, comment, rating, setCardValues}) => {
+    let img  = bean ? bean.img : "";
     let card = {img, date_added, brew_type, bean_type, bean_weight, water_amount, bean_grind, water_temp, comment, rating };
     return(
         <div className="group flex flex-col px-4 py-2 text-sm leading-5 rounded-md font-medium text-gray-900 bg-gray-50 border border-gray-250 " onClick={() => {setCardValues(card)}}>  

@@ -28,6 +28,9 @@ query get_recipes {
     comment 
     private
     date_added 
+    bean {
+      img
+    }
   }
 }
 `;
@@ -44,6 +47,9 @@ query get_beans {
     region
     roast_type
     img
+    about
+    price
+    rating
   }
 }
 `;
@@ -60,6 +66,9 @@ query get_single_bean($id:Int!){
     region
     roast_type
     img
+    about
+    price
+    rating
   }
 }
 `;
