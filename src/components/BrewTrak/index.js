@@ -35,7 +35,7 @@ const BrewTrak = () => {
                                     </button>
 
                                 <div className="flex flex-row">
-                                    {logs.recipe.slice().sort((a, b) => b.id - a.id).map((l,i) => 
+                                    {logs.recipe.map((l,i) => 
                                         <div className="py-2 mx-4">
                                             <Card key={i} {...l} {...methods}/>
                                         </div>

@@ -15,7 +15,7 @@ mutation insert_recipe_one($object: recipe_insert_input!) {
 `;
 export const GET_ALL_RECIPE = gql`
 query get_recipes {
-  recipe {
+  recipe (order_by: { id: desc }) {
     id
     barista_id  
     brew_type 
@@ -34,7 +34,7 @@ query get_recipes {
 
 export const GET_ALL_BEANS = gql`
 query get_beans {
-  bean {
+  bean (order_by: { id: asc }) {
     id
     company_name
     name
@@ -43,6 +43,7 @@ query get_beans {
     profile_note
     region
     roast_type
+    img
   }
 }
 `;
@@ -58,6 +59,7 @@ query get_single_bean($id:Int!){
     profile_note
     region
     roast_type
+    img
   }
 }
 `;

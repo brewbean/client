@@ -4,8 +4,11 @@ import Star from '../BrewTrak/star.png';
 
 import { GET_SINGLE_BEAN } from '../../queries';
 import { useQuery } from '@apollo/react-hooks';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 const DiscoverDetails = (props) => {
+    const history = useHistory();
+    const match = useRouteMatch();
     const id = props.match.params.id
     const { loading, error, data } = useQuery(GET_SINGLE_BEAN, {
         variables: { id },
@@ -16,15 +19,15 @@ const DiscoverDetails = (props) => {
 
     
     console.log("Data", data);
-    const { company_name, name, about, profile_note } = data.bean_by_pk;
+    const { company_name, name, about, profile_note, img } = data.bean_by_pk;
     return(
         <div>
         <div className="bg-gray-800 pb-32">
             <header className="py-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl leading-9 font-bold text-white">
+                <button className="text-3xl leading-9 font-bold text-white" onClick={() => history.push('/discover')}>
                 Back
-                </h1>
+                </button>
             </div>
             </header>
         </div>
@@ -35,7 +38,7 @@ const DiscoverDetails = (props) => {
             <div class="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
                 <div class="px-4 py-4 rounded-lg h-auto">
                     <div>
-                        <img className="w-32 h-32 flex-shrink-0 mx-auto bg-black" src={"https://images.squarespace-cdn.com/content/v1/54710d76e4b053a395dd2f01/1597965319369-0FRCXO82JL8WUZQYAIOE/ke17ZwdGBToddI8pDm48kCv_R9RbU3wbCTXpgfO_ztd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1Ubjls0Z3Tw6Qw-eartGLA4Smm4ykRLFDU4-T3RnetJKam7cT0R_dexc_UL_zbpz6JQ/Bag.png?format=1500w"} alt=""/>
+                        <img className="w-32 h-32 flex-shrink-0 mx-auto bg-black" src={img} alt=""/>
                         {/* <div className='text-3xl leading-9 font-bold'>ETHIOPIAN YIRGACHEFFE</div> */}
                         <div className='text-2xl text-gray-400'>{company_name}</div>
                         <div className='text-3xl leading-9 font-bold'>{name}</div>
