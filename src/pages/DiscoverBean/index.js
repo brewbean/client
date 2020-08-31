@@ -2,12 +2,12 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import Header from '../../components/Header';
-import DiscoverBrew from '../../components/DiscoverBrew';
-import DiscoverDetails from '../../components/DiscoverBrew/DiscoverDetails'
-import { useDiscoverBean } from '../../components/DiscoverBrew/useDiscoverBean';
-// import CreateBrew from '../../components/DiscoverBrew/CreateBrew';
+import DiscoverBean from '../../components/DiscoverBean';
+import DiscoverDetails from '../../components/DiscoverBean/DiscoverDetails'
+import { useDiscoverBean } from '../../components/DiscoverBean/useDiscoverBean';
+// import CreateBean from '../../components/DiscoverBean/CreateBean';
 
-const DiscoverBrewPage = props => {
+const DiscoverBeanPage = props => {
   const { data, methods } = useDiscoverBean();
   let match = useRouteMatch();
   return (
@@ -16,10 +16,10 @@ const DiscoverBrewPage = props => {
       <div className="bg-gray-50 flex-1 flex items-stretch">
         <div className='max-w-7xl bg-pink w-full mx-auto p-4 sm:px-6 lg:px-8'>
         <Switch>
-          <Route exact path={`${match.url}/`} render={props => <DiscoverBrew {...props} {...data} {...methods}/> } /> 
+          <Route exact path={`${match.url}/`} render={props => <DiscoverBean {...props} {...data} {...methods}/> } /> 
           <Route path = {`${match.url}/details/:id`} render={props => <DiscoverDetails {...props}/> } />
 
-          {/* <Route path={`${match.url}/new`} render={props => <CreateBrew {...props} {...data} {...methods} />} /> */}
+          {/* <Route path={`${match.url}/new`} render={props => <CreateBean {...props} {...data} {...methods} />} /> */}
         </Switch>
           
         </div>
@@ -28,4 +28,4 @@ const DiscoverBrewPage = props => {
   )
 }
 
-export default DiscoverBrewPage;
+export default DiscoverBeanPage;

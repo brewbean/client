@@ -5,7 +5,7 @@ import { useDiscoverBean } from './useDiscoverBean';
 
 import { GET_ALL_BEANS } from '../../queries';
 import { useQuery } from '@apollo/react-hooks';
-const DiscoverBrew  = () => {
+const DiscoverBean  = () => {
     // let beanDetail = {name:"KENYA KAMWANGI", company_name:"Stereoscope", roast_type: "light", region: "Kirinyaga", profile_note: ["Red Grapefruit", "Cranberry"]}
     let beanDetail = sampleDetails;
     const { methods } = useDiscoverBean();
@@ -42,4 +42,4 @@ const DiscoverBrew  = () => {
         </div>
     )
 }
-export default DiscoverBrew;
+export default DiscoverBean;

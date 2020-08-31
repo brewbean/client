@@ -24,24 +24,21 @@ const DiscoverDetails = (props) => {
         <div className="bg-gray-800 pb-32">
             <header className="py-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <button className="text-3xl leading-9 font-bold text-white" onClick={() => history.push('/discover')}>
+                <button className="text-3xl leading-9 font-bold text-white" onClick={() => history.push('/discover/bean')}>
                 Back
                 </button>
             </div>
             </header>
         </div>
-
         <main className="-mt-32">
             <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
             {/* <!-- Replace with your content --> */}
-            <div class="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
-                <div class="px-4 py-4 rounded-lg h-auto">
+            <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+                <div className="px-4 py-4 rounded-lg h-auto">
                     <div>
                         <img className="w-64 h-64 flex-shrink-0 mx-auto bg-black" src={img} alt=""/>
-                        {/* <div className='text-3xl leading-9 font-bold'>ETHIOPIAN YIRGACHEFFE</div> */}
                         <div className='text-2xl text-gray-400'>{company_name}</div>
                         <div className='text-3xl leading-9 font-bold'>{name}</div>
-                        
                         <div className='flex items-center text-2xl leading-9'>
                             <img className="w-5 h-5 mr-1" src={Star} alt='Star'/>:{rating}/5
                         </div>
@@ -49,7 +46,7 @@ const DiscoverDetails = (props) => {
                         <div className='font-bold'>Profile Notes</div>
                         {
                             profile_note.map((x, i) => 
-                            <div>
+                            <div key={i}>
                                 {x}
                             </div>
                        )}
@@ -61,7 +58,6 @@ const DiscoverDetails = (props) => {
                             buy bean
                         </button>
                     </div>
-
                 </div>
             </div>
             {/* <!-- /End replace --> */}

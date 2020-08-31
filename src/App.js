@@ -7,7 +7,7 @@ import Login from './components/Login';
 import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
 import BrewTrakPage from './pages/BrewTrak';
-import DiscoverBrewPage from './pages/DiscoverBrew';
+import DiscoverBeanPage from './pages/DiscoverBean';
 import Recipe from './pages/Recipe';
 
 
@@ -51,7 +51,7 @@ function App() {
         <Route path='/recipe' component={Recipe} />
         <Route path='/timer' component={Timer} />
         <Route path = '/brewtrak' component={BrewTrakPage} />
-        <Route path = '/discover' component={DiscoverBrewPage} />
+        <Route path = '/discover/bean' component={DiscoverBeanPage} />
 
       </Switch>
       {/* USER EXPERIENCE */}

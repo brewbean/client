@@ -30,6 +30,7 @@ query get_recipes {
     date_added 
     bean {
       img
+      name
     }
   }
 }

@@ -32,7 +32,7 @@ export const useBrewTrak = () => {
         setBrewType(card.brew_type);
         setBeanGrind(card.bean_grind);
         setWaterAmount(card.water_amount);
-        setBeanType(card.bean_type);
+        setBeanType(card.name);
         setWaterTemp(card.water_temp);
         setBloomWaterAmount(card.bloom_water_amount);
         setBloomTime(card.bloom_time);
