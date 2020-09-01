@@ -4,10 +4,10 @@ import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import Login from './components/Login';
-import BrewInput from './components/BrewTrak/CreateBrew';
 import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
 import BrewTrakPage from './pages/BrewTrak';
+import DiscoverBeanPage from './pages/DiscoverBean';
 import Recipe from './pages/Recipe';
 
 
@@ -42,8 +42,6 @@ function TestPage() {
 }
 
 function App() {
-  
-
   return (
     <>
       {/* NON-USER EXPERIENCE */}
@@ -52,6 +50,9 @@ function App() {
         <Route path='/pour-app' component={PourGuide} />
         <Route path='/recipe' component={Recipe} />
         <Route path='/timer' component={Timer} />
+        <Route path = '/brewtrak' component={BrewTrakPage} />
+        <Route path = '/discover/bean' component={DiscoverBeanPage} />
+
       </Switch>
       {/* USER EXPERIENCE */}
       <UserProvider>
@@ -59,9 +60,6 @@ function App() {
           <Route path='/test' component={TestPage} />
         </Switch>
       </UserProvider>
-      <Switch>
-        <Route path = '/brewtrak' component={BrewTrakPage} />
-      </Switch>
     </>
   );
 }

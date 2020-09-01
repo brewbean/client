@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { INSERT_RECIPE_ONE, GET_ALL_RECIPE } from '../../queries';
+import { useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { INSERT_RECIPE_ONE } from '../../queries';
 
 export const useBrewTrak = () => {
     /*
@@ -32,7 +32,7 @@ export const useBrewTrak = () => {
         setBrewType(card.brew_type);
         setBeanGrind(card.bean_grind);
         setWaterAmount(card.water_amount);
-        setBeanType(card.bean_type);
+        setBeanType(card.name);
         setWaterTemp(card.water_temp);
         setBloomWaterAmount(card.bloom_water_amount);
         setBloomTime(card.bloom_time);

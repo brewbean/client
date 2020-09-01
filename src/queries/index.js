@@ -15,7 +15,7 @@ mutation insert_recipe_one($object: recipe_insert_input!) {
 `;
 export const GET_ALL_RECIPE = gql`
 query get_recipes {
-  recipe {
+  recipe (order_by: { id: desc }) {
     id
     barista_id  
     brew_type 
@@ -28,42 +28,49 @@ query get_recipes {
     comment 
     private
     date_added 
+    bean {
+      img
+      name
+    }
   }
 }
 `;
 
-export const GET_SINGLE_RECIPE = gql`
-query get_recipes($id: number) {
-  recipe {
-    barista_id  
-    bean_grind
-    bean_id 
-    bean_weight 
-    brew_type 
-    comment 
+export const GET_ALL_BEANS = gql`
+query get_beans {
+  bean (order_by: { id: asc }) {
     id
-    private 
-    rating 
-    water_temp 
+    company_name
+    name
+    altitude
+    process
+    profile_note
+    region
+    roast_type
+    img
+    about
+    price
+    rating
   }
 }
 `;
-// const body = {
-//   query: `
-//   mutation ($object: barista_insert_input!) {
-//     insert_barista_one(object: $object) {
-//       id
-//       display_name
-//       email
-//       created_on
-//     }
-//   }
-//   `,
-//   variables: {
-//     object: {
-//       email,
-//       display_name:display_name,
-//       password: await bcrypt.hash(password, 10),
-//     }
-//   }
-// }
+
+export const GET_SINGLE_BEAN = gql`
+query get_single_bean($id:Int!){
+  bean_by_pk(id:$id) {
+    id
+    company_name
+    name
+    altitude
+    process
+    profile_note
+    region
+    roast_type
+    img
+    about
+    price
+    rating
+  }
+}
+`;
+
