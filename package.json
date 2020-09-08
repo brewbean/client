@@ -7,14 +7,12 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.4.2",
+    "graphql": "^15.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "@apollo/client": "^3.0.2",
-    "@apollo/react-hooks": "^3.1.5",
-    "apollo-boost": "^0.4.9",
-    "graphql": "^15.2.0"
+    "urql": "^1.10.0"
   },
   "scripts": {
     "build:tailwind": "postcss src/tailwind.css -o src/tailwind.generated.css",
