@@ -6,15 +6,18 @@ import './BrewTrak.css';
 
 import useBrewTrak from './useBrewTrak';
 import { GET_ALL_RECIPE } from '../../queries';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from 'urql';
 
 const BrewTrak = () => {
     const { data, methods } = useBrewTrak();
     const history = useHistory();
     const match = useRouteMatch();
-    const { loading, error, data: logs} = useQuery(GET_ALL_RECIPE);
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
+    const [result, reexecuteQuery] = useQuery({
+        query: GET_ALL_RECIPE,
+      });
+      const { data: logs, fetching, error } = result;
+      if (fetching) return <p>Loading...</p>;
+      if (error) return <p>Oh no... {error.message}</p>;
     
     return (
         

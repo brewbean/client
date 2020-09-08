@@ -2,20 +2,22 @@ import React from 'react';
 import DiscoverCard from './DiscoverCard';
 import {sampleDetails} from './sampleDetails';
 import { useDiscoverBean } from './useDiscoverBean';
-
 import { GET_ALL_BEANS } from '../../queries';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from 'urql';
+
 const DiscoverBean  = () => {
-    // let beanDetail = {name:"KENYA KAMWANGI", company_name:"Stereoscope", roast_type: "light", region: "Kirinyaga", profile_note: ["Red Grapefruit", "Cranberry"]}
     let beanDetail = sampleDetails;
     const { methods } = useDiscoverBean();
-    const { loading, error, data } = useQuery(GET_ALL_BEANS)
+    const [result, reexecuteQuery] = useQuery({
+        query: GET_ALL_BEANS,
+      });
+    const { data, fetching, error } = result;
     console.log("Bean Detail Data", data);
     console.log("Beandetail", beanDetail);
 
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
-
+    if (fetching) return <p>Loading...</p>;
+    if (error) return <p>Oh no... {error.message}</p>;
+    
     return (
         <div>
         <div className="bg-gray-800 pb-32">

@@ -1,42 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloLink, concat } from '@apollo/client';
-import { getMainDefinition } from '@apollo/client/utilities';
-import { setContext } from '@apollo/client/link/context';
+import { createClient, Provider } from 'urql';
 // import { config } from './constants';
 import config from './constants';
 import App from './App';
 import './tailwind.generated.css';
-
-const httpLink = createHttpLink({
-  uri: config.GQL_URL // config.GQL_URL
-});
-
 const jwtToken = config.token;
 
-const authMiddleWare= new ApolloLink((operation, forward)=>{
-  operation.setContext({
-    headers: {
-      authorization: `Bearer ${jwtToken}`
-    } 
-  });
-  return forward(operation);
-})
-
-const client = new ApolloClient({
-  link: concat(authMiddleWare, httpLink),
-  cache: new InMemoryCache()
-})
-
+const client = createClient({
+  url: config.GQL_URL,
+  fetchOptions: () => {
+    const token = jwtToken;
+    return {
+      headers: { authorization: token ? `Bearer ${jwtToken}` : ''},
+    };
+  },
+});
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
+    {/* <ApolloProvider client={client}> */}
+    <Provider value={client}>
       <Router>
         <App />
       </Router>
-    </ApolloProvider>
+    </Provider>
+    {/* </ApolloProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
