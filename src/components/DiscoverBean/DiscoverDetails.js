@@ -3,21 +3,20 @@ import React from 'react';
 import Star from '../BrewTrak/star.png';
 
 import { GET_SINGLE_BEAN } from '../../queries';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from 'urql';
 import { useHistory } from 'react-router-dom';
 
 const DiscoverDetails = (props) => {
     const history = useHistory();
     const id = props.match.params.id
-    const { loading, error, data } = useQuery(GET_SINGLE_BEAN, {
-        variables: { id },
-    });
-    
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
+    const [result, reexecuteQuery] = useQuery({
+        query: GET_SINGLE_BEAN,
+        variables: { id }
+      });
+    const { data, fetching, error } = result;
 
-    
-    console.log("Data", data);
+    if (fetching) return <p>Loading...</p>;
+    if (error) return <p>Oh no... {error.message}</p>;
     const { company_name, name, about, profile_note, img, price, rating } = data.bean_by_pk;
     return(
         <div>

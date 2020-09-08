@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from 'urql';
 import { INSERT_RECIPE_ONE } from '../../queries';
 
 export const useBrewTrak = () => {
@@ -20,7 +20,9 @@ export const useBrewTrak = () => {
     const [rating, setRating] = useState('1');
     const [brewComments, setBrewComments] = useState('');
     const [brewSelected, setBrewSelect] = useState(false);
-    const [insertRecipe, { data }] = useMutation(INSERT_RECIPE_ONE);
+    const [insertRecipeResult, insertRecipe] = useMutation(INSERT_RECIPE_ONE);
+
+
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
     // but how to make both inputs respond when other is inputted?
     // if i want a ratio if 16 but type in 50g of coffee 
@@ -41,7 +43,7 @@ export const useBrewTrak = () => {
         setBrewSelect(true);
     }
 
-    const submitRecipe = () => {
+    const submitRecipe = async () => {
         const object = {
             "barista_id": 6, //temp-id
             "brew_type": brewType,
@@ -53,9 +55,10 @@ export const useBrewTrak = () => {
             "private": true, //temp-setting
             "water_amount": waterAmount
         }
-        insertRecipe({ variables: { object }}); 
-        console.log("SubMit Recipe data:", data);
+        let result = await insertRecipe({object});
+        console.log("Result", result);
     }
+
     return (
         {
             data:{

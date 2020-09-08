@@ -1,6 +1,4 @@
-import { gql } from 'apollo-boost';
-
-export const INSERT_RECIPE_ONE = gql`
+export const INSERT_RECIPE_ONE = `
 mutation insert_recipe_one($object: recipe_insert_input!) {
   insert_recipe_one(object: $object) {
     id
@@ -13,7 +11,7 @@ mutation insert_recipe_one($object: recipe_insert_input!) {
   }
 }
 `;
-export const GET_ALL_RECIPE = gql`
+export const GET_ALL_RECIPE = `
 query get_recipes {
   recipe (order_by: { id: desc }) {
     id
@@ -36,7 +34,7 @@ query get_recipes {
 }
 `;
 
-export const GET_ALL_BEANS = gql`
+export const GET_ALL_BEANS = `
 query get_beans {
   bean (order_by: { id: asc }) {
     id
@@ -55,7 +53,7 @@ query get_beans {
 }
 `;
 
-export const GET_SINGLE_BEAN = gql`
+export const GET_SINGLE_BEAN = `
 query get_single_bean($id:Int!){
   bean_by_pk(id:$id) {
     id
