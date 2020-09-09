@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Home from './components/BrewTrak/';
 import { UserProvider } from './context/userContext';
 
 import PourGuide from './pages/PourGuide';
@@ -14,7 +13,7 @@ function App() {
     <>
       {/* NON-USER EXPERIENCE */}
       <Switch>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={BrewTrakPage} />
         <Route path='/pour-app' component={PourGuide} />
         <Route path='/recipe' component={Recipe} />
         <Route path = '/brewtrak' component={BrewTrakPage} />

@@ -1,18 +1,7 @@
 import React from 'react';
 
-// import useBrewTrak from './useBrewTrak';
-
 const CreateCard = ({date, beanWeight, beanGrind, waterWeight, waterTemp, comments, rating, beanType,
     setDate, setBeanWeight, setBeanGrind, setWaterWeight, setWaterTemp, setComments, setRating, setBeanType}) => {
-    // const {data, methods} = useBrewTrak();
-    // const [date, setDate] = useState('12/2/20');
-    // const [beanWeight, setBeanWeight] = useState('30');
-    // const [beanGrind, setBeanGrind] = useState('5');
-    // const [waterWeight, setWaterWeight] = useState('450');
-    // const [waterTemp, setWaterTemp] = useState('200');
-    // const [comments, setComments] = useState('it was dank');
-    // const [rating, setRating] = useState('5');
-    // const [beanType, setBeanType] = useState('ethiopian');
 
     return(
         <div className='card'>  
@@ -27,7 +16,6 @@ const CreateCard = ({date, beanWeight, beanGrind, waterWeight, waterTemp, commen
             Rating: <input value={rating} onChange={setRating}/>
             Beans: <input value={beanType} onChange={setBeanType}/>
             </div> 
-
         </div>
     )
 }
