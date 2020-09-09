@@ -1,18 +1,37 @@
 import React from 'react';
+import { ReactComponent as Play } from './play-circle.svg';
 
-const PourPlayer = ({ stage, stages, stageRemainingTime, weight, timeString, gif: Gif }) => {
+const PourPlayer = ({ start, isActive, stageWeight, percent, stage, stages, remainingTime, weight, timeString, gif: Gif }) => {
   return (
     <div className='bg-white text-gray-800 rounded shadow p-4 h-full flex flex-col justify-between'>
-      <h3 className='self-start text-3xl font-medium tracking-wide'>{weight}g</h3>
-
-      <div className='flex flex-col items-center'>
-        <Gif className='h-48 w-48' />
-        <h3 className='text-3xl font-semibold tracking-wide'>{timeString}</h3>
+      <div className='flex justify-between items-center'>
+        <h3 className='text-md font-medium tracking-wide'>coffee weight</h3>
+        <h3 className='text-md font-medium tracking-wide'>{weight}g</h3>
       </div>
 
       <div className='flex flex-col items-center'>
-        <h4 className='text-2xl font-semibold'>{stage}</h4>
-        <h5 className='text-lg'>continue for {stageRemainingTime} seconds</h5>
+        {
+          !isActive && timeString === ':00'
+            ? (
+              <button className='text-blue-500 hover:text-green-400 focus:outline-none focus:text-green-500' onClick={start}> 
+                <Play className='h-48 w-48 stroke-current' />
+              </button>
+            )
+            : <Gif className='h-48 w-48' />
+        }
+        <h3 className='text-xl font-semibold tracking-wide'>{timeString}</h3>
+      </div>
+
+      <div className='flex flex-col items-center text-blue-700'>
+        <h5 className='text-lg'>water in system</h5>
+        <h5 className='text-xl font-semibold'>{stageWeight} g</h5>
+      </div>
+
+      <div className='flex flex-col items-center'>
+        <h4 className='text-xl font-semibold'>{stage}</h4>
+        {stage !== 'serve' && timeString !== ':00' &&
+          <h5 className='text-lg'>continue for {remainingTime} seconds</h5>
+        }
       </div>
       <div>
         <div className='flex justify-between'>
@@ -21,7 +40,7 @@ const PourPlayer = ({ stage, stages, stageRemainingTime, weight, timeString, gif
           }
         </div>
         <div className="mt-4 h-1 bg-gray-200 rounded-full">
-          <div className="w-1/5 h-1 bg-blue-500 rounded-full relative">
+          <div style={{ width: `${percent}%` }} className="h-1 bg-blue-500 rounded-full relative">
           </div>
         </div>
       </div>

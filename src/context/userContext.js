@@ -1,21 +1,51 @@
 import React, { useState, useContext, createContext } from 'react';
+import axios from 'axios';
+import { AUTH_API } from '../config';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [state, setState] = useState({
-    user: {
-      name: 'Patrick'
+    barista: {
+      email: null,
+      displayName: null,
     },
+    token: null,
+    tokenExpiry: null,
+    status: 'success',
+    error: null,
   })
 
-  console.log("INIT")
-  // login
-  // logout
+
+
+  const login = async (email, password) => {
+    try {
+      const { data } = await axios.post(AUTH_API + '/auth/login', { email, password })
+
+      setState({
+        ...state,
+        status: 'success',
+        token: data.token,
+        tokenExpiry: data.tokenExpiry,
+        barista: {
+          email: data.email,
+          displayName: data.displayName,
+        }
+      })
+    } catch ({ response }) {
+      setState({
+        ...state,
+        status: 'failed',
+        error: response.data.message
+      });
+    }
+  }
+
+  const logout = () => { }
 
   return (
-    <UserContext.Provider value={state}>
-      {children}
+    <UserContext.Provider value={{ ...state, login, logout }}>
+      {state.status === 'pending' ? '...loading' : children}
     </UserContext.Provider>
   )
 }
@@ -26,7 +56,12 @@ const UserProvider = ({ children }) => {
  */
 const useUser = () => {
   const context = useContext(UserContext);
-  return context;
+  const isSuccess = context.status === 'success';
+  const isAuthenticated = context.barista.email && isSuccess;
+  return {
+    ...context,
+    isAuthenticated
+  };
 }
 
 export { UserProvider, useUser }
