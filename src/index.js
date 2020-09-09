@@ -19,13 +19,11 @@ const client = createClient({
 });
 ReactDOM.render(
   <React.StrictMode>
-    {/* <ApolloProvider client={client}> */}
     <Provider value={client}>
       <Router>
         <App />
       </Router>
     </Provider>
-    {/* </ApolloProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

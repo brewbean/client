@@ -25,38 +25,6 @@ export const useBrewTrak = () => {
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
     // but how to make both inputs respond when other is inputted?
     // if i want a ratio if 16 but type in 50g of coffee 
-    const setCardValues = (card) => {
-        console.log("Setting card value", card);
-        setImg(card.img);
-        setDate(card.date_added);
-        setBeanWeight(card.bean_weight);
-        setBrewType(card.brew_type);
-        setBeanGrind(card.bean_grind);
-        setWaterAmount(card.water_amount);
-        setBeanType(card.name);
-        setWaterTemp(card.water_temp);
-        setBloomWaterAmount(card.bloom_water_amount);
-        setBloomTime(card.bloom_time);
-        setRating(card.rating);
-        setBrewComments(card.comment);
-        setBrewSelect(true);
-    }
-
-    const submitRecipe = async () => {
-        const object = {
-            "barista_id": 6, //temp-id
-            "brew_type": brewType,
-            "bean_weight": beanWeight,
-            "bean_grind": beanGrind,
-            "water_temp": waterTemp,
-            "rating": rating,
-            "comment": brewComments,
-            "private": true, //temp-setting
-            "water_amount": waterAmount
-        }
-        let result = await insertRecipe({object});
-        console.log("Result", result);
-    }
 
     return (
         {
