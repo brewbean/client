@@ -4,8 +4,11 @@ import Home from './components/BrewTrak/';
 import { UserProvider } from './context/userContext';
 import Header from './components/Header';
 import Modal from './components/Modal';
-import Login from './pages/Login';
+import Login from './components/Login';
+import Timer from './components/Timer';
 import PourGuide from './pages/PourGuide';
+import BrewTrakPage from './pages/BrewTrak';
+import DiscoverBeanPage from './pages/DiscoverBean';
 import Recipe from './pages/Recipe';
 import BaristaRoutes from './BaristaRoutes';
 
@@ -41,8 +44,6 @@ function TestPage() {
 }
 
 function App() {
-
-
   return (
     <>
       {/* NON-USER EXPERIENCE */}
@@ -50,7 +51,10 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path='/pour-app' component={PourGuide} />
         <Route path='/recipe' component={Recipe} />
-        <Route path='/test' component={TestPage} />
+        <Route path='/timer' component={Timer} />
+        <Route path = '/brewtrak' component={BrewTrakPage} />
+        <Route path = '/discover/bean' component={DiscoverBeanPage} />
+
       </Switch>
       {/* USER EXPERIENCE */}
       <UserProvider>

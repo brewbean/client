@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useMutation } from 'urql';
+import { INSERT_RECIPE_ONE } from '../../queries';
 
 export const useBrewTrak = () => {
     /*
@@ -14,12 +16,47 @@ export const useBrewTrak = () => {
     const [waterTemp, setWaterTemp] = useState('');
     const [bloomWaterAmount, setBloomWaterAmount] = useState('');
     const [bloomTime, setBloomTime] = useState('');
-    const [rating, setRating] = useState('');
-    const [brewComments, setBrewComments] = useState('it was dank');
+    const [rating, setRating] = useState('1');
+    const [brewComments, setBrewComments] = useState('');
+    const [brewSelected, setBrewSelect] = useState(false);
+    const [insertRecipeResult, insertRecipe] = useMutation(INSERT_RECIPE_ONE);
+
 
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
     // but how to make both inputs respond when other is inputted?
     // if i want a ratio if 16 but type in 50g of coffee 
+    const setCardValues = (card) => {
+        console.log("Setting card value", card);
+        setImg(card.img);
+        setDate(card.date_added);
+        setBeanWeight(card.bean_weight);
+        setBrewType(card.brew_type);
+        setBeanGrind(card.bean_grind);
+        setWaterAmount(card.water_amount);
+        setBeanType(card.name);
+        setWaterTemp(card.water_temp);
+        setBloomWaterAmount(card.bloom_water_amount);
+        setBloomTime(card.bloom_time);
+        setRating(card.rating);
+        setBrewComments(card.comment);
+        setBrewSelect(true);
+    }
+
+    const submitRecipe = async () => {
+        const object = {
+            "barista_id": 6, //temp-id
+            "brew_type": brewType,
+            "bean_weight": beanWeight,
+            "bean_grind": beanGrind,
+            "water_temp": waterTemp,
+            "rating": rating,
+            "comment": brewComments,
+            "private": true, //temp-setting
+            "water_amount": waterAmount
+        }
+        let result = await insertRecipe({object});
+        console.log("Result", result);
+    }
 
     return (
         {
