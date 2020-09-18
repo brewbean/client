@@ -49,9 +49,9 @@ const Login = (props) => {
                 </div>
 
                 <div className="text-sm leading-5">
-                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                  <p className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                     Forgot your password?
-                </a>
+                  </p>
                 </div>
               </div>
 

@@ -1,6 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
 import axios from 'axios';
-import { AUTH_API } from '../config';
+import { AUTH_API, GUEST_TOKEN } from '../config';
 
 const UserContext = createContext();
 
@@ -10,13 +10,11 @@ const UserProvider = ({ children }) => {
       email: null,
       displayName: null,
     },
-    token: null,
+    token: GUEST_TOKEN,
     tokenExpiry: null,
     status: 'success',
     error: null,
   })
-
-
 
   const login = async (email, password) => {
     try {
