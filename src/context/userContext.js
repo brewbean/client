@@ -1,24 +1,43 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { AUTH_API, GUEST_TOKEN } from '../config';
+
+const INIT_STATE = {
+  barista: {
+    email: null,
+    displayName: null,
+  },
+  token: GUEST_TOKEN,
+  tokenExpiry: null,
+  status: 'success',
+  error: null,
+};
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [state, setState] = useState({
-    barista: {
-      email: null,
-      displayName: null,
-    },
-    token: GUEST_TOKEN,
-    tokenExpiry: null,
-    status: 'success',
-    error: null,
-  })
+  const history = useHistory();
+
+  const [state, setState] = useState(INIT_STATE);
+
+  useEffect(() => {
+    const syncLogout = event => {
+      if (event.key === 'logout') {
+        console.log('logged out from storage!')
+        history.push('/login')
+      }
+    }
+    window.addEventListener('storage', syncLogout)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  
 
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post(AUTH_API + '/auth/login', { email, password })
+      const { data } = await axios.post(AUTH_API + '/login', { email, password })
 
       setState({
         ...state,
@@ -39,7 +58,16 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  const logout = () => { }
+  const logout = async () => {
+    // change in-memory token back to guest
+    setState(INIT_STATE);
+
+    // remove refresh token cookie
+    await axios.post(AUTH_API + '/logout', null, { withCredentials: true });
+
+    // to support logging out from all windows
+    window.localStorage.setItem('logout', Date.now());
+  }
 
   return (
     <UserContext.Provider value={{ ...state, login, logout }}>
