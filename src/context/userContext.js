@@ -50,7 +50,6 @@ const UserProvider = ({ children }) => {
 
     if (!ok) {  // failed refreshing
       await logout();
-      history.replace('/login');
     } else {  // got a new refresh
       setState({ ...state, token, tokenExpiry, barista });
       return { token };
@@ -82,7 +81,7 @@ const UserProvider = ({ children }) => {
   }
 
   const logout = async () => {
-    // change in-memory token back to guest
+    // change in-memory token back to guest; in case they do not want to re-login
     setState(INIT_STATE);
 
     // remove refresh token cookie
