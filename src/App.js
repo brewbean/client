@@ -1,10 +1,12 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { createClient, Provider, defaultExchanges } from 'urql';
+import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql';
+import { authExchange } from '@urql/exchange-auth';
 import { devtoolsExchange } from '@urql/devtools';
 
 import { GRAPHQL_API } from './config'
 import { useUser } from './context/userContext';
+import { addAuthToOperation, didAuthError } from './helper/auth';
 
 import PourGuide from './pages/PourGuide';
 import BrewTrakPage from './pages/BrewTrak';
@@ -13,11 +15,21 @@ import Recipe from './pages/Recipe';
 import Login from './pages/Login';
 
 function App() {
-  const { token, isAuthenticated } = useUser();
+  const { token, isAuthenticated, getAuth } = useUser();
 
   const client = createClient({
     url: GRAPHQL_API,
-    exchanges: [devtoolsExchange, ...defaultExchanges],
+    exchanges: [
+      devtoolsExchange,
+      dedupExchange,
+      cacheExchange,
+      authExchange({ 
+        getAuth,
+        addAuthToOperation,
+        didAuthError,
+      }),
+      fetchExchange,
+    ],
     fetchOptions: () => ({
       headers: { authorization: `Bearer ${token}` },
     }),
