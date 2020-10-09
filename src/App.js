@@ -15,7 +15,7 @@ import Recipe from './pages/Recipe';
 import Login from './pages/Login';
 
 function App() {
-  const { token, isAuthenticated, getAuth } = useUser();
+  const { isAuthenticated, getAuth } = useUser();
 
   const client = createClient({
     url: GRAPHQL_API,
@@ -30,9 +30,6 @@ function App() {
       }),
       fetchExchange,
     ],
-    fetchOptions: () => ({
-      headers: { authorization: `Bearer ${token}` },
-    }),
   });
 
   return (
