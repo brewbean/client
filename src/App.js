@@ -6,7 +6,7 @@ import { devtoolsExchange } from '@urql/devtools';
 
 import { GRAPHQL_API } from './config'
 import { useUser } from './context/userContext';
-import { addAuthToOperation, didAuthError } from './helper/auth';
+import { addAuthToOperation } from './helper/auth';
 
 import PourGuide from './pages/PourGuide';
 import BrewTrakPage from './pages/BrewTrak';
@@ -15,7 +15,7 @@ import Recipe from './pages/Recipe';
 import Login from './pages/Login';
 
 function App() {
-  const { isAuthenticated, getAuth } = useUser();
+  const { isAuthenticated, getAuth, didAuthError, barista } = useUser();
 
   const client = createClient({
     url: GRAPHQL_API,
@@ -23,7 +23,7 @@ function App() {
       devtoolsExchange,
       dedupExchange,
       cacheExchange,
-      authExchange({ 
+      authExchange({
         getAuth,
         addAuthToOperation,
         didAuthError,
@@ -32,6 +32,13 @@ function App() {
     ],
   });
 
+  const Test = () => (
+    <div>
+      email: {barista.email}
+      name: {barista.displayName}
+    </div>
+  )
+
   return (
     <Provider value={client}>
       <Switch>
@@ -39,6 +46,7 @@ function App() {
         <Route path='/login' render={props => isAuthenticated ? <Redirect {...props} to='/' /> : <Login {...props} />} />
         <Route path='/pour-app' component={PourGuide} />
         <Route path='/recipe' component={Recipe} />
+        <Route path='/test' render={props => isAuthenticated ? <Test /> : <div>404</div>} />
         <Route path='/brewtrak' component={BrewTrakPage} />
         <Route path='/discover/bean' component={DiscoverBeanPage} />
       </Switch>
