@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AUTH_API, GUEST_TOKEN } from '../config';
-import { getTokenFromRefresh } from '../helper';
+import { getTokenFromRefresh } from '../helper/auth';
 
 const INIT_STATE = {
   barista: {
@@ -13,6 +13,7 @@ const INIT_STATE = {
   tokenExpiry: null,
   status: 'success',
   error: null,
+  needRefresh: false,
 };
 
 const UserContext = createContext();
@@ -30,36 +31,44 @@ const UserProvider = ({ children }) => {
       }
     }
     window.addEventListener('storage', syncLogout)
+    if (window.localStorage.getItem('hasLoggedIn') === 'yes') {
+      setState({ ...state, needRefresh: true });
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const didAuthError = ({ error }) => {
+    console.log('Errors ->', error.graphQLErrors)
+    const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
+    console.log('hasError ->', hasError);
+    if (hasError) setState({ ...state, needRefresh: hasError });
+    return hasError;
+  }
+
   // URQL authExchange option
   // https://formidable.com/open-source/urql/docs/advanced/authentication/#configuring-getauth-initial-load-fetch-from-storage
-  const getAuth = ({ authState }) => {
-    const hasLoggedIn = window.localStorage.getItem('hasLoggedIn') === 'yes';
-
-    // hasLoggedIn == false -> guest 
-    // authState truthy -> logged in correctly
-    if (!hasLoggedIn || authState) {
+  const getAuth = async ({ authState }) => {
+    console.log('needRefresh ->', state.needRefresh);
+    if (state.needRefresh) {
+      console.log('refreshing...');
+      const { ok, token, tokenExpiry, barista } = await getTokenFromRefresh();
+      console.log('new token! ->', token);
+      if (!ok) {  // failed refreshing
+        await logout();
+      } else {  // got a new refresh
+        setState({ ...state, token, tokenExpiry, barista, needRefresh: false });
+        return { token };
+      }
+    } else {
       return { token: state.token }
-    }
-    // you were logged in another tab but first time loading site (no authState & hasLoggedIn)
-    // or you failed request -> authState false
-    const { ok, token, tokenExpiry, barista } = await getTokenFromRefresh();
-
-    if (!ok) {  // failed refreshing
-      await logout();
-    } else {  // got a new refresh
-      setState({ ...state, token, tokenExpiry, barista });
-      return { token };
     }
   }
 
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post(AUTH_API + '/login', { email, password })
-
+      const { data } = await axios.post(AUTH_API + '/login', { email, password }, { withCredentials: true })
+      console.log('login flow ->', data);
       window.localStorage.setItem('hasLoggedIn', 'yes');
       setState({
         ...state,
@@ -88,12 +97,12 @@ const UserProvider = ({ children }) => {
     await axios.post(AUTH_API + '/logout');
 
     // to support logging out from all windows
-    window.localStorage.setItem('hasLoggedIn', 'no');
     window.localStorage.setItem('logout', Date.now());
+    window.localStorage.clear();
   }
 
   return (
-    <UserContext.Provider value={{ ...state, login, logout, getAuth }}>
+    <UserContext.Provider value={{ ...state, login, logout, getAuth, didAuthError }}>
       {state.status === 'pending' ? '...loading' : children}
     </UserContext.Provider>
   )
@@ -107,6 +116,7 @@ const useUser = () => {
   const context = useContext(UserContext);
   const isSuccess = context.status === 'success';
   const isAuthenticated = context.barista.email && isSuccess;
+  console.log('isAuthenticated ->', isAuthenticated)
   return {
     ...context,
     isAuthenticated

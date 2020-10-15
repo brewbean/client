@@ -62,4 +62,3 @@ export const addAuthToOperation = ({
 //     }
 //   ]
 // }
-export const didAuthError = ({ error }) => error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
