@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { AUTH_API, GUEST_TOKEN } from '../config';
+import { SUCCESS, PENDING, FAILED } from '../constants/status';
 import { getTokenFromRefresh } from '../helper/auth';
 
 const INIT_STATE = {
@@ -11,15 +12,21 @@ const INIT_STATE = {
   },
   token: GUEST_TOKEN,
   tokenExpiry: null,
-  status: 'success',
+  status: SUCCESS,
   error: null,
   needRefresh: false,
 };
 
 const UserContext = createContext();
 
-const UserProvider = ({ children }) => {
+/**
+ * authPaths equal array of path names that are authenticated ['/profile'] 
+ * causes failed refreshes to go to login page
+ * otherwise just continue to guest version of page
+ */
+const UserProvider = ({ authPaths, children }) => {
   const history = useHistory();
+  const { pathname } = useLocation();
 
   const [state, setState] = useState(INIT_STATE);
 
@@ -39,25 +46,28 @@ const UserProvider = ({ children }) => {
   }, [])
 
   const didAuthError = ({ error }) => {
-    console.log('Errors ->', error.graphQLErrors)
     const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
-    console.log('hasError ->', hasError);
-    if (hasError) setState({ ...state, needRefresh: hasError });
+    if (hasError) {
+      setState({ ...state, needRefresh: hasError });
+    }
     return hasError;
   }
 
-  // URQL authExchange option
-  // https://formidable.com/open-source/urql/docs/advanced/authentication/#configuring-getauth-initial-load-fetch-from-storage
+  /**
+   * getAuth runs on: 
+   * -> start
+   * -> auth error
+   * 
+   * https://formidable.com/open-source/urql/docs/advanced/authentication/#configuring-getauth-initial-load-fetch-from-storage
+   */
   const getAuth = async ({ authState }) => {
-    console.log('needRefresh ->', state.needRefresh);
     if (state.needRefresh) {
-      console.log('refreshing...');
       const { ok, token, tokenExpiry, barista } = await getTokenFromRefresh();
-      console.log('new token! ->', token);
+
       if (!ok) {  // failed refreshing
         await logout();
       } else {  // got a new refresh
-        setState({ ...state, token, tokenExpiry, barista, needRefresh: false });
+        setState({ ...state, token, tokenExpiry, barista, needRefresh: false, status: SUCCESS });
         return { token };
       }
     } else {
@@ -68,11 +78,12 @@ const UserProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const { data } = await axios.post(AUTH_API + '/login', { email, password }, { withCredentials: true })
-      console.log('login flow ->', data);
+      
       window.localStorage.setItem('hasLoggedIn', 'yes');
+
       setState({
         ...state,
-        status: 'success',
+        status: SUCCESS,
         token: data.token,
         tokenExpiry: data.tokenExpiry,
         barista: {
@@ -83,15 +94,14 @@ const UserProvider = ({ children }) => {
     } catch ({ response }) {
       setState({
         ...state,
-        status: 'failed',
+        status: FAILED,
         error: response.data.message
       });
     }
   }
 
   const logout = async () => {
-    // change in-memory token back to guest; in case they do not want to re-login
-    setState(INIT_STATE);
+    const isAuthPath = authPaths.includes(pathname);
 
     // remove refresh token cookie
     await axios.post(AUTH_API + '/logout');
@@ -99,11 +109,16 @@ const UserProvider = ({ children }) => {
     // to support logging out from all windows
     window.localStorage.setItem('logout', Date.now());
     window.localStorage.clear();
+    if (isAuthPath) {
+      history.replace('/login');
+    }
+    // change in-memory token back to guest; in case they do not want to re-login
+    setState(INIT_STATE);
   }
 
   return (
     <UserContext.Provider value={{ ...state, login, logout, getAuth, didAuthError }}>
-      {state.status === 'pending' ? '...loading' : children}
+      {state.status === PENDING ? <div>...loading</div> : children}
     </UserContext.Provider>
   )
 }
@@ -114,12 +129,14 @@ const UserProvider = ({ children }) => {
  */
 const useUser = () => {
   const context = useContext(UserContext);
-  const isSuccess = context.status === 'success';
-  const isAuthenticated = context.barista.email && isSuccess;
+  const isSuccess = context.status === SUCCESS;
+  const isPending = context.status === PENDING;
+  const isAuthenticated = context.barista.email !== null && context.barista.email !== undefined && isSuccess;
   console.log('isAuthenticated ->', isAuthenticated)
   return {
     ...context,
-    isAuthenticated
+    isAuthenticated,
+    isPending,
   };
 }
 
