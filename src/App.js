@@ -33,7 +33,7 @@ function App() {
   });
 
   const Test = () => (
-    <div>
+    <div className='bg-gray-200'>
       email: {barista.email}
       name: {barista.displayName}
     </div>
@@ -46,7 +46,7 @@ function App() {
         <Route path='/login' render={props => isAuthenticated ? <Redirect {...props} to='/' /> : <Login {...props} />} />
         <Route path='/pour-app' component={PourGuide} />
         <Route path='/recipe' component={Recipe} />
-        <Route path='/test' render={props => isAuthenticated ? <Test /> : <div>404</div>} />
+        <Route path='/test' render={props => isAuthenticated ? <Test /> : <div className='bg-pink-200 h-full'>401 Unauthorized</div>} />
         <Route path='/brewtrak' component={BrewTrakPage} />
         <Route path='/discover/bean' component={DiscoverBeanPage} />
       </Switch>
