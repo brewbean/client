@@ -10,7 +10,7 @@ import { useQuery } from 'urql';
 
 const BrewTrak = () => {
   const { data, methods } = useBrewTrak();
-  const match = useRouteMatch();
+  const { url } = useRouteMatch();
   const [result, reexecuteQuery] = useQuery({
     query: GET_ALL_RECIPE,
   });
@@ -29,7 +29,7 @@ const BrewTrak = () => {
               <div className="flex-1 pt-2 pb-4 overflow-y-auto">
                 <div className="px-2">
                   <div className="flex items-center mx-4 py-2 text-md leading-5 font-bold text-gray-900">LOGS</div>
-                  <Link to={`${match.url}/new`}
+                  <Link to={`${url}/new`}
                     className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
                     add brew
                   </Link>
@@ -54,7 +54,7 @@ const BrewTrak = () => {
           <div className="flex flex-col h-0 flex-1 rounded-lg border-r border-gray-250 bg-blue-100">
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
               <div className="flex items-center px-2 py-2 text-md leading-5 font-bold text-gray-900">LOGS</div>
-              <Link to={`${match.url}/new`}
+              <Link to={`${url}/new`}
                 className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
                 add brew
               </Link>
