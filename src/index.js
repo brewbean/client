@@ -11,7 +11,7 @@ import { UserProvider } from './context/userContext';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <UserProvider>
+      <UserProvider authPaths={['/test']}>
         <App />
       </UserProvider>
     </Router>
