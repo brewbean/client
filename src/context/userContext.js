@@ -33,8 +33,16 @@ const UserProvider = ({ authPaths, children }) => {
   useEffect(() => {
     const syncLogout = event => {
       if (event.key === 'logout') {
-        console.log('logged out from storage!')
-        history.push('/login')
+        const isAuthPath = authPaths.includes(pathname);
+
+        console.log('logged out from storage!');
+
+        if (state.barista.email !== null || state.barista.email !== undefined) {
+          setState(INIT_STATE);
+        }
+        if (isAuthPath) {
+          history.push('/login');
+        }
       }
     }
     window.addEventListener('storage', syncLogout)
@@ -78,7 +86,7 @@ const UserProvider = ({ authPaths, children }) => {
   const login = async (email, password) => {
     try {
       const { data } = await axios.post(AUTH_API + '/login', { email, password }, { withCredentials: true })
-      
+
       window.localStorage.setItem('hasLoggedIn', 'yes');
 
       setState({
@@ -102,13 +110,14 @@ const UserProvider = ({ authPaths, children }) => {
 
   const logout = async () => {
     const isAuthPath = authPaths.includes(pathname);
-
+    
     // remove refresh token cookie
     await axios.post(AUTH_API + '/logout');
 
     // to support logging out from all windows
     window.localStorage.setItem('logout', Date.now());
     window.localStorage.clear();
+    
     if (isAuthPath) {
       history.replace('/login');
     }
