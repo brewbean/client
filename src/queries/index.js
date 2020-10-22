@@ -72,3 +72,26 @@ query get_single_bean($id:Int!){
 }
 `;
 
+export const INSERT_REVIEW_ONE = `
+mutation insert_bean_reviews_one($object: bean_reviews_insert_input!) {
+  insert_bean_reviews_one(object: $object) {
+    id
+    barista_id 
+    bean_id
+    rating
+    comment
+  }
+}
+`;
+
+export const GET_SINGLE_REVIEW = `
+query get_single_review($id:Int!){
+  bean_reviews_by_pk(id:$id) {
+    id
+    barista_id
+    bean_id
+    rating
+    comment
+  }
+}
+`;
