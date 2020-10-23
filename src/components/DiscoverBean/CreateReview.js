@@ -2,6 +2,9 @@ import React from 'react';
 import InputRow from '../InputRow/index';
 import Dropdown from '../DropDown/index';
 import TextArea from '../TextArea/index';
+import { GET_SINGLE_REVIEW } from '../../queries';
+import { useQuery } from 'urql';
+
 
 import useBeanReview from './useBeanReview';
 /*
@@ -12,6 +15,9 @@ const CreateReview = () => {
   const { data, methods } = useBeanReview();
   let { barista, bean, rating, comment } = data;
   let { setBarista, setBean, setRating, setComment, submitReview } = methods;
+
+
+
   return (
     <div>
       <div className='font-bold'>Create Review</div>
