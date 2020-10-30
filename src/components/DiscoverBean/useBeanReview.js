@@ -3,19 +3,20 @@ import { useMutation } from 'urql';
 import { INSERT_REVIEW_ONE } from '../../queries';
 
 export const useBeanReview = () => {
-    const [barista, setBarista] = useState('Wiliam');
-    const [bean, setBean] = useState('ETHIOPIAN YIRGACHEFFE');
+    const [barista, setBarista] = useState('');
+    const [bean, setBean] = useState('');
     const [rating, setRating] = useState('5.0');
-    const [comment, setComment] = useState('It was really good.');
+    const [comment, setComment] = useState('');
     const [insertReviewResult, insertReview] = useMutation(INSERT_REVIEW_ONE);
 
     const submitReview = async () => {
       const object = {
-        "barista_id": 6,
-        "bean_id": 4,
-        "rating": 5,
-        "comment": "My favorite bean ever!"
+        "barista_id": barista,
+        "bean_id": bean,
+        "rating": rating,
+        "comment": comment
       }
+      console.log("UseBeanReview submitReview object:", object);
       let result = await insertReview({object});
       console.log("Review Result: ", result);
     }
