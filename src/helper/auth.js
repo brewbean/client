@@ -10,6 +10,7 @@ export const getTokenFromRefresh = async () => {
         token: data.token,
         tokenExpiry: data.tokenExpiry,
         barista: {
+          id: data.id,
           email: data.email,
           displayName: data.displayName,
         },

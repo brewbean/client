@@ -1,29 +1,35 @@
 import React from 'react';
 import { useQuery } from 'urql';
-import { GET_SINGLE_REVIEW } from '../../queries'
+import { GET_ALL_REVIEW_OF_BEAN } from '../../queries'
 
 const BeanReview = (props) => {
-  let { id } = props;
-  id = 1;
+  let { bean_id } = props;
+  
   const [result, reexecuteQuery] = useQuery({
-    query: GET_SINGLE_REVIEW,
-    variables: { id }
+    query: GET_ALL_REVIEW_OF_BEAN,
+    variables: { _eq: bean_id }
   });
+
   const { data, fetching, error } = result;
+
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-  
-  const { barista_id, bean_id, rating, comment } = data.bean_reviews_by_pk;
 
-  console.log("RESult:", result);
+  const { nodes } = data.bean_reviews_aggregate;
+
   return (
     <div>
       <div className='font-bold'>Bean Review</div>
       <div>I guess some text here right</div>
-      <div>Barista:{barista_id}</div>
-      <div>Bean: {bean_id}</div>
-      <div>Rating: {rating} </div>
-      <div>Comment: {comment} </div>
+      { nodes.map((n, i) => 
+        <div key={i}>
+          <div>Barista:{n.barista_id}</div>
+          <div>Bean: {n.bean_id}</div>
+          <div>Rating: {n.rating} </div>
+          <div>Comment: {n.comment} </div>
+        </div>
+      )}
+      
     </div>
   )
 }

@@ -67,8 +67,8 @@ const DiscoverDetails = (props) => {
                             submit review
                         </button>
 
-                        <BeanReview id={id}/>
-                        <CreateReview/>
+                        <BeanReview bean_id={id}/>
+                        <CreateReview bean_id={id}/>
 
                     </div>
                 </div>

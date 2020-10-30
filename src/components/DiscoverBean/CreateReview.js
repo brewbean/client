@@ -4,6 +4,7 @@ import Dropdown from '../DropDown/index';
 import TextArea from '../TextArea/index';
 import { GET_SINGLE_REVIEW } from '../../queries';
 import { useQuery } from 'urql';
+import { useUser } from '../../context/userContext';
 
 
 import useBeanReview from './useBeanReview';
@@ -11,19 +12,21 @@ import useBeanReview from './useBeanReview';
   Need to make a new table
   THinka bout needs to be in the table
 */
-const CreateReview = () => {
+const CreateReview = (props) => {
   const { data, methods } = useBeanReview();
-  let { barista, bean, rating, comment } = data;
+  let { bean_id } = props;
+  let { bean, rating, comment } = data;
   let { setBarista, setBean, setRating, setComment, submitReview } = methods;
-
+  const { isAuthenticated, getAuth, didAuthError, barista } = useUser();
+  console.log("BARISTA:", barista);
 
 
   return (
     <div>
       <div className='font-bold'>Create Review</div>
       <div>I guess some forms here yeah</div>
-      <InputRow value={barista} onChange={setBarista} placeholder='Enter Barista' label='Barista' />
-      <InputRow value={bean} onChange={setBean} placeholder='Enter Bean' label='Bean' />
+      <InputRow value={barista.email} onChange={setBarista} placeholder='Enter Barista' label='Barista' />
+      <InputRow value={bean_id} onChange={setBean} placeholder='Enter Bean' label='Bean' />
       <InputRow value={rating} onChange={setRating} placeholder='Enter Rating' label='Rating' />
       <button
         type="button" 
