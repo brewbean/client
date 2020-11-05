@@ -1,24 +1,24 @@
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 import { useMutation } from 'urql';
 import { INSERT_REVIEW_ONE } from '../../queries';
+import { useUser } from '../../context/userContext'
 
 export const useBeanReview = () => {
-    const [barista, setBarista] = useState('');
     const [bean, setBean] = useState('');
     const [rating, setRating] = useState('5.0');
     const [comment, setComment] = useState('');
     const [insertReviewResult, insertReview] = useMutation(INSERT_REVIEW_ONE);
+    const { barista } = useUser();
 
     const submitReview = async () => {
       const object = {
-        "barista_id": barista,
+        "barista_id": barista.id,
         "bean_id": bean,
         "rating": rating,
         "comment": comment
       }
-      console.log("UseBeanReview submitReview object:", object);
       let result = await insertReview({object});
-      console.log("Review Result: ", result);
+      console.log("Bean Review Result: ", result);
     }
 
     return (
@@ -30,8 +30,7 @@ export const useBeanReview = () => {
                 comment,
             },
             methods : {
-              setBarista: e => setBarista(e.target.value),
-              setBean: e => setBean(e.target.value),
+              setBean: bean => setBean(bean),
               setRating: e => setRating(e.target.value),
               setComment: e => setComment(e.target.value),
               submitReview
