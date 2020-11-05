@@ -14,17 +14,13 @@ const BeanReview = (props) => {
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-
   const { nodes } = data.bean_reviews_aggregate;
-
   return (
     <div>
       <div className='font-bold'>Bean Review</div>
-      <div>I guess some text here right</div>
       { nodes.map((n, i) => 
         <div key={i}>
-          <div>Barista:{n.barista_id}</div>
-          <div>Bean: {n.bean_id}</div>
+          <div>Barista:{n.barista && n.barista.display_name}</div>
           <div>Rating: {n.rating} </div>
           <div>Comment: {n.comment} </div>
         </div>

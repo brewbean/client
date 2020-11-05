@@ -112,6 +112,9 @@ query get_all_review_of_bean($_eq: Int!) {
       bean_id
       rating
       comment
+      barista {
+        display_name
+      }
     }
   }
 }
