@@ -1,17 +1,13 @@
-
 import React from 'react';
 import Star from '../BrewTrak/star.png';
 
 import { GET_SINGLE_BEAN } from '../../queries';
 import { useQuery } from 'urql';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import BeanReview from './BeanReview';
-import CreateReview from './CreateReview';
 const DiscoverDetails = (props) => {
     const history = useHistory();
-    let match = useRouteMatch();
-
     const id = props.match.params.id
     const [result, reexecuteQuery] = useQuery({
         query: GET_SINGLE_BEAN,
@@ -26,11 +22,7 @@ const DiscoverDetails = (props) => {
         <div>
         <div className="bg-gray-800 pb-32">
             <header className="py-10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <button className="text-3xl leading-9 font-bold text-white" onClick={() => history.push('/discover/bean')}>
-                Back
-                </button>
-            </div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"></div>
             </header>
         </div>
         <main className="-mt-32">
@@ -67,7 +59,6 @@ const DiscoverDetails = (props) => {
                             className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
                             submit review 
                         </button>
-                        
                         <BeanReview bean_id={id}/>
                     </div>
                 </div>

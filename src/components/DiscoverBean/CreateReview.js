@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import InputRow from '../InputRow/index';
-import Dropdown from '../DropDown/index';
-import TextArea from '../TextArea/index';
-import { GET_SINGLE_REVIEW, GET_SINGLE_BEAN } from '../../queries';
+import { GET_SINGLE_BEAN } from '../../queries';
 import { useQuery } from 'urql';
 import { useUser } from '../../context/userContext';
 import useBeanReview from './useBeanReview';
@@ -10,9 +8,9 @@ import useBeanReview from './useBeanReview';
 const CreateReview = (props) => {
   const { data: beanReviewData, methods } = useBeanReview();
   let { rating, comment } = beanReviewData;
-  let { setBarista, setBean, setRating, setComment, submitReview } = methods;
+  let { setBean, setRating, setComment, submitReview } = methods;
   const bean_id = props.match.params.id
-  const { isAuthenticated, getAuth, didAuthError, barista } = useUser();
+  const { barista } = useUser();
 
   const [result, reexecuteQuery] = useQuery({
     query: GET_SINGLE_BEAN,
@@ -24,11 +22,10 @@ const CreateReview = (props) => {
   useEffect(() => {
     setBean(bean_id);
   });
-  // TODO - Query data and retreive reviews
+  
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
   const { name } = beanData.bean_by_pk;
-
 
   return (
     <div>
