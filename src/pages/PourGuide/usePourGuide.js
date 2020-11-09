@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { timeString } from '../../helper/timer'
+import { timeString } from 'helper/timer'
 
 const recipes = [{
   name: 'bloom',

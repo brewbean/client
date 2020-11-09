@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_API } from '../config';
+import { AUTH_API } from 'config';
 
 export const getTokenFromRefresh = async () => {
   try {

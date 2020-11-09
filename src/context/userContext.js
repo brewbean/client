@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
-import { AUTH_API, GUEST_TOKEN } from '../config';
-import { SUCCESS, PENDING, FAILED } from '../constants/status';
-import { getTokenFromRefresh } from '../helper/auth';
+import { AUTH_API, GUEST_TOKEN } from 'config';
+import { SUCCESS, PENDING, FAILED } from 'constants/status';
+import { getTokenFromRefresh } from 'helper/auth';
 
 const INIT_STATE = {
   barista: {

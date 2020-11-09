@@ -1,4 +1,4 @@
-import StageInput, { ServeTime } from '../../components/StageInput';
+import StageInput, { ServeTime } from 'components/StageInput';
 
 const StagePage = ({
   stages,

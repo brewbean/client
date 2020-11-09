@@ -1,5 +1,5 @@
-import Header from '../../components/Header';
-import PourPlayer from '../../components/PourPlayer';
+import Header from 'components/Header';
+import PourPlayer from 'components/PourPlayer';
 import { ReactComponent as GifPlaceholder } from './undraw_coffee_break_j3of.svg';
 import { usePourGuide } from './usePourGuide';
 
