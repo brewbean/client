@@ -1,3 +1,6 @@
+/*
+  Recipe Queries
+*/
 export const INSERT_RECIPE_ONE = `
 mutation insert_recipe_one($object: recipe_insert_input!) {
   insert_recipe_one(object: $object) {
@@ -33,7 +36,9 @@ query get_recipes {
   }
 }
 `;
-
+/*
+  Bean Queries
+*/
 export const GET_ALL_BEANS = `
 query get_beans {
   bean (order_by: { id: asc }) {
@@ -72,3 +77,57 @@ query get_single_bean($id:Int!){
 }
 `;
 
+/*
+  Review Queries
+*/
+export const INSERT_REVIEW_ONE = `
+mutation insert_bean_reviews_one($object: bean_reviews_insert_input!) {
+  insert_bean_reviews_one(object: $object) {
+    id
+    barista_id 
+    bean_id
+    rating
+    comment
+  }
+}
+`;
+
+export const GET_SINGLE_REVIEW = `
+query get_single_review($id:Int!){
+  bean_reviews_by_pk(id:$id) {
+    id
+    barista_id
+    bean_id
+    rating
+    comment
+  }
+}
+`;
+
+export const GET_ALL_REVIEW_OF_BEAN = `
+query get_all_review_of_bean($_eq: Int!) {
+  bean_reviews_aggregate(where: {bean_id: {_eq: $_eq}}) {
+    nodes {
+      barista_id
+      bean_id
+      rating
+      comment
+      barista {
+        display_name
+      }
+    }
+  }
+}
+`;
+
+export const GET_AVG_REVIEW_OF_BEAN = `
+query get_avg_review_of_bean($id: Int!) {
+  bean_reviews_aggregate(where: {bean_id: {_eq: $id}}) {
+    aggregate {
+      avg {
+        rating
+      }
+    }
+  }
+}
+`;

@@ -7,6 +7,7 @@ import { getTokenFromRefresh } from '../helper/auth';
 
 const INIT_STATE = {
   barista: {
+    id: null,
     email: null,
     displayName: null,
   },
@@ -95,6 +96,7 @@ const UserProvider = ({ authPaths, children }) => {
         token: data.token,
         tokenExpiry: data.tokenExpiry,
         barista: {
+          id: data.id,
           email: data.email,
           displayName: data.displayName,
         }
