@@ -3,15 +3,15 @@ import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } f
 import { authExchange } from '@urql/exchange-auth';
 import { devtoolsExchange } from '@urql/devtools';
 
-import { GRAPHQL_API } from './config'
-import { useUser } from './context/userContext';
-import { addAuthToOperation } from './helper/auth';
+import { GRAPHQL_API } from 'config'
+import { useUser } from 'context/userContext';
+import { addAuthToOperation } from 'helper/auth';
 
-import PourGuide from './pages/PourGuide';
-import BrewTrakPage from './pages/BrewTrak';
-import DiscoverBeanPage from './pages/DiscoverBean';
-import Recipe from './pages/Recipe';
-import Login from './pages/Login';
+import PourGuide from 'pages/PourGuide';
+import BrewTrakPage from 'pages/BrewTrak';
+import DiscoverBeanPage from 'pages/DiscoverBean';
+import Recipe from 'pages/Recipe';
+import Login from 'pages/Login';
 
 function App() {
   const { isAuthenticated, getAuth, didAuthError, barista } = useUser();

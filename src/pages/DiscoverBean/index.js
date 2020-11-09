@@ -1,11 +1,11 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import Header from '../../components/Header';
-import DiscoverBean from '../../components/DiscoverBean';
-import DiscoverDetails from '../../components/DiscoverBean/DiscoverDetails'
-import CreateReview from '../../components/DiscoverBean/CreateReview'
-import { useDiscoverBean } from '../../components/DiscoverBean/useDiscoverBean';
-// import CreateBean from '../../components/DiscoverBean/CreateBean';
+import Header from 'components/Header';
+import DiscoverBean from 'components/DiscoverBean';
+import DiscoverDetails from 'components/DiscoverBean/DiscoverDetails'
+import CreateReview from 'components/DiscoverBean/CreateReview'
+import { useDiscoverBean } from 'components/DiscoverBean/useDiscoverBean';
+// import CreateBean from 'components/DiscoverBean/CreateBean';
 
 const DiscoverBeanPage = props => {
   const { data, methods } = useDiscoverBean();
