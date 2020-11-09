@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -9,13 +9,13 @@ import { UserProvider } from './context/userContext';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <Router>
       <UserProvider authPaths={['/test']}>
         <App />
       </UserProvider>
     </Router>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById('root')
 );
 

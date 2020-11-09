@@ -11,10 +11,10 @@
     "antd": "^4.4.2",
     "axios": "^0.20.0",
     "graphql": "^15.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "4.0.0",
     "urql": "^1.10.0"
   },
   "scripts": {

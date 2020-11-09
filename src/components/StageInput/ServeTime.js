@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ServeTime = ({ serveTime, setServeTime }) => {
   return (
     <div className="border-t border-gray-200 pt-2 text-gray-700 flex justify-between items-center">

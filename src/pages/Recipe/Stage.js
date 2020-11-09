@@ -1,4 +1,3 @@
-import React from 'react'
 import StageInput from '../../components/StageInput';
 
 

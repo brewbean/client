@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import Card from './Card';
 import CardDetails from './CardDetails';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Star from '../BrewTrak/star.png';
 
 import { GET_SINGLE_BEAN, GET_AVG_REVIEW_OF_BEAN } from '../../queries';

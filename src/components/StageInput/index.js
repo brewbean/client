@@ -1,4 +1,3 @@
-import React from 'react';
 import ServeTimeComponent from './ServeTime';
 
 const StageInput = ({ weight, name, startTime, endTime, setStageValue, setStartTime, setEndTime, deleteStage, deleteDisabled }) => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReactComponent as Play } from './play-circle.svg';
 
 const PourPlayer = ({ start, isActive, stageWeight, percent, stage, stages, remainingTime, weight, timeString, gif: Gif }) => {

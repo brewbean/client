@@ -1,4 +1,3 @@
-import React from 'react';
 import DiscoverCard from './DiscoverCard';
 import {sampleDetails} from './sampleDetails';
 import { useDiscoverBean } from './useDiscoverBean';
