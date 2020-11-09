@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import InputRow from '../InputRow/index';
 import { GET_SINGLE_BEAN } from '../../queries';
 import { useQuery } from 'urql';

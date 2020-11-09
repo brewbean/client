@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Modal = ({ children, isOpen, close }) => {
   return isOpen ? (
     <div className="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">

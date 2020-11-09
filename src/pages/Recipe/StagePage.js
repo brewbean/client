@@ -1,4 +1,3 @@
-import React from 'react';
 import StageInput, { ServeTime } from '../../components/StageInput';
 
 const StagePage = ({

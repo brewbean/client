@@ -1,5 +1,3 @@
-import React from 'react'
-
 const InputRow = ({ label, placeholder, value, onChange}) => {
 
   return (

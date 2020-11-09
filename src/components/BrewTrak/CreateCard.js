@@ -1,5 +1,3 @@
-import React from 'react';
-
 const CreateCard = ({date, beanWeight, beanGrind, waterWeight, waterTemp, comments, rating, beanType,
     setDate, setBeanWeight, setBeanGrind, setWaterWeight, setWaterTemp, setComments, setRating, setBeanType}) => {
 

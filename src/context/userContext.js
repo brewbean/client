@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, createContext } from 'react';
+import { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
 import { AUTH_API, GUEST_TOKEN } from '../config';

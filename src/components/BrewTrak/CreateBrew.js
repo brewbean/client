@@ -1,4 +1,3 @@
-import React from 'react';
 import InputRow from '../InputRow/index';
 import Dropdown from '../DropDown/index';
 import TextArea from '../TextArea/index';

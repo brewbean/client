@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Card = ({bean, date_added, brew_type, bean_weight, water_amount, bean_grind, water_temp, comment, rating, setCardValues}) => {
     let img  = bean ? bean.img : "";
     let name  = bean ? bean.name : "";
