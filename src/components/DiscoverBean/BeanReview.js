@@ -19,8 +19,7 @@ const BeanReview = (props) => {
     <div>
       <div className='font-bold'>Bean Reviews</div>
       <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
-      { nodes.map((n, i) => 
+      { nodes.length && nodes ? nodes.map((n, i) => 
         <div key={i}>
             <li className="col-span-1 bg-white rounded-lg shadow">
               <div className="w-full flex items-center justify-between p-6 space-x-6">
@@ -56,7 +55,7 @@ const BeanReview = (props) => {
               </div>
             </li>
         </div>
-        )}
+        ) : "No bean reviews available."}
       </ul>
       
     </div>

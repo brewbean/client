@@ -119,3 +119,15 @@ query get_all_review_of_bean($_eq: Int!) {
   }
 }
 `;
+
+export const GET_AVG_REVIEW_OF_BEAN = `
+query get_avg_review_of_bean($id: Int!) {
+  bean_reviews_aggregate(where: {bean_id: {_eq: $id}}) {
+    aggregate {
+      avg {
+        rating
+      }
+    }
+  }
+}
+`;
