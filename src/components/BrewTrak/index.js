@@ -1,11 +1,11 @@
 import { useRouteMatch, Link } from 'react-router-dom';
+import { useQuery } from 'urql';
+import { GET_ALL_RECIPE } from 'queries';
 import Card from './Card';
 import CardDetails from './CardDetails';
 import './BrewTrak.css';
 
 import useBrewTrak from './useBrewTrak';
-import { GET_ALL_RECIPE } from '../../queries';
-import { useQuery } from 'urql';
 
 const BrewTrak = () => {
   const { data, methods } = useBrewTrak();

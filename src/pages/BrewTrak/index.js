@@ -1,9 +1,9 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import Header from '../../components/Header';
-import BrewTrak from '../../components/BrewTrak';
-import { useBrewTrak } from '../../components/BrewTrak/useBrewTrak';
-import CreateBrew from '../../components/BrewTrak/CreateBrew';
+import Header from 'components/Header';
+import BrewTrak from 'components/BrewTrak';
+import { useBrewTrak } from 'components/BrewTrak/useBrewTrak';
+import CreateBrew from 'components/BrewTrak/CreateBrew';
 
 const BrewTrakPage = props => {
   const { data, methods } = useBrewTrak();

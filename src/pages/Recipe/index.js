@@ -1,10 +1,9 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import Header from '../../components/Header';
+import Header from 'components/Header';
+import CreateBrew from 'components/BrewTrak/CreateBrew';
+import { useBrewTrak } from 'components/BrewTrak/useBrewTrak';
 import StagePage from './StagePage';
-import CreateBrew from '../../components/BrewTrak/CreateBrew';
 import { useRecipe } from './useRecipe';
-import { useBrewTrak } from '../../components/BrewTrak/useBrewTrak';
-
 
 const RecipePage = props => {
   const { data: recipeData, handler } = useRecipe();

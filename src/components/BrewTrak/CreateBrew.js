@@ -1,8 +1,6 @@
-import InputRow from '../InputRow/index';
-import Dropdown from '../DropDown/index';
-import TextArea from '../TextArea/index';
-
-
+import InputRow from 'components/InputRow';
+import Dropdown from 'components/DropDown';
+import TextArea from 'components/TextArea';
 
 const CreateBrew = ({ date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, brewComments, rating, setDate, setBeanWeight, setBrewType, setBeanGrind, setWaterAmount, setBeanType, setWaterTemp, setBloomWaterAmount, setBloomTime, setRating, setBrewComments, submitRecipe }) => {
 

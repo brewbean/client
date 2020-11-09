@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import coffeeCover from './espresso_cover.jpg'
-import { useUser } from '../../context/userContext'
+import { useUser } from 'context/userContext'
 
 const Login = (props) => {
   const { login } = useUser();

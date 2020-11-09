@@ -1,4 +1,4 @@
-import StageInput from '../../components/StageInput';
+import StageInput from 'components/StageInput';
 
 
 const StagePage = ({ stages, setStages }) => {
