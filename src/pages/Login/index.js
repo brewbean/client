@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import coffeeCover from './espresso_cover.jpg'
 import { useUser } from '../../context/userContext'
 

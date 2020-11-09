@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const images = {
     'ETHIOPIA GOGUGU': 'https://cdn.shopify.com/s/files/1/2468/1021/products/EthiopiaGWBAG_1024x.gif?v=1592335712',

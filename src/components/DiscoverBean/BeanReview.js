@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from 'urql';
 import { GET_ALL_REVIEW_OF_BEAN } from '../../queries'
 

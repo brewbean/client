@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReactComponent as CoffeePlaceHolder } from './coffee-mug.svg';
 import CoffeeCup from './coffee-cup.png';
 import WaterDrop from './water-drop.jpg';

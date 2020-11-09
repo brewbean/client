@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Dropdown = ({ label, value, onChange, options }) => {
 
   return (

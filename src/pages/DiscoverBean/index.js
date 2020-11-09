@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import Header from '../../components/Header';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 import { authExchange } from '@urql/exchange-auth';
