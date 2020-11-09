@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useUser } from '../../context/userContext';
 
 const Header = (props) => {
   const history = useHistory();
   const [isOpen, setToggle] = useState(false);
+  const [isActive, setActive] = useState('');
+  const { isAuthenticated, getAuth, didAuthError, barista } = useUser();
+
+  const handleItemClick = (url, activeHeader) => {
+    setActive(activeHeader);
+    history.push(url);
+  }
 
   return (
     <nav className="flex-none bg-white border-b border-gray-200">
@@ -15,23 +23,28 @@ const Header = (props) => {
             </div>
             <div className="hidden sm:-my-px sm:ml-6 sm:flex">
               <button
-                onClick={() => history.push('/brewtrak')}
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-semibold leading-5 text-blue-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+                onClick={() => handleItemClick('/brewtrak', 'brewtrak')}
+                className={`inline-flex items-center px-1 pt-1 ${isActive === 'brewtrak' ? 'border-blue-500 font-semibold text-blue-900 focus:border-blue-700' : 'border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} border-b-2 text-sm leading-5 focus:outline-none transition duration-150 ease-in-out`}>
                 pour over app
                 </button>
               <button
-                onClick={() => history.push('/discover/brew')}
-                className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                onClick={() => handleItemClick('/discover/brew', 'discoverBrew')}
+                className={`ml-8 inline-flex items-center px-1 pt-1 ${isActive === 'discoverBrew' ? 'border-blue-500 font-semibold text-blue-900 focus:border-blue-700' : 'border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} border-b-2 text-sm leading-5 focus:outline-none transition duration-150 ease-in-out`}>
                 discover brews
                 </button>
               <button className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                 academy
                 </button>
               <button
-                onClick={() => history.push('/discover/bean')}
-                className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                onClick={() => handleItemClick('/discover/bean', 'discoverBean')}
+                className={`ml-8 inline-flex items-center px-1 pt-1 ${isActive === 'discoverBean' ? 'border-blue-500 font-semibold text-blue-900 focus:border-blue-700' : 'border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} border-b-2 text-sm leading-5 focus:outline-none transition duration-150 ease-in-out`}>
                 buy beans
                 </button>
+                {isAuthenticated ? '' : <button
+                onClick={() => handleItemClick('/login', 'login')}
+                className={`ml-8 inline-flex items-center px-1 pt-1 ${isActive === 'login' ? 'border-blue-500 font-semibold text-blue-900 focus:border-blue-700' : 'border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} border-b-2 text-sm leading-5 focus:outline-none transition duration-150 ease-in-out`}>
+                login
+                </button>}
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
