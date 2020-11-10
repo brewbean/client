@@ -6,6 +6,7 @@ import { devtoolsExchange } from '@urql/devtools';
 import { GRAPHQL_API } from 'config'
 import { useUser } from 'context/userContext';
 import { addAuthToOperation } from 'helper/auth';
+import { HeaderContainer } from 'components/Container'
 
 import PourGuide from 'pages/PourGuide';
 import BrewTrakPage from 'pages/BrewTrak';
@@ -41,14 +42,18 @@ function App() {
   return (
     <Provider value={client}>
       <Switch>
-        <Route exact path='/' component={BrewTrakPage} />
         <Route path='/login' render={props => isAuthenticated ? <Redirect {...props} to='/' /> : <Login {...props} />} />
-        <Route path='/pour-app' component={PourGuide} />
-        <Route path='/recipe' component={Recipe} />
-        <Route path='/test' render={props => isAuthenticated ? <Test /> : <div className='bg-pink-200 h-full'>401 Unauthorized</div>} />
-        <Route path='/brewtrak' component={BrewTrakPage} />
-        <Route path='/discover/bean' component={DiscoverBeanPage} />
       </Switch>
+      <HeaderContainer>
+        <Switch>
+          <Route exact path='/' component={BrewTrakPage} />
+          <Route path='/pour-app' component={PourGuide} />
+          <Route path='/recipe' component={Recipe} />
+          <Route path='/test' render={props => isAuthenticated ? <Test /> : <div className='bg-pink-200 h-full'>401 Unauthorized</div>} />
+          <Route path='/brewtrak' component={BrewTrakPage} />
+          <Route path='/discover/bean' component={DiscoverBeanPage} />
+        </Switch>
+      </HeaderContainer>
     </Provider>
   );
 }
