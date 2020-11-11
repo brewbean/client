@@ -1,12 +1,14 @@
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 import { authExchange } from '@urql/exchange-auth';
 import { devtoolsExchange } from '@urql/devtools';
 
 import { GRAPHQL_API } from 'config'
+import { AuthRoute, RedirectRoute } from 'navigation';
 import { useUser } from 'context/userContext';
 import { addAuthToOperation } from 'helper/auth';
-import { HeaderContainer } from 'components/Container'
+import { HeaderLayout } from 'components/Layout'
+import { NotFound } from 'components/Utility';
 
 import PourGuide from 'pages/PourGuide';
 import BrewTrakPage from 'pages/BrewTrak';
@@ -15,7 +17,7 @@ import Recipe from 'pages/Recipe';
 import Login from 'pages/Login';
 
 function App() {
-  const { isAuthenticated, getAuth, didAuthError, barista } = useUser();
+  const { getAuth, didAuthError, barista } = useUser();
 
   const client = createClient({
     url: GRAPHQL_API,
@@ -42,18 +44,36 @@ function App() {
   return (
     <Provider value={client}>
       <Switch>
-        <Route path='/login' render={props => isAuthenticated ? <Redirect {...props} to='/' /> : <Login {...props} />} />
+        <RedirectRoute path='/login' ifCond='auth' goTo='/' >
+          <Login />
+        </RedirectRoute>
+
       </Switch>
-      <HeaderContainer>
+      <HeaderLayout>
         <Switch>
-          <Route exact path='/' component={BrewTrakPage} />
-          <Route path='/pour-app' component={PourGuide} />
-          <Route path='/recipe' component={Recipe} />
-          <Route path='/test' render={props => isAuthenticated ? <Test /> : <div className='bg-pink-200 h-full'>401 Unauthorized</div>} />
-          <Route path='/brewtrak' component={BrewTrakPage} />
-          <Route path='/discover/bean' component={DiscoverBeanPage} />
+          <Route exact path='/'>
+            <BrewTrakPage />
+          </Route>
+          <AuthRoute path='/test'>
+            <Test />
+          </AuthRoute>
+          <Route path='/pour-app'>
+            <PourGuide />
+          </Route>
+          <Route path='/recipe'>
+            <Recipe />
+          </Route>
+          <Route path='/brewtrak'>
+            <BrewTrakPage />
+          </Route>
+          <Route path='/discover/bean'>
+            <DiscoverBeanPage />
+          </Route>
+          <Route path='*'>
+            <NotFound />
+          </Route>
         </Switch>
-      </HeaderContainer>
+      </HeaderLayout>
     </Provider>
   );
 }
