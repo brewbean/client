@@ -13,7 +13,7 @@ const INIT_STATE = {
   },
   token: GUEST_TOKEN,
   tokenExpiry: null,
-  status: SUCCESS,
+  status: PENDING,
   error: null,
   needRefresh: false,
 };
@@ -50,6 +50,7 @@ const UserProvider = ({ authPaths, children }) => {
     if (window.localStorage.getItem('hasLoggedIn') === 'yes') {
       setState({ ...state, needRefresh: true });
     }
+    setState({ ...state, status: SUCCESS });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -112,14 +113,14 @@ const UserProvider = ({ authPaths, children }) => {
 
   const logout = async () => {
     const isAuthPath = authPaths.includes(pathname);
-    
+
     // remove refresh token cookie
     await axios.post(AUTH_API + '/logout');
 
     // to support logging out from all windows
     window.localStorage.setItem('logout', Date.now());
     window.localStorage.clear();
-    
+
     if (isAuthPath) {
       history.replace('/login');
     }
@@ -129,7 +130,7 @@ const UserProvider = ({ authPaths, children }) => {
 
   return (
     <UserContext.Provider value={{ ...state, login, logout, getAuth, didAuthError }}>
-      {state.status === PENDING ? <div>...loading</div> : children}
+      {children}
     </UserContext.Provider>
   )
 }
@@ -143,7 +144,7 @@ const useUser = () => {
   const isSuccess = context.status === SUCCESS;
   const isPending = context.status === PENDING;
   const isAuthenticated = context.barista.email !== null && context.barista.email !== undefined && isSuccess;
-  console.log('isAuthenticated ->', isAuthenticated)
+
   return {
     ...context,
     isAuthenticated,
