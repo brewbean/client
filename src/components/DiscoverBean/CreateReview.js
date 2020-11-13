@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import InputRow from '../InputRow/index';
-import { GET_SINGLE_BEAN } from '../../queries';
 import { useQuery } from 'urql';
-import { useUser } from '../../context/userContext';
+import { GET_SINGLE_BEAN } from 'queries';
+import InputRow from 'components/InputRow';
+import { useUser } from 'context/UserContext';
 import useBeanReview from './useBeanReview';
 
 const CreateReview = (props) => {

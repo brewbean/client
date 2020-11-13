@@ -1,12 +1,14 @@
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 import { authExchange } from '@urql/exchange-auth';
 import { devtoolsExchange } from '@urql/devtools';
 
 import { GRAPHQL_API } from 'config'
-import { useUser } from 'context/userContext';
+import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation';
+import { useUser } from 'context/UserContext';
 import { addAuthToOperation } from 'helper/auth';
 
+import { NotFound } from 'components/Utility';
 import PourGuide from 'pages/PourGuide';
 import BrewTrakPage from 'pages/BrewTrak';
 import DiscoverBeanPage from 'pages/DiscoverBean';
@@ -14,7 +16,7 @@ import Recipe from 'pages/Recipe';
 import Login from 'pages/Login';
 
 function App() {
-  const { isAuthenticated, getAuth, didAuthError, barista } = useUser();
+  const { getAuth, didAuthError, barista } = useUser();
 
   const client = createClient({
     url: GRAPHQL_API,
@@ -37,19 +39,52 @@ function App() {
       name: {barista.displayName}
     </div>
   )
+  const PathTest = () => {
+    return (
+      <div className='bg-gray-200'>
+        Path Test
+      </div>
+    )
+  }
 
   return (
     <Provider value={client}>
       <Switch>
-        <Route exact path='/' component={BrewTrakPage} />
-        <Route path='/login' render={props => isAuthenticated ? <Redirect {...props} to='/' /> : <Login {...props} />} />
-        <Route path='/pour-app' component={PourGuide} />
-        <Route path='/recipe' component={Recipe} />
-        <Route path='/test' render={props => isAuthenticated ? <Test /> : <div className='bg-pink-200 h-full'>401 Unauthorized</div>} />
-        <Route path='/brewtrak' component={BrewTrakPage} />
-        <Route path='/discover/bean' component={DiscoverBeanPage} />
+        <ContainerRoute exact path='/'>
+          <BrewTrakPage />
+        </ContainerRoute>
+        <RedirectRoute
+          path='/login'
+          header={false}
+          flexCol={false}
+          ifCond='auth'
+          goTo='/'
+        >
+          <Login />
+        </RedirectRoute>
+        <AuthRoute path='/test/:id'>
+          <Test />
+        </AuthRoute>
+        <ContainerRoute path='/hi/:id/name/:slug'>
+          <PathTest />
+        </ContainerRoute>
+        <ContainerRoute path='/pour-app'>
+          <PourGuide />
+        </ContainerRoute>
+        <ContainerRoute path='/recipe'>
+          <Recipe />
+        </ContainerRoute>
+        <ContainerRoute path='/brewtrak'>
+          <BrewTrakPage />
+        </ContainerRoute>
+        <ContainerRoute path='/discover/bean'>
+          <DiscoverBeanPage />
+        </ContainerRoute>
+        <ContainerRoute path='*'>
+          <NotFound />
+        </ContainerRoute>
       </Switch>
-    </Provider>
+    </Provider >
   );
 }
 

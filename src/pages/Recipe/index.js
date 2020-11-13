@@ -1,5 +1,4 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import Header from 'components/Header';
 import CreateBrew from 'components/BrewTrak/CreateBrew';
 import { useBrewTrak } from 'components/BrewTrak/useBrewTrak';
 import StagePage from './StagePage';
@@ -11,13 +10,10 @@ const RecipePage = props => {
   let match = useRouteMatch();
 
   return (
-    <div className='h-screen flex flex-col'>
-      <Header />
-      <Switch>
-        <Route exact path={`${match.url}/new`} render={props => <CreateBrew {...props} {...brewTrakData} {...methods} />} />
-        <Route path={`${match.url}/new/stage`} render={props => <StagePage {...props} {...recipeData} {...handler} />} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path={`${match.url}/new`} render={props => <CreateBrew {...props} {...brewTrakData} {...methods} />} />
+      <Route path={`${match.url}/new/stage`} render={props => <StagePage {...props} {...recipeData} {...handler} />} />
+    </Switch>
   )
 }
 

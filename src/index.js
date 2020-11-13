@@ -4,14 +4,21 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from 'App';
 import 'tailwind.generated.css';
-import { UserProvider } from 'context/userContext';
+import { UserProvider } from 'context/UserContext';
 
-
+/**
+ * Any path that only supports being authenticated (ex. /profile/jimmy)
+ * Behavior -> if logged out, these routes will go to login
+ * The alternative is a page that still works when you are not logged in (guest mode available)
+ */
+const authOnlyPaths = [
+  { path: '/test/:id' },
+];
 
 ReactDOM.render(
   <StrictMode>
     <Router>
-      <UserProvider authPaths={['/test']}>
+      <UserProvider authOnlyPaths={authOnlyPaths}>
         <App />
       </UserProvider>
     </Router>

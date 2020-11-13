@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useUser } from '../../context/userContext';
+import { useUser } from 'context/UserContext';
 
 const Header = (props) => {
   const history = useHistory();
