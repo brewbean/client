@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'; 
 import { useMutation } from 'urql';
-import { INSERT_REVIEW_ONE } from '../../queries';
-import { useUser } from '../../context/userContext'
+import { INSERT_REVIEW_ONE } from 'queries';
+import { useUser } from 'context/UserContext'
 
 export const useBeanReview = () => {
     const [bean, setBean] = useState('');

@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from 'App';
 import 'tailwind.generated.css';
-import { UserProvider } from 'context/userContext';
+import { UserProvider } from 'context/UserContext';
 
 
 

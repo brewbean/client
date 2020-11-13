@@ -1,5 +1,5 @@
 import { Route, Redirect } from 'react-router-dom';
-import { useUser } from 'context/userContext';
+import { useUser } from 'context/UserContext';
 
 const RedirectRoute = ({ children, ifCond, goTo, ...rest }) => {
   let { isAuthenticated } = useUser();

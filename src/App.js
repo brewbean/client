@@ -5,7 +5,7 @@ import { devtoolsExchange } from '@urql/devtools';
 
 import { GRAPHQL_API } from 'config'
 import { AuthRoute, RedirectRoute } from 'navigation';
-import { useUser } from 'context/userContext';
+import { useUser } from 'context/UserContext';
 import { addAuthToOperation } from 'helper/auth';
 import { HeaderLayout } from 'components/Layout'
 import { NotFound } from 'components/Utility';
@@ -40,6 +40,14 @@ function App() {
       name: {barista.displayName}
     </div>
   )
+  const PathTest = () => {
+    
+    return (
+      <div className='bg-gray-200'>
+        Path Test
+      </div>
+    )
+  }
 
   return (
     <Provider value={client}>
@@ -53,6 +61,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <BrewTrakPage />
+          </Route>
+          <Route path='/hi/:id/name/:slug'>
+            <PathTest />
           </Route>
           <AuthRoute path='/test'>
             <Test />

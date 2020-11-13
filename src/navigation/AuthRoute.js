@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom';
-import { useUser } from 'context/userContext';
+import { useUser } from 'context/UserContext';
 import { Loading, Unauthorized } from 'components/Utility';
 
 const PrivateRoute = ({ children, ...rest }) => {
