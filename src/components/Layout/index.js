@@ -1,2 +1,7 @@
 import Header from './Header';
-export { Header }
+import Container from './Container';
+
+export {
+  Header,
+  Container,
+}

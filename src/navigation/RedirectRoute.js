@@ -1,5 +1,6 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useUser } from 'context/UserContext';
+import ContainerRoute from './ContainerRoute';
 
 const RedirectRoute = ({ children, ifCond, goTo, ...rest }) => {
   let { isAuthenticated } = useUser();
@@ -8,13 +9,13 @@ const RedirectRoute = ({ children, ifCond, goTo, ...rest }) => {
     check = isAuthenticated;
   }
   return (
-    <Route {...rest}>
+    <ContainerRoute {...rest}>
       {
         check
           ? <Redirect to={goTo || '/login'} />
           : children
       }
-    </Route>
+    </ContainerRoute>
   )
 }
 

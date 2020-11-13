@@ -1,12 +1,12 @@
-import { Route } from 'react-router-dom';
+import ContainerRoute from './ContainerRoute';
 import { useUser } from 'context/UserContext';
 import { Loading, Unauthorized } from 'components/Utility';
 
-const PrivateRoute = ({ children, ...rest }) => {
+const AuthRoute = ({ children, ...rest }) => {
   let { isPending, isAuthenticated, needRefresh } = useUser();
   
   return (
-    <Route {...rest}>
+    <ContainerRoute {...rest}>
       {
         needRefresh || isPending
           ? <Loading />
@@ -14,8 +14,8 @@ const PrivateRoute = ({ children, ...rest }) => {
             ? children
             : <Unauthorized />
       }
-    </Route>
+    </ContainerRoute>
   )
 }
 
-export default PrivateRoute;
+export default AuthRoute;

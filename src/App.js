@@ -1,15 +1,14 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 import { authExchange } from '@urql/exchange-auth';
 import { devtoolsExchange } from '@urql/devtools';
 
 import { GRAPHQL_API } from 'config'
-import { AuthRoute, RedirectRoute } from 'navigation';
+import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation';
 import { useUser } from 'context/UserContext';
 import { addAuthToOperation } from 'helper/auth';
-import { HeaderLayout } from 'components/Layout'
-import { NotFound } from 'components/Utility';
 
+import { NotFound } from 'components/Utility';
 import PourGuide from 'pages/PourGuide';
 import BrewTrakPage from 'pages/BrewTrak';
 import DiscoverBeanPage from 'pages/DiscoverBean';
@@ -41,7 +40,6 @@ function App() {
     </div>
   )
   const PathTest = () => {
-    
     return (
       <div className='bg-gray-200'>
         Path Test
@@ -52,40 +50,41 @@ function App() {
   return (
     <Provider value={client}>
       <Switch>
-        <RedirectRoute path='/login' ifCond='auth' goTo='/' >
+        <ContainerRoute exact path='/'>
+          <BrewTrakPage />
+        </ContainerRoute>
+        <RedirectRoute
+          path='/login'
+          header={false}
+          flexCol={false}
+          ifCond='auth'
+          goTo='/'
+        >
           <Login />
         </RedirectRoute>
-
+        <AuthRoute path='/test/:id'>
+          <Test />
+        </AuthRoute>
+        <ContainerRoute path='/hi/:id/name/:slug'>
+          <PathTest />
+        </ContainerRoute>
+        <ContainerRoute path='/pour-app'>
+          <PourGuide />
+        </ContainerRoute>
+        <ContainerRoute path='/recipe'>
+          <Recipe />
+        </ContainerRoute>
+        <ContainerRoute path='/brewtrak'>
+          <BrewTrakPage />
+        </ContainerRoute>
+        <ContainerRoute path='/discover/bean'>
+          <DiscoverBeanPage />
+        </ContainerRoute>
+        <ContainerRoute path='*'>
+          <NotFound />
+        </ContainerRoute>
       </Switch>
-      <HeaderLayout>
-        <Switch>
-          <Route exact path='/'>
-            <BrewTrakPage />
-          </Route>
-          <Route path='/hi/:id/name/:slug'>
-            <PathTest />
-          </Route>
-          <AuthRoute path='/test'>
-            <Test />
-          </AuthRoute>
-          <Route path='/pour-app'>
-            <PourGuide />
-          </Route>
-          <Route path='/recipe'>
-            <Recipe />
-          </Route>
-          <Route path='/brewtrak'>
-            <BrewTrakPage />
-          </Route>
-          <Route path='/discover/bean'>
-            <DiscoverBeanPage />
-          </Route>
-          <Route path='*'>
-            <NotFound />
-          </Route>
-        </Switch>
-      </HeaderLayout>
-    </Provider>
+    </Provider >
   );
 }
 
