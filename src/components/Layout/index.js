@@ -1,2 +1,2 @@
-import HeaderLayout from './Header';
-export { HeaderLayout }
+import Header from './Header';
+export { Header }
