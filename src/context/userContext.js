@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { AUTH_API, GUEST_TOKEN } from 'config';
 import { SUCCESS, PENDING, FAILED } from 'constants/status';
 import { getTokenFromRefresh } from 'helper/auth';
@@ -25,7 +25,7 @@ const UserContext = createContext();
  * causes failed refreshes to go to login page
  * otherwise just continue to guest version of page
  */
-const UserProvider = ({ authPaths, children }) => {
+const UserProvider = ({ authOnlyPaths, children }) => {
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -34,23 +34,32 @@ const UserProvider = ({ authPaths, children }) => {
   useEffect(() => {
     const syncLogout = event => {
       if (event.key === 'logout') {
-        const isAuthPath = authPaths.includes(pathname);
+        const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
+          path,
+          exact,
+          strict
+        }));
 
         console.log('logged out from storage!');
 
-        if (state.barista.email !== null || state.barista.email !== undefined) {
+        if (state.barista.email) {
           setState(INIT_STATE);
         }
-        if (isAuthPath) {
+        if (isAuthOnlyPath) {
           history.push('/login');
         }
       }
     }
     window.addEventListener('storage', syncLogout)
     if (window.localStorage.getItem('hasLoggedIn') === 'yes') {
-      setState({ ...state, needRefresh: true });
+      setState({
+        ...state,
+        status: SUCCESS,
+        needRefresh: true,
+      });
+    } else {
+      setState({ ...state, status: SUCCESS });
     }
-    setState({ ...state, status: SUCCESS });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -112,7 +121,11 @@ const UserProvider = ({ authPaths, children }) => {
   }
 
   const logout = async () => {
-    const isAuthPath = authPaths.includes(pathname);
+    const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
+      path,
+      exact,
+      strict
+    }));
 
     // remove refresh token cookie
     await axios.post(AUTH_API + '/logout');
@@ -121,7 +134,7 @@ const UserProvider = ({ authPaths, children }) => {
     window.localStorage.setItem('logout', Date.now());
     window.localStorage.clear();
 
-    if (isAuthPath) {
+    if (isAuthOnlyPath) {
       history.replace('/login');
     }
     // change in-memory token back to guest; in case they do not want to re-login
