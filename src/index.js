@@ -19,11 +19,11 @@ const authOnlyPaths = [
 ReactDOM.render(
   <StrictMode>
     <Router>
-      <UserProvider authOnlyPaths={authOnlyPaths}>
-        <AlertProvider>
+      <AlertProvider>
+        <UserProvider authOnlyPaths={authOnlyPaths}>
           <App />
-        </AlertProvider>
-      </UserProvider>
+        </UserProvider>
+      </AlertProvider>
     </Router>
   </StrictMode>,
   document.getElementById('root')

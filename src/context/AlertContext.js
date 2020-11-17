@@ -12,10 +12,10 @@ const AlertProvider = ({ children }) => {
     setAlerts([]);
   }, [location])
 
-  const addAlert = ({ type, message, url }) => setAlerts([...alerts, { type, message, url }]);
+  const addAlert = ({ type, header, message }) => setAlerts([...alerts, { type, header, message }]);
   const addAlertBulk = bulk => setAlerts([...alerts, ...bulk]);
 
-  const closeAlert = index => setAlerts([
+  const closeAlert = (index = 0) => setAlerts([
     ...alerts.slice(0, index),
     ...alerts.slice(index + 1)
   ]);
