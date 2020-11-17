@@ -31,7 +31,7 @@ const Login = (props) => {
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <h1 className="text-3xl leading-9 font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></h1>
 
-          <Alert />
+          <Alert containerStyle='mt-6' />
 
           <div className="mt-6">
             <form className="space-y-2" onSubmit={submitLogin}>

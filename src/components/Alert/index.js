@@ -1,12 +1,16 @@
-import { useAlert, alertType } from 'context/AlertContext';
+import { useAlert } from 'context/AlertContext';
 import AlertMessage from './AlertMessage';
 
-const Alert = () => {
-  const { hasAlert, alerts } = useAlert();
+const Alert = ({ containerStyle }) => {
+  const { hasAlert, alerts, closeAlert } = useAlert();
 
   if (!hasAlert) return null;
 
-  return alerts.map((alert, i) => <AlertMessage key={i} {...alert} />);
+  return (
+    <div className={containerStyle}>
+      {alerts.map((alert, i) => <AlertMessage key={i} onClose={() => closeAlert(i)} {...alert} />)}
+    </div>
+  );
 }
 
 export default Alert;

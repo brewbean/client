@@ -12,7 +12,8 @@ const AlertProvider = ({ children }) => {
     setAlerts([]);
   }, [location])
 
-  const addAlert = ({ type, header, message }) => setAlerts([...alerts, { type, header, message }]);
+  // destructured for clarity - can remove if we implement TypeScript types/interfaces
+  const addAlert = ({ type, header, message, close }) => setAlerts([...alerts, { type, header, message, close }]);
   const addAlertBulk = bulk => setAlerts([...alerts, ...bulk]);
 
   const closeAlert = (index = 0) => setAlerts([
