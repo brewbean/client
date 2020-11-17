@@ -1,14 +1,12 @@
 import { useAlert, alertType } from 'context/AlertContext';
-import ErrorAlert from './Error';
+import AlertMessage from './AlertMessage';
 
 const Alert = () => {
   const { hasAlert, alerts } = useAlert();
 
   if (!hasAlert) return null;
 
-  return alerts.map(({ type, ...rest }, i) => type === alertType.ERROR
-    ? <ErrorAlert key={i} {...rest} />
-    : null);
+  return alerts.map((alert, i) => <AlertMessage key={i} {...alert} />);
 }
 
 export default Alert;
