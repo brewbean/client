@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import { Transition } from '@headlessui/react'
 import { useUser } from 'context/UserContext';
 
 const Header = (props) => {
   const history = useHistory();
   const [isOpen, setToggle] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isActive, setActive] = useState('');
-  const { isAuthenticated, getAuth, didAuthError, barista } = useUser();
+  const { isAuthenticated } = useUser();
 
   const handleItemClick = (url, activeHeader) => {
     setActive(activeHeader);
@@ -40,7 +42,7 @@ const Header = (props) => {
                 className={`ml-8 inline-flex items-center px-1 pt-1 ${isActive === 'discoverBean' ? 'border-blue-500 font-semibold text-blue-900 focus:border-blue-700' : 'border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} border-b-2 text-sm leading-5 focus:outline-none transition duration-150 ease-in-out`}>
                 buy beans
                 </button>
-                {isAuthenticated ? '' : <button
+              {isAuthenticated ? '' : <button
                 onClick={() => handleItemClick('/login', 'login')}
                 className={`ml-8 inline-flex items-center px-1 pt-1 ${isActive === 'login' ? 'border-blue-500 font-semibold text-blue-900 focus:border-blue-700' : 'border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300'} border-b-2 text-sm leading-5 focus:outline-none transition duration-150 ease-in-out`}>
                 login
@@ -50,18 +52,29 @@ const Header = (props) => {
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <div className="ml-3 relative">
               <div>
-                <button className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
+                <button onClick={() => setDropdownOpen(!isDropdownOpen)} className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
                   <img className="h-8 w-8 rounded-full" src="https://ca.slack-edge.com/TSCG4PBLN-USDKSPWF3-cdc2a3b92383-512" alt="" />
                 </button>
               </div>
 
-              <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-                <div className="py-1 rounded-md bg-white shadow-xs">
-                  <button className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">Your Profile</button>
-                  <button className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">Settings</button>
-                  <button className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">Sign out</button>
+              <Transition
+                show={isDropdownOpen}
+                enter="transition ease-out duration-200"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                  <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                    <Link to='/' className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Your Profile</Link>
+                    <Link to='/' className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Settings</Link>
+                    <Link to='/' className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Sign out</Link>
+                  </div>
                 </div>
-              </div>
+              </Transition>
+
             </div>
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
