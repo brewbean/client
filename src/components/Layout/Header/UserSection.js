@@ -5,7 +5,7 @@ import PlaceholderAvatar from './PlaceholderAvatar';
 const UserSection = ({ links }) => {
   const { isAuthenticated, barista } = useUser();
 
-  return true ? (
+  return isAuthenticated ? (
     <>
       <div className="flex items-center">
         <div className="flex-shrink-0">
@@ -16,8 +16,8 @@ const UserSection = ({ links }) => {
           }
         </div>
         <div className="ml-3">
-          <div className="text-base font-medium leading-6 text-gray-800">james park</div>
-          <div className="text-sm font-medium leading-5 text-gray-500">jamespark@example.com</div>
+          <div className="text-base font-medium leading-6 text-gray-800">{barista.displayName}</div>
+          <div className="text-sm font-medium leading-5 text-gray-500">{barista.email}</div>
         </div>
       </div>
       <div className="mt-4 flex flex-col justify-start space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
