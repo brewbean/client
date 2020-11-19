@@ -11,6 +11,7 @@ const INIT_STATE = {
     id: null,
     email: null,
     displayName: null,
+    avatar: null,
   },
   token: GUEST_TOKEN,
   tokenExpiry: null,
@@ -111,6 +112,7 @@ const UserProvider = ({ authOnlyPaths, children }) => {
           id: data.id,
           email: data.email,
           displayName: data.displayName,
+          avatar: data.avatar,
         }
       })
     } catch ({ response }) {

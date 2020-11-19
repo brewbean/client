@@ -13,6 +13,7 @@ export const getTokenFromRefresh = async () => {
           id: data.id,
           email: data.email,
           displayName: data.displayName,
+          avatar: data.avatar,
         },
       }
     }

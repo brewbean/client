@@ -14,4 +14,13 @@
   .navlink--state-inactive {
     @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300;
   }
+  .menu__link {
+    @apply text-left pl-3 pr-4 py-2 border-l-4 text-base font-medium focus:outline-none;
+  }
+  .menu__link--state-active {
+    @apply border-blue-500 text-blue-700 bg-blue-50 focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700;
+  }
+  .menu__link--state-inactive {
+    @apply border-transparent text-gray-600 focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300;
+  }
 }
