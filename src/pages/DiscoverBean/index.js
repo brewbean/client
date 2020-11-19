@@ -10,16 +10,12 @@ const DiscoverBeanPage = props => {
   const { data, methods } = useDiscoverBean();
   let match = useRouteMatch();
   return (
-    <div className="bg-gray-50 flex-1 flex items-stretch">
-      <div className='max-w-7xl bg-pink w-full mx-auto p-4 sm:px-6 lg:px-8'>
-        <Switch>
-          <Route exact path={`${match.url}/`} render={props => <DiscoverBean {...props} {...data} {...methods} />} />
-          <Route path={`${match.url}/details/:id`} render={props => <DiscoverDetails {...props} />} />
-          <Route path={`${match.url}/review/:id/new`} render={props => <CreateReview {...props} />} />
-          {/* <Route path={`${match.url}/new`} render={props => <CreateBean {...props} {...data} {...methods} />} /> */}
-        </Switch>
-      </div>
-    </div>
+    <Switch>
+      <Route exact path={`${match.url}/`} render={props => <DiscoverBean {...props} {...data} {...methods} />} />
+      <Route path={`${match.url}/details/:id`} render={props => <DiscoverDetails {...props} />} />
+      <Route path={`${match.url}/review/:id/new`} render={props => <CreateReview {...props} />} />
+      {/* <Route path={`${match.url}/new`} render={props => <CreateBean {...props} {...data} {...methods} />} /> */}
+    </Switch>
   )
 }
 
