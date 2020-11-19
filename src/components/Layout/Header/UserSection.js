@@ -27,8 +27,13 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
     };
   }, [dropdownRef, avatarRef, isDropdownOpen, setDropdownOpen]);
 
-  // add pending image
-  if (isPending || needRefresh) return null;
+  // pending pulsing image
+  if (isPending || needRefresh) return (
+    <div className="hidden sm:animate-pulse sm:ml-6 sm:flex sm:items-center">
+      <div className="w-20 h-3 rounded bg-blue-300"></div>
+      <div className="ml-3 rounded-full bg-blue-300 h-8 w-8"></div>
+    </div>
+  );
 
   return isAuthenticated ? (
     <div className="hidden sm:ml-6 sm:flex sm:items-center">

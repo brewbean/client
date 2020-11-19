@@ -37,7 +37,7 @@ const Header = () => {
   const { path } = useRouteMatch();
   const [isOpen, setToggle] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  
+
   useEffect(() => {
     // closes mobile menu/dropdown whenever a link is clicked
     setToggle(false);
