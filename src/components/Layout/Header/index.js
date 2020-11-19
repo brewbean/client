@@ -81,7 +81,7 @@ const Header = () => {
             </div>
           </div>
 
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <div className="hidden sm:ml-6 sm:flex sm:items-center">
               <div>
                 <p className="text-sm font-medium text-gray-500">{barista.displayName}</p>
@@ -116,8 +116,16 @@ const Header = () => {
 
               </div>
             </div>
-          )}
-          {/* Add else case of sign up / sign in buttons */}
+          ) : (
+              <div className='hidden sm:flex sm:items-center'>
+                <Link to='/login' className="mr-3 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  log in
+                </Link>
+                <Link to='/create-account' className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  create account
+                </Link>
+              </div>
+            )}
 
           <div className="-mr-2 flex items-center sm:hidden">
             <button onClick={() => setToggle(!isOpen)}

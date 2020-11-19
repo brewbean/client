@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useUser } from 'context/UserContext';
 import { useAlert } from 'context/AlertContext';
 import coffeeCover from './espresso_cover.jpg';
@@ -37,7 +38,7 @@ const Login = (props) => {
             <form className="space-y-2" onSubmit={submitLogin}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">
-                  Email address
+                  email address
                 </label>
                 <div className="mt-2 rounded-md shadow-sm">
                   <input value={email} onChange={onChangeEmail} id="email" type="email" autoComplete="username" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
@@ -45,7 +46,7 @@ const Login = (props) => {
               </div>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium leading-5 text-gray-700">
-                  Password
+                  password
                 </label>
                 <div className="mt-2 rounded-md shadow-sm">
                   <input value={password} onChange={onChangePassword} id="password" autoComplete="current-password" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
@@ -54,16 +55,17 @@ const Login = (props) => {
               <div>
                 <span className="pt-2 block w-full rounded-md shadow-sm">
                   <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out">
-                    Sign in
+                    log in
                  </button>
                 </span>
               </div>
-              <div className="my-3 flex items-center justify-end">
-                <div className="text-sm leading-5">
-                  <button className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                    Forgot your password?
-                  </button>
-                </div>
+              <div className="my-3 flex items-center justify-between">
+                <Link to='/create-account' className="text-sm leading-5 font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                  create account
+                </Link>
+                <Link to='/forgot-password' className="text-sm leading-5 font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                  forgot your password?
+                </Link>
               </div>
             </form>
           </div>
@@ -74,7 +76,6 @@ const Login = (props) => {
         <img className="absolute inset-0 h-full w-full object-cover" src={coffeeCover} alt="espresso" />
       </div>
     </>
-
   )
 }
 

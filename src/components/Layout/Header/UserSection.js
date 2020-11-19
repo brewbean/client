@@ -27,12 +27,12 @@ const UserSection = ({ links }) => {
     </>
   ) : (
       <>
-        <Link to='/signup' className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 focus:bg-blue-700">
-          Sign up
+        <Link to='/create-account' className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 focus:bg-blue-700">
+          create account
         </Link>
-        <p className="mt-4 text-center text-base font-medium text-gray-600">
-          Existing customer? <Link to='/login' className="text-blue-600 focus:text-blue-500">Sign in</Link>
-        </p>
+        <Link to='/login' className="mt-2 py-2 w-full flex items-center justify-center text-base font-medium text-blue-600 focus:text-blue-500">
+          log in
+        </Link>
       </>
     );
 }
