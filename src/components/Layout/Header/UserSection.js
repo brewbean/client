@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useUser } from 'context/UserContext';
+import PlaceholderAvatar from './PlaceholderAvatar';
 
 const UserSection = ({ links }) => {
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated, barista } = useUser();
 
-  return isAuthenticated ? (
+  return true ? (
     <>
       <div className="flex items-center">
         <div className="flex-shrink-0">
-          <img className="h-10 w-10 rounded-full" src="https://ca.slack-edge.com/TSCG4PBLN-USDKSPWF3-cdc2a3b92383-512" alt="" />
+          {
+            barista.avatar
+              ? <img className="h-10 w-10 rounded-full" src={barista.avatar} alt="user avatar" />
+              : <PlaceholderAvatar containerStyle='h-10 w-10' />
+          }
         </div>
         <div className="ml-3">
           <div className="text-base font-medium leading-6 text-gray-800">james park</div>
@@ -16,7 +21,7 @@ const UserSection = ({ links }) => {
         </div>
       </div>
       <div className="mt-4 flex flex-col justify-start space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-        {links.map(({to, text}) => <Link key={to} to={to} className="py-2 px-3 rounded-md text-left text-base font-medium text-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-100" role="menuitem">{text}</Link>)}
+        {links.map(({ to, text }) => <Link key={to} to={to} className="py-2 px-3 rounded-md text-left text-base font-medium text-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-100" role="menuitem">{text}</Link>)}
         <button onClick={() => console.log('signout')} className="py-2 px-3 rounded-md text-left text-base font-medium text-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-100" role="menuitem">sign out</button>
       </div>
     </>
