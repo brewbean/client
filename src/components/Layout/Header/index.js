@@ -39,7 +39,7 @@ const Header = () => {
   const { path } = useRouteMatch();
   const [isOpen, setToggle] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const { barista } = useUser();
+  const { isAuthenticated, barista } = useUser();
   const dropdownRef = useRef(null);
   const avatarRef = useRef(null);
 
@@ -80,37 +80,45 @@ const Header = () => {
               }
             </div>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            <div className="ml-3 relative">
+
+          {isAuthenticated && (
+            <div className="hidden sm:ml-6 sm:flex sm:items-center">
               <div>
-                <button ref={avatarRef} className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-opacity-50 transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                  {
-                    barista.avatar
-                      ? <img className="h-8 w-8 rounded-full" src={barista.avatar} alt="user avatar" />
-                      : <PlaceholderAvatar />
-                  }
-                </button>
+                <p className="text-sm font-medium text-gray-500">{barista.displayName}</p>
               </div>
-
-              <Transition
-                show={isDropdownOpen}
-                enter="transition ease-out duration-200"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" ref={dropdownRef}>
-                  <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                    {settingLinks.map(({ to, text }) => <Link key={to} to={to} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">{text}</Link>)}
-                    <button onClick={() => console.log('signout')} className="w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">sign out</button>
-                  </div>
+              <div className="ml-3 relative">
+                <div>
+                  <button ref={avatarRef} className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-opacity-50 transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
+                    {
+                      barista.avatar
+                        ? <img className="h-8 w-8 rounded-full" src={barista.avatar} alt="user avatar" />
+                        : <PlaceholderAvatar />
+                    }
+                  </button>
                 </div>
-              </Transition>
 
+                <Transition
+                  show={isDropdownOpen}
+                  enter="transition ease-out duration-200"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" ref={dropdownRef}>
+                    <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                      {settingLinks.map(({ to, text }) => <Link key={to} to={to} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">{text}</Link>)}
+                      <button onClick={() => console.log('signout')} className="w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">sign out</button>
+                    </div>
+                  </div>
+                </Transition>
+
+              </div>
             </div>
-          </div>
+          )}
+          {/* Add else case of sign up / sign in buttons */}
+
           <div className="-mr-2 flex items-center sm:hidden">
             <button onClick={() => setToggle(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
