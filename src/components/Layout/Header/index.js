@@ -3,6 +3,7 @@ import { useRouteMatch, Link } from 'react-router-dom';
 import { Transition } from '@headlessui/react'
 import { useUser } from 'context/UserContext';
 import UserSection from './UserSection';
+import PlaceholderAvatar from './PlaceholderAvatar';
 
 const links = [
   {
@@ -34,29 +35,26 @@ const settingLinks = [
   },
 ];
 
-const PlaceholderAvatar = () => (
-  <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-blue-100">
-    <svg className="h-full w-full text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-    </svg>
-  </span>
-);
-
 const Header = () => {
   const { path } = useRouteMatch();
   const [isOpen, setToggle] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { barista } = useUser();
   const dropdownRef = useRef(null);
+  const avatarRef = useRef(null);
 
   useEffect(() => {
     // closes mobile menu/dropdown whenever a link is clicked
     setToggle(false);
     setDropdownOpen(false);
   }, [path]);
-  
+
   useEffect(() => {
     function handleClickOutside(event) {
+      if (avatarRef.current && avatarRef.current.contains(event.target)) {
+        setDropdownOpen(!isDropdownOpen);
+        return;
+      }
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
@@ -66,7 +64,7 @@ const Header = () => {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef]);
+  }, [dropdownRef, avatarRef, isDropdownOpen]);
 
   return (
     <nav className="flex-none bg-white border-b border-gray-200">
@@ -85,7 +83,7 @@ const Header = () => {
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <div className="ml-3 relative">
               <div>
-                <button onClick={() => setDropdownOpen(!isDropdownOpen)} className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-blue-300 transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
+                <button ref={avatarRef} className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-opacity-50 transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
                   {
                     barista.avatar
                       ? <img className="h-8 w-8 rounded-full" src={barista.avatar} alt="user avatar" />
