@@ -65,10 +65,12 @@ function App() {
         </ContainerRoute>
         <RedirectRoute
           path='/login'
-          header={false}
-          flexCol={false}
           ifCond='auth'
           goTo='/'
+          header={false}
+          flexCol={false}
+          paddedContent={false}
+          alert={false}
         >
           <Login />
         </RedirectRoute>
