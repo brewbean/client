@@ -85,14 +85,14 @@ const CreateAccount = () => {
           <div className="mt-6">
             <form className="space-y-2" onSubmit={submitLogin}>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">Email Address</label>
+                <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">Email address</label>
                 <div className="mt-2 rounded-md shadow-sm">
                   <input type="email" name='email' value={state.email} onChange={onChange} id="email" autoComplete="email" required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                 </div>
               </div>
               <div>
-                <label htmlFor="display-name" className="block text-sm font-medium leading-5 text-gray-700">Display Name</label>
+                <label htmlFor="display-name" className="block text-sm font-medium leading-5 text-gray-700">Display name</label>
                 <div className="mt-2 rounded-md shadow-sm">
                   <input type="text" name='displayName' value={state.displayName} onChange={onChange} id="display-name" required minLength="3"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
@@ -122,7 +122,7 @@ const CreateAccount = () => {
               <div>
                 <span className="pt-2 block w-full rounded-md shadow-sm">
                   <button disabled={hasAlert} type="submit" className={`disabled:opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out ${!hasAlert ? 'hover:bg-blue-500' : 'cursor-not-allowed'}`.trimEnd()}>
-                    Create Account
+                    Create account
                  </button>
                 </span>
               </div>
