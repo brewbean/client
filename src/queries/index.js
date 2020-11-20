@@ -73,6 +73,14 @@ mutation update_recipe($id: Int!,$water_temp: Int, $water_amount: Int, $rating: 
   }
 }
 `
+export const DELETE_RECIPE = `
+mutation delete_recipe($id: Int!) {
+  delete_recipe_by_pk(id: $id) {
+    id
+  }
+}
+
+`
 /*
   Bean Queries
 */

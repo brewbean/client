@@ -5,12 +5,19 @@ import Star from './star.png';
 import Thermometer from './thermometer.jpg';
 import SpeechBubble from './speech-bubble.png';
 import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useMutation } from 'urql';
+import { DELETE_RECIPE } from 'queries';
 
 const CardDetails = ({ img, date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, bloomWaterAmount, bloomTime, rating, brewComments, brewSelected, id }) => {
     const { url } = useRouteMatch();
     const history = useHistory();
     let match = useRouteMatch();
+    const [deleteRecipeResult, deleteRecipe] = useMutation(DELETE_RECIPE);
 
+    const deleteRecipePressed = async () => {
+        let result = await deleteRecipe({id});
+        console.log("Result", result);
+    }
     return(
         <>  
           <div className="flex">
@@ -59,6 +66,7 @@ const CardDetails = ({ img, date, beanWeight, brewType, beanGrind, waterAmount, 
                             ID: {id}
                         </div>
                         <button
+                            onClick={deleteRecipePressed}
                             type="button" 
                             className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
                             delete log
