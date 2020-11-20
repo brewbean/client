@@ -63,7 +63,7 @@ const CreateAccount = (props) => {
     <>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <h1 className="text-3xl leading-9 font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></h1>
+          <Link to='/' className="text-3xl leading-9 font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></Link>
 
           <div className='mt-4 space-y-2'>
             <h2 className='text-xl text-gray-900 font-bold'>Get started with your new account</h2>
