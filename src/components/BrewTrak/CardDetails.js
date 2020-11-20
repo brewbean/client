@@ -4,7 +4,13 @@ import WaterDrop from './water-drop.jpg';
 import Star from './star.png';
 import Thermometer from './thermometer.jpg';
 import SpeechBubble from './speech-bubble.png';
-const CardDetails = ({ img, date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, bloomWaterAmount, bloomTime, rating, brewComments, brewSelected }) => {
+import { useRouteMatch, useHistory } from 'react-router-dom';
+
+const CardDetails = ({ img, date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, bloomWaterAmount, bloomTime, rating, brewComments, brewSelected, id }) => {
+    const { url } = useRouteMatch();
+    const history = useHistory();
+    let match = useRouteMatch();
+
     return(
         <>  
           <div className="flex">
@@ -49,6 +55,21 @@ const CardDetails = ({ img, date, beanWeight, brewType, beanGrind, waterAmount, 
                             <img className="w-5 h-5 mr-1" src={Star} alt='Star'/>:
                             {rating}
                         </div>
+                        <div className='flex flex-row'>
+                            ID: {id}
+                        </div>
+                        <button
+                            type="button" 
+                            className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                            delete log
+                        </button>
+                        <button 
+                            onClick={() => history.push(`${match.url}/${id}/edit`)}
+                            className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                            edit log
+                        </button>
+                        {/* TODO - Guest cannot be allowed to make a review. Hide button for guest & route must be authenticated */}
+                        
                 </div>
               </>}
             </div>

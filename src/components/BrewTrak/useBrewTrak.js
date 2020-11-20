@@ -21,7 +21,7 @@ export const useBrewTrak = () => {
     const [brewComments, setBrewComments] = useState('');
     const [brewSelected, setBrewSelect] = useState(false);
     const [insertRecipeResult, insertRecipe] = useMutation(INSERT_RECIPE_ONE);
-
+    const [id, setId] = useState('');
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
     // but how to make both inputs respond when other is inputted?
     // if i want a ratio if 16 but type in 50g of coffee 
@@ -40,6 +40,7 @@ export const useBrewTrak = () => {
         setRating(card.rating);
         setBrewComments(card.comment);
         setBrewSelect(true);
+        setId(card.id);
     }
 
     const submitRecipe = async () => {
@@ -73,7 +74,8 @@ export const useBrewTrak = () => {
                 bloomTime,
                 brewComments,
                 rating,
-                brewSelected
+                brewSelected,
+                id
             },
             methods: {
                 setDate: e => setDate(e.target.value),
