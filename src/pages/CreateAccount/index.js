@@ -127,7 +127,7 @@ const CreateAccount = () => {
                 </span>
               </div>
               <div className="my-3 flex items-center justify-end">
-                <h3 className='text-sm italic text-gray-700'>Already have an account? <Link to='/login' className='not-italic hover:underline text-blue-600'>Log in</Link></h3>
+                <h3 className='text-sm italic text-gray-700'>Already have an account? <Link to='/login' className='focus:underline font-medium not-italic hover:text-blue-500 text-blue-600'>Log in</Link></h3>
               </div>
             </form>
           </div>
