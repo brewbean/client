@@ -30,7 +30,7 @@ const Login = (props) => {
     <>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <h1 className="text-3xl leading-9 font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></h1>
+          <Link to='/' className="text-3xl leading-9 font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></Link>
 
           <Alert containerStyle='mt-6' />
 
@@ -41,7 +41,7 @@ const Login = (props) => {
                   email address
                 </label>
                 <div className="mt-2 rounded-md shadow-sm">
-                  <input value={email} onChange={onChangeEmail} id="email" type="email" autoComplete="username" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                  <input value={email} onChange={onChangeEmail} id="email" type="email" autoComplete="email" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                 </div>
               </div>
               <div>
