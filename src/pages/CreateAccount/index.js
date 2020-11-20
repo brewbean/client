@@ -5,6 +5,7 @@ import { useAlert } from 'context/AlertContext';
 import coffeeCover from './coffee_cover.jpg';
 import Alert from 'components/Alert';
 import FormAlert, { alertType } from 'components/FormAlert';
+import { Eye, EyeOff } from 'components/Icon';
 
 const CreateAccount = (props) => {
   const { login } = useUser();
@@ -12,6 +13,7 @@ const CreateAccount = (props) => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [passwordAlerts, setPasswordAlerts] = useState({
     length: { isActive: false, type: alertType.WARNING, text: 'must contain at least 8 characters long' },
     lowercase: { isActive: false, type: alertType.WARNING, text: 'must contain at least 1 lowercase character' },
@@ -19,6 +21,8 @@ const CreateAccount = (props) => {
     number: { isActive: false, type: alertType.WARNING, text: 'must contain at least 1 number' },
     special: { isActive: false, type: alertType.WARNING, text: 'must contain at least 1 special characters' },
   });
+
+  const toggleShowPassword = () => setShowPassword(!showPassword);
 
   const onChangeEmail = ({ target }) => {
     if (hasAlert) closeAlert();
@@ -41,7 +45,7 @@ const CreateAccount = (props) => {
     change.uppercase.isActive = !target.value.match(upperCaseLetters);
     change.number.isActive = !target.value.match(numbers);
     change.special.isActive = !target.value.match(specialCharacters);
-    
+
     setPasswordAlerts(change);
     setPassword(target.value);
   }
@@ -66,7 +70,6 @@ const CreateAccount = (props) => {
             <h3 className='text-md text-gray-700'>Create and share coffee reviews, recipes, and much more ☕</h3>
           </div>
 
-
           <Alert containerStyle='mt-6' />
 
           <div className="mt-6">
@@ -85,8 +88,15 @@ const CreateAccount = (props) => {
               </div>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium leading-5 text-gray-700">password</label>
-                <div className="mt-2 rounded-md shadow-sm">
-                  <input type="password" value={password} onChange={onChangePassword} id="password" autoComplete="new-password" required minLength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                <div className="mt-2 relative rounded-md shadow-sm">
+                  <input type={showPassword ? "text" : "password"} value={password} onChange={onChangePassword} id="password" autoComplete="new-password" required minLength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <button type="button" onClick={toggleShowPassword} className='text-gray-500 hover:text-gray-800 focus:outline-none'>
+                      {showPassword
+                        ? <EyeOff className="h-5 w-5" />
+                        : <Eye className="h-5 w-5" />}
+                    </button>
+                  </div>
                 </div>
                 {
                   alerts.length > 0 && (
