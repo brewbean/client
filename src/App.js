@@ -14,17 +14,10 @@ import BrewTrakPage from 'pages/BrewTrak';
 import DiscoverBeanPage from 'pages/DiscoverBean';
 import Recipe from 'pages/Recipe';
 import Login from 'pages/Login';
-
-import { useAlert, alertType } from 'context/AlertContext';
+import CreateAccount from 'pages/CreateAccount';
 
 function App() {
   const { getAuth, didAuthError, barista } = useUser();
-
-  /**
-   * Demo purposes
-   * should be accessed from page or component NOT app root (global alert)
-   */
-  const { addAlert, closeAlert } = useAlert();
 
   const client = createClient({
     url: GRAPHQL_API,
@@ -51,8 +44,6 @@ function App() {
     return (
       <div className='bg-gray-200'>
         Path Test
-        <button onClick={() => addAlert({ type: alertType.SUCCESS, message: 'good alert', url: '/hi/3/name/what' })} >Add Alert</button>
-        <button onClick={() => closeAlert(0)} >remove Alert</button>
       </div>
     )
   }
@@ -73,6 +64,17 @@ function App() {
           alert={false}
         >
           <Login />
+        </RedirectRoute>
+        <RedirectRoute
+          path='/create-account'
+          ifCond='auth'
+          goTo='/'
+          header={false}
+          flexCol={false}
+          paddedContent={false}
+          alert={false}
+        >
+          <CreateAccount />
         </RedirectRoute>
         <AuthRoute path='/test/:id'>
           <Test />
