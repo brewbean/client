@@ -36,6 +36,43 @@ query get_recipes {
   }
 }
 `;
+export const GET_SINGLE_RECIPE = `
+query get_single_recipe($id:Int!) {
+  recipe_by_pk(id:$id) {
+    id
+    barista_id  
+    brew_type 
+    bean_weight 
+    bean_grind 
+    water_amount
+    bean_id 
+    water_temp 
+    rating 
+    comment 
+    private
+    date_added 
+    bean {
+      img
+      name
+    }
+  }
+}
+`;
+
+export const UPDATE_RECIPE = `
+mutation update_recipe($id: Int!,$water_temp: Int, $water_amount: Int, $rating: jsonb, $comment: String, $brew_type: String, $bean_weight: Int, $bean_id: Int, $bean_grind: String) {
+  update_recipe_by_pk(pk_columns: {id: $id}, _set: {water_temp: $water_temp,water_amount: $water_amount,rating: $rating,comment: $comment,brew_type: $brew_type,bean_weight: $bean_weight,bean_grind: $bean_grind,bean_id: $bean_id}) {
+    comment
+    bean_grind
+    bean_id
+    bean_weight
+    brew_type
+    rating
+    water_amount
+    water_temp
+  }
+}
+`
 /*
   Bean Queries
 */
@@ -119,6 +156,14 @@ query get_all_review_of_bean($_eq: Int!) {
   }
 }
 `;
+
+export const UPDATE_BEAN_REVIEW = `
+mutation update_bean_reviews($id: Int!, $comment: String) {
+  update_bean_reviews_by_pk(pk_columns: {id: $id}, _set: {comment: $comment}) {
+    comment
+  }
+}
+`
 
 export const GET_AVG_REVIEW_OF_BEAN = `
 query get_avg_review_of_bean($id: Int!) {
