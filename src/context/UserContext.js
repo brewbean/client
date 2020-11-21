@@ -133,7 +133,7 @@ const UserProvider = ({ authOnlyPaths, children }) => {
     }));
 
     // remove refresh token cookie
-    await axios.post(AUTH_API + '/logout');
+    await axios.post(AUTH_API + '/logout', { withCredentials: true });
 
     // to support logging out from all windows
     window.localStorage.setItem('logout', Date.now());
