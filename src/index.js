@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from 'App';
 import 'tailwind.generated.css';
 import { UserProvider } from 'context/UserContext';
+import { AlertProvider } from 'context/AlertContext';
 
 /**
  * Any path that only supports being authenticated (ex. /profile/jimmy)
@@ -18,9 +19,11 @@ const authOnlyPaths = [
 ReactDOM.render(
   <StrictMode>
     <Router>
-      <UserProvider authOnlyPaths={authOnlyPaths}>
-        <App />
-      </UserProvider>
+      <AlertProvider>
+        <UserProvider authOnlyPaths={authOnlyPaths}>
+          <App />
+        </UserProvider>
+      </AlertProvider>
     </Router>
   </StrictMode>,
   document.getElementById('root')

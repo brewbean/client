@@ -2,6 +2,7 @@ import { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { AUTH_API, GUEST_TOKEN } from 'config';
+import { useAlert, alertType } from './AlertContext';
 import { SUCCESS, PENDING, FAILED } from 'constants/status';
 import { getTokenFromRefresh } from 'helper/auth';
 
@@ -10,6 +11,7 @@ const INIT_STATE = {
     id: null,
     email: null,
     displayName: null,
+    avatar: null,
   },
   token: GUEST_TOKEN,
   tokenExpiry: null,
@@ -28,6 +30,7 @@ const UserContext = createContext();
 const UserProvider = ({ authOnlyPaths, children }) => {
   const history = useHistory();
   const { pathname } = useLocation();
+  const { addAlert } = useAlert();
 
   const [state, setState] = useState(INIT_STATE);
 
@@ -109,6 +112,7 @@ const UserProvider = ({ authOnlyPaths, children }) => {
           id: data.id,
           email: data.email,
           displayName: data.displayName,
+          avatar: data.avatar,
         }
       })
     } catch ({ response }) {
@@ -117,6 +121,7 @@ const UserProvider = ({ authOnlyPaths, children }) => {
         status: FAILED,
         error: response.data.message
       });
+      addAlert({ type: alertType.ERROR, header: response.data.message, message: 'Please retry logging in' })
     }
   }
 

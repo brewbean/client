@@ -7,16 +7,12 @@ const PourGuidePage = () => {
   const weight = 13;
 
   return (
-    <div className="bg-gray-50 flex-1 flex items-stretch">
-      <div className='max-w-7xl bg-pink w-full mx-auto p-4 sm:px-6 lg:px-8'>
-        <PourPlayer
-          {...data}
-          {...handler}
-          weight={weight}
-          gif={GifPlaceholder}
-        />
-      </div>
-    </div>
+    <PourPlayer
+      {...data}
+      {...handler}
+      weight={weight}
+      gif={GifPlaceholder}
+    />
   )
 }
 
