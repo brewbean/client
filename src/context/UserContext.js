@@ -1,10 +1,10 @@
-import { useState, useContext, useEffect, createContext } from 'react';
+import { useState, useContext, useEffect, useMemo, createContext } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
-import { AUTH_API, GUEST_TOKEN } from 'config';
+import { AUTH_API } from 'config';
 import { useAlert, alertType } from './AlertContext';
 import { SUCCESS, PENDING, FAILED } from 'constants/status';
-import { getTokenFromRefresh } from 'helper/auth';
+import { useQuery } from 'urql';
 
 const INIT_STATE = {
   barista: {
@@ -13,11 +13,9 @@ const INIT_STATE = {
     displayName: null,
     avatar: null,
   },
-  token: GUEST_TOKEN,
+  token: null,
   tokenExpiry: null,
-  status: PENDING,
-  error: null,
-  needRefresh: false,
+  status: SUCCESS,
 };
 
 const UserContext = createContext();
@@ -27,12 +25,33 @@ const UserContext = createContext();
  * causes failed refreshes to go to login page
  * otherwise just continue to guest version of page
  */
-const UserProvider = ({ authOnlyPaths, children }) => {
+const UserProvider = ({ authOnlyPaths, token, setToken, setTokenExpiry, children }) => {
   const history = useHistory();
   const { pathname } = useLocation();
   const { addAlert } = useAlert();
 
   const [state, setState] = useState(INIT_STATE);
+
+  const [result] = useQuery({
+    query: `
+      query {
+       barista { 
+          display_name
+          avatar
+        }
+      }
+    `,
+    pause: token === null,
+    context: useMemo(() => ({
+      fetchOptions: {
+        headers: {
+          "x-hasura-role": "guest"
+        }
+      }
+    }), [])
+  });
+
+  const { data, fetching, error } = result;
 
   useEffect(() => {
     const syncLogout = event => {
@@ -42,60 +61,15 @@ const UserProvider = ({ authOnlyPaths, children }) => {
           exact,
           strict
         }));
-
         console.log('logged out from storage!');
-
-        if (state.barista.email) {
-          setState(INIT_STATE);
-        }
         if (isAuthOnlyPath) {
           history.push('/login');
         }
       }
     }
-    window.addEventListener('storage', syncLogout)
-    if (window.localStorage.getItem('hasLoggedIn') === 'yes') {
-      setState({
-        ...state,
-        status: SUCCESS,
-        needRefresh: true,
-      });
-    } else {
-      setState({ ...state, status: SUCCESS });
-    }
-
+    window.addEventListener('storage', syncLogout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const didAuthError = ({ error }) => {
-    const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
-    if (hasError) {
-      setState({ ...state, needRefresh: hasError });
-    }
-    return hasError;
-  }
-
-  /**
-   * getAuth runs on: 
-   * -> start
-   * -> auth error
-   * 
-   * https://formidable.com/open-source/urql/docs/advanced/authentication/#configuring-getauth-initial-load-fetch-from-storage
-   */
-  const getAuth = async ({ authState }) => {
-    if (state.needRefresh) {
-      const { ok, token, tokenExpiry, barista } = await getTokenFromRefresh();
-
-      if (!ok) {  // failed refreshing
-        await logout();
-      } else {  // got a new refresh
-        setState({ ...state, token, tokenExpiry, barista, needRefresh: false, status: SUCCESS });
-        return { token };
-      }
-    } else {
-      return { token: state.token }
-    }
-  }
+  }, []);
 
   const login = async (email, password) => {
     try {
@@ -103,25 +77,23 @@ const UserProvider = ({ authOnlyPaths, children }) => {
 
       window.localStorage.setItem('hasLoggedIn', 'yes');
 
-      setState({
-        ...state,
-        status: SUCCESS,
-        token: data.token,
-        tokenExpiry: data.tokenExpiry,
-        barista: {
-          id: data.id,
-          email: data.email,
-          displayName: data.displayName,
-          avatar: data.avatar,
-        }
-      })
+      setToken(data.token);
+      setTokenExpiry(data.tokenExpiry);
+      // setState({
+      //   ...state,
+      //   status: SUCCESS,
+      //   token: data.token,
+      //   tokenExpiry: data.tokenExpiry,
+      //   barista: {
+      //     id: data.id,
+      //     email: data.email,
+      //     displayName: data.displayName,
+      //     avatar: data.avatar,
+      //   }
+      // })
     } catch ({ response }) {
-      setState({
-        ...state,
-        status: FAILED,
-        error: response.data.message
-      });
-      addAlert({ type: alertType.ERROR, header: response.data.message, message: 'Please retry logging in' })
+      setState({ ...state, status: FAILED });
+      addAlert({ type: alertType.ERROR, header: response.data.message, message: 'Please retry logging in' });
     }
   }
 
@@ -147,7 +119,7 @@ const UserProvider = ({ authOnlyPaths, children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ ...state, login, logout, getAuth, didAuthError }}>
+    <UserContext.Provider value={{ ...state, fetching, token, error, login, logout }}>
       {children}
     </UserContext.Provider>
   )
@@ -159,9 +131,9 @@ const UserProvider = ({ authOnlyPaths, children }) => {
  */
 const useUser = () => {
   const context = useContext(UserContext);
-  const isSuccess = context.status === SUCCESS;
-  const isPending = context.status === PENDING;
-  const isAuthenticated = context.barista.email !== null && context.barista.email !== undefined && isSuccess;
+  const isSuccess = !context.fetching && !context.error;
+  const isPending = context.fetching;
+  const isAuthenticated = context.token && !context.error && isSuccess;
 
   return {
     ...context,
