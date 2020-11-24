@@ -121,6 +121,14 @@ query get_single_bean($id:Int!){
   }
 }
 `;
+export const GET_SINGLE_BEAN_ID_BY_NAME = `
+query get_single_bean_id($_eq: String!) {
+  bean(where: {name: {_eq: $_eq}}) {
+    name
+    id
+  }
+}
+`
 
 /*
   Review Queries

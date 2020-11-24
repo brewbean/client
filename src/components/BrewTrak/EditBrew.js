@@ -3,7 +3,7 @@ import InputRow from 'components/InputRow';
 import Dropdown from 'components/DropDown';
 import TextArea from 'components/TextArea';
 import { useBrewTrak } from 'components/BrewTrak/useBrewTrak';
-import { GET_SINGLE_RECIPE, UPDATE_RECIPE } from 'queries';
+import { GET_SINGLE_RECIPE, UPDATE_RECIPE, GET_SINGLE_BEAN_ID_BY_NAME } from 'queries';
 import { useQuery, useMutation } from 'urql';
 
 const EditBrew = (props) => {
@@ -17,11 +17,11 @@ const EditBrew = (props) => {
     const [brewComments, setBrewComments] = useState('');
     const recipe_id = props.match.params.id
     const [updateRecipeResult, updateRecipe] = useMutation(UPDATE_RECIPE);
-    
+
     const submitUpdateRecipe = async () => {
         const object = {
             // "barista_id": 6, //temp-id
-            "bean_id": beanType,
+            "bean_id": singleBeanIdData.bean[0].id,
             "brew_type": brewType,
             "bean_weight": beanWeight,
             "bean_grind": beanGrind,
@@ -32,7 +32,6 @@ const EditBrew = (props) => {
             "water_amount": waterAmount
         }
         let result = await updateRecipe({id: recipe_id, ...object});
-        console.log("Result", result);
     }
     const [result, reexecuteQuery] = useQuery({
         query: GET_SINGLE_RECIPE,
@@ -54,7 +53,14 @@ const EditBrew = (props) => {
             setBrewComments(comment)
         }
     },[data, fetching, error]);
-    
+
+    const [getSingleBeanIdResult, reexecuteQueryGetSingleBeanId] = useQuery({
+        query: GET_SINGLE_BEAN_ID_BY_NAME,
+        variables: {_eq: beanType}
+    });
+    const { data: singleBeanIdData, singleBeanIdFetching, singleBeanIdError } = getSingleBeanIdResult;
+    if (singleBeanIdFetching) return <p>Loading...</p>;
+    if (singleBeanIdError) return <p>Oh no... {error.message}</p>;
     return (
         <div>
             <Dropdown value={brewType} onChange={(e) => setBrewType(e.target.value)} options={["Pour Over", "Aeropress", "Siphon", "Moka Pot", "French Press"]} label="brew type" />
