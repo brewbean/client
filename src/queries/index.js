@@ -161,6 +161,7 @@ export const GET_ALL_REVIEW_OF_BEAN = `
 query get_all_review_of_bean($_eq: Int!) {
   bean_reviews_aggregate(where: {bean_id: {_eq: $_eq}}) {
     nodes {
+      id
       barista_id
       bean_id
       rating
@@ -180,7 +181,13 @@ mutation update_bean_reviews($id: Int!, $comment: String) {
   }
 }
 `
-
+export const DELETE_BEAN_REVIEW = `
+mutation delete_bean_reviews($id: Int!) {
+  delete_bean_reviews_by_pk(id: $id) {
+    id
+  }
+}
+`
 export const GET_AVG_REVIEW_OF_BEAN = `
 query get_avg_review_of_bean($id: Int!) {
   bean_reviews_aggregate(where: {bean_id: {_eq: $id}}) {
