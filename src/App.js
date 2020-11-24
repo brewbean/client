@@ -1,4 +1,3 @@
-import { useState, useMemo } from 'react';
 import { Switch, useHistory, useLocation, matchPath } from 'react-router-dom';
 import { createClient, Provider as UrqlProvider, dedupExchange, cacheExchange, fetchExchange, useMutation } from 'urql';
 import { authExchange } from '@urql/exchange-auth';
@@ -28,9 +27,6 @@ const authOnlyPaths = [
 ];
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [tokenExpiry, setTokenExpiry] = useState(null);
-
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -43,22 +39,26 @@ function App() {
       authExchange({
         getAuth: async ({ authState }) => {
           if (!authState) {
-            if (token) {
-              console.log("HERE (1) - token:", token);
-              return { token };
+            console.log('here on "INIT"');
+            const token = localStorage.getItem('token');
+            const tokenExpiry = localStorage.getItem('tokenExpiry');
+            if (token && tokenExpiry) {
+              return { token, tokenExpiry };
             }
             return null;
           }
-
           const { ok, ...data } = await getTokenFromRefresh();
-          console.log("HERE (2) - token:", ok, data);
-          if (ok) {
-            setToken(data.token);
-            setTokenExpiry(data.tokenExpiry);
-            return { token: data.token }
-          }
-          // This is where auth has gone wrong and we need to clean up and redirect to a login page
 
+          if (ok) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('tokenExpiry', data.tokenExpiry);
+            return {
+              token: data.token,
+              refreshToken: data.tokenExpiry,
+            }
+          }
+
+          // This is where auth has gone wrong and we need to clean up and redirect to a login page
           const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
             path,
             exact,
@@ -71,8 +71,6 @@ function App() {
           // to support logging out from all windows
           window.localStorage.setItem('logout', Date.now());
           window.localStorage.clear();
-          setToken(null);
-          setTokenExpiry(null);
 
           if (isAuthOnlyPath) {
             history.replace('/login');
@@ -82,16 +80,14 @@ function App() {
         },
         addAuthToOperation,
         didAuthError: ({ error }) => {
-          const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt' || e.extensions?.code === 'validation-failed');
-          console.log("HERE (3) - error:", error, hasError);
+          const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
+          console.log("HERE (4) - auth error:", error.graphQLErrors, hasError);
           return hasError;
         },
       }),
       fetchExchange,
     ],
   });
-
-  console.log('rerender')
 
   const Test = () => {
     return (
@@ -110,12 +106,7 @@ function App() {
 
   return (
     <UrqlProvider value={client}>
-      <UserProvider
-        token={token}
-        setToken={setToken}
-        setTokenExpiry={setTokenExpiry}
-        authOnlyPaths={authOnlyPaths}
-      >
+      <UserProvider authOnlyPaths={authOnlyPaths}>
         <Switch>
           <ContainerRoute exact path='/'>
             <Test />

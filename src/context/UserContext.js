@@ -25,7 +25,7 @@ const UserContext = createContext();
  * causes failed refreshes to go to login page
  * otherwise just continue to guest version of page
  */
-const UserProvider = ({ authOnlyPaths, token, setToken, setTokenExpiry, children }) => {
+const UserProvider = ({ authOnlyPaths, children }) => {
   const history = useHistory();
   const { pathname } = useLocation();
   const { addAlert } = useAlert();
@@ -36,22 +36,21 @@ const UserProvider = ({ authOnlyPaths, token, setToken, setTokenExpiry, children
     query: `
       query {
        barista { 
+          id
+          email
           display_name
           avatar
+          created_on
         }
       }
     `,
-    pause: token === null,
-    context: useMemo(() => ({
-      fetchOptions: {
-        headers: {
-          "x-hasura-role": "guest"
-        }
-      }
-    }), [])
+    pause: localStorage.getItem('token') === null,
   });
 
   const { data, fetching, error } = result;
+  if (!fetching) {
+    console.log('data ->', data);
+  }
 
   useEffect(() => {
     const syncLogout = event => {
@@ -74,23 +73,10 @@ const UserProvider = ({ authOnlyPaths, token, setToken, setTokenExpiry, children
   const login = async (email, password) => {
     try {
       const { data } = await axios.post(AUTH_API + '/login', { email, password }, { withCredentials: true })
-
-      window.localStorage.setItem('hasLoggedIn', 'yes');
-
-      setToken(data.token);
-      setTokenExpiry(data.tokenExpiry);
-      // setState({
-      //   ...state,
-      //   status: SUCCESS,
-      //   token: data.token,
-      //   tokenExpiry: data.tokenExpiry,
-      //   barista: {
-      //     id: data.id,
-      //     email: data.email,
-      //     displayName: data.displayName,
-      //     avatar: data.avatar,
-      //   }
-      // })
+  
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('tokenExpiry', data.tokenExpiry);
+      history.push('/');
     } catch ({ response }) {
       setState({ ...state, status: FAILED });
       addAlert({ type: alertType.ERROR, header: response.data.message, message: 'Please retry logging in' });
@@ -108,8 +94,8 @@ const UserProvider = ({ authOnlyPaths, token, setToken, setTokenExpiry, children
     await axios.post(AUTH_API + '/logout', { withCredentials: true });
 
     // to support logging out from all windows
-    window.localStorage.setItem('logout', Date.now());
-    window.localStorage.clear();
+    localStorage.setItem('logout', Date.now());
+    localStorage.clear();
 
     if (isAuthOnlyPath) {
       history.replace('/login');
@@ -119,7 +105,7 @@ const UserProvider = ({ authOnlyPaths, token, setToken, setTokenExpiry, children
   }
 
   return (
-    <UserContext.Provider value={{ ...state, fetching, token, error, login, logout }}>
+    <UserContext.Provider value={{ ...state, fetching, error, login, logout }}>
       {children}
     </UserContext.Provider>
   )
@@ -133,7 +119,7 @@ const useUser = () => {
   const context = useContext(UserContext);
   const isSuccess = !context.fetching && !context.error;
   const isPending = context.fetching;
-  const isAuthenticated = context.token && !context.error && isSuccess;
+  const isAuthenticated = !context.error && isSuccess;
 
   return {
     ...context,
