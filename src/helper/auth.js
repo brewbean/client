@@ -1,5 +1,25 @@
 import axios from 'axios';
+import { matchPath } from 'react-router-dom';
 import { AUTH_API } from 'config';
+
+export const logout = async (authOnlyPaths, history, pathname) => {
+  const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
+    path,
+    exact,
+    strict
+  }));
+
+  // remove refresh token cookie
+  await axios.post(AUTH_API + '/logout', { withCredentials: true });
+
+  // to support logging out from all windows
+  localStorage.setItem('logout', Date.now());
+  localStorage.clear();
+
+  if (isAuthOnlyPath) {
+    history.replace('/login');
+  }
+}
 
 export const getTokenFromRefresh = async () => {
   try {
@@ -51,6 +71,11 @@ export const addAuthToOperation = ({
       },
     },
   };
+}
+
+export const didAuthError = ({ error }) => {
+  const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
+  return hasError;
 }
 
 // {
