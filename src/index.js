@@ -12,9 +12,7 @@ ReactDOM.render(
   <StrictMode>
     <Router>
       <AlertProvider>
-
         <App />
-
       </AlertProvider>
     </Router>
   </StrictMode>,

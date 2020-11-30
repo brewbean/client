@@ -1,21 +1,14 @@
-import { Switch, useHistory, useLocation, matchPath } from 'react-router-dom';
-import { createClient, Provider as UrqlProvider, dedupExchange, cacheExchange, fetchExchange, useMutation } from 'urql';
+import { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { createClient, Provider as UrqlProvider, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 import { authExchange } from '@urql/exchange-auth';
 import { devtoolsExchange } from '@urql/devtools';
-import axios from 'axios';
 
-import { GRAPHQL_API, AUTH_API } from 'config'
-import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation';
+import { GRAPHQL_API } from 'config'
 import { UserProvider } from 'context/UserContext';
-import { addAuthToOperation, getTokenFromRefresh } from 'helper/auth';
+import { addAuthToOperation, didAuthError, getTokenFromRefresh, logout } from 'helper/auth';
 
-import { NotFound } from 'components/Utility';
-import PourGuide from 'pages/PourGuide';
-import BrewTrakPage from 'pages/BrewTrak';
-import DiscoverBeanPage from 'pages/DiscoverBean';
-import Recipe from 'pages/Recipe';
-import Login from 'pages/Login';
-import CreateAccount from 'pages/CreateAccount';
+import Routes from './Routes';
 
 /**
  * Any path that only supports being authenticated (ex. /profile/jimmy)
@@ -29,6 +22,19 @@ const authOnlyPaths = [
 function App() {
   const history = useHistory();
   const { pathname } = useLocation();
+  const [token, setToken] = useState(null);
+  const [tokenExpiry, setTokenExpiry] = useState(null);
+
+  // auto login if user has a refreshToken
+  useEffect(() => {
+    const initialize = async () => {
+      if (localStorage.getItem('hasLoggedIn') === 'yes') {
+        const { ok, ...data } = await getTokenFromRefresh();
+        if (ok) setToken(data.token);
+      }
+    }
+    initialize();
+  }, [])
 
   const client = createClient({
     url: GRAPHQL_API,
@@ -39,122 +45,55 @@ function App() {
       authExchange({
         getAuth: async ({ authState }) => {
           if (!authState) {
-            console.log('here on "INIT"');
-            const token = localStorage.getItem('token');
-            const tokenExpiry = localStorage.getItem('tokenExpiry');
-            if (token && tokenExpiry) {
-              return { token, tokenExpiry };
+            if (token) {
+              console.log("HERE (1) - token:", token.slice(-6));
+              return { token };
             }
+            console.log('INITIALIZED')
             return null;
           }
           const { ok, ...data } = await getTokenFromRefresh();
 
           if (ok) {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('tokenExpiry', data.tokenExpiry);
+            setToken(data.token);
+            setTokenExpiry(data.tokenExpiry);
             return {
               token: data.token,
-              refreshToken: data.tokenExpiry,
+              tokenExpiry: data.tokenExpiry
             }
           }
 
           // This is where auth has gone wrong and we need to clean up and redirect to a login page
-          const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
-            path,
-            exact,
-            strict
-          }));
-
-          // remove refresh token cookie
-          await axios.post(AUTH_API + '/logout', { withCredentials: true });
-
-          // to support logging out from all windows
-          window.localStorage.setItem('logout', Date.now());
-          window.localStorage.clear();
-
-          if (isAuthOnlyPath) {
-            history.replace('/login');
-          }
+          //  LOGOUT STUFF
+          setToken(null);
+          setTokenExpiry(null);
+          await logout(authOnlyPaths, history, pathname);
 
           return null;
         },
-        addAuthToOperation,
-        didAuthError: ({ error }) => {
-          const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
-          console.log("HERE (4) - auth error:", error.graphQLErrors, hasError);
-          return hasError;
+        willAuthError: () => {
+          if (tokenExpiry) {
+            return new Date().getTime() >= new Date(tokenExpiry).getTime();
+          }
+          return false;
         },
+        addAuthToOperation,
+        didAuthError,
       }),
       fetchExchange,
     ],
   });
 
-  const Test = () => {
-    return (
-      <div className='bg-gray-200'>
-        Test page
-      </div>
-    )
-  }
-  const PathTest = () => {
-    return (
-      <div className='bg-gray-200'>
-        Path Test
-      </div>
-    )
-  }
 
   return (
     <UrqlProvider value={client}>
-      <UserProvider authOnlyPaths={authOnlyPaths}>
-        <Switch>
-          <ContainerRoute exact path='/'>
-            <Test />
-          </ContainerRoute>
-          <RedirectRoute
-            path='/login'
-            ifCond='auth'
-            goTo='/'
-            header={false}
-            flexCol={false}
-            paddedContent={false}
-            alert={false}
-          >
-            <Login />
-          </RedirectRoute>
-          <RedirectRoute
-            path='/create-account'
-            ifCond='auth'
-            goTo='/'
-            header={false}
-            flexCol={false}
-            paddedContent={false}
-            alert={false}
-          >
-            <CreateAccount />
-          </RedirectRoute>
-          <AuthRoute path='/test/:id'>
-            <Test />
-          </AuthRoute>
-          <ContainerRoute path='/hi/:id/name/:slug'>
-            <PathTest />
-          </ContainerRoute>
-          <ContainerRoute path='/pour-app'>
-            <PourGuide />
-          </ContainerRoute>
-          <ContainerRoute path='/recipe'>
-            <Recipe />
-          </ContainerRoute>
-          <ContainerRoute path='/brewtrak'>
-            <BrewTrakPage />
-          </ContainerRoute>
-          <ContainerRoute path='/discover/bean'>
-            <DiscoverBeanPage />
-          </ContainerRoute>
-          <ContainerRoute path='*'>
-            <NotFound />
-          </ContainerRoute>
-        </Switch>
+      <UserProvider
+        authOnlyPaths={authOnlyPaths}
+        setToken={setToken}
+        setTokenExpiry={setTokenExpiry}
+        token={token}
+      >
+        <Routes />
       </UserProvider>
     </UrqlProvider>
   );
