@@ -38,7 +38,7 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
   return isAuthenticated ? (
     <div className="hidden sm:ml-6 sm:flex sm:items-center">
       <div>
-        <p className="text-sm tracking-wider font-medium text-gray-800">{barista.displayName}</p>
+        <p className="text-sm tracking-wider font-medium text-gray-800">{barista.display_name}</p>
       </div>
       <div className="ml-3 relative">
         <div>
