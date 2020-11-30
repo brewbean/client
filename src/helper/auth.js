@@ -2,7 +2,7 @@ import axios from 'axios';
 import { matchPath } from 'react-router-dom';
 import { AUTH_API } from 'config';
 
-export const logout = async (authOnlyPaths, history, pathname) => {
+export const logout = async (authOnlyPaths, history, pathname, setToken, setTokenExpiry, setIsLoggedIn) => {
   const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
     path,
     exact,
@@ -19,6 +19,10 @@ export const logout = async (authOnlyPaths, history, pathname) => {
   if (isAuthOnlyPath) {
     history.replace('/login');
   }
+
+  setToken(null);
+  setTokenExpiry(null);
+  setIsLoggedIn(false); // must be last after clearing tokens and everything
 }
 
 export const getTokenFromRefresh = async () => {
@@ -39,7 +43,7 @@ export const getTokenFromRefresh = async () => {
     }
     return { ok: false };
   } catch (err) {
-    console.error(err);
+    console.log('ERROR GETTING REFRESH TOKEN:', err);
     return { ok: false };
   }
 }

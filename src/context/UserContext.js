@@ -1,6 +1,6 @@
-import { useState, useMemo, useContext, useEffect, createContext } from 'react';
+import { useState, useContext, useEffect, createContext } from 'react';
 import axios from 'axios';
-import { useHistory, useLocation, matchPath } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { AUTH_API } from 'config';
 import { useAlert, alertType } from './AlertContext';
 import { useClient } from 'urql';
@@ -16,7 +16,7 @@ const UserContext = createContext();
  * causes failed refreshes to go to login page
  * otherwise just continue to guest version of page
  */
-const UserProvider = ({ setToken, setTokenExpiry, token, authOnlyPaths, children }) => {
+const UserProvider = ({ setToken, setTokenExpiry, setIsLoggedIn, token, isLoggedIn, authOnlyPaths, children }) => {
   const client = useClient();
   const history = useHistory();
   const { pathname } = useLocation();
@@ -26,45 +26,36 @@ const UserProvider = ({ setToken, setTokenExpiry, token, authOnlyPaths, children
   const [status, setStatus] = useState(localStorage.getItem('hasLoggedIn') === 'yes' ? PENDING : SUCCESS);
 
   useEffect(() => {
-    const getBarista = async () => {
-      try {
-        const { data, error } = await client.query(GET_BARISTA).toPromise();
-        const barista = data.barista[0];
-
-        if (error) {
-          addAlert({ type: alertType.ERROR, header: error.name, message: error.message });
-          setStatus(FAILED);
-        } else {
-          setBarista(barista);
-          setStatus(SUCCESS);
-        }
-      } catch (e) {
-        addAlert({ type: alertType.ERROR, header: 'Error fetching user info', message: e });
-      }
-    }
-    if (token) {
-      getBarista();
-    }
-  }, [token])
-
-
-  useEffect(() => {
-    const syncLogout = event => {
+    const syncLogout = async (event) => {
       if (event.key === 'logout') {
-        const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
-          path,
-          exact,
-          strict
-        }));
-        console.log('logged out from storage!');
-        if (isAuthOnlyPath) {
-          history.push('/login');
-        }
+        await _logout();
       }
     }
     window.addEventListener('storage', syncLogout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const getBarista = async () => {
+      if (isLoggedIn) {
+        try {
+          const { data, error } = await client.query(GET_BARISTA).toPromise();
+          const barista = data.barista[0];
+
+          if (error) {
+            addAlert({ type: alertType.ERROR, header: error.name, message: error.message });
+            setStatus(FAILED);
+          } else {
+            setBarista(barista);
+            setStatus(SUCCESS);
+          }
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+    }
+    getBarista();
+  }, [isLoggedIn, addAlert, client, token]);
 
   const login = async (email, password) => {
     try {
@@ -81,9 +72,7 @@ const UserProvider = ({ setToken, setTokenExpiry, token, authOnlyPaths, children
   }
 
   const _logout = async () => {
-    await logout(authOnlyPaths, history, pathname);
-    setToken(null);
-    setTokenExpiry(null);
+    await logout(authOnlyPaths, history, pathname, setToken, setTokenExpiry, setIsLoggedIn);
   }
 
   return (

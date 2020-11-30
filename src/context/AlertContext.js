@@ -10,7 +10,7 @@ const AlertProvider = ({ children }) => {
 
   useEffect(() => {
     setAlerts([]);
-  }, [location])
+  }, [location]);
 
   // destructured for clarity - can remove if we implement TypeScript types/interfaces
   const addAlert = ({ type, header, message, close }) => setAlerts([...alerts, { type, header, message, close }]);
