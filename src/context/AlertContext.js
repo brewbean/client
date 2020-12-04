@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useEffect } from 'react';
+import { useContext, createContext, useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import * as alertType from 'constants/alert';
 
@@ -13,7 +13,16 @@ const AlertProvider = ({ children }) => {
   }, [location]);
 
   // destructured for clarity - can remove if we implement TypeScript types/interfaces
-  const addAlert = ({ type, header, message, close }) => setAlerts([...alerts, { type, header, message, close }]);
+  const addAlert = useCallback(alert => setAlerts(prevAlerts => [
+    ...prevAlerts,
+    {
+      type: alert.type,
+      header: alert.header,
+      message: alert.message,
+      close: alert.close,
+    }
+  ]), []);
+
   const addAlertBulk = bulk => setAlerts([...alerts, ...bulk]);
 
   const closeAlert = (index = 0) => setAlerts([
