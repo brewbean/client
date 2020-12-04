@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { Transition } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import { useUser } from 'context/UserContext';
+import { useAuth } from 'context/AuthContext';
 import PlaceholderAvatar from './PlaceholderAvatar';
 
 const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
   const dropdownRef = useRef(null);
   const avatarRef = useRef(null);
 
-  const { isAuthenticated, isPending, needRefresh, barista } = useUser();
+  const { isAuthenticated, isFetching, barista, logout } = useAuth();
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -28,17 +28,19 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
   }, [dropdownRef, avatarRef, isDropdownOpen, setDropdownOpen]);
 
   // pending pulsing image
-  if (isPending || needRefresh) return (
-    <div className="hidden sm:animate-pulse sm:ml-6 sm:flex sm:items-center">
-      <div className="w-20 h-3 rounded bg-blue-300"></div>
-      <div className="ml-3 rounded-full bg-blue-300 h-8 w-8"></div>
-    </div>
-  );
+  if (isFetching) {
+    return (
+      <div className="hidden sm:animate-pulse sm:ml-6 sm:flex sm:items-center">
+        <div className="w-20 h-3 rounded bg-blue-300"></div>
+        <div className="ml-3 rounded-full bg-blue-300 h-8 w-8"></div>
+      </div>
+    );
+  }
 
   return isAuthenticated ? (
     <div className="hidden sm:ml-6 sm:flex sm:items-center">
       <div>
-        <p className="text-sm tracking-wider font-medium text-gray-800">{barista.displayName}</p>
+        <p className="text-sm tracking-wider font-medium text-gray-800">{barista.display_name}</p>
       </div>
       <div className="ml-3 relative">
         <div>
@@ -63,7 +65,7 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
           <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" ref={dropdownRef}>
             <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
               {links.map(({ to, text }) => <Link key={to} to={to} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">{text}</Link>)}
-              <button onClick={() => console.log('signout')} className="w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">log out</button>
+              <button onClick={logout} className="w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">log out</button>
             </div>
           </div>
         </Transition>

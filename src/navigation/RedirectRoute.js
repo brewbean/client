@@ -1,9 +1,9 @@
 import { Redirect } from 'react-router-dom';
-import { useUser } from 'context/UserContext';
+import { useAuth } from 'context/AuthContext';
 import ContainerRoute from './ContainerRoute';
 
 const RedirectRoute = ({ children, ifCond, goTo, ...rest }) => {
-  let { isAuthenticated } = useUser();
+  let { isAuthenticated } = useAuth();
   let check;
   if (ifCond === 'auth') {
     check = isAuthenticated;
