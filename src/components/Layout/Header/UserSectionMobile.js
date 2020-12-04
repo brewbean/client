@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useUser } from 'context/UserContext';
+import { useAuth } from 'context/AuthContext';
 import PlaceholderAvatar from './PlaceholderAvatar';
 
 const UserSectionMobile = ({ links }) => {
-  const { isAuthenticated, barista } = useUser();
+  const { isAuthenticated, barista } = useAuth();
 
   return isAuthenticated ? (
     <>

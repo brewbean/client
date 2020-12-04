@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useQuery } from 'urql';
 import { GET_SINGLE_BEAN } from 'queries';
 import InputRow from 'components/InputRow';
-import { useUser } from 'context/UserContext';
+import { useAuth } from 'context/AuthContext';
 import useBeanReview from './useBeanReview';
 
 const CreateReview = (props) => {
@@ -10,7 +10,7 @@ const CreateReview = (props) => {
   let { rating, comment } = beanReviewData;
   let { setBean, setRating, setComment, submitReview } = methods;
   const bean_id = props.match.params.id
-  const { barista } = useUser();
+  const { barista } = useAuth();
 
   const [result, reexecuteQuery] = useQuery({
     query: GET_SINGLE_BEAN,

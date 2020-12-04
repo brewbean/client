@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useUser } from 'context/UserContext';
+import { useAuth } from 'context/AuthContext';
 import { useAlert } from 'context/AlertContext';
 import coffeeCover from './espresso_cover.jpg';
 import Alert from 'components/Alert';
 
 const Login = (props) => {
-  const { login } = useUser();
+  const { login } = useAuth();
   const { closeAlert, hasAlert } = useAlert();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
