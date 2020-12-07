@@ -17,6 +17,7 @@ const initialState = {
   tokenExpiry: null,
   barista: null,
   hasInit: false,
+  isIntroModalOpen: false,
   isLoggedIn: false,
   isFetching: localStorage.getItem('hasLoggedIn') === 'yes',
 }
@@ -35,6 +36,8 @@ function reducer(state, [type, payload]) {
       }
     case 'login':
       return { ...state, isLoggedIn: true }
+    case 'setIsIntroModalOpen':
+      return { ...state, isIntroModalOpen: payload }
     case 'finishInitBarista':
       return { ...state, hasInit: true }
     case 'logout':
@@ -125,6 +128,22 @@ function AuthProvider({ authOnlyPaths, children }) {
     }
   }
 
+  const signup = async ({ email, displayName, password }) => {
+    try {
+      const { data: { token, tokenExpiry } } = await axios.post(AUTH_API + '/signup', { email, displayName, password }, { withCredentials: true })
+      dispatch(['setJWT', { token, tokenExpiry }]);
+      dispatch(['login']);
+      dispatch(['setIsIntroModalOpen', true]);
+      window.localStorage.setItem('hasLoggedIn', 'yes');
+    } catch (err) {
+      if (!err.response && err.message === 'Network Error') {
+        addAlert({ type: alertType.ERROR, header: err.message, message: 'Our servers or your internet may be down at this time.' });
+      } else {
+        addAlert({ type: alertType.ERROR, header: err.response.data.message, message: 'Please try again.' });
+      }
+    }
+  }
+
   // --- URQL SETUP ---
   const getAuth = async ({ authState }) => {
     if (!authState) {
@@ -169,8 +188,10 @@ function AuthProvider({ authOnlyPaths, children }) {
     return null;
   }
 
+  const closeIntroModal = () => dispatch(['setIsIntroModalOpen', false]);
+
   return (
-    <AuthContext.Provider value={{ ...state, login, logout: _logout }}>
+    <AuthContext.Provider value={{ ...state, login, signup, closeIntroModal, logout: _logout }}>
       <UrqlProvider value={client}>
         {children}
       </UrqlProvider>
