@@ -6,13 +6,13 @@ import { Eye, EyeOff } from 'components/Icon';
 
 const showAlerts = ({ type, text }) => <FormAlert key={text} type={type} text={text} />;
 
-export default function Form({ submitLogin, alerts, email, displayName, password, onChange }) {
+export default function Form({ submitSignup, alerts, email, displayName, password, onChange }) {
   const { hasAlert } = useAlert(); // global app alerts not password form alerts
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
   return (
-    <form className="space-y-2" onSubmit={submitLogin}>
+    <form className="space-y-2" onSubmit={submitSignup}>
       <div>
         <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">Email address</label>
         <div className="mt-2 rounded-md shadow-sm">

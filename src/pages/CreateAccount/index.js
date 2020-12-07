@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from 'context/AuthContext';
 import { useAlert } from 'context/AlertContext';
 import Alert from 'components/Alert';
 import { validatePassword, passwordRequirements } from 'helper/form';
 
 import coffeeCover from './coffee_cover.jpg';
-import SuccessModal from './SuccessModal';
 import Form from './Form';
 
 const CreateAccount = () => {
+  const { signup } = useAuth();
   const { closeAlert, hasAlert } = useAlert();
-  const [hasCompleted, setCompleted] = useState(false);
   const [passwordAlerts, setPasswordAlerts] = useState(passwordRequirements);
   const [state, setState] = useState({
     email: '',
@@ -29,16 +29,10 @@ const CreateAccount = () => {
     });
   }
 
-  const submitLogin = async e => {
+  const submitSignup = async e => {
     e.preventDefault();
-    // await login(email, password);
+    await signup(state);
     console.log('submit');
-    setState({
-      email: '',
-      displayName: '',
-      password: '',
-    });
-    setCompleted(true);
   }
 
   const alerts = Object.values(passwordAlerts).filter(({ isActive }) => isActive);
@@ -57,11 +51,11 @@ const CreateAccount = () => {
           <Alert containerStyle='mt-6' />
 
           <div className="mt-6">
-            <Form 
+            <Form
               {...state}
               alerts={alerts}
               onChange={onChange}
-              submitLogin={submitLogin}
+              submitSignup={submitSignup}
             />
           </div>
         </div>
@@ -70,8 +64,6 @@ const CreateAccount = () => {
       <div className="hidden lg:block relative w-0 flex-1">
         <img className="absolute inset-0 h-full w-full object-cover" src={coffeeCover} alt="espresso" />
       </div>
-
-      <SuccessModal isOpen={hasCompleted} />
     </>
   )
 }
