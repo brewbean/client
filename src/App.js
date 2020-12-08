@@ -2,6 +2,7 @@ import { Switch } from 'react-router-dom';
 import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation';
 
 import { NotFound } from 'components/Utility';
+import { NewUserModal } from 'components/Modal';
 import PourGuide from 'pages/PourGuide';
 import BrewTrakPage from 'pages/BrewTrak';
 import DiscoverBeanPage from 'pages/DiscoverBean';
@@ -29,6 +30,7 @@ function App() {
     <Switch>
       <ContainerRoute exact path='/'>
         <Test />
+        <NewUserModal />
       </ContainerRoute>
       <RedirectRoute
         path='/login'
