@@ -36,10 +36,7 @@ function App() {
         path='/login'
         ifCond='auth'
         goTo='/'
-        header={false}
-        flexCol={false}
-        paddedContent={false}
-        alert={false}
+        noLayout
       >
         <Login />
       </RedirectRoute>
@@ -47,10 +44,7 @@ function App() {
         path='/create-account'
         ifCond='auth'
         goTo='/'
-        header={false}
-        flexCol={false}
-        paddedContent={false}
-        alert={false}
+        noLayout
       >
         <CreateAccount />
       </RedirectRoute>
