@@ -1,5 +1,33 @@
 import axios from 'axios';
+import { matchPath } from 'react-router-dom';
 import { AUTH_API } from 'config';
+
+export const logout = async (authOnlyPaths, history, pathname, dispatch) => {
+  const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) => matchPath(pathname, {
+    path,
+    exact,
+    strict
+  }));
+
+  // remove refresh token cookie
+  await axios.post(AUTH_API + '/logout', { withCredentials: true });
+
+  // This is to support logging out from all windows
+  // if 'hasLoggedIn' has a value then this means they haven't
+  // cleared the localStorage and triggered all logouts yet
+  // Conditional check to prevent bouncing logouts off tabs
+  if (localStorage.getItem('hasLoggedIn')) {
+    localStorage.setItem('logout', Date.now());
+    localStorage.clear();
+  }
+
+  if (isAuthOnlyPath) {
+    history.replace('/login');
+  }
+
+  dispatch(['logout']);
+  console.log('%cLogged out!', 'color:purple');
+}
 
 export const getTokenFromRefresh = async () => {
   try {
@@ -9,23 +37,16 @@ export const getTokenFromRefresh = async () => {
         ok: true,
         token: data.token,
         tokenExpiry: data.tokenExpiry,
-        barista: {
-          id: data.id,
-          email: data.email,
-          displayName: data.displayName,
-          avatar: data.avatar,
-        },
       }
     }
     return { ok: false };
   } catch (err) {
-    console.error(err);
     return { ok: false };
   }
 }
 
 /**
- * authExchange options that doesn't require knowledge of userContext
+ * authExchange options that doesn't require knowledge of AuthContext
  */
 export const addAuthToOperation = ({
   authState,
@@ -52,6 +73,13 @@ export const addAuthToOperation = ({
     },
   };
 }
+
+export const didAuthError = ({ error }) => {
+  const hasError = error.graphQLErrors.some(e => e.extensions?.code === 'invalid-jwt');
+  return hasError;
+}
+
+export const willAuthError = ({ authState }) => !authState || new Date().getTime() >= new Date(authState.tokenExpiry).getTime();
 
 // {
 //   "errors": [

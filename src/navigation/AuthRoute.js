@@ -1,14 +1,14 @@
 import ContainerRoute from './ContainerRoute';
-import { useUser } from 'context/UserContext';
+import { useAuth } from 'context/AuthContext';
 import { Loading, Unauthorized } from 'components/Utility';
 
 const AuthRoute = ({ children, ...rest }) => {
-  let { isPending, isAuthenticated, needRefresh } = useUser();
+  let { isFetching, isAuthenticated } = useAuth();
   
   return (
     <ContainerRoute {...rest}>
       {
-        needRefresh || isPending
+        isFetching
           ? <Loading />
           : isAuthenticated
             ? children

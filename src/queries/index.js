@@ -201,3 +201,15 @@ query get_avg_review_of_bean($id: Int!) {
   }
 }
 `;
+
+export const GET_BARISTA = `
+  query {
+    barista { 
+      id
+      email
+      display_name
+      avatar
+      created_on
+    }
+  }
+`
