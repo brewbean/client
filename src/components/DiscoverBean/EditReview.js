@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from 'urql';
 import { GET_SINGLE_BEAN, GET_SINGLE_REVIEW, UPDATE_BEAN_REVIEW } from 'queries';
 import InputRow from 'components/InputRow';
-import { useUser } from 'context/UserContext';
+import { useAuth } from 'context/AuthContext';
 import useBeanReview from './useBeanReview';
 
 const EditReview = (props) => {
   const review_id = props.match.params.id
-  const { barista } = useUser();
+  const { barista } = useAuth();
   const [bean_id, setBeanId] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [name, setName] = useState('');
