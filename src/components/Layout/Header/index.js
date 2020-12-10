@@ -50,7 +50,7 @@ const Header = () => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link to='/' className="ml-2 text-lg font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></Link>
+              <Link to='/' className="text-lg font-extrabold tracking-widest text-blue-500">brew<span className='text-pink-400'>(</span>bean<span className='text-pink-400'>)</span></Link>
             </div>
             <div className="hidden sm:-my-px sm:ml-6 sm:flex">
               {
