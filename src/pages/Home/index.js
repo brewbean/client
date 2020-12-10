@@ -74,10 +74,10 @@ export default function Home() {
               </div>
               <div className="mt-5">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  Competitive rates
+                  Roasters from everywhere
                 </dt>
                 <dd className="mt-2 text-base text-gray-500">
-                  Consequuntur omnis dicta cumque, inventore atque ab dolores aspernatur tempora ab doloremque.
+                  Discover hidden gems in roasters and beans that would be hard to find in your local stores.
                 </dd>
               </div>
             </div>
@@ -90,10 +90,10 @@ export default function Home() {
               </div>
               <div className="mt-5">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  No hidden fees
+                  Community approved
                 </dt>
                 <dd className="mt-2 text-base text-gray-500">
-                  Corporis quisquam nostrum nulla veniam recusandae temporibus aperiam officia incidunt at distinctio ratione.
+                  Get the collective opinion of people everywhere on recipes or beans to try.
                 </dd>
               </div>
             </div>
@@ -101,15 +101,15 @@ export default function Home() {
             <div>
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-pink-500 text-white">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clipRule="evenodd" />
                 </svg>
               </div>
               <div className="mt-5">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  Instant transfers
+                  Interactive recipes
                 </dt>
                 <dd className="mt-2 text-base text-gray-500">
-                  Omnis, illo delectus? Libero, possimus nulla nemo tenetur adipisci repellat dolore eligendi velit doloribus mollitia.
+                  With our recipe player, you can easily try any recipe you or the community created.
                 </dd>
               </div>
             </div>
@@ -122,10 +122,10 @@ export default function Home() {
               </div>
               <div className="mt-5">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  Reminder emails
+                  Creative coffee
                 </dt>
                 <dd className="mt-2 text-base text-gray-500">
-                  Veniam necessitatibus reiciendis fugit explicabo dolorem nihil et omnis assumenda odit? Quisquam unde accusantium.
+                  Keep track of great ideas by saving interesting recipes you've created or come across.
                 </dd>
               </div>
             </div>
