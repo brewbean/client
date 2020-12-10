@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import CoffeeCover from './hero_beans.jpg';
 import Beans from './beans.jpg';
+import PourOver from './pour_over.jpg';
+import Scale from './scale.jpg';
 
 export default function Home() {
   const [search, setSearch] = useState('');
@@ -15,10 +18,8 @@ export default function Home() {
   }
 
   return (
-    <div className='grid grid-cols-2 gap-4'>
-
-
-      <div className='col-span-2 h-screen-3/4 bg-cover px-8 py-6 flex flex-col items-center justify-center' style={{ backgroundImage: `url(${CoffeeCover})` }}>
+    <>
+      <div className='h-screen-3/4 bg-cover px-8 py-6 flex flex-col items-center justify-center' style={{ backgroundImage: `url(${CoffeeCover})` }}>
 
 
         <div>
@@ -38,29 +39,28 @@ export default function Home() {
           </button>
         </form>
 
-
-
-
       </div>
 
 
 
+      <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-4 grid sm:grid-cols-3 gap-4'>
 
+        <Link to='/beans' className='flex flex-col'>
+          <img className="h-64 object-cover sm:rounded-lg" src={Beans} alt="beans" />
+          <h2 className='mt-2 text-gray-700 text-md font-medium'>Bean Reviews</h2>
+        </Link>
 
-      <div className='h-64 relative'>
-        <div className='z-10 px-8 py-6 absolute inset-0 h-full w-full flex flex-col justify-between'>
-        </div>
-        <img className="z-0 absolute inset-0 h-full w-full object-cover sm:rounded-lg" src={Beans} alt="beans" />
+        <Link to='/recipes' className='flex flex-col'>
+          <img className="h-64 object-cover sm:rounded-lg" src={PourOver} alt="pour over" />
+          <h2 className='mt-2 text-gray-700 text-md font-medium'>Recipes</h2>
+        </Link>
+
+        <Link to='/pour-app' className='flex flex-col'>
+          <img className="h-64 object-cover sm:rounded-lg" src={Scale} alt="scale" />
+          <h2 className='mt-2 text-gray-700 text-md font-medium'>Recipe Player</h2>
+        </Link>
+
       </div>
-
-
-
-
-      <div className='px-4 py-8 h-64 sm:rounded-lg sm:px-10 bg-blue-200'>
-
-      </div>
-
-
-    </div>
+    </>
   )
 }
