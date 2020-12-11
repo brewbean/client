@@ -30,6 +30,7 @@ query get_recipes {
     private
     date_added 
     bean {
+      id
       img
       name
     }
@@ -60,8 +61,8 @@ query get_single_recipe($id:Int!) {
 `;
 
 export const UPDATE_RECIPE = `
-mutation update_recipe($id: Int!,$water_temp: Int, $water_amount: Int, $rating: jsonb, $comment: String, $brew_type: String, $bean_weight: Int, $bean_id: Int, $bean_grind: String) {
-  update_recipe_by_pk(pk_columns: {id: $id}, _set: {water_temp: $water_temp,water_amount: $water_amount,rating: $rating,comment: $comment,brew_type: $brew_type,bean_weight: $bean_weight,bean_grind: $bean_grind,bean_id: $bean_id}) {
+mutation update_recipe($id: Int!, $object: recipe_set_input) {
+  update_recipe_by_pk(pk_columns: {id: $id}, _set: $object) {
     comment
     bean_grind
     bean_id
