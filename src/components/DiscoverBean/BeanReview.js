@@ -4,7 +4,7 @@ import { GET_ALL_REVIEW_OF_BEAN } from '../../queries'
 const BeanReview = (props) => {
   let { bean_id } = props;
   
-  const [result, reexecuteQuery] = useQuery({
+  const [result] = useQuery({
     query: GET_ALL_REVIEW_OF_BEAN,
     variables: { _eq: bean_id }
   });

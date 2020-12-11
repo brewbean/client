@@ -20,7 +20,7 @@ export const useBrewTrak = () => {
     const [rating, setRating] = useState('1');
     const [brewComments, setBrewComments] = useState('');
     const [brewSelected, setBrewSelect] = useState(false);
-    const [insertRecipeResult, insertRecipe] = useMutation(INSERT_RECIPE_ONE);
+    const [, insertRecipe] = useMutation(INSERT_RECIPE_ONE);
 
     // ratio state (how to implement best way) (Water Amount / beanWeight = ratio) 
     // but how to make both inputs respond when other is inputted?

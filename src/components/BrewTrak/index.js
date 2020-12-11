@@ -10,7 +10,7 @@ import useBrewTrak from './useBrewTrak';
 const BrewTrak = () => {
   const { data, methods } = useBrewTrak();
   const { url } = useRouteMatch();
-  const [result, reexecuteQuery] = useQuery({
+  const [result] = useQuery({
     query: GET_ALL_RECIPE,
   });
   const { data: logs, fetching, error } = result;

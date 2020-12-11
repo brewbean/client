@@ -12,7 +12,7 @@ const CreateReview = (props) => {
   const bean_id = props.match.params.id
   const { barista } = useAuth();
 
-  const [result, reexecuteQuery] = useQuery({
+  const [result] = useQuery({
     query: GET_SINGLE_BEAN,
     variables: { id: bean_id }
   });

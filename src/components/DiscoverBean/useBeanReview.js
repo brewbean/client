@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; 
+import { useState } from 'react'; 
 import { useMutation } from 'urql';
 import { INSERT_REVIEW_ONE } from 'queries';
 import { useAuth } from 'context/AuthContext'
@@ -7,7 +7,7 @@ export const useBeanReview = () => {
     const [bean, setBean] = useState('');
     const [rating, setRating] = useState('5.0');
     const [comment, setComment] = useState('');
-    const [insertReviewResult, insertReview] = useMutation(INSERT_REVIEW_ONE);
+    const [, insertReview] = useMutation(INSERT_REVIEW_ONE);
     const { barista } = useAuth();
 
     const submitReview = async () => {

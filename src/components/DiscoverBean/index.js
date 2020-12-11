@@ -7,7 +7,7 @@ import { useQuery } from 'urql';
 const DiscoverBean  = () => {
     let beanDetail = sampleDetails;
     const { methods } = useDiscoverBean();
-    const [result, reexecuteQuery] = useQuery({
+    const [result] = useQuery({
         query: GET_ALL_BEANS,
       });
     const { data, fetching, error } = result;
