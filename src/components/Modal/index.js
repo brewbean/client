@@ -1,3 +1,3 @@
-import NewUserModal from './NewUserModal';
+import NewUserModal from './NewUserModal'
 
 export { NewUserModal }

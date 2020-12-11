@@ -13,7 +13,7 @@ mutation insert_recipe_one($object: recipe_insert_input!) {
     barista_id
   }
 }
-`;
+`
 export const GET_ALL_RECIPE = `
 query get_recipes {
   recipe (order_by: { id: desc }) {
@@ -35,7 +35,7 @@ query get_recipes {
     }
   }
 }
-`;
+`
 /*
   Bean Queries
 */
@@ -56,7 +56,7 @@ query get_beans {
     rating
   }
 }
-`;
+`
 
 export const GET_SINGLE_BEAN = `
 query get_single_bean($id:Int!){
@@ -75,7 +75,7 @@ query get_single_bean($id:Int!){
     rating
   }
 }
-`;
+`
 
 /*
   Review Queries
@@ -90,7 +90,7 @@ mutation insert_bean_reviews_one($object: bean_reviews_insert_input!) {
     comment
   }
 }
-`;
+`
 
 export const GET_SINGLE_REVIEW = `
 query get_single_review($id:Int!){
@@ -102,7 +102,7 @@ query get_single_review($id:Int!){
     comment
   }
 }
-`;
+`
 
 export const GET_ALL_REVIEW_OF_BEAN = `
 query get_all_review_of_bean($_eq: Int!) {
@@ -118,7 +118,7 @@ query get_all_review_of_bean($_eq: Int!) {
     }
   }
 }
-`;
+`
 
 export const GET_AVG_REVIEW_OF_BEAN = `
 query get_avg_review_of_bean($id: Int!) {
@@ -130,7 +130,7 @@ query get_avg_review_of_bean($id: Int!) {
     }
   }
 }
-`;
+`
 
 export const GET_BARISTA = `
   query {
