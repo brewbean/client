@@ -1,50 +1,54 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import { timeString } from 'helper/timer'
 
-const recipes = [{
-  name: 'bloom',
-  weight: 40,
-  startTime: 0,
-  endTime: 5,
-},
-{
-  name: 'first pour',
-  weight: 100,
-  startTime: 5,
-  endTime: 10
-},]
+const recipes = [
+  {
+    name: 'bloom',
+    weight: 40,
+    startTime: 0,
+    endTime: 5,
+  },
+  {
+    name: 'first pour',
+    weight: 100,
+    startTime: 5,
+    endTime: 10,
+  },
+]
 
-const serve = 15; // 2 min 30 sec 
+const serve = 15 // 2 min 30 sec
 
 export const usePourGuide = () => {
-  const [stage, setStage] = useState('');
-  const [stageWeight, setStageWeight] = useState(0);
+  const [stage, setStage] = useState('')
+  const [stageWeight, setStageWeight] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
-  const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [seconds, setSeconds] = useState(0)
+  const [isActive, setIsActive] = useState(false)
 
-  const start = () => setIsActive(true);
-  const stop = () => setIsActive(false);
+  const start = () => setIsActive(true)
+  const stop = () => setIsActive(false)
 
   const reset = () => {
-    setSeconds(0);
-    setIsActive(false);
+    setSeconds(0)
+    setIsActive(false)
   }
 
   useEffect(() => {
-    let interval = null;
+    let interval = null
     if (isActive) {
       interval = setInterval(() => {
-        setSeconds(seconds => seconds + 1);
-      }, 1000);
+        setSeconds((seconds) => seconds + 1)
+      }, 1000)
 
-      let findStage = recipes.find(r => seconds >= r.startTime && seconds < r.endTime);
+      let findStage = recipes.find(
+        (r) => seconds >= r.startTime && seconds < r.endTime
+      )
       if (findStage === undefined) {
-        let nextStage = recipes.find(r => r.startTime > seconds);
+        let nextStage = recipes.find((r) => r.startTime > seconds)
         if (nextStage !== undefined) {
-          setRemainingTime(nextStage.startTime - seconds);
+          setRemainingTime(nextStage.startTime - seconds)
         } else {
-          setRemainingTime(serve - seconds);
+          setRemainingTime(serve - seconds)
         }
         setStage('wait')
       } else {
@@ -54,33 +58,30 @@ export const usePourGuide = () => {
       }
 
       if (seconds === serve) {
-        stop();
-        setStage('serve');
+        stop()
+        setStage('serve')
       }
-
-
-
     } else if (!isActive && seconds !== 0) {
-      clearInterval(interval);
+      clearInterval(interval)
     }
-    return () => clearInterval(interval);
-  }, [isActive, seconds]);
+    return () => clearInterval(interval)
+  }, [isActive, seconds])
 
   return {
     data: {
       isActive,
       stage,
-      stages: [...recipes.map(r => r.name), 'serve'],
+      stages: [...recipes.map((r) => r.name), 'serve'],
       stageWeight,
       remainingTime,
       seconds,
       timeString: timeString(seconds),
-      percent: (seconds / serve) * 100
+      percent: (seconds / serve) * 100,
     },
     handler: {
       start,
       stop,
       reset,
-    }
+    },
   }
 }

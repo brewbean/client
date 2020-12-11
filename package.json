@@ -28,6 +28,11 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -46,8 +51,11 @@
     "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/typography": "^0.3.1",
     "autoprefixer": "^10.0.2",
+    "husky": "^4.3.5",
     "postcss": "^8.1.7",
     "postcss-cli": "^8.3.0",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
     "tailwindcss": "^2.0.1"
   }
 }

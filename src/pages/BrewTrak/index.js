@@ -1,12 +1,12 @@
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
-import BrewTrak from 'components/BrewTrak';
-import CreateBrew from 'components/BrewTrak/CreateBrew';
-import { useBrewTrak } from 'components/BrewTrak/useBrewTrak';
+import BrewTrak from 'components/BrewTrak'
+import CreateBrew from 'components/BrewTrak/CreateBrew'
+import { useBrewTrak } from 'components/BrewTrak/useBrewTrak'
 
 const BrewTrakPage = () => {
-  const { data, methods } = useBrewTrak();
-  let { path } = useRouteMatch();
+  const { data, methods } = useBrewTrak()
+  let { path } = useRouteMatch()
 
   return (
     <Switch>
@@ -20,4 +20,4 @@ const BrewTrakPage = () => {
   )
 }
 
-export default BrewTrakPage;
+export default BrewTrakPage

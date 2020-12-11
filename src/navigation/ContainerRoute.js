@@ -1,5 +1,5 @@
-import { Route } from 'react-router-dom';
-import { Container } from 'components/Layout';
+import { Route } from 'react-router-dom'
+import { Container } from 'components/Layout'
 
 const ContainerRoute = ({ noLayout, config, children, ...rest }) => (
   <Route {...rest}>
@@ -9,4 +9,4 @@ const ContainerRoute = ({ noLayout, config, children, ...rest }) => (
   </Route>
 )
 
-export default ContainerRoute;
+export default ContainerRoute
