@@ -154,6 +154,9 @@ query get_single_review($id:Int!){
     bean_id
     rating
     comment
+    bean {
+      name
+    }
   }
 }
 `;
