@@ -36,7 +36,7 @@ const BrewTrak = () => {
                   <div className="flex flex-row">
                     {logs.recipe.map((l, i) =>
                       <div key={i} className="py-2 mx-4">
-                        <Card {...l} {...methods} />
+                        <Card logs={l} {...methods} />
                       </div>
                     )}
                   </div>
@@ -60,7 +60,7 @@ const BrewTrak = () => {
               <div>
                 {logs.recipe.map((l, i) =>
                   <div key={i} className="py-2 px-2">
-                    <Card {...l} {...methods} />
+                    <Card logs={l} {...methods} />
                   </div>
                 )}
               </div>
