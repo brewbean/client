@@ -17,13 +17,12 @@ const EditReviewForm = ({ beanReview, id }) => {
   };
 
   const submitUpdateReview = async () => {
-    const object = {
-      rating: parseFloat(state.rating),
-      comment: state.comment
-    };
+    const { bean, date_added, __typename, ...rest } = state;
     await updateReview({
       id,
-      ...object
+      object: {
+        ...rest
+      }
     });
   };
 

@@ -179,8 +179,8 @@ query get_all_review_of_bean($_eq: Int!) {
 `;
 
 export const UPDATE_BEAN_REVIEW = `
-mutation update_bean_reviews($id: Int!, $rating: numeric, $comment: String) {
-  update_bean_reviews_by_pk(pk_columns: {id: $id}, _set: {rating: $rating,comment: $comment}) {
+mutation update_bean_reviews($id: Int!, $object: bean_reviews_set_input!) {
+  update_bean_reviews_by_pk(pk_columns: {id: $id}, _set: $object) {
     id
     comment
     rating
