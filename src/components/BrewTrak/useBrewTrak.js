@@ -53,18 +53,7 @@ export const useBrewTrak = () => {
       id
     },
     methods: {
-      // setDate: e => setDate(e.target.value),
-      // setBeanWeight: e => setBeanWeight(e.target.value),
-      // setBrewType: e => setBrewType(e.target.value),
-      // setBeanGrind: e => setBeanGrind(e.target.value),
-      // setWaterAmount: e => setWaterAmount(e.target.value),
-      // setBeanType: e => setBeanType(e.target.value),
-      // setWaterTemp: e => setWaterTemp(e.target.value),
-      // setBloomWaterAmount: e => setBloomWaterAmount(e.target.value),
-      // setBloomTime: e => setBloomTime(e.target.value),
-      // setRating: e => setRating(e.target.value),
-      // setBrewComments: e => setBrewComments(e.target.value),
-      // setCardValues,
+      onChangeGenerator: (attr) => (e) => setState({...state, [attr] : e.target.value}),
       submitRecipe
     }
   }
