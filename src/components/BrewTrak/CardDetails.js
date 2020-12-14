@@ -56,12 +56,12 @@ const CardDetails = ({ brewLogId }) => {
         <div className='flex-column px-10 mx-5 rounded-lg h-96'>
           <img
             className='w-40 h-40 pt-2'
-            src={bean.img}
+            src={bean?.img}
             alt='No coffee available!'
           />
         </div>
         <div className='flex-column'>
-          <div className='text-2xl font-medium'>{bean.name}</div>
+          <div className='text-2xl font-medium'>{bean?.name}</div>
           <div>{date_added}</div>
           <div className='flex flex-row'>
             <img className='w-5 h-5 mr-1' src={CoffeeCup} alt='CoffeeCup' />:

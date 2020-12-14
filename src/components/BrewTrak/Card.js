@@ -10,7 +10,7 @@ const Card = ({ logs, setId }) => {
       <div className='flex'>{logs.date_added}</div>
       <div className='flex'>
         <div className='flex-col'>
-          <div className='flex pr-1'>Type: {logs.bean.name}</div>
+          <div className='flex pr-1'>Type: {logs.bean?.name}</div>
         </div>
         <div className='flex-col'>
           <div className='flex px-1'>{logs.bean_weight}g</div>
