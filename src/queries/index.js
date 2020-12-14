@@ -1,5 +1,6 @@
 /*
   Recipe Queries
+  TODO: - Change recipe to brew log
 */
 export const INSERT_RECIPE_ONE = `
 mutation insert_recipe_one($object: recipe_insert_input!) {
@@ -37,9 +38,10 @@ query get_recipes {
   }
 }
 `
-export const GET_SINGLE_RECIPE = `
-query get_single_recipe($id:Int!) {
-  recipe_by_pk(id:$id) {
+// TODO: - Update recipe_by_pk to brew_log_by_pk
+export const GET_SINGLE_BREW_LOG = `
+query get_single_brew_log($id:Int!) {
+  recipe_by_pk(id:$id) { 
     id
     barista_id  
     brew_type 

@@ -1,4 +1,4 @@
-import { GET_SINGLE_RECIPE } from 'queries'
+import { GET_SINGLE_BREW_LOG } from 'queries'
 import { useQuery } from 'urql'
 import { useParams } from 'react-router-dom'
 import EditBrewForm from './EditBrewForm'
@@ -6,7 +6,7 @@ import EditBrewForm from './EditBrewForm'
 const EditBrew = () => {
   const { id } = useParams()
   const [result] = useQuery({
-    query: GET_SINGLE_RECIPE,
+    query: GET_SINGLE_BREW_LOG,
     variables: { id }
   })
   const { data, fetching, error } = result
