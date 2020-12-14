@@ -1,10 +1,9 @@
-const Card = ({ setCardValues, logs }) => {
-  let card = { ...logs, name: logs.bean.name, img: logs.bean.img }
+const Card = ({ logs, setId }) => {
   return (
     <div
       className='group flex flex-col px-4 py-2 text-sm leading-5 rounded-md font-medium text-gray-900 bg-gray-50 border border-gray-250 '
       onClick={() => {
-        setCardValues(card)
+        setId(logs.id) // TODO: this might get changed? 
       }}
     >
       {/* <div className="flex">{logs.date}</div> */}
