@@ -1,15 +1,14 @@
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
-import BrewTrak from 'components/BrewTrak';
-import CreateBrew from 'components/BrewTrak/CreateBrew';
-import { useBrewTrak } from 'components/BrewTrak/useBrewTrak';
-import EditBrew from 'components/BrewTrak/EditBrew';
+import BrewTrak from 'components/BrewTrak'
+import CreateBrew from 'components/BrewTrak/CreateBrew'
+import { useBrewTrak } from 'components/BrewTrak/useBrewTrak'
+import EditBrew from 'components/BrewTrak/EditBrew'
 
 const BrewTrakPage = () => {
-  const { data, methods } = useBrewTrak();
-  let { path } = useRouteMatch();
+  const { data, methods } = useBrewTrak()
+  let { path } = useRouteMatch()
   return (
-
     // <div className='h-screen bg-white flex flex-col'>
     //   <div className="bg-gray-50 flex-1 flex items-stretch">
     //     <div className='max-w-7xl bg-pink w-full mx-auto p-4 sm:px-6 lg:px-8'>
@@ -29,11 +28,12 @@ const BrewTrakPage = () => {
       <Route path={`${path}/new`}>
         <CreateBrew {...data} {...methods} />
       </Route>
-      <Route path={`${path}/:id/edit`} render={props => <EditBrew {...props} />} />
-
+      <Route
+        path={`${path}/:id/edit`}
+        render={props => <EditBrew {...props} />}
+      />
     </Switch>
-
   )
 }
 
-export default BrewTrakPage;
+export default BrewTrakPage

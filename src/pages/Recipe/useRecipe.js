@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 const initStage = () => ({
   name: '',
@@ -9,21 +9,18 @@ const initStage = () => ({
 
 export const useRecipe = () => {
   let [stages, setStages] = useState([initStage()])
-  let [serveTime, setServe] = useState({ min: 0, sec: 0 });
+  let [serveTime, setServe] = useState({ min: 0, sec: 0 })
 
   const addStage = () => {
-    setStages([
-      ...stages,
-      initStage()
-    ])
+    setStages([...stages, initStage()])
   }
 
-  const setStageValue = index => ({ target }) => {
+  const setStageValue = (index) => ({ target }) => {
     setStages([
       ...stages.slice(0, index),
       {
         ...stages[index],
-        [target.name]: target.value
+        [target.name]: target.value,
       },
       ...stages.slice(index + 1),
     ])
@@ -36,24 +33,21 @@ export const useRecipe = () => {
         ...stages[index],
         [key]: {
           ...stages[index][key],
-          [target.name]: target.value
-        }
+          [target.name]: target.value,
+        },
       },
       ...stages.slice(index + 1),
     ])
   }
 
-  const deleteStage = index => () => {
-    setStages([
-      ...stages.slice(0, index),
-      ...stages.slice(index + 1),
-    ])
+  const deleteStage = (index) => () => {
+    setStages([...stages.slice(0, index), ...stages.slice(index + 1)])
   }
 
   const setServeTime = ({ target }) => {
     setServe({
       ...serveTime,
-      [target.name]: target.value
+      [target.name]: target.value,
     })
   }
 
@@ -68,6 +62,6 @@ export const useRecipe = () => {
       deleteStage,
       setStageValue,
       setServeTime,
-    }
+    },
   }
 }

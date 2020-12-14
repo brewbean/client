@@ -1,85 +1,102 @@
-import Star from '../BrewTrak/star.png';
+import Star from '../BrewTrak/star.png'
 
-import { GET_SINGLE_BEAN, GET_AVG_REVIEW_OF_BEAN } from '../../queries';
-import { useQuery } from 'urql';
-import { useHistory } from 'react-router-dom';
+import { GET_SINGLE_BEAN, GET_AVG_REVIEW_OF_BEAN } from '../../queries'
+import { useQuery } from 'urql'
+import { useHistory } from 'react-router-dom'
 
-import BeanReview from './BeanReview';
-import { roundToHalfOrWhole } from '../../helper/math';
+import BeanReview from './BeanReview'
+import { roundToHalfOrWhole } from '../../helper/math'
 
 const DiscoverDetails = (props) => {
-    const history = useHistory();
-    const id = props.match.params.id
-    const [result, reexecuteQuery] = useQuery({
-        query: GET_SINGLE_BEAN,
-        variables: { id }
-      });
-    const { data, fetching, error } = result;
+  const history = useHistory()
+  const id = props.match.params.id
+  const [result] = useQuery({
+    query: GET_SINGLE_BEAN,
+    variables: { id },
+  })
+  const { data, fetching, error } = result
 
-    const [avgReviewResult, reexecuteAvgReviewQuery] = useQuery({
-        query: GET_AVG_REVIEW_OF_BEAN,
-        variables: { id }
-      });
-    const { data: avgReviewData, fetching: avgReviewFetching, error: avgReviewError } = avgReviewResult
-      // TODO - Query data and retreive reviews
-    if (fetching) return <p>Loading...</p>;
-    if (avgReviewFetching) return <p>Loading avgReview...</p>;
-    if (error) return <p>Oh no... {error.message}</p>;
-    if (avgReviewError) return <p>Oh no avg review... {avgReviewError.message}</p>;
-    const { company_name, name, about, profile_note, img, price, rating } = data.bean_by_pk;
-    let { rating: avgRating } = avgReviewData.bean_reviews_aggregate.aggregate.avg;
-    avgRating = roundToHalfOrWhole(avgRating);
+  const [avgReviewResult] = useQuery({
+    query: GET_AVG_REVIEW_OF_BEAN,
+    variables: { id },
+  })
+  const {
+    data: avgReviewData,
+    fetching: avgReviewFetching,
+    error: avgReviewError,
+  } = avgReviewResult
+  // TODO - Query data and retreive reviews
+  if (fetching) return <p>Loading...</p>
+  if (avgReviewFetching) return <p>Loading avgReview...</p>
+  if (error) return <p>Oh no... {error.message}</p>
+  if (avgReviewError) return <p>Oh no avg review... {avgReviewError.message}</p>
+  const {
+    company_name,
+    name,
+    about,
+    profile_note,
+    img,
+    price,
+  } = data.bean_by_pk
+  let { rating: avgRating } = avgReviewData.bean_reviews_aggregate.aggregate.avg
+  avgRating = roundToHalfOrWhole(avgRating)
 
-    return(
-        <div>
-        <div className="bg-gray-800 pb-32">
-            <header className="py-10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"></div>
-            </header>
-        </div>
-        <main className="-mt-32">
-            <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-            {/* <!-- Replace with your content --> */}
-            <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
-                <div className="px-4 py-4 rounded-lg h-auto">
-                    <div>
-                        <img className="w-64 h-64 flex-shrink-0 mx-auto bg-black" src={img} alt=""/>
-                        <div className='text-2xl text-gray-400'>{company_name}</div>
-                        <div className='text-3xl leading-9 font-bold'>{name}</div>
-                        <div className='flex items-center text-2xl leading-9'>
-                            <img className="w-5 h-5 mr-1" src={Star} alt='Star'/>:{avgRating}/5
-                        </div>
-                        <div className='text-2xl font-bold'>${price}</div>
-                        <div className='font-bold'>Profile Notes</div>
-                        {
-                            profile_note.map((x, i) => 
-                            <div key={i}>
-                                {x}
-                            </div>
-                       )}
-                        <div className='font-bold'>About this Coffee</div>
-                        <div>{about ? about : "No description available"}</div>
-                        <button
-                            type="button" 
-                            className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
-                            buy bean
-                        </button>
-                        {/* TODO - Guest cannot be allowed to make a review. Hide button for guest & route must be authenticated */}
-                        <button
-                            type="button" 
-                            onClick={() => {history.replace(`/discover/bean/review/${id}/new`)}}
-                            className="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
-                            submit review 
-                        </button>
-                        <BeanReview bean_id={id}/>
-                    </div>
+  return (
+    <div>
+      <div className='bg-gray-800 pb-32'>
+        <header className='py-10'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'></div>
+        </header>
+      </div>
+      <main className='-mt-32'>
+        <div className='max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8'>
+          {/* <!-- Replace with your content --> */}
+          <div className='bg-white rounded-lg shadow px-5 py-6 sm:px-6'>
+            <div className='px-4 py-4 rounded-lg h-auto'>
+              <div>
+                <img
+                  className='w-64 h-64 flex-shrink-0 mx-auto bg-black'
+                  src={img}
+                  alt=''
+                />
+                <div className='text-2xl text-gray-400'>{company_name}</div>
+                <div className='text-3xl leading-9 font-bold'>{name}</div>
+                <div className='flex items-center text-2xl leading-9'>
+                  <img className='w-5 h-5 mr-1' src={Star} alt='Star' />:
+                  {avgRating}/5
                 </div>
+                <div className='text-2xl font-bold'>${price}</div>
+                <div className='font-bold'>Profile Notes</div>
+                {profile_note.map((x, i) => (
+                  <div key={i}>{x}</div>
+                ))}
+                <div className='font-bold'>About this Coffee</div>
+                <div>{about ? about : 'No description available'}</div>
+                <button
+                  type='button'
+                  className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
+                >
+                  buy bean
+                </button>
+                {/* TODO - Guest cannot be allowed to make a review. Hide button for guest & route must be authenticated */}
+                <button
+                  type='button'
+                  onClick={() => {
+                    history.replace(`/discover/bean/review/${id}/new`)
+                  }}
+                  className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
+                >
+                  submit review
+                </button>
+                <BeanReview bean_id={id} />
+              </div>
             </div>
-            {/* <!-- /End replace --> */}
-            </div>
-        </main>
+          </div>
+          {/* <!-- /End replace --> */}
         </div>
-    )
+      </main>
+    </div>
+  )
 }
 
-export default DiscoverDetails;
+export default DiscoverDetails

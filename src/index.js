@@ -1,15 +1,13 @@
-import { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-import App from 'App';
-import 'tailwind.generated.css';
-import { AlertProvider } from 'context/AlertContext';
-import { AuthProvider } from 'context/AuthContext';
+import App from 'App'
+import 'tailwind.generated.css'
+import { AlertProvider } from 'context/AlertContext'
+import { AuthProvider } from 'context/AuthContext'
 
-const authOnlyPaths = [
-  { path: '/test/:id' },
-];
+const authOnlyPaths = [{ path: '/test/:id' }]
 
 ReactDOM.render(
   <StrictMode>
@@ -22,6 +20,4 @@ ReactDOM.render(
     </Router>
   </StrictMode>,
   document.getElementById('root')
-);
-
-
+)

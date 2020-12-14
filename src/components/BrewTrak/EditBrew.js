@@ -1,27 +1,21 @@
-import { useState, useEffect } from "react";
-import { useBrewTrak } from "components/BrewTrak/useBrewTrak";
-import {
-  GET_SINGLE_RECIPE,
-  UPDATE_RECIPE,
-  GET_SINGLE_BEAN_ID_BY_NAME
-} from "queries";
-import { useQuery, useMutation } from "urql";
-import { useParams } from "react-router-dom";
-import EditBrewForm from "./EditBrewForm";
+import { GET_SINGLE_RECIPE } from 'queries'
+import { useQuery } from 'urql'
+import { useParams } from 'react-router-dom'
+import EditBrewForm from './EditBrewForm'
 
 const EditBrew = () => {
-  const { id } = useParams();
-  const [result, reexecuteQuery] = useQuery({
+  const { id } = useParams()
+  const [result] = useQuery({
     query: GET_SINGLE_RECIPE,
     variables: { id }
-  });
-  const { data, fetching, error } = result;
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  })
+  const { data, fetching, error } = result
+  if (fetching) return <p>Loading...</p>
+  if (error) return <p>Oh no... {error.message}</p>
   if (data?.recipe_by_pk) {
-    return <EditBrewForm id={id} recipe={data.recipe_by_pk} />;
+    return <EditBrewForm id={id} recipe={data.recipe_by_pk} />
   }
-  return null;
-};
+  return null
+}
 
-export default EditBrew;
+export default EditBrew
