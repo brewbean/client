@@ -1,92 +1,106 @@
+import { useState } from 'react'
 import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
+import { useMutation } from 'urql'
+import { INSERT_RECIPE_ONE } from '../../queries'
 
-const CreateBrew = ({
-  date,
-  beanWeight,
-  brewType,
-  beanGrind,
-  waterAmount,
-  beanType,
-  waterTemp,
-  brewComments,
-  rating,
-  setDate,
-  setBeanWeight,
-  setBrewType,
-  setBeanGrind,
-  setWaterAmount,
-  setBeanType,
-  setWaterTemp,
-  setBloomWaterAmount,
-  setBloomTime,
-  setRating,
-  setBrewComments,
-  onChangeGenerator,
-  submitRecipe,
-}) => {
+const CreateBrew = () => {
+  const [state, setState] = useState({
+    brewType: 'Pour Over',
+    beanWeight: '',
+    beanGrind: 'Extra Fine',
+    waterAmount: '',
+    beanType: '',
+    waterTemp: '',
+    rating: '1',
+    brewComments: ''
+  })
+  const [, insertRecipe] = useMutation(INSERT_RECIPE_ONE)
+
+  const submitRecipe = async () => {
+    const object = {
+      barista_id: 6, //TODO: - Update with barista_id
+      brew_type: state.brewType,
+      bean_weight: state.beanWeight,
+      bean_grind: state.beanGrind,
+      water_temp: state.waterTemp,
+      rating: state.rating,
+      comment: state.brewComments,
+      private: true, //TODO: - temp-setting
+      water_amount: state.waterAmount
+    }
+    await insertRecipe({ object })
+  }
+
+  const onChangeGenerator = attr => e => {
+    setState({
+      ...state,
+      [attr]: e.target.value
+    })
+  }
+
   return (
     <div>
       <Dropdown
-        value={brewType}
-        onChange={onChangeGenerator("brewType")}
+        value={state.brewType}
+        onChange={onChangeGenerator('brewType')}
         options={[
           'Pour Over',
           'Aeropress',
           'Siphon',
           'Moka Pot',
-          'French Press',
+          'French Press'
         ]}
         label='brew type'
       />
       <InputRow
-        value={beanWeight}
-        onChange={onChangeGenerator("beanWeight")}
+        value={state.beanWeight}
+        onChange={onChangeGenerator('beanWeight')}
         placeholder='Enter coffee bean weight'
         label='coffee bean amount'
       />
       <Dropdown
-        value={beanGrind}
-        onChange={onChangeGenerator("beanGrind")}
+        value={state.beanGrind}
+        onChange={onChangeGenerator('beanGrind')}
         options={[
           'Extra Fine',
           'Fine',
           'Medium-fine',
           'Medium-coarse',
           'Coarse',
-          'Extra coarse',
+          'Extra coarse'
         ]}
         label='bean grind'
       />
       {/* Serving Amount */}
       <InputRow
-        value={waterAmount}
-        onChange={onChangeGenerator("waterAmount")}
+        value={state.waterAmount}
+        onChange={onChangeGenerator('waterAmount')}
         placeholder='Enter water weight'
         label='water amount'
       />
       <InputRow
-        value={beanType}
-        onChange={onChangeGenerator("beanType")}
+        value={state.beanType}
+        onChange={onChangeGenerator('beanType')}
         placeholder='Enter bean type'
         label='bean type'
       />
       <InputRow
-        value={waterTemp}
-        onChange={onChangeGenerator("waterTemp")}
+        value={state.waterTemp}
+        onChange={onChangeGenerator('waterTemp')}
         placeholder='Enter water temperature'
         label='water temperature'
       />
       <Dropdown
-        value={rating}
-        onChange={onChangeGenerator("rating")}
+        value={state.rating}
+        onChange={onChangeGenerator('rating')}
         label='Rating'
         options={['1', '2', '3', '4', '5']}
       />
       <TextArea
-        value={brewComments}
-        onChange={onChangeGenerator("brewComments")}
+        value={state.brewComments}
+        onChange={onChangeGenerator('brewComments')}
         placeholder='Enter comments here'
         label='brewer comments'
       />

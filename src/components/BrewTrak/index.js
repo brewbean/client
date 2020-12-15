@@ -6,10 +6,8 @@ import Card from './Card'
 import CardDetails from './CardDetails'
 import './BrewTrak.css'
 
-import useBrewTrak from './useBrewTrak'
 
 const BrewTrak = () => {
-  const { data, methods } = useBrewTrak()
   const { url } = useRouteMatch()
   const [id, setId] = useState('')
   const [result] = useQuery({
@@ -83,7 +81,7 @@ const BrewTrak = () => {
         >
           <div className='pt-2 pb-6 md:py-6'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8 rounded-lg'>
-              <CardDetails {...data} brewLogId={id}/>
+              <CardDetails brewLogId={id}/>
             </div>
           </div>
         </main>

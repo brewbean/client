@@ -2,11 +2,9 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
 import BrewTrak from 'components/BrewTrak'
 import CreateBrew from 'components/BrewTrak/CreateBrew'
-import { useBrewTrak } from 'components/BrewTrak/useBrewTrak'
 import EditBrew from 'components/BrewTrak/EditBrew'
 
 const BrewTrakPage = () => {
-  const { data, methods } = useBrewTrak()
   let { path } = useRouteMatch()
   return (
     // <div className='h-screen bg-white flex flex-col'>
@@ -23,10 +21,10 @@ const BrewTrakPage = () => {
 
     <Switch>
       <Route exact path={path}>
-        <BrewTrak {...data} {...methods} />
+        <BrewTrak />
       </Route>
       <Route path={`${path}/new`}>
-        <CreateBrew {...data} {...methods} />
+        <CreateBrew />
       </Route>
       <Route
         path={`${path}/:id/edit`}
