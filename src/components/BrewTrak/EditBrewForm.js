@@ -14,16 +14,16 @@ const EditBrewForm = ({ recipe, id }) => {
     await updateRecipe({
       id,
       object: {
-        ...rest
+        ...rest,
         // bean_id: 4, // TODO: - Get bean_id from bean_name
-      }
+      },
     })
   }
 
-  const onChangeGenerator = attr => e => {
+  const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,
-      [attr]: e.target.value
+      [attr]: e.target.value,
     })
   }
 
@@ -47,7 +47,7 @@ const EditBrewForm = ({ recipe, id }) => {
           'Aeropress',
           'Siphon',
           'Moka Pot',
-          'French Press'
+          'French Press',
         ]}
         label='brew type'
       />
@@ -66,7 +66,7 @@ const EditBrewForm = ({ recipe, id }) => {
           'Medium-fine',
           'Medium-coarse',
           'Coarse',
-          'Extra coarse'
+          'Extra coarse',
         ]}
         label='bean grind'
       />

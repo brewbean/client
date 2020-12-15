@@ -30,7 +30,7 @@ const CreateBrew = ({
     <div>
       <Dropdown
         value={brewType}
-        onChange={onChangeGenerator("brewType")}
+        onChange={onChangeGenerator('brewType')}
         options={[
           'Pour Over',
           'Aeropress',
@@ -42,13 +42,13 @@ const CreateBrew = ({
       />
       <InputRow
         value={beanWeight}
-        onChange={onChangeGenerator("beanWeight")}
+        onChange={onChangeGenerator('beanWeight')}
         placeholder='Enter coffee bean weight'
         label='coffee bean amount'
       />
       <Dropdown
         value={beanGrind}
-        onChange={onChangeGenerator("beanGrind")}
+        onChange={onChangeGenerator('beanGrind')}
         options={[
           'Extra Fine',
           'Fine',
@@ -62,31 +62,31 @@ const CreateBrew = ({
       {/* Serving Amount */}
       <InputRow
         value={waterAmount}
-        onChange={onChangeGenerator("waterAmount")}
+        onChange={onChangeGenerator('waterAmount')}
         placeholder='Enter water weight'
         label='water amount'
       />
       <InputRow
         value={beanType}
-        onChange={onChangeGenerator("beanType")}
+        onChange={onChangeGenerator('beanType')}
         placeholder='Enter bean type'
         label='bean type'
       />
       <InputRow
         value={waterTemp}
-        onChange={onChangeGenerator("waterTemp")}
+        onChange={onChangeGenerator('waterTemp')}
         placeholder='Enter water temperature'
         label='water temperature'
       />
       <Dropdown
         value={rating}
-        onChange={onChangeGenerator("rating")}
+        onChange={onChangeGenerator('rating')}
         label='Rating'
         options={['1', '2', '3', '4', '5']}
       />
       <TextArea
         value={brewComments}
-        onChange={onChangeGenerator("brewComments")}
+        onChange={onChangeGenerator('brewComments')}
         placeholder='Enter comments here'
         label='brewer comments'
       />
