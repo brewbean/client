@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useRouteMatch, Link } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { GET_ALL_RECIPE } from 'queries'
@@ -8,8 +9,9 @@ import './BrewTrak.css'
 import useBrewTrak from './useBrewTrak'
 
 const BrewTrak = () => {
-  const { data, methods } = useBrewTrak()
+  const { data } = useBrewTrak()
   const { url } = useRouteMatch()
+  const [id, setId] = useState('')
   const [result] = useQuery({
     query: GET_ALL_RECIPE,
   })
@@ -35,11 +37,10 @@ const BrewTrak = () => {
                   >
                     add brew
                   </Link>
-
                   <div className='flex flex-row'>
                     {logs.recipe.map((l, i) => (
                       <div key={i} className='py-2 mx-4'>
-                        <Card {...l} {...methods} />
+                        <Card logs={l} setId={setId} />
                       </div>
                     ))}
                   </div>
@@ -67,7 +68,7 @@ const BrewTrak = () => {
               <div>
                 {logs.recipe.map((l, i) => (
                   <div key={i} className='py-2 px-2'>
-                    <Card {...l} {...methods} />
+                    <Card logs={l} setId={setId} />
                   </div>
                 ))}
               </div>
@@ -82,7 +83,7 @@ const BrewTrak = () => {
         >
           <div className='pt-2 pb-6 md:py-6'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8 rounded-lg'>
-              <CardDetails {...data} />
+              <CardDetails {...data} brewLogId={id} />
             </div>
           </div>
         </main>
