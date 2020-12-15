@@ -30,7 +30,7 @@ const BrewTrakPage = () => {
       </Route>
       <Route
         path={`${path}/:id/edit`}
-        render={props => <EditBrew {...props} />}
+        render={(props) => <EditBrew {...props} />}
       />
     </Switch>
   )

@@ -20,7 +20,7 @@ export const useBrewTrak = () => {
     bloomTime: '',
     rating: '1',
     brewComments: '',
-    brewSelected: 'false'
+    brewSelected: 'false',
   })
   const [, insertRecipe] = useMutation(INSERT_RECIPE_ONE)
   const [id] = useState('')
@@ -38,7 +38,7 @@ export const useBrewTrak = () => {
       rating: state.rating,
       comment: state.brewComments,
       private: true, //temp-setting
-      water_amount: state.waterAmount
+      water_amount: state.waterAmount,
     }
     let result = await insertRecipe({ object })
     console.log('Result', result)
@@ -47,12 +47,13 @@ export const useBrewTrak = () => {
   return {
     data: {
       ...state,
-      id
+      id,
     },
     methods: {
-      onChangeGenerator: (attr) => (e) => setState({...state, [attr] : e.target.value}),
-      submitRecipe
-    }
+      onChangeGenerator: (attr) => (e) =>
+        setState({ ...state, [attr]: e.target.value }),
+      submitRecipe,
+    },
   }
 }
 

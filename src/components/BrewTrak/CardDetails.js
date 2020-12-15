@@ -22,7 +22,7 @@ const CardDetails = ({ brewLogId }) => {
 
   const [singleBrewLog] = useQuery({
     query: GET_SINGLE_BREW_LOG,
-    variables: { id: brewLogId }
+    variables: { id: brewLogId },
   })
 
   const { data: dataSingleBeanLog, fetching, error } = singleBrewLog
@@ -46,7 +46,7 @@ const CardDetails = ({ brewLogId }) => {
     water_temp,
     rating,
     comment,
-    date_added
+    date_added,
   } = dataSingleBeanLog.recipe_by_pk
 
   return (

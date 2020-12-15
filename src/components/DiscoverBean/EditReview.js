@@ -3,16 +3,16 @@ import { GET_SINGLE_REVIEW } from 'queries'
 import { useParams } from 'react-router-dom'
 import EditReviewForm from './EditReviewForm'
 
-const EditReview = props => {
+const EditReview = (props) => {
   const { id } = useParams()
   const [reviewResult] = useQuery({
     query: GET_SINGLE_REVIEW,
-    variables: { id }
+    variables: { id },
   })
   const {
     data: dataReviewResult,
     fetching: fetchingReviewResult,
-    error: errorReviewResult
+    error: errorReviewResult,
   } = reviewResult
 
   if (fetchingReviewResult) return <p>Loading...</p>

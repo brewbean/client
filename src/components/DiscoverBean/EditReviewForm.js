@@ -9,10 +9,10 @@ const EditReviewForm = ({ beanReview, id }) => {
   const [, updateReview] = useMutation(UPDATE_BEAN_REVIEW)
   const { barista } = useAuth()
 
-  const onChangeGenerator = attr => e => {
+  const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,
-      [attr]: e.target.value
+      [attr]: e.target.value,
     })
   }
 
@@ -21,8 +21,8 @@ const EditReviewForm = ({ beanReview, id }) => {
     await updateReview({
       id,
       object: {
-        ...rest
-      }
+        ...rest,
+      },
     })
   }
 

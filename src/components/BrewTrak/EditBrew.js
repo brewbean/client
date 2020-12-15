@@ -7,7 +7,7 @@ const EditBrew = () => {
   const { id } = useParams()
   const [result] = useQuery({
     query: GET_SINGLE_BREW_LOG,
-    variables: { id }
+    variables: { id },
   })
   const { data, fetching, error } = result
   if (fetching) return <p>Loading...</p>
