@@ -43,7 +43,6 @@ const CardDetails = ({ brewLogId }) => {
     bean_weight,
     bean_grind,
     water_amount,
-    bean_id,
     water_temp,
     rating,
     comment,

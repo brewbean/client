@@ -9,7 +9,7 @@ import './BrewTrak.css'
 import useBrewTrak from './useBrewTrak'
 
 const BrewTrak = () => {
-  const { data, methods } = useBrewTrak()
+  const { data } = useBrewTrak()
   const { url } = useRouteMatch()
   const [id, setId] = useState('')
   const [result] = useQuery({
@@ -38,11 +38,11 @@ const BrewTrak = () => {
                     add brew
                   </Link>
                   <div className="flex flex-row">
-                    {logs.recipe.map((l, i) =>
+                    {logs.recipe.map((l, i) => (
                       <div key={i} className="py-2 mx-4">
                         <Card logs={l} setId={setId} />
                       </div>
-                    )}
+                    ))}
                   </div>
                 </div>
               </div>
@@ -66,11 +66,11 @@ const BrewTrak = () => {
                 add brew
               </Link>
               <div>
-                {logs.recipe.map((l, i) =>
+                {logs.recipe.map((l, i) => (
                   <div key={i} className="py-2 px-2">
                     <Card logs={l} setId={setId}/>
                   </div>
-                )}
+                ))}
               </div>
             </div>
           </div>

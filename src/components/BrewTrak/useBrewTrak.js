@@ -23,13 +23,10 @@ export const useBrewTrak = () => {
     brewSelected: 'false'
   })
   const [, insertRecipe] = useMutation(INSERT_RECIPE_ONE)
-  const [id, setId] = useState('')
+  const [id] = useState('')
   // ratio state (how to implement best way) (Water Amount / beanWeight = ratio)
   // but how to make both inputs respond when other is inputted?
   // if i want a ratio if 16 but type in 50g of coffee
-  const setCardValues = card => {
-    setId(id)
-  }
 
   const submitRecipe = async () => {
     const object = {
