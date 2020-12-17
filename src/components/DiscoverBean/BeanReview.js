@@ -2,17 +2,17 @@ import { useQuery, useMutation } from 'urql'
 import { GET_ALL_REVIEW_OF_BEAN, DELETE_BEAN_REVIEW } from '../../queries'
 import { useHistory } from 'react-router-dom'
 
-const BeanReview = props => {
+const BeanReview = (props) => {
   let { bean_id } = props
   const history = useHistory()
 
   const [result] = useQuery({
     query: GET_ALL_REVIEW_OF_BEAN,
-    variables: { _eq: bean_id }
+    variables: { _eq: bean_id },
   })
   const [, deleteReview] = useMutation(DELETE_BEAN_REVIEW)
 
-  const deleteReviewPressed = async id => {
+  const deleteReviewPressed = async (id) => {
     await deleteReview({ id })
   }
   const { data, fetching, error } = result
