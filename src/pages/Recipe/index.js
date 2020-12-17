@@ -10,15 +10,11 @@ const RecipePage = (props) => {
       <Route
         exact
         path={`${match.url}/new`}
-        render={(props) => (
-          <CreateBrew {...props} />
-        )}
+        render={(props) => <CreateBrew {...props} />}
       />
       <Route
         path={`${match.url}/new/stage`}
-        render={(props) => (
-          <StagePage {...props} />
-        )}
+        render={(props) => <StagePage {...props} />}
       />
     </Switch>
   )
