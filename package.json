@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@urql/devtools": "^2.0.2",
     "@urql/exchange-auth": "^0.1.2",
+    "@urql/exchange-graphcache": "^3.3.3",
     "axios": "^0.20.0",
     "graphql": "^15.4.0",
     "react": "^17.0.1",
