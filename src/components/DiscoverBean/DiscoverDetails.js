@@ -4,10 +4,11 @@ import { useQuery } from 'urql'
 import { useHistory } from 'react-router-dom'
 import BeanReview from './BeanReview'
 import { roundToHalfOrWhole } from '../../helper/math'
+import { useParams } from 'react-router-dom'
 
 const DiscoverDetails = (props) => {
   const history = useHistory()
-  const id = props.match.params.id
+  const { id } = useParams()
   const [result] = useQuery({
     query: GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW,
     variables: { id },
