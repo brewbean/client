@@ -3,7 +3,8 @@ import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
 import { useMutation } from 'urql'
-import { INSERT_RECIPE_ONE } from '../../queries'
+import { INSERT_RECIPE_ONE } from 'queries'
+import { useAuth } from 'context/AuthContext'
 
 const CreateBrew = () => {
   const [state, setState] = useState({
@@ -14,13 +15,14 @@ const CreateBrew = () => {
     beanType: '',
     waterTemp: '',
     rating: '1',
-    brewComments: ''
+    brewComments: '',
   })
   const [, insertRecipe] = useMutation(INSERT_RECIPE_ONE)
+  const { barista } = useAuth()
 
   const submitRecipe = async () => {
     const object = {
-      barista_id: 6, //TODO: - Update with barista_id
+      barista_id: barista.id,
       brew_type: state.brewType,
       bean_weight: state.beanWeight,
       bean_grind: state.beanGrind,
@@ -28,15 +30,15 @@ const CreateBrew = () => {
       rating: state.rating,
       comment: state.brewComments,
       private: true, //TODO: - temp-setting
-      water_amount: state.waterAmount
+      water_amount: state.waterAmount,
     }
     await insertRecipe({ object })
   }
 
-  const onChangeGenerator = attr => e => {
+  const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,
-      [attr]: e.target.value
+      [attr]: e.target.value,
     })
   }
 
@@ -50,7 +52,7 @@ const CreateBrew = () => {
           'Aeropress',
           'Siphon',
           'Moka Pot',
-          'French Press'
+          'French Press',
         ]}
         label='brew type'
       />
@@ -69,7 +71,7 @@ const CreateBrew = () => {
           'Medium-fine',
           'Medium-coarse',
           'Coarse',
-          'Extra coarse'
+          'Extra coarse',
         ]}
         label='bean grind'
       />
