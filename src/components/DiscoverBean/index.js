@@ -1,5 +1,5 @@
 import DiscoverCard from './DiscoverCard'
-import { GET_ALL_BEANS } from '../../queries'
+import { GET_ALL_BEANS } from 'queries'
 import { useQuery } from 'urql'
 
 const DiscoverBean = () => {

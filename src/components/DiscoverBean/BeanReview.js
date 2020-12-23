@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from 'urql'
-import { GET_ALL_REVIEW_OF_BEAN, DELETE_BEAN_REVIEW } from '../../queries'
+import { GET_ALL_REVIEW_OF_BEAN, DELETE_BEAN_REVIEW } from 'queries'
 import { useHistory } from 'react-router-dom'
 
 const BeanReview = (props) => {
