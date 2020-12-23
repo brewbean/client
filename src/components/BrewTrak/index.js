@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouteMatch, Link } from 'react-router-dom'
 import { useQuery } from 'urql'
-import { GET_ALL_RECIPE } from 'queries'
+import { GET_ALL_BREW_LOGS } from 'queries'
 import Card from './Card'
 import CardDetails from './CardDetails'
 import './BrewTrak.css'
@@ -10,7 +10,7 @@ const BrewTrak = () => {
   const { url } = useRouteMatch()
   const [id, setId] = useState('')
   const [result] = useQuery({
-    query: GET_ALL_RECIPE,
+    query: GET_ALL_BREW_LOGS,
   })
   const { data: logs, fetching, error } = result
   if (fetching) return <p>Loading...</p>
@@ -35,7 +35,7 @@ const BrewTrak = () => {
                     add brew
                   </Link>
                   <div className='flex flex-row'>
-                    {logs.recipe.map((l, i) => (
+                    {logs.brew_logs.map((l, i) => (
                       <div key={i} className='py-2 mx-4'>
                         <Card logs={l} setId={setId} />
                       </div>
@@ -63,7 +63,7 @@ const BrewTrak = () => {
                 add brew
               </Link>
               <div>
-                {logs.recipe.map((l, i) => (
+                {logs.brew_logs.map((l, i) => (
                   <div key={i} className='py-2 px-2'>
                     <Card logs={l} setId={setId} />
                   </div>

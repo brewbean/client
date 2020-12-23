@@ -6,7 +6,7 @@ import Thermometer from './thermometer.jpg'
 import SpeechBubble from './speech-bubble.png'
 import { useRouteMatch, useHistory } from 'react-router-dom'
 import { useQuery, useMutation } from 'urql'
-import { GET_SINGLE_BREW_LOG, DELETE_RECIPE } from 'queries'
+import { GET_SINGLE_BREW_LOG, DELETE_BREW_LOGS } from 'queries'
 
 // TODO - Shorten the props
 // TODO - useQuery and use id, check cache in network to see if it's re-querie
@@ -14,10 +14,10 @@ import { GET_SINGLE_BREW_LOG, DELETE_RECIPE } from 'queries'
 const CardDetails = ({ brewLogId }) => {
   const history = useHistory()
   let match = useRouteMatch()
-  const [, deleteRecipe] = useMutation(DELETE_RECIPE)
+  const [, deleteBrewLog] = useMutation(DELETE_BREW_LOGS)
 
-  const deleteRecipePressed = async () => {
-    await deleteRecipe({ id: brewLogId })
+  const deleteBrewLogPressed = async () => {
+    await deleteBrewLog({ id: brewLogId })
   }
 
   const [singleBrewLog] = useQuery({
@@ -47,7 +47,7 @@ const CardDetails = ({ brewLogId }) => {
     rating,
     comment,
     date_added,
-  } = data.recipe_by_pk
+  } = data.brew_logs_by_pk
 
   return (
     <>
@@ -95,7 +95,7 @@ const CardDetails = ({ brewLogId }) => {
           </div>
           <div className='flex flex-row'>ID: {id}</div>
           <button
-            onClick={deleteRecipePressed}
+            onClick={deleteBrewLogPressed}
             type='button'
             className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
           >
