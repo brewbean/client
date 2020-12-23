@@ -133,6 +133,31 @@ query get_single_bean_id($_eq: String!) {
 }
 `
 
+export const GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW = `
+query get_bean_and_avg_review($id: Int!) {
+  bean_by_pk(id:$id) {
+    id
+    company_name
+    name
+    altitude
+    process
+    profile_note
+    region
+    roast_type
+    img
+    about
+    price
+    rating
+  }
+  bean_reviews_aggregate(where: {bean_id: {_eq: $id}}) {
+    aggregate {
+      avg {
+        rating
+      }
+    }
+  }
+}
+`
 /*
   Review Queries
 */

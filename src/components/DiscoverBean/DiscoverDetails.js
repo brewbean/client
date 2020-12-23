@@ -1,35 +1,21 @@
 import Star from '../BrewTrak/star.png'
-
-import { GET_SINGLE_BEAN, GET_AVG_REVIEW_OF_BEAN } from '../../queries'
+import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from '../../queries'
 import { useQuery } from 'urql'
 import { useHistory } from 'react-router-dom'
-
 import BeanReview from './BeanReview'
 import { roundToHalfOrWhole } from '../../helper/math'
+import { useParams } from 'react-router-dom'
 
 const DiscoverDetails = (props) => {
   const history = useHistory()
-  const id = props.match.params.id
+  const { id } = useParams()
   const [result] = useQuery({
-    query: GET_SINGLE_BEAN,
+    query: GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW,
     variables: { id },
   })
   const { data, fetching, error } = result
-
-  const [avgReviewResult] = useQuery({
-    query: GET_AVG_REVIEW_OF_BEAN,
-    variables: { id },
-  })
-  const {
-    data: avgReviewData,
-    fetching: avgReviewFetching,
-    error: avgReviewError,
-  } = avgReviewResult
-  // TODO - Query data and retreive reviews
   if (fetching) return <p>Loading...</p>
-  if (avgReviewFetching) return <p>Loading avgReview...</p>
   if (error) return <p>Oh no... {error.message}</p>
-  if (avgReviewError) return <p>Oh no avg review... {avgReviewError.message}</p>
   const {
     company_name,
     name,
@@ -38,8 +24,8 @@ const DiscoverDetails = (props) => {
     img,
     price,
   } = data.bean_by_pk
-  let { rating: avgRating } = avgReviewData.bean_reviews_aggregate.aggregate.avg
-  avgRating = roundToHalfOrWhole(avgRating)
+  let { rating } = data.bean_reviews_aggregate.aggregate.avg
+  rating = roundToHalfOrWhole(rating)
 
   return (
     <div>
@@ -63,7 +49,7 @@ const DiscoverDetails = (props) => {
                 <div className='text-3xl leading-9 font-bold'>{name}</div>
                 <div className='flex items-center text-2xl leading-9'>
                   <img className='w-5 h-5 mr-1' src={Star} alt='Star' />:
-                  {avgRating}/5
+                  {rating}/5
                 </div>
                 <div className='text-2xl font-bold'>${price}</div>
                 <div className='font-bold'>Profile Notes</div>

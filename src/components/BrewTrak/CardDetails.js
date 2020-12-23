@@ -25,7 +25,7 @@ const CardDetails = ({ brewLogId }) => {
     variables: { id: brewLogId },
   })
 
-  const { data: dataSingleBeanLog, fetching, error } = singleBrewLog
+  const { data, fetching, error } = singleBrewLog
   if (fetching) return <p>Loading...</p>
   if (error)
     return (
@@ -47,7 +47,7 @@ const CardDetails = ({ brewLogId }) => {
     rating,
     comment,
     date_added,
-  } = dataSingleBeanLog.recipe_by_pk
+  } = data.recipe_by_pk
 
   return (
     <>

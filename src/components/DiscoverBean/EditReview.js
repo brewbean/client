@@ -9,22 +9,12 @@ const EditReview = (props) => {
     query: GET_SINGLE_REVIEW,
     variables: { id },
   })
-  const {
-    data: dataReviewResult,
-    fetching: fetchingReviewResult,
-    error: errorReviewResult,
-  } = reviewResult
+  const { data, fetching, error } = reviewResult
 
-  if (fetchingReviewResult) return <p>Loading...</p>
-  if (errorReviewResult)
-    return <p>Oh no... ErrorReviewResult: {errorReviewResult.message}</p>
-  if (dataReviewResult?.bean_reviews_by_pk)
-    return (
-      <EditReviewForm
-        beanReview={dataReviewResult.bean_reviews_by_pk}
-        id={id}
-      />
-    )
+  if (fetching) return <p>Loading...</p>
+  if (error) return <p>Oh no... error: {error.message}</p>
+  if (data?.bean_reviews_by_pk)
+    return <EditReviewForm beanReview={data.bean_reviews_by_pk} id={id} />
   return null
 }
 
