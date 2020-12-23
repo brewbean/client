@@ -11,7 +11,7 @@ import { GET_SINGLE_BREW_LOG, DELETE_BREW_LOGS } from 'queries'
 // TODO - Shorten the props
 // TODO - useQuery and use id, check cache in network to see if it's re-querie
 //{ img, date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, bloomWaterAmount, bloomTime, rating, brewComments, brewSelected, id }
-const CardDetails = ({ brewLogId }) => {
+const BrewLogDetails = ({ brewLogId }) => {
   const history = useHistory()
   let match = useRouteMatch()
   const [, deleteBrewLog] = useMutation(DELETE_BREW_LOGS)
@@ -114,4 +114,4 @@ const CardDetails = ({ brewLogId }) => {
   )
 }
 
-export default CardDetails
+export default BrewLogDetails

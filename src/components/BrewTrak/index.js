@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useRouteMatch, Link } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { GET_ALL_BREW_LOGS } from 'queries'
-import Card from './Card'
-import CardDetails from './CardDetails'
+import BrewLog from './BrewLog'
+import BrewLogDetails from './BrewLogDetails'
 import './BrewTrak.css'
 
 const BrewTrak = () => {
@@ -12,7 +12,7 @@ const BrewTrak = () => {
   const [result] = useQuery({
     query: GET_ALL_BREW_LOGS,
   })
-  const { data: logs, fetching, error } = result
+  const { data, fetching, error } = result
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
 
@@ -35,9 +35,9 @@ const BrewTrak = () => {
                     add brew
                   </Link>
                   <div className='flex flex-row'>
-                    {logs.brew_logs.map((l, i) => (
+                    {data.brew_logs.map((l, i) => (
                       <div key={i} className='py-2 mx-4'>
-                        <Card logs={l} setId={setId} />
+                        <BrewLog logs={l} setId={setId} />
                       </div>
                     ))}
                   </div>
@@ -63,9 +63,9 @@ const BrewTrak = () => {
                 add brew
               </Link>
               <div>
-                {logs.brew_logs.map((l, i) => (
+                {data.brew_logs.map((l, i) => (
                   <div key={i} className='py-2 px-2'>
-                    <Card logs={l} setId={setId} />
+                    <BrewLog logs={l} setId={setId} />
                   </div>
                 ))}
               </div>
@@ -80,7 +80,7 @@ const BrewTrak = () => {
         >
           <div className='pt-2 pb-6 md:py-6'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8 rounded-lg'>
-              <CardDetails brewLogId={id} />
+              <BrewLogDetails brewLogId={id} />
             </div>
           </div>
         </main>

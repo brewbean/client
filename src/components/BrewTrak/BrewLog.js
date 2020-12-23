@@ -1,4 +1,4 @@
-const Card = ({ logs, setId }) => {
+const BrewLog = ({ logs, setId }) => {
   return (
     <div
       className='group flex flex-col px-4 py-2 text-sm leading-5 rounded-md font-medium text-gray-900 bg-gray-50 border border-gray-250 '
@@ -25,4 +25,4 @@ const Card = ({ logs, setId }) => {
   // return null
 }
 
-export default Card
+export default BrewLog
