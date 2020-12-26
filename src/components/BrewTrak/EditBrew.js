@@ -12,8 +12,8 @@ const EditBrew = () => {
   const { data, fetching, error } = result
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
-  if (data?.recipe_by_pk) {
-    return <EditBrewForm id={id} recipe={data.recipe_by_pk} />
+  if (data?.brew_logs_by_pk) {
+    return <EditBrewForm id={id} brewLogs={data.brew_logs_by_pk} />
   }
   return null
 }

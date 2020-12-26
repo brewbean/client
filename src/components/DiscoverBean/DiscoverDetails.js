@@ -1,9 +1,9 @@
-import Star from '../BrewTrak/star.png'
-import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from '../../queries'
+import Star from '../BrewTrak/Icons/star.png'
+import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
 import { useHistory } from 'react-router-dom'
 import BeanReview from './BeanReview'
-import { roundToHalfOrWhole } from '../../helper/math'
+import { roundToHalfOrWhole } from 'helper/math'
 import { useParams } from 'react-router-dom'
 
 const DiscoverDetails = (props) => {

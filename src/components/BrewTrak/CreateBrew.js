@@ -3,7 +3,7 @@ import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
 import { useMutation } from 'urql'
-import { INSERT_RECIPE_ONE } from 'queries'
+import { INSERT_BREW_LOGS_ONE } from 'queries'
 import { useAuth } from 'context/AuthContext'
 
 const CreateBrew = () => {
@@ -17,10 +17,10 @@ const CreateBrew = () => {
     rating: '1',
     brewComments: '',
   })
-  const [, insertRecipe] = useMutation(INSERT_RECIPE_ONE)
+  const [, insertBrewLog] = useMutation(INSERT_BREW_LOGS_ONE)
   const { barista } = useAuth()
 
-  const submitRecipe = async () => {
+  const submitBrewLog = async () => {
     const object = {
       barista_id: barista.id,
       brew_type: state.brewType,
@@ -32,7 +32,7 @@ const CreateBrew = () => {
       private: true, //TODO: - temp-setting
       water_amount: state.waterAmount,
     }
-    await insertRecipe({ object })
+    await insertBrewLog({ object })
   }
 
   const onChangeGenerator = (attr) => (e) => {
@@ -111,11 +111,11 @@ const CreateBrew = () => {
       {/* Next button to stage */}
       <div className='flex-none bg-white rounded shadow p-4'>
         <button
-          onClick={submitRecipe}
+          onClick={submitBrewLog}
           type='button'
           className='mt-2 w-full px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
         >
-          add recipe
+          add brew log
         </button>
       </div>
     </div>
