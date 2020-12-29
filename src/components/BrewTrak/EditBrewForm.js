@@ -4,10 +4,12 @@ import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
 import { UPDATE_BREW_LOGS } from 'queries'
 import { useMutation } from 'urql'
+import { useHistory } from 'react-router-dom'
 
 const EditBrewForm = ({ brewLogs, id }) => {
   const [, updateBrewLog] = useMutation(UPDATE_BREW_LOGS)
   const [state, setState] = useState(brewLogs)
+  const history = useHistory()
 
   const submitUpdateBrewLog = async () => {
     const { bean, date_added, __typename, ...rest } = state
@@ -18,6 +20,7 @@ const EditBrewForm = ({ brewLogs, id }) => {
         // bean_id: 4, // TODO: - Get bean_id from bean_name
       },
     })
+    history.push(`/brewtrak`)
   }
 
   const onChangeGenerator = (attr) => (e) => {
