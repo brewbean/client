@@ -1,12 +1,12 @@
-const BrewLog = ({ logs, setId }) => {
+const BrewLog = ({ logs, setId, setBrewSelected }) => {
   return (
     <div
       className='group flex flex-col px-4 py-2 text-sm leading-5 rounded-md font-medium text-gray-900 bg-gray-50 border border-gray-250 '
       onClick={() => {
         setId(logs.id) // TODO: this might get changed?
+        setBrewSelected(true)
       }}
     >
-      {/* <div className="flex">{logs.date}</div> */}
       <div className='flex'>{logs.date_added}</div>
       <div className='flex'>
         <div className='flex-col'>
@@ -22,7 +22,6 @@ const BrewLog = ({ logs, setId }) => {
       <div className='flex'>{logs.rating}/5</div>
     </div>
   )
-  // return null
 }
 
 export default BrewLog
