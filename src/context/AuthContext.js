@@ -11,9 +11,9 @@ import {
   createClient,
   Provider as UrqlProvider,
   dedupExchange,
-  cacheExchange,
   fetchExchange,
 } from 'urql'
+import { cacheExchange } from '@urql/exchange-graphcache'
 import { devtoolsExchange } from '@urql/devtools'
 import { authExchange } from '@urql/exchange-auth'
 
@@ -221,7 +221,7 @@ function AuthProvider({ authOnlyPaths, children }) {
       exchanges: [
         devtoolsExchange,
         dedupExchange,
-        cacheExchange,
+        cacheExchange({}),
         authExchange({
           getAuth,
           addAuthToOperation,
