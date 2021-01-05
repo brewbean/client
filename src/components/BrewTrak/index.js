@@ -9,6 +9,7 @@ import './BrewTrak.css'
 const BrewTrak = () => {
   const { url } = useRouteMatch()
   const [id, setId] = useState('')
+  const [brewSelected, setBrewSelected] = useState(false)
   const [result] = useQuery({
     query: GET_ALL_BREW_LOGS,
   })
@@ -37,7 +38,11 @@ const BrewTrak = () => {
                   <div className='flex flex-row'>
                     {data.brew_logs.map((l, i) => (
                       <div key={i} className='py-2 mx-4'>
-                        <BrewLog logs={l} setId={setId} />
+                        <BrewLog
+                          logs={l}
+                          setId={setId}
+                          setBrewSelected={setBrewSelected}
+                        />
                       </div>
                     ))}
                   </div>
@@ -65,7 +70,11 @@ const BrewTrak = () => {
               <div>
                 {data.brew_logs.map((l, i) => (
                   <div key={i} className='py-2 px-2'>
-                    <BrewLog logs={l} setId={setId} />
+                    <BrewLog
+                      logs={l}
+                      setId={setId}
+                      setBrewSelected={setBrewSelected}
+                    />
                   </div>
                 ))}
               </div>
@@ -80,7 +89,11 @@ const BrewTrak = () => {
         >
           <div className='pt-2 pb-6 md:py-6'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8 rounded-lg'>
-              <BrewLogDetails brewLogId={id} />
+              <BrewLogDetails
+                brewLogId={id}
+                brewSelected={brewSelected}
+                setBrewSelected={setBrewSelected}
+              />
             </div>
           </div>
         </main>

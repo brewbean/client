@@ -5,8 +5,11 @@ import TextArea from 'components/TextArea'
 import { useMutation } from 'urql'
 import { INSERT_BREW_LOGS_ONE } from 'queries'
 import { useAuth } from 'context/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 const CreateBrew = () => {
+  const history = useHistory()
+
   const [state, setState] = useState({
     brewType: 'Pour Over',
     beanWeight: '',
@@ -33,6 +36,7 @@ const CreateBrew = () => {
       water_amount: state.waterAmount,
     }
     await insertBrewLog({ object })
+    history.push(`/brewtrak`)
   }
 
   const onChangeGenerator = (attr) => (e) => {

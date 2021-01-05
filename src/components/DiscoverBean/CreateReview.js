@@ -3,9 +3,11 @@ import { useQuery, useMutation } from 'urql'
 import { GET_SINGLE_BEAN, INSERT_REVIEW_ONE } from 'queries'
 import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 const CreateReview = (props) => {
+  const history = useHistory()
+
   const [state, setState] = useState({
     rating: '5.0',
     comment: '',
@@ -35,6 +37,7 @@ const CreateReview = (props) => {
         comment: state.comment,
       },
     })
+    history.push(`/discover/bean/details/${id}`)
   }
 
   if (fetching) return <p>Loading...</p>
