@@ -27,7 +27,7 @@ const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
   })
   const { data, fetching, error } = singleBrewLog
   if (fetching) return <p>Loading...</p>
-  if (error || data.brew_logs_by_pk === null) return <SelectBrew />
+  if (error || !data.brew_logs_by_pk) return <SelectBrew />
   const {
     id,
     bean,
