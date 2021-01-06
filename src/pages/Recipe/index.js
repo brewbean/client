@@ -1,5 +1,5 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import CreateBrew from 'components/BrewTrak/CreateBrew'
+import Recipes from 'components/Recipe'
 import StagePage from './StagePage'
 
 const RecipePage = (props) => {
@@ -9,8 +9,14 @@ const RecipePage = (props) => {
     <Switch>
       <Route
         exact
+        path={`${match.url}`}
+        render={(props) => <Recipes {...props} />}
+      />
+      <Route
+        exact
         path={`${match.url}/new`}
-        render={(props) => <CreateBrew {...props} />}
+        render={(props) => <Recipes {...props} />}
+        // render={(props) => <CreateBrew {...props} />}
       />
       <Route
         path={`${match.url}/new/stage`}

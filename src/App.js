@@ -40,7 +40,7 @@ function App() {
       <ContainerRoute path='/pour-app'>
         <PourGuide />
       </ContainerRoute>
-      <ContainerRoute path='/recipe'>
+      <ContainerRoute path='/discover/recipe'>
         <Recipe />
       </ContainerRoute>
       <ContainerRoute path='/brewtrak'>
