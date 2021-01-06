@@ -1,11 +1,5 @@
 module.exports = {
-  purge: {
-    content: ['./public/index.html', './src/**/*.js', './src/**/*.jsx'],
-    options: {
-      // using TailwindUI extractor => https://tailwindui.com/documentation
-      defaultExtractor: (content) => content.match(/[\w-/.:]+(?<!:)/g) || [],
-    },
-  },
+  purge: ['./public/index.html', './src/**/*.js', './src/**/*.jsx'],
   theme: {
     extend: {
       height: {

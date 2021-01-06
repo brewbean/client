@@ -21,7 +21,7 @@ const UserSectionMobile = ({ links }) => {
         </div>
         <div className='ml-3'>
           <div className='text-base tracking-wider font-medium leading-6 text-gray-800'>
-            {barista.displayName}
+            {barista.display_name}
           </div>
           <div className='text-sm font-medium leading-5 text-gray-500'>
             {barista.email}

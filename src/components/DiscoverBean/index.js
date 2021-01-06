@@ -1,18 +1,12 @@
 import DiscoverCard from './DiscoverCard'
-import { sampleDetails } from './sampleDetails'
-import { useDiscoverBean } from './useDiscoverBean'
-import { GET_ALL_BEANS } from '../../queries'
+import { GET_ALL_BEANS } from 'queries'
 import { useQuery } from 'urql'
 
 const DiscoverBean = () => {
-  let beanDetail = sampleDetails
-  const { methods } = useDiscoverBean()
   const [result] = useQuery({
     query: GET_ALL_BEANS,
   })
   const { data, fetching, error } = result
-  console.log('Bean Detail Data', data)
-  console.log('Beandetail', beanDetail)
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
@@ -33,10 +27,7 @@ const DiscoverBean = () => {
         <div className='max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8'>
           {/* <!-- Replace with your content --> */}
           <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-            {data &&
-              data.bean.map((x, i) => (
-                <DiscoverCard key={i} {...x} {...methods} />
-              ))}
+            {data && data.bean.map((x, i) => <DiscoverCard key={i} {...x} />)}
           </ul>
           {/* <!-- /End replace --> */}
         </div>
