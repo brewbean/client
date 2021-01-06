@@ -2,22 +2,25 @@ import { useState } from 'react'
 import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
-import { UPDATE_RECIPE } from 'queries'
+import { UPDATE_BREW_LOGS } from 'queries'
 import { useMutation } from 'urql'
+import { useHistory } from 'react-router-dom'
 
-const EditBrewForm = ({ recipe, id }) => {
-  const [, updateRecipe] = useMutation(UPDATE_RECIPE)
-  const [state, setState] = useState(recipe)
+const EditBrewForm = ({ brewLogs, id }) => {
+  const [, updateBrewLog] = useMutation(UPDATE_BREW_LOGS)
+  const [state, setState] = useState(brewLogs)
+  const history = useHistory()
 
-  const submitUpdateRecipe = async () => {
+  const submitUpdateBrewLog = async () => {
     const { bean, date_added, __typename, ...rest } = state
-    await updateRecipe({
+    await updateBrewLog({
       id,
       object: {
         ...rest,
         // bean_id: 4, // TODO: - Get bean_id from bean_name
       },
     })
+    history.push(`/brewtrak`)
   }
 
   const onChangeGenerator = (attr) => (e) => {
@@ -105,11 +108,11 @@ const EditBrewForm = ({ recipe, id }) => {
       {/* Next button to stage */}
       <div className='flex-none bg-white rounded shadow p-4'>
         <button
-          onClick={submitUpdateRecipe}
+          onClick={submitUpdateBrewLog}
           type='button'
           className='mt-2 w-full px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
         >
-          edit recipe
+          edit brew log
         </button>
       </div>
     </div>

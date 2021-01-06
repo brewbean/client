@@ -1,10 +1,9 @@
 /*
-  Recipe Queries
-  TODO: - Change recipe to brew log
+  Brew Logs Queries
 */
-export const INSERT_RECIPE_ONE = `
-mutation insert_recipe_one($object: recipe_insert_input!) {
-  insert_recipe_one(object: $object) {
+export const INSERT_BREW_LOGS_ONE = `
+mutation insert_brew_logs_one($object: brew_logs_insert_input!) {
+  insert_brew_logs_one(object: $object) {
     id
     bean_grind 
     bean_weight
@@ -15,9 +14,9 @@ mutation insert_recipe_one($object: recipe_insert_input!) {
   }
 }
 `
-export const GET_ALL_RECIPE = `
-query get_recipes {
-  recipe (order_by: { id: desc }) {
+export const GET_ALL_BREW_LOGS = `
+query get_brew_logs {
+  brew_logs (order_by: { id: desc }) {
     id
     barista_id  
     brew_type 
@@ -38,10 +37,10 @@ query get_recipes {
   }
 }
 `
-// TODO: - Update recipe_by_pk to brew_log_by_pk
+// TODO: - Update brew_logs_by_pk to brew_log_by_pk
 export const GET_SINGLE_BREW_LOG = `
 query get_single_brew_log($id:Int!) {
-  recipe_by_pk(id:$id) { 
+  brew_logs_by_pk(id:$id) { 
     id
     barista_id  
     brew_type 
@@ -62,9 +61,9 @@ query get_single_brew_log($id:Int!) {
 }
 `
 
-export const UPDATE_RECIPE = `
-mutation update_recipe($id: Int!, $object: recipe_set_input) {
-  update_recipe_by_pk(pk_columns: {id: $id}, _set: $object) {
+export const UPDATE_BREW_LOGS = `
+mutation update_brew_logs($id: Int!, $object: brew_logs_set_input) {
+  update_brew_logs_by_pk(pk_columns: {id: $id}, _set: $object) {
     comment
     bean_grind
     bean_id
@@ -76,9 +75,9 @@ mutation update_recipe($id: Int!, $object: recipe_set_input) {
   }
 }
 `
-export const DELETE_RECIPE = `
-mutation delete_recipe($id: Int!) {
-  delete_recipe_by_pk(id: $id) {
+export const DELETE_BREW_LOGS = `
+mutation delete_brew_logs($id: Int!) {
+  delete_brew_logs_by_pk(id: $id) {
     id
   }
 }
@@ -133,6 +132,31 @@ query get_single_bean_id($_eq: String!) {
 }
 `
 
+export const GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW = `
+query get_bean_and_avg_review($id: Int!) {
+  bean_by_pk(id:$id) {
+    id
+    company_name
+    name
+    altitude
+    process
+    profile_note
+    region
+    roast_type
+    img
+    about
+    price
+    rating
+  }
+  bean_reviews_aggregate(where: {bean_id: {_eq: $id}}) {
+    aggregate {
+      avg {
+        rating
+      }
+    }
+  }
+}
+`
 /*
   Review Queries
 */

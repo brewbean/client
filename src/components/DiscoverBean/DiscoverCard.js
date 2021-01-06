@@ -8,20 +8,14 @@ const DiscoverCard = ({
   region,
   profile_note,
   img,
-  setBeanDetails,
 }) => {
-  const bean = { name, company_name, roast_type, region, profile_note, img }
   const history = useHistory()
   let match = useRouteMatch()
-  const beanClicked = (bean) => {
-    history.push(`${match.url}/details/${id}`)
-    // setBeanDetails(bean)
-  }
   return (
     <li className='col-span-1 flex flex-col text-center bg-white rounded-lg shadow'>
       <div
         className='flex-1 flex flex-col p-8'
-        onClick={() => beanClicked(bean)}
+        onClick={() => history.push(`${match.url}/details/${id}`)}
       >
         <img
           className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full'
