@@ -221,7 +221,13 @@ function AuthProvider({ authOnlyPaths, children }) {
       exchanges: [
         devtoolsExchange,
         dedupExchange,
-        cacheExchange({}),
+        cacheExchange({
+          keys: {
+            bean_reviews_aggregate: () => null,
+            bean_reviews_aggregate_fields: () => null,
+            bean_reviews_avg_fields: () => null,
+          },
+        }),
         authExchange({
           getAuth,
           addAuthToOperation,

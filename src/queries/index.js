@@ -54,6 +54,7 @@ query get_single_brew_log($id:Int!) {
     private
     date_added 
     bean {
+      id
       img
       name
     }
@@ -126,8 +127,8 @@ query get_single_bean($id:Int!){
 export const GET_SINGLE_BEAN_ID_BY_NAME = `
 query get_single_bean_id($_eq: String!) {
   bean(where: {name: {_eq: $_eq}}) {
-    name
     id
+    name
   }
 }
 `
@@ -181,6 +182,7 @@ query get_single_review($id:Int!){
     rating
     comment
     bean {
+      id
       name
     }
   }
@@ -197,6 +199,7 @@ query get_all_review_of_bean($_eq: Int!) {
       rating
       comment
       barista {
+        id
         display_name
       }
     }
