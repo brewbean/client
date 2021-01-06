@@ -1,14 +1,15 @@
-// import { GET_ALL_BEANS } from 'queries' // GET ALL REVIEWS
-// import { useQuery } from 'urql'
+import RecipeCard from './RecipeCard'
+import { GET_ALL_RECIPES } from 'queries' // GET ALL REVIEWS
+import { useQuery } from 'urql'
 
 const Recipes = () => {
-  // const [result] = useQuery({
-  //   query: GET_ALL_BEANS, // GET ALL BEANS
-  // })
-  // const { data, fetching, error } = result
-
-  // if (fetching) return <p>Loading...</p>
-  // if (error) return <p>Oh no... {error.message}</p>
+  const [result] = useQuery({
+    query: GET_ALL_RECIPES, // GET ALL BEANS
+  })
+  const { data, fetching, error } = result
+  console.log('Recipes:', data)
+  if (fetching) return <p>Loading...</p>
+  if (error) return <p>Oh no... {error.message}</p>
 
   return (
     <div>
@@ -23,9 +24,9 @@ const Recipes = () => {
       <main className='-mt-32'>
         <div className='max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8'>
           {/* <!-- Replace with your content --> */}
-          {/* <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-            {data && data.bean.map((x, i) => <DiscoverCard key={i} {...x} />)}
-          </ul> */}
+          <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+            {data && data.recipes.map((x, i) => <RecipeCard key={i} {...x} />)}
+          </ul>
           {/* <!-- /End replace --> */}
         </div>
       </main>

@@ -27,7 +27,7 @@ query get_brew_logs {
     water_temp 
     rating 
     comment 
-    private
+    privated
     date_added 
     bean {
       id
@@ -37,7 +37,6 @@ query get_brew_logs {
   }
 }
 `
-// TODO: - Update brew_logs_by_pk to brew_log_by_pk
 export const GET_SINGLE_BREW_LOG = `
 query get_single_brew_log($id:Int!) {
   brew_logs_by_pk(id:$id) { 
@@ -51,7 +50,7 @@ query get_single_brew_log($id:Int!) {
     water_temp 
     rating 
     comment 
-    private
+    privated
     date_added 
     bean {
       img
@@ -81,7 +80,6 @@ mutation delete_brew_logs($id: Int!) {
     id
   }
 }
-
 `
 /*
   Bean Queries
@@ -242,4 +240,91 @@ export const GET_BARISTA = `
       created_on
     }
   }
+`
+/*
+  Recipe Queries
+*/
+export const INSERT_RECIPES_ONE = `
+mutation insert_recipes_one($object: recipes_insert_input!) {
+  insert_recipes_one(object: $object) {
+    id
+    bean_grind 
+    bean_weight
+    brew_type
+    rating
+    water_temp
+    barista_id
+  }
+}
+`
+export const GET_ALL_RECIPES = `
+query get_recipes {
+  recipes (order_by: { id: desc }) {
+    id
+    barista_id  
+    brew_type 
+    bean_weight 
+    bean_grind
+    water_amount
+    bean_id 
+    water_temp 
+    rating 
+    comment 
+    privated
+    date_added 
+    barista {
+      id
+      display_name
+    }
+    bean {
+      id
+      img
+      name
+    }
+  }
+}
+`
+export const GET_SINGLE_RECIPE = `
+query get_single_recipe($id:Int!) {
+  recipes_by_pk(id:$id) { 
+    id
+    barista_id  
+    brew_type 
+    bean_weight 
+    bean_grind 
+    water_amount
+    bean_id 
+    water_temp 
+    rating 
+    comment 
+    privated
+    date_added 
+    bean {
+      img
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_RECIPES = `
+mutation update_recipes($id: Int!, $object: recipes_set_input) {
+  update_recipes_by_pk(pk_columns: {id: $id}, _set: $object) {
+    comment
+    bean_grind
+    bean_id
+    bean_weight
+    brew_type
+    rating
+    water_amount
+    water_temp
+  }
+}
+`
+export const DELETE_RECIPES = `
+mutation delete_recipes($id: Int!) {
+  delete_recipes_by_pk(id: $id) {
+    id
+  }
+}
 `
