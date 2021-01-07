@@ -1,13 +1,13 @@
 import Star from '../BrewTrak/Icons/star.png'
 import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import BeanReview from './BeanReview'
-import { roundToHalfOrWhole } from 'helper/math'
-import { useParams } from 'react-router-dom'
+// import { roundToHalfOrWhole } from 'helper/math'
+import { useParams, Link } from 'react-router-dom'
 
 const DiscoverDetails = (props) => {
-  const history = useHistory()
+  // const history = useHistory()
   const { id } = useParams()
   const [result] = useQuery({
     query: GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW,
@@ -24,8 +24,8 @@ const DiscoverDetails = (props) => {
     img,
     price,
   } = data.bean_by_pk
-  let { rating } = data.bean_reviews_aggregate.aggregate.avg
-  rating = roundToHalfOrWhole(rating)
+  // let { rating } = data.bean_reviews_aggregate.aggregate.avg
+  // rating = roundToHalfOrWhole(rating)
 
   return (
     <div>
@@ -49,7 +49,7 @@ const DiscoverDetails = (props) => {
                 <div className='text-3xl leading-9 font-bold'>{name}</div>
                 <div className='flex items-center text-2xl leading-9'>
                   <img className='w-5 h-5 mr-1' src={Star} alt='Star' />:
-                  {rating}/5
+                  {/* {rating}/5 */}
                 </div>
                 <div className='text-2xl font-bold'>${price}</div>
                 <div className='font-bold'>Profile Notes</div>
@@ -65,15 +65,12 @@ const DiscoverDetails = (props) => {
                   buy bean
                 </button>
                 {/* TODO - Guest cannot be allowed to make a review. Hide button for guest & route must be authenticated */}
-                <button
-                  type='button'
-                  onClick={() => {
-                    history.replace(`/discover/bean/review/${id}/new`)
-                  }}
+                <Link
+                  to={`/discover/bean/review/${id}/new`}
                   className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
                 >
                   submit review
-                </button>
+                </Link>
                 <BeanReview bean_id={id} />
               </div>
             </div>
