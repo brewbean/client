@@ -135,7 +135,7 @@ query get_single_bean_id($_eq: String!) {
 `
 
 export const GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW = gql`
-  query get_bean_and_avg_review($id: Int!, $user_id: Int!) {
+  query get_bean_and_avg_review($id: Int!) {
     bean_by_pk(id: $id) {
       id
       company_name

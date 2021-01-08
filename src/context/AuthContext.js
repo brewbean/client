@@ -26,8 +26,8 @@ import {
   logout,
 } from 'helper/auth'
 import { AUTH_API, GRAPHQL_API } from 'config'
-import { GET_BARISTA, GET_ALL_REVIEW_OF_BEAN } from 'queries'
-
+import { GET_BARISTA } from 'queries'
+import { updates, keys } from 'helper/cache'
 const AuthContext = createContext()
 
 const initialState = {
@@ -221,31 +221,7 @@ function AuthProvider({ authOnlyPaths, children }) {
       exchanges: [
         devtoolsExchange,
         dedupExchange,
-        cacheExchange({
-          updates: {
-            Mutation: {
-              insert_bean_reviews_one: (result, args, cache, info) => {
-                cache.updateQuery(
-                  {
-                    query: GET_ALL_REVIEW_OF_BEAN,
-                    variables: { _eq: args.object.bean_id },
-                  },
-                  (data) => {
-                    data.bean_reviews_aggregate.nodes.push(
-                      result.insert_bean_reviews_one
-                    )
-                    return data
-                  }
-                )
-              },
-            },
-          },
-          keys: {
-            bean_reviews_aggregate: () => null,
-            bean_reviews_aggregate_fields: () => null,
-            bean_reviews_avg_fields: () => null,
-          },
-        }),
+        cacheExchange({ ...updates, ...keys }),
         authExchange({
           getAuth,
           addAuthToOperation,
