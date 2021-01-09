@@ -1,31 +1,19 @@
-import { useQuery, useMutation } from 'urql'
-import { GET_ALL_REVIEW_OF_BEAN, DELETE_BEAN_REVIEW } from 'queries'
+import { useMutation } from 'urql'
+import { DELETE_BEAN_REVIEW } from 'queries'
 import { useHistory } from 'react-router-dom'
 
-const BeanReview = (props) => {
-  let { bean_id } = props
+const BeanReview = ({ bean_reviews }) => {
   const history = useHistory()
-
-  const [result] = useQuery({
-    query: GET_ALL_REVIEW_OF_BEAN,
-    variables: { _eq: bean_id },
-  })
   const [, deleteReview] = useMutation(DELETE_BEAN_REVIEW)
-
   const deleteReviewPressed = async (id) => {
     await deleteReview({ id })
   }
-  const { data, fetching, error } = result
-
-  if (fetching) return <p>Loading...</p>
-  if (error) return <p>Oh no... {error.message}</p>
-  const { nodes } = data.bean_reviews_aggregate
   return (
     <div>
       <div className='font-bold'>Bean Reviews</div>
       <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-        {nodes.length && nodes
-          ? nodes.map((n, i) => (
+        {bean_reviews.length && bean_reviews
+          ? bean_reviews.map((n, i) => (
               <div key={i}>
                 <li className='col-span-1 bg-white rounded-lg shadow'>
                   <div className='w-full flex items-center justify-between p-6 space-x-6'>

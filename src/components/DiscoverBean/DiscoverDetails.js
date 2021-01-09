@@ -1,9 +1,8 @@
 import Star from '../BrewTrak/Icons/star.png'
 import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
-// import { useHistory } from 'react-router-dom'
 import BeanReview from './BeanReview'
-// import { roundToHalfOrWhole } from 'helper/math'
+import { roundToHalfOrWhole } from 'helper/math'
 import { useParams, Link } from 'react-router-dom'
 
 const DiscoverDetails = (props) => {
@@ -24,8 +23,9 @@ const DiscoverDetails = (props) => {
     img,
     price,
   } = data.bean_by_pk
-  // let { rating } = data.bean_reviews_aggregate.aggregate.avg
-  // rating = roundToHalfOrWhole(rating)
+  const { bean_reviews } = data
+  let { rating } = data.bean_reviews_aggregate.aggregate.avg
+  rating = roundToHalfOrWhole(rating)
 
   return (
     <div>
@@ -49,7 +49,7 @@ const DiscoverDetails = (props) => {
                 <div className='text-3xl leading-9 font-bold'>{name}</div>
                 <div className='flex items-center text-2xl leading-9'>
                   <img className='w-5 h-5 mr-1' src={Star} alt='Star' />:
-                  {/* {rating}/5 */}
+                  {rating}/5
                 </div>
                 <div className='text-2xl font-bold'>${price}</div>
                 <div className='font-bold'>Profile Notes</div>
@@ -71,7 +71,7 @@ const DiscoverDetails = (props) => {
                 >
                   submit review
                 </Link>
-                <BeanReview bean_id={id} />
+                <BeanReview bean_id={id} bean_reviews={bean_reviews} />
               </div>
             </div>
           </div>

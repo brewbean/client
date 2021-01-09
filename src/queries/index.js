@@ -150,24 +150,24 @@ export const GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW = gql`
       price
       rating
     }
-    # bean_reviews(where: { bean_id: { _eq: $_eq } }) {
-    #   id
-    #   barista_id
-    #   bean_id
-    #   rating
-    #   comment
-    #   barista {
-    #     id
-    #     display_name
-    #   }
-    # }
-    # bean_reviews_aggregate(where: { bean_id: { _eq: $id } }) {
-    #   aggregate {
-    #     avg {
-    #       rating
-    #     }
-    #   }
-    # }
+    bean_reviews(where: { bean_id: { _eq: $id } }) {
+      id
+      barista_id
+      bean_id
+      rating
+      comment
+      barista {
+        id
+        display_name
+      }
+    }
+    bean_reviews_aggregate(where: { bean_id: { _eq: $id } }) {
+      aggregate {
+        avg {
+          rating
+        }
+      }
+    }
   }
 `
 /*
@@ -207,21 +207,21 @@ query get_single_review($id:Int!){
 
 export const GET_ALL_REVIEW_OF_BEAN = gql`
   query get_all_review_of_bean($_eq: Int!) {
-    bean_reviews_aggregate(where: { bean_id: { _eq: $_eq } }) {
-      nodes {
+    bean_reviews(where: { bean: { id: { _eq: $_eq } } }) {
+      id
+      barista_id
+      bean_id
+      rating
+      comment
+      barista {
         id
-        barista_id
-        bean_id
-        rating
-        comment
-        barista {
-          id
-          display_name
-        }
+        display_name
       }
-      aggregate {
-        avg {
-          rating
+      bean_reviews_aggregate(where: { bean_id: { _eq: $id } }) {
+        aggregate {
+          avg {
+            rating
+          }
         }
       }
     }
