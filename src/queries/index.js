@@ -204,7 +204,7 @@ query get_single_review($id:Int!){
   }
 }
 `
-
+// Possible not using this
 export const GET_ALL_REVIEW_OF_BEAN = gql`
   query get_all_review_of_bean($_eq: Int!) {
     bean_reviews(where: { bean: { id: { _eq: $_eq } } }) {
@@ -241,9 +241,11 @@ export const DELETE_BEAN_REVIEW = `
 mutation delete_bean_reviews($id: Int!) {
   delete_bean_reviews_by_pk(id: $id) {
     id
+    bean_id
   }
 }
 `
+// Possibly not using this
 export const GET_AVG_REVIEW_OF_BEAN = `
 query get_avg_review_of_bean($id: Int!) {
   bean_reviews_aggregate(where: {bean_id: {_eq: $id}}) {

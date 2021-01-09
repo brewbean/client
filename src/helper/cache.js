@@ -15,6 +15,9 @@ export const updates = {
           }
         )
       },
+      delete_bean_reviews_by_pk: (result, args, cache, info) => {
+        cache.invalidate({ __typename: 'bean_reviews', id: args.id })
+      },
     },
   },
 }
