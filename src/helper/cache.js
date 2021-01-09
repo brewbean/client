@@ -1,4 +1,4 @@
-import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from 'queries'
+import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
 
 export const updates = {
   updates: {
@@ -6,7 +6,7 @@ export const updates = {
       insert_bean_reviews_one: (result, args, cache, info) => {
         cache.updateQuery(
           {
-            query: GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW,
+            query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
             variables: { id: args.object.bean_id },
           },
           (data) => {

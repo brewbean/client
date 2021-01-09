@@ -1,5 +1,5 @@
 import Star from '../BrewTrak/Icons/star.png'
-import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from 'queries'
+import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
 import BeanReview from './BeanReview'
 import { roundToHalfOrWhole } from 'helper/math'
@@ -9,7 +9,7 @@ const DiscoverDetails = (props) => {
   // const history = useHistory()
   const { id } = useParams()
   const [result] = useQuery({
-    query: GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW,
+    query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
     variables: { id },
   })
   const { data, fetching, error } = result
