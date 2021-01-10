@@ -28,7 +28,7 @@ query get_brew_logs {
     water_temp 
     rating 
     comment 
-    private
+    privated
     date_added 
     bean {
       id
@@ -52,7 +52,7 @@ query get_single_brew_log($id:Int!) {
     water_temp 
     rating 
     comment 
-    private
+    privated
     date_added 
     bean {
       id
