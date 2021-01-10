@@ -7,6 +7,7 @@ import { useRouteMatch, Link } from 'react-router-dom'
 import { useQuery, useMutation } from 'urql'
 import { GET_SINGLE_BREW_LOG, DELETE_BREW_LOGS } from 'queries'
 import SelectBrew from './SelectBrew'
+import CoffeeNotSelected from './Icons/no-coffee-selected.jpg'
 
 // TODO - Shorten the props
 // TODO - useQuery and use id, check cache in network to see if it's re-querie
@@ -49,7 +50,7 @@ const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
           <div className='flex-column px-10 mx-5 rounded-lg h-96'>
             <img
               className='w-40 h-40 pt-2'
-              src={bean?.img}
+              src={bean ? bean?.img : CoffeeNotSelected}
               alt='No coffee available!'
             />
           </div>
