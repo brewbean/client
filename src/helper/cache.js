@@ -35,6 +35,23 @@ export const updates = {
       delete_brew_logs_by_pk: (result, args, cache, info) => {
         cache.invalidate({ __typename: 'brew_logs', id: args.id })
       },
+      update_brew_logs_by_pk: (result, args, cache, info) => {
+        cache.updateQuery(
+          {
+            query: GET_ALL_BREW_LOGS,
+          },
+          (data) => {
+            const updateIndex = data.brew_logs.findIndex(
+              (b) => b.id === args.id
+            )
+            return [
+              ...data.brew_logs.slice(0, updateIndex),
+              result.update_brew_logs_by_pk,
+              ...data.brew_logs.slice(updateIndex + 1),
+            ]
+          }
+        )
+      },
     },
   },
 }

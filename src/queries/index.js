@@ -76,14 +76,23 @@ query get_single_brew_log($id:Int!) {
 export const UPDATE_BREW_LOGS = `
 mutation update_brew_logs($id: Int!, $object: brew_logs_set_input) {
   update_brew_logs_by_pk(pk_columns: {id: $id}, _set: $object) {
-    comment
-    bean_grind
-    bean_id
-    bean_weight
-    brew_type
-    rating
+    id
+    barista_id  
+    brew_type 
+    bean_weight 
+    bean_grind 
     water_amount
-    water_temp
+    bean_id 
+    water_temp 
+    rating 
+    comment 
+    privated
+    date_added 
+    bean {
+      id
+      img
+      name
+    }
   }
 }
 `
