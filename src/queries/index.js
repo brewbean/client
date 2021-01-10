@@ -6,12 +6,22 @@ export const INSERT_BREW_LOGS_ONE = `
 mutation insert_brew_logs_one($object: brew_logs_insert_input!) {
   insert_brew_logs_one(object: $object) {
     id
-    bean_grind 
-    bean_weight
-    brew_type
-    rating
-    water_temp
-    barista_id
+    barista_id  
+    brew_type 
+    bean_weight 
+    bean_grind
+    water_amount
+    bean_id 
+    water_temp 
+    rating 
+    comment 
+    privated
+    date_added 
+    bean {
+      id
+      img
+      name
+    }
   }
 }
 `
