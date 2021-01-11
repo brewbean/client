@@ -284,6 +284,52 @@ query get_recipes {
   }
 }
 `
+export const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = `
+  query get_recipe_reviews_avg_review($id: Int!) {
+    recipes_by_pk (id: $id) {
+      id
+      barista_id  
+      brew_type 
+      bean_weight 
+      bean_grind
+      water_amount
+      bean_id 
+      water_temp 
+      rating 
+      comment 
+      privated
+      date_added 
+      barista {
+        id
+        display_name
+      }
+      bean {
+        id
+        img
+        name
+      }
+    }
+    recipe_reviews(where: { recipe_id: { _eq: $id } }) {
+      id
+      barista_id
+      recipe_id
+      rating
+      comment
+      barista {
+        id
+        display_name
+      }
+    }
+    recipe_reviews_aggregate(where: { recipe_id: { _eq: $id } }) {
+      aggregate {
+        avg {
+          rating
+        }
+      }
+    }
+  
+}
+`
 export const GET_SINGLE_RECIPE = `
 query get_single_recipe($id:Int!) {
   recipes_by_pk(id:$id) { 
@@ -325,6 +371,14 @@ export const DELETE_RECIPES = `
 mutation delete_recipes($id: Int!) {
   delete_recipes_by_pk(id: $id) {
     id
+  }
+}
+`
+export const DELETE_RECIPE_REVIEW = `
+mutation delete_recipe_reviews($id: Int!) {
+  delete_recipe_reviews_by_pk(id: $id) {
+    id
+    recipe_id
   }
 }
 `

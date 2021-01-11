@@ -1,5 +1,6 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import Recipes from 'components/Recipe'
+import RecipeDetails from 'components/Recipe/RecipeDetails'
 import StagePage from './StagePage'
 
 const RecipePage = (props) => {
@@ -11,6 +12,10 @@ const RecipePage = (props) => {
         exact
         path={`${match.url}`}
         render={(props) => <Recipes {...props} />}
+      />
+      <Route
+        path={`${match.url}/details/:id`}
+        render={(props) => <RecipeDetails {...props} />}
       />
       <Route
         exact
