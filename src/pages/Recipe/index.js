@@ -1,6 +1,7 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import Recipes from 'components/Recipe'
 import RecipeDetails from 'components/Recipe/RecipeDetails'
+import CreateRecipeReview from 'components/Recipe/CreateRecipeReview'
 import StagePage from './StagePage'
 
 const RecipePage = (props) => {
@@ -22,6 +23,10 @@ const RecipePage = (props) => {
         path={`${match.url}/new`}
         render={(props) => <Recipes {...props} />}
         // render={(props) => <CreateBrew {...props} />}
+      />
+      <Route
+        path={`${match.url}/review/:id/new`}
+        render={(props) => <CreateRecipeReview {...props} />}
       />
       <Route
         path={`${match.url}/new/stage`}

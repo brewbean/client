@@ -59,7 +59,6 @@ query get_single_brew_log($id:Int!) {
   }
 }
 `
-
 export const UPDATE_BREW_LOGS = `
 mutation update_brew_logs($id: Int!, $object: brew_logs_set_input) {
   update_brew_logs_by_pk(pk_columns: {id: $id}, _set: $object) {
@@ -102,7 +101,6 @@ query get_beans {
   }
 }
 `
-
 export const GET_SINGLE_BEAN = `
 query get_single_bean($id:Int!){
   bean_by_pk(id:$id) {
@@ -129,7 +127,6 @@ query get_single_bean_id($_eq: String!) {
   }
 }
 `
-
 export const GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW = `
 query get_bean_and_avg_review($id: Int!) {
   bean_by_pk(id:$id) {
@@ -156,7 +153,7 @@ query get_bean_and_avg_review($id: Int!) {
 }
 `
 /*
-  Review Queries
+  Bean Review Queries
 */
 export const INSERT_REVIEW_ONE = `
 mutation insert_bean_reviews_one($object: bean_reviews_insert_input!) {
@@ -169,7 +166,6 @@ mutation insert_bean_reviews_one($object: bean_reviews_insert_input!) {
   }
 }
 `
-
 export const GET_SINGLE_REVIEW = `
 query get_single_review($id:Int!){
   bean_reviews_by_pk(id:$id) {
@@ -184,7 +180,6 @@ query get_single_review($id:Int!){
   }
 }
 `
-
 export const GET_ALL_REVIEW_OF_BEAN = `
 query get_all_review_of_bean($_eq: Int!) {
   bean_reviews_aggregate(where: {bean_id: {_eq: $_eq}}) {
@@ -201,7 +196,6 @@ query get_all_review_of_bean($_eq: Int!) {
   }
 }
 `
-
 export const UPDATE_BEAN_REVIEW = `
 mutation update_bean_reviews($id: Int!, $object: bean_reviews_set_input!) {
   update_bean_reviews_by_pk(pk_columns: {id: $id}, _set: $object) {
@@ -229,7 +223,6 @@ query get_avg_review_of_bean($id: Int!) {
   }
 }
 `
-
 export const GET_BARISTA = `
   query {
     barista { 
@@ -327,8 +320,7 @@ export const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = `
         }
       }
     }
-  
-}
+  }
 `
 export const GET_SINGLE_RECIPE = `
 query get_single_recipe($id:Int!) {
@@ -352,7 +344,6 @@ query get_single_recipe($id:Int!) {
   }
 }
 `
-
 export const UPDATE_RECIPES = `
 mutation update_recipes($id: Int!, $object: recipes_set_input) {
   update_recipes_by_pk(pk_columns: {id: $id}, _set: $object) {
@@ -367,10 +358,47 @@ mutation update_recipes($id: Int!, $object: recipes_set_input) {
   }
 }
 `
+export const UPDATE_RECIPE_REVIEW = `
+mutation update_recipe_reviews($id: Int!, $object: recipe_reviews_set_input!) {
+  update_recipe_reviews_by_pk(pk_columns: {id: $id}, _set: $object) {
+    id
+    comment
+    rating
+  }
+}
+`
 export const DELETE_RECIPES = `
 mutation delete_recipes($id: Int!) {
   delete_recipes_by_pk(id: $id) {
     id
+  }
+}
+`
+/*
+  Recipe Review Queries
+*/
+export const INSERT_RECIPE_REVIEW_ONE = `
+mutation insert_recipe_reviews_one($object: recipe_reviews_insert_input!) {
+  insert_recipe_reviews_one(object: $object) {
+    id
+    barista_id 
+    recipe_id
+    rating
+    comment
+  }
+}
+`
+export const GET_SINGLE_RECIPE_REVIEW = `
+query get_single_recipe_review($id:Int!){
+  recipe_reviews_by_pk(id:$id) {
+    id
+    barista_id
+    recipe_id
+    rating
+    comment
+    recipe {
+      name
+    }
   }
 }
 `
