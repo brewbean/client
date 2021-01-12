@@ -3,12 +3,12 @@ import { ReactComponent as Play } from './play-circle.svg'
 const PourPlayer = ({
   start,
   isActive,
-  stageWeight,
+  weight,
   percent,
   stage,
   stages,
   remainingTime,
-  weight,
+  coffeeWeight,
   timeString,
   gif: Gif,
 }) => {
@@ -16,7 +16,7 @@ const PourPlayer = ({
     <div className='bg-white text-gray-800 rounded shadow p-4 h-full flex flex-col justify-between'>
       <div className='flex justify-between items-center'>
         <h3 className='text-md font-medium tracking-wide'>coffee weight</h3>
-        <h3 className='text-md font-medium tracking-wide'>{weight}g</h3>
+        <h3 className='text-md font-medium tracking-wide'>{coffeeWeight}g</h3>
       </div>
 
       <div className='flex flex-col items-center'>
@@ -35,7 +35,7 @@ const PourPlayer = ({
 
       <div className='flex flex-col items-center text-blue-700'>
         <h5 className='text-lg'>water in system</h5>
-        <h5 className='text-xl font-semibold'>{stageWeight} g</h5>
+        <h5 className='text-xl font-semibold'>{weight} g</h5>
       </div>
 
       <div className='flex flex-col items-center'>
@@ -52,15 +52,23 @@ const PourPlayer = ({
             </p>
           ))}
         </div>
-        <div className='mt-4 h-1 bg-gray-200 rounded-full'>
+        <div className='mt-4 h-1 bg-pink-200 rounded-full'>
           <div
             style={{ width: `${percent}%` }}
-            className='h-1 bg-blue-500 rounded-full relative'
+            className='h-1 bg-pink-500 rounded-full relative'
           ></div>
         </div>
       </div>
     </div>
   )
 }
+//<div className='relative pt-1'>
+//  <div className='overflow-hidden h-2 mb-4 text-xs flex rounded bg-pink-200'>
+//    <div
+//      style={{ width: percent + '%' }}
+//      className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500'
+//    ></div>
+//  </div>
+//</div>
 
 export default PourPlayer

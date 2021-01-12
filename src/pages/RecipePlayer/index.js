@@ -1,5 +1,7 @@
+import PourPlayer from 'components/RecipePlayer'
 import { useEffect, useState } from 'react'
 import { timeString } from 'helper/timer'
+import { ReactComponent as GifPlaceholder } from './undraw_coffee_break_j3of.svg'
 
 const recipes = [
   {
@@ -18,19 +20,22 @@ const recipes = [
 
 const serve = 15 // 2 min 30 sec
 
-export const usePourGuide = () => {
+const stages = [...recipes.map((r) => r.name), 'serve']
+
+const RecipePlayer = () => {
   const [stage, setStage] = useState('')
-  const [stageWeight, setStageWeight] = useState(0)
+  const [weight, setWeight] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [isActive, setIsActive] = useState(false)
+  const coffeeWeight = 13
 
   const start = () => setIsActive(true)
   const stop = () => setIsActive(false)
 
   const reset = () => {
+    stop()
     setSeconds(0)
-    setIsActive(false)
   }
 
   useEffect(() => {
@@ -54,7 +59,7 @@ export const usePourGuide = () => {
       } else {
         setRemainingTime(findStage.endTime - seconds)
         setStage(findStage.name)
-        setStageWeight(findStage.weight)
+        setWeight(findStage.weight)
       }
 
       if (seconds === serve) {
@@ -67,21 +72,21 @@ export const usePourGuide = () => {
     return () => clearInterval(interval)
   }, [isActive, seconds])
 
-  return {
-    data: {
-      isActive,
-      stage,
-      stages: [...recipes.map((r) => r.name), 'serve'],
-      stageWeight,
-      remainingTime,
-      seconds,
-      timeString: timeString(seconds),
-      percent: (seconds / serve) * 100,
-    },
-    handler: {
-      start,
-      stop,
-      reset,
-    },
-  }
+  return (
+    <PourPlayer
+      start={start}
+      reset={reset}
+      isActive={isActive}
+      weight={weight}
+      percent={(seconds / serve) * 100}
+      stage={stage}
+      stages={stages}
+      remainingTime={remainingTime}
+      timeString={timeString(seconds)}
+      coffeeWeight={coffeeWeight}
+      gif={GifPlaceholder}
+    />
+  )
 }
+
+export default RecipePlayer
