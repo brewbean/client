@@ -15,7 +15,7 @@ mutation insert_brew_logs_one($object: brew_logs_insert_input!) {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     bean {
       id
@@ -38,7 +38,7 @@ query get_brew_logs {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     bean {
       id
@@ -62,7 +62,7 @@ query get_single_brew_log($id:Int!) {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     bean {
       id
@@ -86,7 +86,7 @@ mutation update_brew_logs($id: Int!, $object: brew_logs_set_input) {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     bean {
       id
@@ -168,22 +168,20 @@ export const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
       about
       price
       rating
-    }
-    bean_reviews(where: { bean_id: { _eq: $id } }) {
-      id
-      barista_id
-      bean_id
-      rating
-      comment
-      barista {
+      bean_reviews {
         id
-        display_name
+        rating
+        comment
+        barista {
+          id
+          display_name
+        }
       }
-    }
-    bean_reviews_aggregate(where: { bean_id: { _eq: $id } }) {
-      aggregate {
-        avg {
-          rating
+      bean_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
         }
       }
     }
@@ -265,16 +263,16 @@ mutation delete_bean_reviews($id: Int!) {
 }
 `
 // Possibly not using this
-export const GET_AVG_REVIEW_OF_BEAN = `
-query get_avg_review_of_bean($id: Int!) {
-  bean_reviews_aggregate(where: {bean_id: {_eq: $id}}) {
-    aggregate {
-      avg {
-        rating
+export const GET_AVG_REVIEW_OF_BEAN = gql`
+  query get_avg_review_of_bean($id: Int!) {
+    bean_reviews_aggregate(where: { bean_id: { _eq: $id } }) {
+      aggregate {
+        avg {
+          rating
+        }
       }
     }
   }
-}
 `
 
 export const GET_BARISTA = `

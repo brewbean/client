@@ -22,9 +22,10 @@ const DiscoverDetails = (props) => {
     profile_note,
     img,
     price,
+    bean_reviews_aggregate,
+    bean_reviews,
   } = data.bean_by_pk
-  const { bean_reviews } = data
-  let { rating } = data.bean_reviews_aggregate.aggregate.avg
+  let { rating } = bean_reviews_aggregate.aggregate.avg
   rating = roundToHalfOrWhole(rating)
 
   return (

@@ -221,7 +221,7 @@ function AuthProvider({ authOnlyPaths, children }) {
       exchanges: [
         devtoolsExchange,
         dedupExchange,
-        cacheExchange({ ...updates, ...keys }),
+        cacheExchange({ updates, keys }),
         authExchange({
           getAuth,
           addAuthToOperation,
