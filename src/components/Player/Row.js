@@ -1,4 +1,4 @@
-import { Check } from 'components/Icon'
+import { Check, DotsHorizontal, Heart } from 'components/Icon'
 
 const Container = ({ bottom, children }) =>
   bottom ? (
@@ -13,22 +13,37 @@ const Container = ({ bottom, children }) =>
     </div>
   )
 
-const Row = ({ bottom = false, stage, start }) => (
-  <li>
-    <Container bottom={bottom}>
-      <div className='relative flex items-center space-x-3'>
-        <div>
-          <span className='h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white'>
-            <Check className='h-5 w-5 text-white' />
-          </span>
+const Row = ({ bottom = false, stage, start, isCurrent, isDone }) => {
+  const gray = 'bg-gray-400'
+  const green = 'bg-green-500'
+  const blue = 'bg-blue-500'
+  const color = isDone ? green : isCurrent ? blue : gray
+  const Icon = isDone ? Check : isCurrent ? Heart : DotsHorizontal
+
+  return (
+    <li>
+      <Container bottom={bottom}>
+        <div className='relative flex items-center space-x-3'>
+          <div>
+            <span
+              className={
+                'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white ' +
+                color
+              }
+            >
+              <Icon className='h-5 w-5 text-white' />
+            </span>
+          </div>
+          <div className='min-w-0 flex-1 flex justify-between text-sm text-gray-500'>
+            <p className={isCurrent ? 'font-bold text-gray-700' : ''}>
+              {stage}
+            </p>
+            <p>{start}</p>
+          </div>
         </div>
-        <div className='min-w-0 flex-1 flex justify-between text-sm text-gray-500'>
-          <p>{stage}</p>
-          <p>{start}</p>
-        </div>
-      </div>
-    </Container>
-  </li>
-)
+      </Container>
+    </li>
+  )
+}
 
 export default Row

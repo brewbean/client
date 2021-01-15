@@ -68,7 +68,7 @@ const Player = ({ stages, coffeeWeight }) => {
         remainingTime={remainingTime}
         totalTime={stages.find((s) => s.name === 'serve').end}
       />
-      <Timeline />
+      <Timeline stages={stages} stage={stage} seconds={seconds} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
+import { timeString } from 'helper/timer'
 import Row from './Row'
 
-const Timeline = ({ stages, stage, time }) => (
+const Timeline = ({ stages, stage, seconds }) => (
   <div className='lg:col-start-4 lg:col-span-1'>
     <div className='bg-white text-gray-900 rounded shadow p-4'>
       <h3 className='text-2xl font-medium font-bold text-center mb-4'>
@@ -8,13 +9,16 @@ const Timeline = ({ stages, stage, time }) => (
       </h3>
 
       <ul>
-        <Row stage='bloom' start=':00' />
-
-        <Row stage='first pour' start=':40' />
-
-        <Row stage='second pour' start='1:40' />
-
-        <Row stage='serve' start='2:30' bottom />
+        {stages.map(({ name, start, end }, index) => (
+          <Row
+            key={name}
+            stage={name}
+            start={timeString(start)}
+            bottom={index === stages.length - 1}
+            isCurrent={stage === name}
+            isDone={seconds >= end}
+          />
+        ))}
       </ul>
     </div>
   </div>
