@@ -19,7 +19,7 @@ const Main = ({
   <div className='lg:col-start-1 lg:col-span-3'>
     <div className='bg-white text-gray-800 rounded shadow p-4'>
       {!isActive && seconds === 0 ? (
-        <div className='flex flex-col items-center space-y-3'>
+        <div className='flex flex-col items-center space-y-5'>
           <h2 className='text-3xl font-extrabold text-gray-900 sm:block sm:text-4xl'>
             Recipe Details
           </h2>
@@ -28,13 +28,15 @@ const Main = ({
               <span className='mr-2 rounded-md bg-yellow-400 p-2 text-white'>
                 <Scale />
               </span>
-              Coffee weight: {coffeeWeight}g
+              Coffee weight {String.fromCharCode(8212)}
+              <span className='ml-1 font-bold'>{coffeeWeight}g</span>
             </h4>
             <h4 className='inline-flex items-center text-md font-medium'>
               <span className='mr-2 rounded-md bg-blue-400 p-2 text-white'>
                 <Clock />
               </span>
-              Total time: {timeString(totalTime)}
+              Total time {String.fromCharCode(8212)}
+              <span className='ml-1 font-bold'>{timeString(totalTime)}</span>
             </h4>
           </div>
           <ButtonLeftIcon
