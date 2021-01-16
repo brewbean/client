@@ -274,7 +274,7 @@ export const GET_AVG_REVIEW_OF_BEAN = gql`
   }
 `
 
-export const GET_BARISTA = gql`
+export const GET_BARISTA = `
   query {
     barista {
       id
