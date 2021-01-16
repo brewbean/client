@@ -72,7 +72,12 @@ const DiscoverDetails = (props) => {
                 >
                   submit review
                 </Link>
-                <BeanReview bean_id={id} bean_reviews={bean_reviews} />
+                <div className='font-bold'>Bean Reviews</div>
+                {bean_reviews.length > 0 ? (
+                  <BeanReview bean_id={id} bean_reviews={bean_reviews} />
+                ) : (
+                  'No bean reviews available.'
+                )}
               </div>
             </div>
           </div>
