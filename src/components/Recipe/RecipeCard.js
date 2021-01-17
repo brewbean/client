@@ -1,6 +1,6 @@
 import { useHistory, useRouteMatch } from 'react-router-dom'
 
-const RecipeCard = ({ id, brew_type, rating, privated, barista, bean }) => {
+const RecipeCard = ({ id, brew_type, rating, isPrivate, barista, bean }) => {
   const history = useHistory()
   let match = useRouteMatch()
   return (

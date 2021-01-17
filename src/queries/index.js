@@ -27,7 +27,7 @@ query get_brew_logs {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     bean {
       id
@@ -50,7 +50,7 @@ query get_single_brew_log($id:Int!) {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     bean {
       img
@@ -263,7 +263,7 @@ query get_recipes {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     barista {
       id
@@ -290,7 +290,7 @@ export const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = `
       water_temp 
       rating 
       comment 
-      privated
+      isPrivate
       date_added 
       barista {
         id
@@ -335,7 +335,7 @@ query get_single_recipe($id:Int!) {
     water_temp 
     rating 
     comment 
-    privated
+    isPrivate
     date_added 
     bean {
       img

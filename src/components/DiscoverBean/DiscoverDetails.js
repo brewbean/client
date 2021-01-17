@@ -1,13 +1,13 @@
 import Star from '../BrewTrak/Icons/star.png'
 import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
-import { useHistory } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 import BeanReview from './BeanReview'
 import { roundToHalfOrWhole } from 'helper/math'
 import { useParams } from 'react-router-dom'
 
 const DiscoverDetails = (props) => {
-  const history = useHistory()
+  const { url } = useRouteMatch()
   const { id } = useParams()
   const [result] = useQuery({
     query: GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW,
@@ -65,15 +65,12 @@ const DiscoverDetails = (props) => {
                   buy bean
                 </button>
                 {/* TODO - Guest cannot be allowed to make a review. Hide button for guest & route must be authenticated */}
-                <button
-                  type='button'
-                  onClick={() => {
-                    history.replace(`/discover/bean/review/${id}/new`)
-                  }}
+                <Link
+                  to={`${url}/review/new`}
                   className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
                 >
                   submit review
-                </button>
+                </Link>
                 <BeanReview bean_id={id} />
               </div>
             </div>

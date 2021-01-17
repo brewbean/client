@@ -25,7 +25,7 @@ const RecipePage = (props) => {
         // render={(props) => <CreateBrew {...props} />}
       />
       <Route
-        path={`${match.url}/review/:id/new`}
+        path={`${match.url}/:id/review/new`}
         render={(props) => <CreateRecipeReview {...props} />}
       />
       <Route

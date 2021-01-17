@@ -1,11 +1,10 @@
 import { useQuery, useMutation } from 'urql'
 import { GET_ALL_REVIEW_OF_BEAN, DELETE_BEAN_REVIEW } from 'queries'
-import { useHistory } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 
 const BeanReview = (props) => {
   let { bean_id } = props
-  const history = useHistory()
-
+  const { url } = useRouteMatch()
   const [result] = useQuery({
     query: GET_ALL_REVIEW_OF_BEAN,
     variables: { _eq: bean_id },
@@ -71,12 +70,8 @@ const BeanReview = (props) => {
                         </button>
                       </div>
                       <div className='-ml-px w-0 flex-1 flex'>
-                        <button
-                          onClick={() =>
-                            history.replace(
-                              `/discover/bean/review/${n.id}/edit`
-                            )
-                          }
+                        <Link
+                          to={`${url}/review/${n.id}/edit`}
                           className='relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150'
                         >
                           <svg
@@ -88,7 +83,7 @@ const BeanReview = (props) => {
                             <path d='M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z' />
                           </svg>
                           <span className='ml-3'>Edit</span>
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

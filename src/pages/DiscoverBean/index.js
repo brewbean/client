@@ -14,11 +14,12 @@ const DiscoverBeanPage = (props) => {
         render={(props) => <DiscoverBean {...props} />}
       />
       <Route
-        path={`${match.url}/details/:id`}
+        exact
+        path={`${match.url}/:id`}
         render={(props) => <DiscoverDetails {...props} />}
       />
       <Route
-        path={`${match.url}/review/:id/new`}
+        path={`${match.url}/:id/review/new`}
         render={(props) => <CreateReview {...props} />}
       />
       <Route
