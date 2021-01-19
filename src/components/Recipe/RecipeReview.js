@@ -8,6 +8,7 @@ const RecipeReview = ({ recipe_reviews }) => {
   const deleteReviewPressed = async (id) => {
     await deleteReview({ id })
   }
+  console.log(recipe_reviews)
   return (
     <div>
       <div className='font-bold'>Recipe Reviews</div>
@@ -62,7 +63,7 @@ const RecipeReview = ({ recipe_reviews }) => {
                         <button
                           onClick={() =>
                             history.replace(
-                              `/discover/recipe/review/${n.id}/edit`
+                              `/discover/recipe/${n.recipe_id}/review/${n.id}/edit`
                             )
                           }
                           className='relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150'

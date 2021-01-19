@@ -2,6 +2,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import Recipes from 'components/Recipe'
 import RecipeDetails from 'components/Recipe/RecipeDetails'
 import CreateRecipeReview from 'components/Recipe/CreateRecipeReview'
+import EditRecipeReview from 'components/Recipe/EditRecipeReview'
 import StagePage from './StagePage'
 
 const RecipePage = (props) => {
@@ -20,6 +21,9 @@ const RecipePage = (props) => {
       </Route>
       <Route exact path={`${url}/:id/review/new`}>
         <CreateRecipeReview />
+      </Route>
+      <Route exact path={`${url}/:id/review/:review_id/edit`}>
+        <EditRecipeReview />
       </Route>
       <Route path={`${url}/new/stage`}>
         <StagePage />
