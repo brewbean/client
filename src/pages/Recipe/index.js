@@ -9,26 +9,21 @@ const RecipePage = (props) => {
 
   return (
     <Switch>
-      <Route exact path={url} render={(props) => <Recipes {...props} />} />
-      <Route
-        exact
-        path={`${url}/:id`}
-        render={(props) => <RecipeDetails {...props} />}
-      />
-      <Route
-        path={`${url}/new`}
-        render={(props) => <Recipes {...props} />}
-        // render={(props) => <CreateBrew {...props} />}
-      />
-      <Route
-        exact
-        path={`${url}/:id/review/new`}
-        render={(props) => <CreateRecipeReview {...props} />}
-      />
-      <Route
-        path={`${url}/new/stage`}
-        render={(props) => <StagePage {...props} />}
-      />
+      <Route exact path={url}>
+        <Recipes />
+      </Route>
+      <Route exact path={`${url}/:id`}>
+        <RecipeDetails />
+      </Route>
+      <Route path={`${url}/new`}>
+        <Recipes /> {/*this needs to be CreateRecipe*/}
+      </Route>
+      <Route exact path={`${url}/:id/review/new`}>
+        <CreateRecipeReview />
+      </Route>
+      <Route path={`${url}/new/stage`}>
+        <StagePage />
+      </Route>
     </Switch>
   )
 }
