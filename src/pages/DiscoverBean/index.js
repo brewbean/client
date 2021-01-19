@@ -5,25 +5,26 @@ import CreateReview from 'components/DiscoverBean/CreateReview'
 import EditReview from 'components/DiscoverBean/EditReview'
 
 const DiscoverBeanPage = (props) => {
-  let match = useRouteMatch()
+  const { url } = useRouteMatch()
   return (
     <Switch>
       <Route
         exact
-        path={`${match.url}/`}
+        path={`${url}/`}
         render={(props) => <DiscoverBean {...props} />}
       />
       <Route
         exact
-        path={`${match.url}/:id`}
+        path={`${url}/:id`}
         render={(props) => <DiscoverDetails {...props} />}
       />
       <Route
-        path={`${match.url}/:id/review/new`}
+        path={`${url}/:id/review/new`}
         render={(props) => <CreateReview {...props} />}
       />
       <Route
-        path={`${match.url}/review/:id/edit`}
+        exact
+        path={`${url}/:id/review/:review_id/edit`}
         render={(props) => <EditReview {...props} />}
       />
     </Switch>

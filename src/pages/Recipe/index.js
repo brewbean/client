@@ -5,31 +5,28 @@ import CreateRecipeReview from 'components/Recipe/CreateRecipeReview'
 import StagePage from './StagePage'
 
 const RecipePage = (props) => {
-  let match = useRouteMatch()
+  const { url } = useRouteMatch()
 
   return (
     <Switch>
+      <Route exact path={url} render={(props) => <Recipes {...props} />} />
       <Route
         exact
-        path={`${match.url}`}
-        render={(props) => <Recipes {...props} />}
-      />
-      <Route
-        path={`${match.url}/details/:id`}
+        path={`${url}/:id`}
         render={(props) => <RecipeDetails {...props} />}
       />
       <Route
-        exact
-        path={`${match.url}/new`}
+        path={`${url}/new`}
         render={(props) => <Recipes {...props} />}
         // render={(props) => <CreateBrew {...props} />}
       />
       <Route
-        path={`${match.url}/:id/review/new`}
+        exact
+        path={`${url}/:id/review/new`}
         render={(props) => <CreateRecipeReview {...props} />}
       />
       <Route
-        path={`${match.url}/new/stage`}
+        path={`${url}/new/stage`}
         render={(props) => <StagePage {...props} />}
       />
     </Switch>
