@@ -1,3 +1,132 @@
+export const Heart = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
+export const DotsHorizontal = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z' />
+  </svg>
+)
+export const Scale = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1zm-5 8.274l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L5 10.274zm10 0l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L15 10.274z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+export const Clock = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
+export const Pause = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+export const Refresh = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
+export const Play = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
+export const CheckCircle = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    d
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
+export const Check = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
 export const XCircle = ({ className = 'w-6 h-6' }) => (
   <svg
     className={className}
