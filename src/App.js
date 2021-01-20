@@ -1,4 +1,4 @@
-import { Switch } from 'react-router-dom'
+import { Switch, Redirect, useLocation } from 'react-router-dom'
 import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation'
 
 import { NotFound } from 'components/Utility'
@@ -19,8 +19,10 @@ const PathTest = () => {
 }
 
 function App() {
+  const { pathname, search } = useLocation()
   return (
     <Switch>
+      <Redirect from='/:url*(/+)' to={pathname.slice(0, -1) + search} />
       <ContainerRoute exact path='/' config={{ paddedContent: false }}>
         <Home />
         <NewUserModal />
