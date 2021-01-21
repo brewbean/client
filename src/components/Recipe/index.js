@@ -1,13 +1,24 @@
+import { useMemo } from 'react'
+import { useQuery } from 'urql'
 import RecipeCard from './RecipeCard'
 import { GET_ALL_RECIPES } from 'queries' // GET ALL REVIEWS
-import { useQuery } from 'urql'
 
 const Recipes = () => {
   const [result] = useQuery({
-    query: GET_ALL_RECIPES, // GET ALL BEANS
+    query: GET_ALL_RECIPES,
+    context: useMemo(
+      () => ({
+        fetchOptions: {
+          headers: {
+            'x-hasura-role': 'guest',
+          },
+        },
+      }),
+      []
+    ),
   })
   const { data, fetching, error } = result
-  console.log('Recipes:', data)
+
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
 
