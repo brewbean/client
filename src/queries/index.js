@@ -236,3 +236,23 @@ export const GET_BARISTA = `
     }
   }
 `
+
+/**
+ * Recipe & Recipe Player
+ */
+
+export const GET_RECIPE_BY_ID = gql`
+  query($id: Int!) {
+    recipes_by_pk(id: $id) {
+      id
+      bean_weight
+      stages {
+        id
+        name
+        end
+        start
+        weight
+      }
+    }
+  }
+`
