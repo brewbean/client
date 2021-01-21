@@ -4,7 +4,7 @@ import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation'
 import { NotFound } from 'components/Utility'
 import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
-import PourGuide from 'pages/PourGuide'
+import RecipePlayer from 'pages/RecipePlayer'
 import BrewTrakPage from 'pages/BrewTrak'
 import DiscoverBeanPage from 'pages/DiscoverBean'
 import Recipe from 'pages/Recipe'
@@ -39,8 +39,8 @@ function App() {
       <ContainerRoute path='/hi/:id/name/:slug'>
         <PathTest />
       </ContainerRoute>
-      <ContainerRoute path='/pour-app'>
-        <PourGuide />
+      <ContainerRoute path='/recipe-player'>
+        <RecipePlayer />
       </ContainerRoute>
       <ContainerRoute path='/discover/recipe'>
         <Recipe />

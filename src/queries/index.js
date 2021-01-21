@@ -38,6 +38,7 @@ export const GET_ALL_BREW_LOGS = gql`
     }
   }
 `
+// TODO: - Update brew_logs_by_pk to brew_log_by_pk
 export const GET_SINGLE_BREW_LOG = gql`
   query($id: Int!) {
     brew_logs_by_pk(id: $id) {
@@ -362,6 +363,25 @@ export const GET_SINGLE_RECIPE_REVIEW = gql`
     }
   }
 `
+/**
+ * Recipe & Recipe Player
+ */
+export const GET_RECIPE_BY_ID = gql`
+  query($id: Int!) {
+    recipes_by_pk(id: $id) {
+      id
+      bean_weight
+      stages {
+        id
+        name
+        end
+        start
+        weight
+      }
+    }
+  }
+`
+
 export const UPDATE_RECIPES = gql`
   mutation($id: Int!, $object: recipes_set_input) {
     update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
