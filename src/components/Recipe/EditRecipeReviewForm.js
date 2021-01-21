@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useMutation } from 'urql'
-import { UPDATE_BEAN_REVIEW } from 'queries'
+import { UPDATE_RECIPE_REVIEW } from 'queries'
 import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
 import { useHistory } from 'react-router-dom'
 
-const EditRecipeReviewForm = ({ beanReview, id }) => {
-  const [state, setState] = useState(beanReview)
-  const [, updateReview] = useMutation(UPDATE_BEAN_REVIEW)
+const EditRecipeReviewForm = ({ recipeReview, id }) => {
+  const [state, setState] = useState(recipeReview)
+  const [, updateReview] = useMutation(UPDATE_RECIPE_REVIEW)
   const { barista } = useAuth()
   const history = useHistory()
   const onChangeGenerator = (attr) => (e) => {
@@ -18,14 +18,14 @@ const EditRecipeReviewForm = ({ beanReview, id }) => {
   }
 
   const submitUpdateReview = async () => {
-    const { bean, date_added, __typename, ...rest } = state
+    const { recipe, barista, date_added, __typename, ...rest } = state
     await updateReview({
       id,
       object: {
         ...rest,
       },
     })
-    history.push(`/discover/bean/details/${beanReview.bean_id}`)
+    history.push(`/discover/recipe/${state.recipe.id}`)
   }
 
   if (barista)
@@ -39,10 +39,10 @@ const EditRecipeReviewForm = ({ beanReview, id }) => {
           label='Barista'
         />
         <InputRow
-          value={state.bean.name}
+          value={state.recipe.name}
           readOnly
-          placeholder='Enter Bean'
-          label='Bean'
+          placeholder='Enter Recipe'
+          label='Recipe Name'
         />
         <InputRow
           value={state.rating}

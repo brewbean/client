@@ -16,14 +16,18 @@ const RecipeDetails = (props) => {
   const { data, fetching, error } = result
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
-  // const {
-  //   company_name,
-  //   name,
-  //   about,
-  //   profile_note,
-  //   img,
-  //   price,
-  // } = data.recipe_by_pk
+  const {
+    // brew_type,
+    // bean_weight,
+    // bean_grind,
+    // water_amount,
+    // water_temp,
+    // rating,
+    // comment,
+    about,
+    // barista,
+    // bean
+  } = data.recipes_by_pk
   const { recipe_reviews } = data
   // let { rating } = data.recipe_reviews_aggregate.aggregate.avg
   // rating = roundToHalfOrWhole(rating)
@@ -57,8 +61,8 @@ const RecipeDetails = (props) => {
                 {profile_note.map((x, i) => (
                   <div key={i}>{x}</div>
                 ))} */}
-                <div className='font-bold'>About this Coffee</div>
-                {/* <div>{about ? about : 'No description available'}</div> */}
+                <div className='font-bold'>About this Recipe</div>
+                <div>{about ? about : 'No description available'}</div>
                 <button
                   type='button'
                   className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
@@ -72,7 +76,14 @@ const RecipeDetails = (props) => {
                 >
                   submit review
                 </Link>
-                <RecipeReview recipe_id={id} recipe_reviews={recipe_reviews} />
+                {recipe_reviews.length > 0 ? (
+                  <RecipeReview
+                    recipe_id={id}
+                    recipe_reviews={recipe_reviews}
+                  />
+                ) : (
+                  'No recipe reviews available.'
+                )}
               </div>
             </div>
           </div>

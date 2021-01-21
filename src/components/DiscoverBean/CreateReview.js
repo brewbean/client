@@ -37,7 +37,7 @@ const CreateReview = (props) => {
         comment: state.comment,
       },
     })
-    history.push(`/discover/bean/details/${id}`)
+    history.push(`/discover/bean/${id}`)
   }
 
   if (fetching) return <p>Loading...</p>

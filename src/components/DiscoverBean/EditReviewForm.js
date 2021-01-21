@@ -25,7 +25,7 @@ const EditReviewForm = ({ beanReview, id }) => {
         ...rest,
       },
     })
-    history.push(`/discover/bean/details/${beanReview.bean_id}`)
+    history.push(`/discover/bean/${beanReview.bean_id}`)
   }
 
   if (barista)

@@ -7,7 +7,6 @@ import { useHistory, useParams } from 'react-router-dom'
 
 const CreateRecipeReview = (props) => {
   const history = useHistory()
-
   const [state, setState] = useState({
     rating: '5.0',
     comment: '',
@@ -37,7 +36,7 @@ const CreateRecipeReview = (props) => {
         comment: state.comment,
       },
     })
-    history.push(`/discover/recipe/details/${id}`)
+    history.push(`/discover/recipe/${id}`)
   }
 
   if (fetching) return <p>Loading...</p>
