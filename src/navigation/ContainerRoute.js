@@ -1,9 +1,9 @@
 import { Route } from 'react-router-dom'
 import { Container } from 'components/Layout'
 
-const ContainerRoute = ({ noLayout, config, children, ...rest }) => (
+const ContainerRoute = ({ defaultLayout, config, children, ...rest }) => (
   <Route {...rest}>
-    <Container noLayout={noLayout} config={config}>
+    <Container defaultLayout={defaultLayout} config={config}>
       {children}
     </Container>
   </Route>

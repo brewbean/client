@@ -2,18 +2,19 @@ import Header from './Header'
 import Footer from './Footer'
 import Alert from 'components/Alert'
 
-const Container = ({ noLayout = false, config, children }) => {
-  let settings = noLayout
-    ? { ...config }
-    : {
+const Container = ({ defaultLayout = true, config, children }) => {
+  let settings = defaultLayout
+    ? {
         flexCol: true,
         header: true,
         footer: true,
         paddedContent: true,
         layout: true,
         alert: true,
+        layoutClass: '',
         ...config,
       }
+    : { ...config }
 
   return (
     <div
@@ -28,7 +29,7 @@ const Container = ({ noLayout = false, config, children }) => {
             settings.paddedContent
               ? 'w-full max-w-7xl mx-auto p-4 sm:px-6 lg:px-8'
               : ''
-          }`.trimEnd()}
+          } ${settings.layoutClass}`.trimEnd()}
         >
           {settings.alert && <Alert containerStyle='mb-4 space-y-2' />}
           {children}
