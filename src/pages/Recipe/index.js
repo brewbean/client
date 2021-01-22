@@ -8,7 +8,6 @@ const RecipePage = (props) => {
   return (
     <Switch>
       <Route
-        exact
         path={`${match.url}/new`}
         render={(props) => <CreateBrew {...props} />}
       />

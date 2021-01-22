@@ -1,4 +1,4 @@
-import { useHistory, useRouteMatch } from 'react-router-dom'
+import { useRouteMatch, Link } from 'react-router-dom'
 
 const DiscoverCard = ({
   id,
@@ -9,14 +9,10 @@ const DiscoverCard = ({
   profile_note,
   img,
 }) => {
-  const history = useHistory()
-  let match = useRouteMatch()
+  const { url } = useRouteMatch()
   return (
     <li className='col-span-1 flex flex-col text-center bg-white rounded-lg shadow'>
-      <div
-        className='flex-1 flex flex-col p-8'
-        onClick={() => history.push(`${match.url}/details/${id}`)}
-      >
+      <Link className='flex-1 flex flex-col p-8' to={`${url}/details/${id}`}>
         <img
           className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full'
           src={img}
@@ -40,7 +36,7 @@ const DiscoverCard = ({
             ))}
           </dd>
         </dl>
-      </div>
+      </Link>
       <div className='border-t border-gray-200'>
         <div className='-mt-px flex'>
           <div className='w-0 flex-1 flex border-r border-gray-200'>
