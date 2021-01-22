@@ -1,16 +1,15 @@
 import Star from '../BrewTrak/Icons/star.png'
-import { GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW } from 'queries'
+import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { Link, useRouteMatch, useParams } from 'react-router-dom'
 import BeanReview from './BeanReview'
 import { roundToHalfOrWhole } from 'helper/math'
-import { useParams } from 'react-router-dom'
 
 const DiscoverDetails = (props) => {
   const { url } = useRouteMatch()
   const { id } = useParams()
   const [result] = useQuery({
-    query: GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW,
+    query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
     variables: { id },
   })
   const { data, fetching, error } = result
@@ -23,8 +22,10 @@ const DiscoverDetails = (props) => {
     profile_note,
     img,
     price,
+    bean_reviews_aggregate,
+    bean_reviews,
   } = data.bean_by_pk
-  let { rating } = data.bean_reviews_aggregate.aggregate.avg
+  let { rating } = bean_reviews_aggregate.aggregate.avg
   rating = roundToHalfOrWhole(rating)
 
   return (
@@ -67,11 +68,17 @@ const DiscoverDetails = (props) => {
                 {/* TODO - Guest cannot be allowed to make a review. Hide button for guest & route must be authenticated */}
                 <Link
                   to={`${url}/review/new`}
+                  // to={`/discover/bean/review/${id}/new`}
                   className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
                 >
                   submit review
                 </Link>
-                <BeanReview bean_id={id} />
+                <div className='font-bold'>Bean Reviews</div>
+                {bean_reviews.length > 0 ? (
+                  <BeanReview bean_id={id} bean_reviews={bean_reviews} />
+                ) : (
+                  'No bean reviews available.'
+                )}
               </div>
             </div>
           </div>

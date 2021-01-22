@@ -6,12 +6,22 @@ export const INSERT_BREW_LOGS_ONE = gql`
   mutation($object: brew_logs_insert_input!) {
     insert_brew_logs_one(object: $object) {
       id
-      bean_grind
-      bean_weight
-      brew_type
-      rating
-      water_temp
       barista_id
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      bean_id
+      water_temp
+      rating
+      comment
+      isPrivate
+      date_added
+      bean {
+        id
+        img
+        name
+      }
     }
   }
 `
@@ -55,6 +65,7 @@ export const GET_SINGLE_BREW_LOG = gql`
       isPrivate
       date_added
       bean {
+        id
         img
         name
       }
@@ -64,14 +75,23 @@ export const GET_SINGLE_BREW_LOG = gql`
 export const UPDATE_BREW_LOGS = gql`
   mutation($id: Int!, $object: brew_logs_set_input) {
     update_brew_logs_by_pk(pk_columns: { id: $id }, _set: $object) {
-      comment
-      bean_grind
-      bean_id
-      bean_weight
+      id
+      barista_id
       brew_type
-      rating
+      bean_weight
+      bean_grind
       water_amount
+      bean_id
       water_temp
+      rating
+      comment
+      isPrivate
+      date_added
+      bean {
+        id
+        img
+        name
+      }
     }
   }
 `
@@ -121,15 +141,7 @@ export const GET_SINGLE_BEAN = gql`
     }
   }
 `
-export const GET_SINGLE_BEAN_ID_BY_NAME = gql`
-  query($_eq: String!) {
-    bean(where: { name: { _eq: $_eq } }) {
-      name
-      id
-    }
-  }
-`
-export const GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW = gql`
+export const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
   query($id: Int!) {
     bean_by_pk(id: $id) {
       id
@@ -144,11 +156,20 @@ export const GET_SINGLE_BEAN_AND_AVG_BEAN_REVIEW = gql`
       about
       price
       rating
-    }
-    bean_reviews_aggregate(where: { bean_id: { _eq: $id } }) {
-      aggregate {
-        avg {
-          rating
+      bean_reviews {
+        id
+        rating
+        comment
+        barista {
+          id
+          display_name
+        }
+      }
+      bean_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
         }
       }
     }
@@ -177,6 +198,7 @@ export const GET_SINGLE_REVIEW = gql`
       rating
       comment
       bean {
+        id
         name
       }
     }
@@ -211,23 +233,13 @@ export const DELETE_BEAN_REVIEW = gql`
   mutation($id: Int!) {
     delete_bean_reviews_by_pk(id: $id) {
       id
-    }
-  }
-`
-export const GET_AVG_REVIEW_OF_BEAN = gql`
-  query($id: Int!) {
-    bean_reviews_aggregate(where: { bean_id: { _eq: $id } }) {
-      aggregate {
-        avg {
-          rating
-        }
-      }
+      bean_id
     }
   }
 `
 export const GET_BARISTA = `
   query {
-    barista { 
+    barista {
       id
       email
       display_name
