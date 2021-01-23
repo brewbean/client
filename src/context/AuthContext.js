@@ -27,7 +27,7 @@ import {
 } from 'helper/auth'
 import { AUTH_API, GRAPHQL_API } from 'config'
 import { GET_BARISTA } from 'queries'
-
+import { updates, keys } from 'helper/cache'
 const AuthContext = createContext()
 
 const initialState = {
@@ -221,7 +221,7 @@ function AuthProvider({ authOnlyPaths, children }) {
       exchanges: [
         devtoolsExchange,
         dedupExchange,
-        cacheExchange({}),
+        cacheExchange({ updates, keys }),
         authExchange({
           getAuth,
           addAuthToOperation,
