@@ -1,8 +1,8 @@
-// import Star from '../BrewTrak/Icons/star.png'
+import Star from '../BrewTrak/Icons/star.png'
 import { GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW } from 'queries'
 import { useQuery } from 'urql'
 import RecipeReview from './RecipeReview'
-// import { roundToHalfOrWhole } from 'helper/math'
+import { roundToHalfOrWhole } from 'helper/math'
 import { useParams, Link, useRouteMatch } from 'react-router-dom'
 
 const RecipeDetails = (props) => {
@@ -22,15 +22,14 @@ const RecipeDetails = (props) => {
     // bean_grind,
     // water_amount,
     // water_temp,
-    // rating,
+    rating,
     // comment,
     about,
+    name,
     // barista,
-    // bean
+    bean,
   } = data.recipes_by_pk
   const { recipe_reviews } = data
-  // let { rating } = data.recipe_reviews_aggregate.aggregate.avg
-  // rating = roundToHalfOrWhole(rating)
 
   return (
     <div>
@@ -45,22 +44,18 @@ const RecipeDetails = (props) => {
           <div className='bg-white rounded-lg shadow px-5 py-6 sm:px-6'>
             <div className='px-4 py-4 rounded-lg h-auto'>
               <div>
-                {/* <img
+                <img
                   className='w-64 h-64 flex-shrink-0 mx-auto bg-black'
-                  src={img}
+                  src={bean.img}
                   alt=''
                 />
-                <div className='text-2xl text-gray-400'>{company_name}</div>
+
                 <div className='text-3xl leading-9 font-bold'>{name}</div>
                 <div className='flex items-center text-2xl leading-9'>
                   <img className='w-5 h-5 mr-1' src={Star} alt='Star' />:
-                  {rating}/5
+                  {roundToHalfOrWhole(rating)}/5
                 </div>
-                <div className='text-2xl font-bold'>${price}</div> */}
-                {/* <div className='font-bold'>Profile Notes</div>
-                {profile_note.map((x, i) => (
-                  <div key={i}>{x}</div>
-                ))} */}
+
                 <div className='font-bold'>About this Recipe</div>
                 <div>{about ? about : 'No description available'}</div>
                 <button

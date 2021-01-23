@@ -1,6 +1,7 @@
 import {
   GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
   GET_ALL_BREW_LOGS,
+  INSERT_RECIPES_ONE,
 } from 'queries'
 
 export const updates = {
@@ -49,13 +50,28 @@ export const updates = {
         }
       )
     },
+    insert_recipes_one: (result, args, cache, info) => {
+      cache.updateQuery(
+        {
+          query: INSERT_RECIPES_ONE,
+        },
+        (data) => {
+          data.recipes.push(result.insert_recipes_one)
+          return data
+        }
+      )
+    },
+    delete_recipe_reviews_by_pk: (result, args, cache, info) => {
+      cache.invalidate({ __typename: 'recipe_reviews', id: args.id })
+    },
   },
 }
 
 export const keys = {
-  keys: {
-    bean_reviews_aggregate: () => null,
-    bean_reviews_aggregate_fields: () => null,
-    bean_reviews_avg_fields: () => null,
-  },
+  bean_reviews_aggregate: () => null,
+  bean_reviews_aggregate_fields: () => null,
+  bean_reviews_avg_fields: () => null,
+  recipe_reviews_aggregate: () => null,
+  recipe_reviews_aggregate_fields: () => null,
+  recipe_reviews_avg_fields: () => null,
 }

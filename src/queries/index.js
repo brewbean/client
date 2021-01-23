@@ -280,6 +280,7 @@ export const GET_ALL_RECIPES = gql`
       isPrivate
       date_added
       about
+      name
       barista {
         id
         display_name
@@ -306,6 +307,7 @@ export const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       isPrivate
       date_added
       about
+      name
       barista {
         id
         display_name
@@ -351,6 +353,8 @@ export const GET_SINGLE_RECIPE = gql`
       comment
       isPrivate
       date_added
+      about
+      name
       bean {
         img
         name
