@@ -12,7 +12,7 @@ const CreateRecipe = (props) => {
   const [state, setState] = useState({
     rating: '5.0',
     comment: '',
-    brew_type: '',
+    brew_type: 'Pour Over',
     bean_weight: '',
     bean_grind: 'Extra Fine',
     water_amount: '',
@@ -32,11 +32,9 @@ const CreateRecipe = (props) => {
   }
 
   const submitRecipe = async () => {
-    let result = await insertRecipe({
+    await insertRecipe({
       object: { ...state, barista_id: barista.id },
     })
-    console.log('STate:', state)
-    console.log('RESULT:', result)
     history.push(`/discover/recipe`)
   }
 

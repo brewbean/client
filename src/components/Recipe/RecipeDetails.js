@@ -1,14 +1,21 @@
 import Star from '../BrewTrak/Icons/star.png'
-import { GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW } from 'queries'
-import { useQuery } from 'urql'
+import { GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW, DELETE_RECIPES } from 'queries'
+import { useQuery, useMutation } from 'urql'
 import RecipeReview from './RecipeReview'
 import { roundToHalfOrWhole } from 'helper/math'
-import { useParams, Link, useRouteMatch } from 'react-router-dom'
+import { useHistory, useParams, Link, useRouteMatch } from 'react-router-dom'
 
 const RecipeDetails = (props) => {
-  // const history = useHistory()
+  const history = useHistory()
   const { url } = useRouteMatch()
   const { id } = useParams()
+  const [, deleteRecipe] = useMutation(DELETE_RECIPES)
+
+  const deleteRecipePressed = async () => {
+    await deleteRecipe({ id })
+    history.push(`/discover/recipe`)
+  }
+
   const [result] = useQuery({
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
     variables: { id },
@@ -71,6 +78,13 @@ const RecipeDetails = (props) => {
                 >
                   submit review
                 </Link>
+                <button
+                  onClick={deleteRecipePressed}
+                  type='button'
+                  className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
+                >
+                  delete recipe
+                </button>
                 {recipe_reviews.length > 0 ? (
                   <RecipeReview
                     recipe_id={id}
