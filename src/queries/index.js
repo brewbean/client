@@ -255,12 +255,19 @@ export const INSERT_RECIPES_ONE = gql`
   mutation($object: recipes_insert_input!) {
     insert_recipes_one(object: $object) {
       id
-      bean_grind
-      bean_weight
-      brew_type
-      rating
-      water_temp
       barista_id
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      bean_id
+      water_temp
+      rating
+      comment
+      isPrivate
+      date_added
+      about
+      name
     }
   }
 `

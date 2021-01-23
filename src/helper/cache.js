@@ -1,7 +1,8 @@
 import {
   GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
   GET_ALL_BREW_LOGS,
-  INSERT_RECIPES_ONE,
+  GET_ALL_RECIPES,
+  GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
 } from 'queries'
 
 export const updates = {
@@ -53,10 +54,24 @@ export const updates = {
     insert_recipes_one: (result, args, cache, info) => {
       cache.updateQuery(
         {
-          query: INSERT_RECIPES_ONE,
+          query: GET_ALL_RECIPES,
         },
         (data) => {
           data.recipes.push(result.insert_recipes_one)
+          return data
+        }
+      )
+    },
+    delete_recipes_by_pk: (result, args, cache, info) => {
+      cache.invalidate({ __typename: 'recipes', id: args.id })
+    },
+    insert_recipe_reviews_one: (result, args, cache, info) => {
+      cache.updateQuery(
+        {
+          query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
+        },
+        (data) => {
+          data.recipe_reviews.push(result.insert_recipe_reviews_one)
           return data
         }
       )
