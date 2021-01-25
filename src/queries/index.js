@@ -15,7 +15,7 @@ export const INSERT_BREW_LOGS_ONE = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       bean {
         id
@@ -38,7 +38,7 @@ export const GET_ALL_BREW_LOGS = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       bean {
         id
@@ -62,7 +62,7 @@ export const GET_SINGLE_BREW_LOG = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       bean {
         id
@@ -85,7 +85,7 @@ export const UPDATE_BREW_LOGS = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       bean {
         id
@@ -239,7 +239,7 @@ export const DELETE_BEAN_REVIEW = gql`
     }
   }
 `
-export const GET_BARISTA = `
+export const GET_BARISTA = gql`
   query {
     barista {
       id
@@ -247,6 +247,7 @@ export const GET_BARISTA = `
       display_name
       avatar
       created_on
+      is_verified
     }
   }
 `
@@ -266,7 +267,7 @@ export const INSERT_RECIPES_ONE = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       about
       name
@@ -286,7 +287,7 @@ export const GET_ALL_RECIPES = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       about
       name
@@ -313,7 +314,7 @@ export const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       about
       name
@@ -356,7 +357,7 @@ export const GET_SINGLE_RECIPE = gql`
       water_temp
       rating
       comment
-      isPrivate
+      is_private
       date_added
       about
       name

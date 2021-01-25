@@ -1,6 +1,5 @@
 import Header from './Header'
 import Footer from './Footer'
-import Alert from 'components/Alert'
 
 const Container = ({ defaultLayout = true, config, children }) => {
   let settings = defaultLayout
@@ -10,7 +9,6 @@ const Container = ({ defaultLayout = true, config, children }) => {
         footer: true,
         paddedContent: true,
         layout: true,
-        alert: true,
         layoutClass: '',
         ...config,
       }
@@ -31,14 +29,10 @@ const Container = ({ defaultLayout = true, config, children }) => {
               : ''
           } ${settings.layoutClass}`.trimEnd()}
         >
-          {settings.alert && <Alert containerStyle='mb-4 space-y-2' />}
           {children}
         </div>
       ) : (
-        <>
-          {settings.alert && <Alert containerStyle='mb-4 space-y-2' />}
-          {children}
-        </>
+        <>{children}</>
       )}
       {settings.footer && <Footer />}
     </div>
