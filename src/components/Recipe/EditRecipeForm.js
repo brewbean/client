@@ -21,13 +21,12 @@ const EditRecipeForm = ({ recipe, id }) => {
   const submitUpdateRecipe = async () => {
     console.log('State', state)
     const { bean, date_added, __typename, ...rest } = state
-    let result = await updateRecipe({
+    await updateRecipe({
       id,
       object: {
         ...rest,
       },
     })
-    console.log('Result', result)
     history.push(`/discover/recipe/${id}`)
   }
 
