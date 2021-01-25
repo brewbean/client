@@ -10,7 +10,7 @@ const links = [
   },
   {
     text: 'discover brews',
-    to: '/discover/brew',
+    to: '/discover/recipe',
   },
   {
     text: 'buy beans',

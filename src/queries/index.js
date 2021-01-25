@@ -176,7 +176,7 @@ export const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
   }
 `
 /*
-  Review Queries
+  Bean Review Queries
 */
 export const INSERT_REVIEW_ONE = gql`
   mutation($object: bean_reviews_insert_input!) {
@@ -186,10 +186,6 @@ export const INSERT_REVIEW_ONE = gql`
       bean_id
       rating
       comment
-      barista {
-        id
-        display_name
-      }
     }
   }
 `
@@ -204,6 +200,22 @@ export const GET_SINGLE_REVIEW = gql`
       bean {
         id
         name
+      }
+    }
+  }
+`
+export const GET_ALL_REVIEW_OF_BEAN = gql`
+  query($_eq: Int!) {
+    bean_reviews_aggregate(where: { bean_id: { _eq: $_eq } }) {
+      nodes {
+        id
+        barista_id
+        bean_id
+        rating
+        comment
+        barista {
+          display_name
+        }
       }
     }
   }
@@ -236,11 +248,147 @@ export const GET_BARISTA = `
     }
   }
 `
-
+/*
+  Recipe Queries
+*/
+export const INSERT_RECIPES_ONE = gql`
+  mutation($object: recipes_insert_input!) {
+    insert_recipes_one(object: $object) {
+      id
+      barista_id
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      bean_id
+      water_temp
+      rating
+      comment
+      isPrivate
+      date_added
+      about
+      name
+    }
+  }
+`
+export const GET_ALL_RECIPES = gql`
+  query {
+    recipes(order_by: { id: desc }) {
+      id
+      barista_id
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      bean_id
+      water_temp
+      rating
+      comment
+      isPrivate
+      date_added
+      about
+      name
+      barista {
+        id
+        display_name
+      }
+      bean {
+        id
+        img
+        name
+      }
+    }
+  }
+`
+export const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
+  query($id: Int!) {
+    recipes_by_pk(id: $id) {
+      id
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      water_temp
+      rating
+      comment
+      isPrivate
+      date_added
+      about
+      name
+      barista {
+        id
+        display_name
+      }
+      bean {
+        id
+        img
+        name
+      }
+    }
+    recipe_reviews(where: { recipe_id: { _eq: $id } }) {
+      id
+      barista_id
+      recipe_id
+      rating
+      comment
+      barista {
+        id
+        display_name
+      }
+    }
+    recipe_reviews_aggregate(where: { recipe_id: { _eq: $id } }) {
+      aggregate {
+        avg {
+          rating
+        }
+      }
+    }
+  }
+`
+export const GET_SINGLE_RECIPE = gql`
+  query($id: Int!) {
+    recipes_by_pk(id: $id) {
+      id
+      barista_id
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      bean_id
+      water_temp
+      rating
+      comment
+      isPrivate
+      date_added
+      about
+      name
+      bean {
+        img
+        name
+      }
+    }
+  }
+`
+export const GET_SINGLE_RECIPE_REVIEW = gql`
+  query($id: Int!) {
+    recipe_reviews_by_pk(id: $id) {
+      id
+      rating
+      comment
+      barista {
+        id
+        display_name
+      }
+      recipe {
+        id
+        name
+      }
+    }
+  }
+`
 /**
  * Recipe & Recipe Player
  */
-
 export const GET_RECIPE_BY_ID = gql`
   query($id: Int!) {
     recipes_by_pk(id: $id) {
@@ -253,6 +401,59 @@ export const GET_RECIPE_BY_ID = gql`
         start
         weight
       }
+    }
+  }
+`
+
+export const UPDATE_RECIPES = gql`
+  mutation($id: Int!, $object: recipes_set_input) {
+    update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
+      comment
+      bean_grind
+      bean_id
+      bean_weight
+      brew_type
+      rating
+      water_amount
+      water_temp
+    }
+  }
+`
+export const UPDATE_RECIPE_REVIEW = gql`
+  mutation($id: Int!, $object: recipe_reviews_set_input!) {
+    update_recipe_reviews_by_pk(pk_columns: { id: $id }, _set: $object) {
+      id
+      comment
+      rating
+    }
+  }
+`
+export const DELETE_RECIPES = gql`
+  mutation($id: Int!) {
+    delete_recipes_by_pk(id: $id) {
+      id
+    }
+  }
+`
+/*
+  Recipe Review Queries
+*/
+export const INSERT_RECIPE_REVIEW_ONE = gql`
+  mutation($object: recipe_reviews_insert_input!) {
+    insert_recipe_reviews_one(object: $object) {
+      id
+      barista_id
+      recipe_id
+      rating
+      comment
+    }
+  }
+`
+export const DELETE_RECIPE_REVIEW = gql`
+  mutation($id: Int!) {
+    delete_recipe_reviews_by_pk(id: $id) {
+      id
+      recipe_id
     }
   }
 `
