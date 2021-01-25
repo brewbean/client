@@ -206,22 +206,6 @@ export const GET_SINGLE_REVIEW = gql`
     }
   }
 `
-export const GET_ALL_REVIEW_OF_BEAN = gql`
-  query($_eq: Int!) {
-    bean_reviews_aggregate(where: { bean_id: { _eq: $_eq } }) {
-      nodes {
-        id
-        barista_id
-        bean_id
-        rating
-        comment
-        barista {
-          display_name
-        }
-      }
-    }
-  }
-`
 export const UPDATE_BEAN_REVIEW = gql`
   mutation($id: Int!, $object: bean_reviews_set_input!) {
     update_bean_reviews_by_pk(pk_columns: { id: $id }, _set: $object) {
@@ -402,7 +386,6 @@ export const GET_RECIPE_BY_ID = gql`
     }
   }
 `
-
 export const UPDATE_RECIPES = gql`
   mutation($id: Int!, $object: recipes_set_input) {
     update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
