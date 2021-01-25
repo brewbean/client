@@ -69,9 +69,12 @@ export const updates = {
       cache.updateQuery(
         {
           query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
+          variables: { id: args.object.recipe_id },
         },
         (data) => {
-          data.recipe_reviews.push(result.insert_recipe_reviews_one)
+          data.recipes_by_pk.recipe_reviews.push(
+            result.insert_recipe_reviews_one
+          )
           return data
         }
       )

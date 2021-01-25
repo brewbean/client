@@ -29,14 +29,14 @@ const RecipeDetails = (props) => {
     // bean_grind,
     // water_amount,
     // water_temp,
-    rating,
     // comment,
     about,
     name,
     // barista,
     bean,
+    recipe_reviews,
+    recipe_reviews_aggregate,
   } = data.recipes_by_pk
-  const { recipe_reviews } = data
 
   return (
     <div>
@@ -60,7 +60,10 @@ const RecipeDetails = (props) => {
                 <div className='text-3xl leading-9 font-bold'>{name}</div>
                 <div className='flex items-center text-2xl leading-9'>
                   <img className='w-5 h-5 mr-1' src={Star} alt='Star' />:
-                  {roundToHalfOrWhole(rating)}/5
+                  {roundToHalfOrWhole(
+                    recipe_reviews_aggregate.aggregate.avg.rating
+                  )}
+                  /5
                 </div>
 
                 <div className='font-bold'>About this Recipe</div>

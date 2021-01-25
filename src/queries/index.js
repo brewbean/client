@@ -182,10 +182,12 @@ export const INSERT_REVIEW_ONE = gql`
   mutation($object: bean_reviews_insert_input!) {
     insert_bean_reviews_one(object: $object) {
       id
-      barista_id
-      bean_id
       rating
       comment
+      barista {
+        id
+        display_name
+      }
     }
   }
 `
@@ -324,22 +326,18 @@ export const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
         img
         name
       }
-    }
-    recipe_reviews(where: { recipe_id: { _eq: $id } }) {
-      id
-      barista_id
-      recipe_id
-      rating
-      comment
-      barista {
+      recipe_reviews {
         id
-        display_name
+        barista_id
+        recipe_id
+        rating
+        comment
       }
-    }
-    recipe_reviews_aggregate(where: { recipe_id: { _eq: $id } }) {
-      aggregate {
-        avg {
-          rating
+      recipe_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
         }
       }
     }
