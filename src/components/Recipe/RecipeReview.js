@@ -1,17 +1,18 @@
 import { useMutation } from 'urql'
-import { DELETE_BEAN_REVIEW } from 'queries'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { DELETE_RECIPE_REVIEW } from 'queries'
+import { useRouteMatch, Link } from 'react-router-dom'
 
-const BeanReview = ({ bean_reviews }) => {
+const RecipeReview = ({ recipe_reviews }) => {
   const { url } = useRouteMatch()
-  const [, deleteReview] = useMutation(DELETE_BEAN_REVIEW)
+  const [, deleteReview] = useMutation(DELETE_RECIPE_REVIEW)
   const deleteReviewPressed = async (id) => {
     await deleteReview({ id })
   }
   return (
     <div>
+      <div className='font-bold'>Recipe Reviews</div>
       <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-        {bean_reviews.map((n, i) => (
+        {recipe_reviews.map((n, i) => (
           <div key={i}>
             <li className='col-span-1 bg-white rounded-lg shadow'>
               <div className='w-full flex items-center justify-between p-6 space-x-6'>
@@ -82,4 +83,4 @@ const BeanReview = ({ bean_reviews }) => {
   )
 }
 
-export default BeanReview
+export default RecipeReview

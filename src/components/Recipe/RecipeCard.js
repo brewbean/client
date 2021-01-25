@@ -1,40 +1,21 @@
-import { useRouteMatch, Link } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 
-const DiscoverCard = ({
-  id,
-  name,
-  company_name,
-  roast_type,
-  region,
-  profile_note,
-  img,
-}) => {
+const RecipeCard = ({ id, brew_type, rating, isPrivate, barista, bean }) => {
   const { url } = useRouteMatch()
   return (
     <li className='col-span-1 flex flex-col text-center bg-white rounded-lg shadow'>
       <Link className='flex-1 flex flex-col p-8' to={`${url}/${id}`}>
         <img
           className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full'
-          src={img}
+          src={bean.img}
           alt=''
         />
         <h3 className='mt-6 text-gray-900 text-sm leading-5 font-medium'>
-          {company_name}
+          {barista.display_name}
         </h3>
         <dl className='mt-1 flex-grow flex flex-col justify-between'>
           <dt className='sr-only'>Title</dt>
-          <dd className='text-gray-500 text-sm leading-5'>{name}</dd>
-          <dt className='sr-only'>Role</dt>
-          <dd className='mt-3'>
-            {profile_note.map((x, i) => (
-              <span
-                key={i}
-                className='mx-1 px-2 py-1 text-teal-800 text-xs leading-4 font-medium bg-teal-100 rounded-full'
-              >
-                {x}
-              </span>
-            ))}
-          </dd>
+          <dd className='text-gray-500 text-sm leading-5'>{brew_type}</dd>
         </dl>
       </Link>
       <div className='border-t border-gray-200'>
@@ -70,4 +51,4 @@ const DiscoverCard = ({
   )
 }
 
-export default DiscoverCard
+export default RecipeCard
