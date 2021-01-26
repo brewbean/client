@@ -6,7 +6,7 @@ import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
 import RecipePlayer from 'pages/RecipePlayer'
 import BrewTrakPage from 'pages/BrewTrak'
-import DiscoverBeanPage from 'pages/DiscoverBean'
+import BeanPage from 'pages/Bean'
 import Recipe from 'pages/Recipe'
 import Login from 'pages/Login'
 import CreateAccount from 'pages/CreateAccount'
@@ -60,14 +60,14 @@ function App() {
       <ContainerRoute path='/recipe-player'>
         <RecipePlayer />
       </ContainerRoute>
-      <ContainerRoute path='/discover/recipe'>
+      <ContainerRoute path='/recipe'>
         <Recipe />
       </ContainerRoute>
       <ContainerRoute path='/brewtrak'>
         <BrewTrakPage />
       </ContainerRoute>
-      <ContainerRoute path='/discover/bean'>
-        <DiscoverBeanPage />
+      <ContainerRoute path='/bean'>
+        <BeanPage />
       </ContainerRoute>
       <ContainerRoute path='*'>
         <NotFound />

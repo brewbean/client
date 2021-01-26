@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useQuery, useMutation } from 'urql'
-import { GET_SINGLE_RECIPE, INSERT_RECIPE_REVIEW_ONE } from 'queries'
+import { GET_SINGLE_BEAN, INSERT_REVIEW_ONE } from 'queries'
 import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
 import { useHistory, useParams } from 'react-router-dom'
 
-const CreateRecipeReview = (props) => {
+const CreateBeanReview = (props) => {
   const history = useHistory()
+
   const [state, setState] = useState({
     rating: '5.0',
     comment: '',
@@ -14,10 +15,10 @@ const CreateRecipeReview = (props) => {
   const { id } = useParams()
   const { barista } = useAuth()
   const [result] = useQuery({
-    query: GET_SINGLE_RECIPE,
+    query: GET_SINGLE_BEAN,
     variables: { id },
   })
-  const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW_ONE)
+  const [, insertReview] = useMutation(INSERT_REVIEW_ONE)
   const { data, fetching, error } = result
 
   const onChangeGenerator = (attr) => (e) => {
@@ -28,20 +29,20 @@ const CreateRecipeReview = (props) => {
   }
 
   const submitReview = async () => {
-    await insertRecipeReview({
+    await insertReview({
       object: {
         barista_id: barista.id,
-        recipe_id: id,
+        bean_id: id,
         rating: state.rating,
         comment: state.comment,
       },
     })
-    history.push(`/discover/recipe/${id}`)
+    history.push(`/bean/${id}`)
   }
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
-  const { name } = data.recipes_by_pk
+  const { name } = data.bean_by_pk
 
   return (
     <div>
@@ -52,12 +53,7 @@ const CreateRecipeReview = (props) => {
         placeholder='Enter Barista'
         label='Barista'
       />
-      <InputRow
-        value={name}
-        readOnly
-        placeholder='Enter Recipe'
-        label='Recipe'
-      />
+      <InputRow value={name} readOnly placeholder='Enter Bean' label='Bean' />
       <InputRow
         value={state.rating}
         onChange={onChangeGenerator('rating')}
@@ -81,4 +77,4 @@ const CreateRecipeReview = (props) => {
   )
 }
 
-export default CreateRecipeReview
+export default CreateBeanReview

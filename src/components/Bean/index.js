@@ -1,8 +1,8 @@
-import DiscoverCard from './DiscoverCard'
+import BeanCard from './BeanCard'
 import { GET_ALL_BEANS } from 'queries'
 import { useQuery } from 'urql'
 
-const DiscoverBean = () => {
+const Bean = () => {
   const [result] = useQuery({
     query: GET_ALL_BEANS,
   })
@@ -16,9 +16,7 @@ const DiscoverBean = () => {
       <div className='bg-gray-800 pb-32'>
         <header className='py-10'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <h1 className='text-3xl leading-9 font-bold text-white'>
-              Discover
-            </h1>
+            <h1 className='text-3xl leading-9 font-bold text-white'>Beans</h1>
           </div>
         </header>
       </div>
@@ -27,7 +25,7 @@ const DiscoverBean = () => {
         <div className='max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8'>
           {/* <!-- Replace with your content --> */}
           <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-            {data && data.bean.map((x, i) => <DiscoverCard key={i} {...x} />)}
+            {data && data.bean.map((x, i) => <BeanCard key={i} {...x} />)}
           </ul>
           {/* <!-- /End replace --> */}
         </div>
@@ -35,4 +33,4 @@ const DiscoverBean = () => {
     </div>
   )
 }
-export default DiscoverBean
+export default Bean

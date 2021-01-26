@@ -48,7 +48,6 @@ const GET_ALL_BREW_LOGS = gql`
     }
   }
 `
-// TODO: - Update brew_logs_by_pk to brew_log_by_pk
 const GET_SINGLE_BREW_LOG = gql`
   query($id: Int!) {
     brew_logs_by_pk(id: $id) {

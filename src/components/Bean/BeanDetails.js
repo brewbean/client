@@ -2,10 +2,10 @@ import Star from '../BrewTrak/Icons/star.png'
 import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
 import { Link, useRouteMatch, useParams } from 'react-router-dom'
-import BeanReview from './BeanReview'
+import BeanReview from './Review/BeanReview'
 import { roundToHalfOrWhole } from 'helper/math'
 
-const DiscoverDetails = (props) => {
+const BeanDetails = (props) => {
   const { url } = useRouteMatch()
   const { id } = useParams()
   const [result] = useQuery({
@@ -68,7 +68,6 @@ const DiscoverDetails = (props) => {
                 {/* TODO - Guest cannot be allowed to make a review. Hide button for guest & route must be authenticated */}
                 <Link
                   to={`${url}/review/new`}
-                  // to={`/discover/bean/review/${id}/new`}
                   className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
                 >
                   submit review
@@ -89,4 +88,4 @@ const DiscoverDetails = (props) => {
   )
 }
 
-export default DiscoverDetails
+export default BeanDetails

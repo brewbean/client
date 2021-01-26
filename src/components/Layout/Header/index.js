@@ -11,15 +11,15 @@ const links = [
   },
   {
     text: 'discover brews',
-    to: '/discover/recipe',
+    to: '/recipe',
   },
   {
     text: 'buy beans',
-    to: '/discover/bean',
+    to: '/bean',
   },
   {
     text: 'recipe player',
-    to: '/pour-app',
+    to: '/recipe-player',
   },
 ]
 

@@ -1,6 +1,6 @@
 import { useRouteMatch, Link } from 'react-router-dom'
 
-const DiscoverCard = ({
+const BeanCard = ({
   id,
   name,
   company_name,
@@ -70,4 +70,4 @@ const DiscoverCard = ({
   )
 }
 
-export default DiscoverCard
+export default BeanCard

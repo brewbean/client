@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useQuery } from 'urql'
 import RecipeCard from './RecipeCard'
-import { GET_ALL_RECIPES } from 'queries' // GET ALL REVIEWS
+import { GET_ALL_RECIPES } from 'queries'
 import { Link, useRouteMatch } from 'react-router-dom'
 
 const Recipes = () => {

@@ -35,7 +35,7 @@ const CreateRecipe = (props) => {
     await insertRecipe({
       object: { ...state, barista_id: barista.id },
     })
-    history.push(`/discover/recipe`)
+    history.push(`/recipe`)
   }
 
   return (

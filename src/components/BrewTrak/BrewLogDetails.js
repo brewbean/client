@@ -9,9 +9,6 @@ import { GET_SINGLE_BREW_LOG, DELETE_BREW_LOGS } from 'queries'
 import SelectBrew from './SelectBrew'
 import CoffeeNotSelected from './Icons/no-coffee-selected.jpg'
 
-// TODO - Shorten the props
-// TODO - useQuery and use id, check cache in network to see if it's re-querie
-//{ img, date, beanWeight, brewType, beanGrind, waterAmount, beanType, waterTemp, bloomWaterAmount, bloomTime, rating, brewComments, brewSelected, id }
 const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
   const { url } = useRouteMatch()
   const [, deleteBrewLog] = useMutation(DELETE_BREW_LOGS)
