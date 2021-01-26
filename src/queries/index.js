@@ -1,3 +1,4 @@
+import { gql } from 'urql'
 import {
   INSERT_BREW_LOGS_ONE,
   GET_ALL_BREW_LOGS,
@@ -30,7 +31,7 @@ import {
   DELETE_RECIPE_REVIEW,
 } from './Recipe'
 
-export const GET_BARISTA = `
+export const GET_BARISTA = gql`
   query {
     barista {
       id
