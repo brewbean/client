@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouteMatch, Link } from 'react-router-dom'
+import Alert from 'components/Alert'
 import UserSection from './UserSection'
 import UserSectionMobile from './UserSectionMobile'
 
@@ -137,6 +138,10 @@ const Header = () => {
         <div className='p-4 border-t border-gray-200'>
           <UserSectionMobile links={settingLinks} />
         </div>
+      </div>
+
+      <div className='top-0 relative'>
+        <Alert containerStyle='px-2 lg:px-0 max-w-5xl absolute inset-0 mx-auto mt-2 space-y-2' />
       </div>
     </nav>
   )

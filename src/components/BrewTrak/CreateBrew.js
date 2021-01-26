@@ -32,7 +32,7 @@ const CreateBrew = () => {
       water_temp: state.waterTemp,
       rating: state.rating,
       comment: state.brewComments,
-      isPrivate: true, //TODO: - temp-setting
+      is_private: true, //TODO: - temp-setting
       water_amount: state.waterAmount,
     }
     await insertBrewLog({ object })

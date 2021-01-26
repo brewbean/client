@@ -3,6 +3,7 @@ import {
   createContext,
   useReducer,
   useContext,
+  useCallback,
   useEffect,
   useMemo,
 } from 'react'
@@ -25,9 +26,11 @@ import {
   willAuthError,
   logout,
 } from 'helper/auth'
-import { AUTH_API, GRAPHQL_API } from 'config'
+import { AUTH_API, GRAPHQL_API, VERIFY_API } from 'config'
 import { GET_BARISTA } from 'queries'
 import { updates, keys } from 'helper/cache'
+import { print } from 'graphql'
+
 const AuthContext = createContext()
 
 const initialState = {
@@ -42,6 +45,8 @@ const initialState = {
 
 function reducer(state, [type, payload]) {
   switch (type) {
+    case 'updateVerified':
+      return { ...state, barista: { ...state.barista, is_verified: true } }
     case 'setBarista':
       return { ...state, barista: payload }
     case 'setIsFetching':
@@ -73,12 +78,23 @@ function reducer(state, [type, payload]) {
 function AuthProvider({ authOnlyPaths, children }) {
   const history = useHistory()
   const { pathname } = useLocation()
-  const { addAlert } = useAlert()
+  const { addAlert, closeAlert, alerts } = useAlert()
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const _logout = async () =>
     await logout(authOnlyPaths, history, pathname, dispatch)
+
+  // use after another page triggers email confirmation
+  const setVerifiedStatus = useCallback(() => {
+    dispatch(['updateVerified'])
+    const removeIndex = alerts.findIndex(
+      (a) => a.header === 'Your account is unverified'
+    )
+    if (removeIndex > -1) {
+      closeAlert(removeIndex)
+    }
+  }, [alerts, closeAlert])
 
   useEffect(() => {
     const initialize = async () => {
@@ -103,6 +119,16 @@ function AuthProvider({ authOnlyPaths, children }) {
   }, [])
 
   useEffect(() => {
+    const syncVerification = (event) => {
+      if (event.key === 'verified') {
+        setVerifiedStatus()
+      }
+    }
+    window.addEventListener('storage', syncVerification)
+    return () => window.removeEventListener('storage', syncVerification)
+  }, [state.barista, setVerifiedStatus])
+
+  useEffect(() => {
     const getBarista = async () => {
       if (state.isLoggedIn && !state.hasInit) {
         try {
@@ -110,7 +136,7 @@ function AuthProvider({ authOnlyPaths, children }) {
 
           const { data } = await axios.post(
             GRAPHQL_API,
-            { query: GET_BARISTA },
+            { query: print(GET_BARISTA) },
             { headers: { authorization: `Bearer ${state.token}` } }
           )
 
@@ -124,7 +150,36 @@ function AuthProvider({ authOnlyPaths, children }) {
           } else {
             const barista = data.data.barista[0]
             dispatch(['setBarista', barista])
+
+            if (!barista.is_verified) {
+              addAlert({
+                type: alertType.INFO,
+                header: 'Your account is unverified',
+                message:
+                  'Please check your email for a verification link. Check your junk emails as well in case it went there. You may also click the "Resend email" button below if you cannot find your email.',
+                close: true,
+                action: {
+                  onClick: async (success, fail, load) => {
+                    try {
+                      load()
+                      await axios.post(
+                        VERIFY_API + '/resend',
+                        { email: barista.email },
+                        { withCredentials: true }
+                      )
+                      success()
+                    } catch (e) {
+                      fail()
+                    }
+                  },
+                  buttonText: 'Resend email',
+                  successMessage: 'Email sent!',
+                  failMessage: 'Sending email failed. Please try again later.',
+                },
+              })
+            }
           }
+
           dispatch(['finishInitBarista'])
           dispatch(['setIsFetching', false])
         } catch (e) {
@@ -243,7 +298,14 @@ function AuthProvider({ authOnlyPaths, children }) {
 
   return (
     <AuthContext.Provider
-      value={{ ...state, login, signup, closeIntroModal, logout: _logout }}
+      value={{
+        ...state,
+        login,
+        signup,
+        setVerifiedStatus,
+        closeIntroModal,
+        logout: _logout,
+      }}
     >
       <UrqlProvider value={client}>{children}</UrqlProvider>
     </AuthContext.Provider>

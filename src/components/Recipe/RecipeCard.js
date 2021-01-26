@@ -1,6 +1,6 @@
 import { Link, useRouteMatch } from 'react-router-dom'
 
-const RecipeCard = ({ id, brew_type, rating, isPrivate, barista, bean }) => {
+const RecipeCard = ({ id, brew_type, rating, is_private, barista, bean }) => {
   const { url } = useRouteMatch()
   return (
     <li className='col-span-1 flex flex-col text-center bg-white rounded-lg shadow'>

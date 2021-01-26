@@ -18,7 +18,7 @@ const CreateRecipe = (props) => {
     water_amount: '',
     bean_id: '',
     water_temp: '',
-    isPrivate: false,
+    is_private: false,
     about: '',
     name: '',
   })
@@ -122,8 +122,8 @@ const CreateRecipe = (props) => {
         options={['1', '2', '3', '4', '5']}
       />
       <Dropdown
-        value={state.isPrivate}
-        onChange={onChangeGenerator('isPrivate')}
+        value={state.is_private}
+        onChange={onChangeGenerator('is_private')}
         label='Private'
         options={['true', 'false']}
       />

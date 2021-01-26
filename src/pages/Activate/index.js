@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Loading } from 'components/Utility'
 import { Link, useLocation } from 'react-router-dom'
 import { VERIFY_API } from 'config'
+import { useAuth } from 'context/AuthContext'
 
 function Activate() {
   const [isLoading, setIsLoading] = useState(true)
@@ -13,20 +14,25 @@ function Activate() {
   const [subtext, setSubtext] = useState(
     'Your account should be fully verified momentarily.'
   )
+
+  const { setVerifiedStatus } = useAuth()
   const { search } = useLocation()
   const { code, email } = qs.parse(search, { ignoreQueryPrefix: true })
 
   useEffect(() => {
     const validate = async () => {
       try {
-        console.log(code, email)
         await axios.post(VERIFY_API + '/validate', { code, email })
+        // due to user init also happening on mount, setVerifiedStatus only changes verified status (main priority),
+        // but doesn't trigger alerts to be removed since function is instantiated at this
+        // point in time with no alerts -- low priority bug, but a fix is welcomed in future
+        setVerifiedStatus()
         setIsLoading(false)
         setIsSuccess(true)
         setTitle('Verified')
         setSubtext('You are now verified and have full user privileges.')
+        localStorage.setItem('verified', Date.now()) // triggers other windows to now be verified
       } catch ({ response }) {
-        console.log('here')
         setIsLoading(false)
         if (response.status === 400 || response.status === 401) {
           // catch all
@@ -48,7 +54,6 @@ function Activate() {
             // expired (or wrong code - very edge)
           }
         }
-        console.log(response)
       }
     }
 
@@ -131,7 +136,6 @@ function Activate() {
             <div className='mt-5 flex justify-center'>
               <Link
                 to='/'
-                type='button'
                 className='inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm'
               >
                 Go to home page

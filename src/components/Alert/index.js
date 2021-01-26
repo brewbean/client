@@ -1,7 +1,7 @@
 import { useAlert } from 'context/AlertContext'
 import AlertMessage from './AlertMessage'
 
-const Alert = ({ containerStyle }) => {
+const Alert = ({ containerStyle, noShadow = false }) => {
   const { hasAlert, alerts, closeAlert } = useAlert()
 
   if (!hasAlert) return null
@@ -9,7 +9,12 @@ const Alert = ({ containerStyle }) => {
   return (
     <div className={containerStyle}>
       {alerts.map((alert, i) => (
-        <AlertMessage key={i} onClose={() => closeAlert(i)} {...alert} />
+        <AlertMessage
+          key={i}
+          onClose={() => closeAlert(i)}
+          noShadow={noShadow}
+          {...alert}
+        />
       ))}
     </div>
   )
