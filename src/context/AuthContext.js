@@ -38,6 +38,7 @@ const initialState = {
   tokenExpiry: null,
   barista: null,
   hasInit: false,
+  verificationCompleted: false,
   isIntroModalOpen: false,
   isLoggedIn: false,
   isFetching: localStorage.getItem('hasLoggedIn') === 'yes',
@@ -45,6 +46,8 @@ const initialState = {
 
 function reducer(state, [type, payload]) {
   switch (type) {
+    case 'completeVerification':
+      return { ...state, verificationCompleted: true }
     case 'updateVerified':
       return { ...state, barista: { ...state.barista, is_verified: true } }
     case 'setBarista':
@@ -82,8 +85,10 @@ function AuthProvider({ authOnlyPaths, children }) {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const _logout = async () =>
-    await logout(authOnlyPaths, history, pathname, dispatch)
+  const _logout = useCallback(
+    async () => await logout(authOnlyPaths, history, pathname, dispatch),
+    [authOnlyPaths, history, pathname]
+  )
 
   // use after another page triggers email confirmation
   const setVerifiedStatus = useCallback(() => {
@@ -119,14 +124,33 @@ function AuthProvider({ authOnlyPaths, children }) {
   }, [])
 
   useEffect(() => {
-    const syncVerification = (event) => {
-      if (event.key === 'verified') {
+    const syncVerification = async (event) => {
+      if (event.key === 'verified' && state.isLoggedIn) {
         setVerifiedStatus()
       }
     }
     window.addEventListener('storage', syncVerification)
     return () => window.removeEventListener('storage', syncVerification)
-  }, [state.barista, setVerifiedStatus])
+  }, [state.barista, state.isLoggedIn, setVerifiedStatus])
+
+  useEffect(() => {
+    const getVerifiedToken = async () => {
+      const { ok, token, tokenExpiry } = await getTokenFromRefresh()
+      if (ok) {
+        dispatch(['setJWT', { token, tokenExpiry }])
+        dispatch(['completeVerification'])
+      } else {
+        // in edge case that error refreshing token; force them to re-login
+        // this guarantees that they will have a new token that has verified role
+        await _logout()
+      }
+    }
+
+    if (state.barista?.is_verified && !state.verificationCompleted) {
+      console.log('here')
+      getVerifiedToken()
+    }
+  }, [state.barista, state.verificationCompleted, _logout])
 
   useEffect(() => {
     const getBarista = async () => {
