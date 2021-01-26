@@ -19,6 +19,8 @@ const AlertProvider = ({ children }) => {
   }, [location])
 
   // destructured for clarity - can remove if we implement TypeScript types/interfaces
+  // useCallback used here to provide stable reference
+  // as 'addAlert' is in the dependency graph of a useEffect block
   const addAlert = useCallback(
     (alert) =>
       setAlerts((prevAlerts) => [
@@ -28,6 +30,7 @@ const AlertProvider = ({ children }) => {
           header: alert.header,
           message: alert.message,
           close: alert.close,
+          action: alert.action,
         },
       ]),
     []

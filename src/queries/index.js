@@ -5,6 +5,7 @@ import {
   UPDATE_BREW_LOGS,
   DELETE_BREW_LOGS,
 } from './BrewTrak'
+
 import {
   GET_ALL_BEANS,
   GET_SINGLE_BEAN,
@@ -37,6 +38,7 @@ export const GET_BARISTA = `
       display_name
       avatar
       created_on
+      is_verified
     }
   }
 `

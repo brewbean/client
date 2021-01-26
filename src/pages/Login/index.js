@@ -38,7 +38,7 @@ const Login = (props) => {
             <span className='text-pink-400'>)</span>
           </Link>
 
-          <Alert containerStyle='mt-6' />
+          <Alert containerStyle='mt-6' noShadow />
 
           <div className='mt-6'>
             <form className='space-y-2' onSubmit={submitLogin}>
