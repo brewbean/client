@@ -6,7 +6,7 @@ import { Link, useRouteMatch } from 'react-router-dom'
 
 const Recipes = () => {
   const { url } = useRouteMatch()
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_ALL_RECIPES,
     context: useMemo(
       () => ({
@@ -19,7 +19,6 @@ const Recipes = () => {
       []
     ),
   })
-  const { data, fetching, error } = result
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>

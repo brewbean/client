@@ -14,12 +14,11 @@ const CreateBeanReview = (props) => {
   })
   const { id } = useParams()
   const { barista } = useAuth()
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BEAN,
     variables: { id },
   })
   const [, insertReview] = useMutation(INSERT_REVIEW_ONE)
-  const { data, fetching, error } = result
 
   const onChangeGenerator = (attr) => (e) => {
     setState({

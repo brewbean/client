@@ -5,11 +5,10 @@ import EditBeanReviewForm from './EditBeanReviewForm'
 
 const EditBeanReview = (props) => {
   const { review_id } = useParams()
-  const [reviewResult] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_REVIEW,
     variables: { id: review_id },
   })
-  const { data, fetching, error } = reviewResult
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... error: {error.message}</p>

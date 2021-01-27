@@ -8,11 +8,11 @@ import { roundToHalfOrWhole } from 'helper/math'
 const BeanDetails = (props) => {
   const { url } = useRouteMatch()
   const { id } = useParams()
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
     variables: { id },
   })
-  const { data, fetching, error } = result
+
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
   const {

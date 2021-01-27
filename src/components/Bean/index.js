@@ -3,10 +3,9 @@ import { GET_ALL_BEANS } from 'queries'
 import { useQuery } from 'urql'
 
 const Bean = () => {
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_ALL_BEANS,
   })
-  const { data, fetching, error } = result
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>

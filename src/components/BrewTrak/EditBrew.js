@@ -5,11 +5,11 @@ import EditBrewForm from './EditBrewForm'
 
 const EditBrew = () => {
   const { id } = useParams()
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BREW_LOG,
     variables: { id },
   })
-  const { data, fetching, error } = result
+
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
   if (data?.brew_logs_by_pk) {

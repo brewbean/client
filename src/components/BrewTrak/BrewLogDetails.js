@@ -18,11 +18,11 @@ const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
     setBrewSelected(false)
   }
 
-  const [singleBrewLog] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BREW_LOG,
     variables: { id: brewLogId },
   })
-  const { data, fetching, error } = singleBrewLog
+
   if (fetching) return <p>Loading...</p>
   if (error || !data.brew_logs_by_pk) return <SelectBrew />
   const {

@@ -13,12 +13,11 @@ const CreateRecipeReview = (props) => {
   })
   const { id } = useParams()
   const { barista } = useAuth()
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE,
     variables: { id },
   })
   const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW_ONE)
-  const { data, fetching, error } = result
 
   const onChangeGenerator = (attr) => (e) => {
     setState({

@@ -16,11 +16,11 @@ const RecipeDetails = (props) => {
     history.push(`/recipe`)
   }
 
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
     variables: { id },
   })
-  const { data, fetching, error } = result
+
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
   const {
