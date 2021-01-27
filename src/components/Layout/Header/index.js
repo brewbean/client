@@ -34,7 +34,7 @@ const settingLinks = [
   },
 ]
 
-const Header = () => {
+const Header = ({ alertDisabled }) => {
   const { path } = useRouteMatch()
   const [isOpen, setToggle] = useState(false)
   const [isDropdownOpen, setDropdownOpen] = useState(false)
@@ -141,7 +141,10 @@ const Header = () => {
       </div>
 
       <div className='top-0 relative'>
-        <Alert containerStyle='px-2 lg:px-0 max-w-5xl absolute inset-0 mx-auto mt-2 space-y-2' />
+        <Alert
+          disabled={alertDisabled}
+          containerStyle='px-2 lg:px-0 max-w-5xl absolute inset-0 mx-auto mt-2 space-y-2'
+        />
       </div>
     </nav>
   )

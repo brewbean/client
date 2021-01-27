@@ -7,7 +7,6 @@ import {
   useEffect,
   useMemo,
 } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
 import {
   createClient,
   Provider as UrqlProvider,
@@ -24,7 +23,7 @@ import {
   didAuthError,
   getTokenFromRefresh,
   willAuthError,
-  logout,
+  logoutAPI,
 } from 'helper/auth'
 import { AUTH_API, GRAPHQL_API, VERIFY_API } from 'config'
 import { GET_BARISTA } from 'queries'
@@ -38,7 +37,7 @@ const initialState = {
   tokenExpiry: null,
   barista: null,
   hasInit: false,
-  verificationCompleted: false,
+  fetchVerifyToken: false,
   isIntroModalOpen: false,
   isLoggedIn: false,
   isFetching: localStorage.getItem('hasLoggedIn') === 'yes',
@@ -46,10 +45,13 @@ const initialState = {
 
 function reducer(state, [type, payload]) {
   switch (type) {
-    case 'completeVerification':
-      return { ...state, verificationCompleted: true }
+    case 'fetchVerifyToken':
+      return { ...state, fetchVerifyToken: payload }
     case 'updateVerified':
-      return { ...state, barista: { ...state.barista, is_verified: true } }
+      return {
+        ...state,
+        barista: { ...state.barista, is_verified: true },
+      }
     case 'setBarista':
       return { ...state, barista: payload }
     case 'setIsFetching':
@@ -73,26 +75,21 @@ function reducer(state, [type, payload]) {
   }
 }
 
-/**
- * authPaths equal array of path names that are authenticated ['/profile']
- * causes failed refreshes to go to login page
- * otherwise just continue to guest version of page
- */
-function AuthProvider({ authOnlyPaths, children }) {
-  const history = useHistory()
-  const { pathname } = useLocation()
+function AuthProvider({ children }) {
   const { addAlert, closeAlert, alerts } = useAlert()
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const _logout = useCallback(
-    async () => await logout(authOnlyPaths, history, pathname, dispatch),
-    [authOnlyPaths, history, pathname]
-  )
+  const logout = useCallback(async () => {
+    await logoutAPI()
+    dispatch(['logout'])
+    console.log('%cLogged out!', 'color:purple')
+  }, [])
 
   // use after another page triggers email confirmation
   const setVerifiedStatus = useCallback(() => {
     dispatch(['updateVerified'])
+    dispatch(['fetchVerifyToken', true])
     const removeIndex = alerts.findIndex(
       (a) => a.header === 'Your account is unverified'
     )
@@ -109,13 +106,19 @@ function AuthProvider({ authOnlyPaths, children }) {
           dispatch(['setJWT', { token, tokenExpiry }])
           dispatch(['login'])
         } else {
-          await _logout()
+          await logout()
         }
       }
     }
+
+    // This is only called from tabs that are passively listening
+    // to logout, thus all they need is to dispatch action as
+    // localstorage is cleared & cookie is cleared for them in
+    // the active tab
     const syncLogout = async (event) => {
       if (event.key === 'logout') {
-        await _logout()
+        dispatch(['logout'])
+        console.log('%cLogged out!', 'color:pink')
       }
     }
     initialize()
@@ -138,19 +141,18 @@ function AuthProvider({ authOnlyPaths, children }) {
       const { ok, token, tokenExpiry } = await getTokenFromRefresh()
       if (ok) {
         dispatch(['setJWT', { token, tokenExpiry }])
-        dispatch(['completeVerification'])
+        dispatch(['fetchVerifyToken', false]) // marks completing verification
       } else {
         // in edge case that error refreshing token; force them to re-login
         // this guarantees that they will have a new token that has verified role
-        await _logout()
+        await logout()
       }
     }
 
-    if (state.barista?.is_verified && !state.verificationCompleted) {
-      console.log('here')
+    if (state.fetchVerifyToken) {
       getVerifiedToken()
     }
-  }, [state.barista, state.verificationCompleted, _logout])
+  }, [state.fetchVerifyToken, logout])
 
   useEffect(() => {
     const getBarista = async () => {
@@ -214,7 +216,7 @@ function AuthProvider({ authOnlyPaths, children }) {
     getBarista()
   }, [state.isLoggedIn, state.token, state.hasInit, addAlert])
 
-  const login = async (email, password) => {
+  const login = async (email, password, callback) => {
     try {
       const {
         data: { token, tokenExpiry },
@@ -226,7 +228,8 @@ function AuthProvider({ authOnlyPaths, children }) {
       dispatch(['setJWT', { token, tokenExpiry }])
       dispatch(['login'])
       window.localStorage.setItem('hasLoggedIn', 'yes')
-      history.push('/')
+
+      if (callback) callback()
     } catch (err) {
       if (!err.response && err.message === 'Network Error') {
         addAlert({
@@ -290,7 +293,7 @@ function AuthProvider({ authOnlyPaths, children }) {
     }
 
     // --- REFRESH FAIL ---
-    await _logout()
+    await logout()
     return null
   }
 
@@ -328,7 +331,7 @@ function AuthProvider({ authOnlyPaths, children }) {
         signup,
         setVerifiedStatus,
         closeIntroModal,
-        logout: _logout,
+        logout,
       }}
     >
       <UrqlProvider value={client}>{children}</UrqlProvider>
