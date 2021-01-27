@@ -137,7 +137,7 @@ const AlertMessage = ({
   return (
     <div
       className={`rounded-md p-4 ${settings[type].bg} ${
-        noShadow ? '' : 'shadow-xl'
+        noShadow ? '' : 'shadow-lg'
       }`.trimEnd()}
     >
       <div className='flex'>

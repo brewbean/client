@@ -11,6 +11,7 @@ import Recipe from 'pages/Recipe'
 import Login from 'pages/Login'
 import CreateAccount from 'pages/CreateAccount'
 import Activate from 'pages/Activate'
+import ModalFlowDemo from 'pages/ModalFlowDemo'
 
 const Test = () => {
   return <div className='bg-gray-200'>Test page</div>
@@ -54,6 +55,9 @@ function App() {
       <AuthRoute path='/test/:id'>
         <Test />
       </AuthRoute>
+      <ContainerRoute path='/modal-test'>
+        <ModalFlowDemo />
+      </ContainerRoute>
       <ContainerRoute path='/hi/:id/name/:slug'>
         <PathTest />
       </ContainerRoute>

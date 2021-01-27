@@ -1,34 +1,14 @@
 import axios from 'axios'
-import { matchPath } from 'react-router-dom'
 import { AUTH_API } from 'config'
 
-export const logout = async (authOnlyPaths, history, pathname, dispatch) => {
-  const isAuthOnlyPath = authOnlyPaths.find(({ path, exact, strict }) =>
-    matchPath(pathname, {
-      path,
-      exact,
-      strict,
-    })
-  )
+export const logoutAPI = async () => {
+  // This is to support logging out from all windows
+  // triggers logout action in other tabs
+  localStorage.setItem('logout', Date.now())
+  localStorage.clear()
 
   // remove refresh token cookie
   await axios.post(AUTH_API + '/logout', { withCredentials: true })
-
-  // This is to support logging out from all windows
-  // if 'hasLoggedIn' has a value then this means they haven't
-  // cleared the localStorage and triggered all logouts yet
-  // Conditional check to prevent bouncing logouts off tabs
-  if (localStorage.getItem('hasLoggedIn')) {
-    localStorage.setItem('logout', Date.now())
-    localStorage.clear()
-  }
-
-  if (isAuthOnlyPath) {
-    history.replace('/login')
-  }
-
-  dispatch(['logout'])
-  console.log('%cLogged out!', 'color:purple')
 }
 
 export const getTokenFromRefresh = async () => {
