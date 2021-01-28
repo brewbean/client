@@ -5,7 +5,7 @@ import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
 import { useHistory, useParams } from 'react-router-dom'
 
-const CreateReview = (props) => {
+const CreateBeanReview = (props) => {
   const history = useHistory()
 
   const [state, setState] = useState({
@@ -14,12 +14,11 @@ const CreateReview = (props) => {
   })
   const { id } = useParams()
   const { barista } = useAuth()
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BEAN,
     variables: { id },
   })
   const [, insertReview] = useMutation(INSERT_REVIEW_ONE)
-  const { data, fetching, error } = result
 
   const onChangeGenerator = (attr) => (e) => {
     setState({
@@ -37,7 +36,7 @@ const CreateReview = (props) => {
         comment: state.comment,
       },
     })
-    history.push(`/discover/bean/${id}`)
+    history.push(`/bean/${id}`)
   }
 
   if (fetching) return <p>Loading...</p>
@@ -77,4 +76,4 @@ const CreateReview = (props) => {
   )
 }
 
-export default CreateReview
+export default CreateBeanReview

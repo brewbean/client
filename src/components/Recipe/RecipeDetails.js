@@ -1,7 +1,7 @@
 import Star from '../BrewTrak/Icons/star.png'
 import { GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW, DELETE_RECIPES } from 'queries'
 import { useQuery, useMutation } from 'urql'
-import RecipeReview from './RecipeReview'
+import RecipeReview from './Review/RecipeReview'
 import { roundToHalfOrWhole } from 'helper/math'
 import { useHistory, useParams, Link, useRouteMatch } from 'react-router-dom'
 
@@ -13,14 +13,14 @@ const RecipeDetails = (props) => {
 
   const deleteRecipePressed = async () => {
     await deleteRecipe({ id })
-    history.push(`/discover/recipe`)
+    history.push(`/recipe`)
   }
 
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
     variables: { id },
   })
-  const { data, fetching, error } = result
+
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
   const {

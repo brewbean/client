@@ -6,16 +6,17 @@ import App from 'App'
 import 'tailwind.generated.css'
 import { AlertProvider } from 'context/AlertContext'
 import { AuthProvider } from 'context/AuthContext'
-
-const authOnlyPaths = [{ path: '/test/:id' }]
+import { ModalProvider } from 'context/ModalContext'
 
 ReactDOM.render(
   <StrictMode>
     <Router>
       <AlertProvider>
-        <AuthProvider authOnlyPaths={authOnlyPaths}>
-          <App />
-        </AuthProvider>
+        <ModalProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </ModalProvider>
       </AlertProvider>
     </Router>
   </StrictMode>,

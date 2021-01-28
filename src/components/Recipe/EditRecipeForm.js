@@ -27,7 +27,7 @@ const EditRecipeForm = ({ recipe, id }) => {
         ...rest,
       },
     })
-    history.push(`/discover/recipe/${id}`)
+    history.push(`/recipe/${id}`)
   }
 
   if (barista)
@@ -115,8 +115,8 @@ const EditRecipeForm = ({ recipe, id }) => {
           options={['1', '2', '3', '4', '5']}
         />
         <Dropdown
-          value={state.isPrivate}
-          onChange={onChangeGenerator('isPrivate')}
+          value={state.is_private}
+          onChange={onChangeGenerator('is_private')}
           label='Private'
           options={['true', 'false']}
         />

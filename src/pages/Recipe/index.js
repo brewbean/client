@@ -3,8 +3,8 @@ import Recipes from 'components/Recipe'
 import RecipeDetails from 'components/Recipe/RecipeDetails'
 import CreateRecipe from 'components/Recipe/CreateRecipe'
 import EditRecipe from 'components/Recipe/EditRecipe'
-import CreateRecipeReview from 'components/Recipe/CreateRecipeReview'
-import EditRecipeReview from 'components/Recipe/EditRecipeReview'
+import CreateRecipeReview from 'components/Recipe/Review/CreateRecipeReview'
+import EditRecipeReview from 'components/Recipe/Review/EditRecipeReview'
 import StagePage from './StagePage'
 
 const RecipePage = (props) => {

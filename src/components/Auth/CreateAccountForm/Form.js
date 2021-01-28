@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useAlert } from 'context/AlertContext'
 import FormAlert from 'components/FormAlert'
 import { Eye, EyeOff } from 'components/Icon'
@@ -15,9 +14,11 @@ export default function Form({
   displayName,
   password,
   onChange,
+  goToLoginPage,
 }) {
   const { hasAlert } = useAlert() // global app alerts not password form alerts
   const [showPassword, setShowPassword] = useState(false)
+
   const toggleShowPassword = () => setShowPassword(!showPassword)
 
   return (
@@ -113,15 +114,15 @@ export default function Form({
           </button>
         </span>
       </div>
-      <div className='my-3 flex items-center justify-end'>
+      <div className='flex items-center justify-end'>
         <h3 className='text-sm italic text-gray-700'>
           Already have an account?{' '}
-          <Link
-            to='/login'
+          <button
+            onClick={goToLoginPage}
             className='focus:underline font-medium not-italic hover:text-blue-500 text-blue-600'
           >
             Log in
-          </Link>
+          </button>
         </h3>
       </div>
     </form>

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { alertType } from 'context/AlertContext'
+import { Success, Fail, Load } from 'components/Utility/AlertAction'
 
 const ErrorIcon = () => (
   <svg
@@ -73,39 +75,71 @@ const CloseIcon = () => (
 
 const settings = {
   [alertType.ERROR]: {
-    bg: 'bg-red-100',
+    bg: 'bg-red-50',
     icon: ErrorIcon,
     header: 'text-red-800',
-    message: 'text-red-700',
+    message: 'text-red-600',
+    action: 'hover:bg-red-100 focus:ring-offset-red-50 focus:ring-red-600',
     close: 'text-red-500 hover:bg-red-200 focus:bg-red-200',
   },
   [alertType.WARNING]: {
-    bg: 'bg-yellow-100',
+    bg: 'bg-yellow-50',
     icon: WarningIcon,
     header: 'text-yellow-800',
-    message: 'text-yellow-700',
+    message: 'text-yellow-600',
+    action:
+      'hover:bg-yellow-100 focus:ring-offset-yellow-50 focus:ring-yellow-600',
     close: 'text-yellow-500 hover:bg-yellow-200 focus:bg-yellow-200',
   },
   [alertType.SUCCESS]: {
-    bg: 'bg-green-100',
+    bg: 'bg-green-50',
     icon: SuccessIcon,
     header: 'text-green-800',
-    message: 'text-green-700',
+    message: 'text-green-600',
+    action:
+      'hover:bg-green-100 focus:ring-offset-green-50 focus:ring-green-600',
     close: 'text-green-500 hover:bg-green-200 focus:bg-green-200',
   },
   [alertType.INFO]: {
-    bg: 'bg-blue-100',
+    bg: 'bg-blue-50',
     icon: InfoIcon,
     header: 'text-blue-800',
-    message: 'text-blue-700',
+    message: 'text-blue-600',
+    action: 'hover:bg-blue-100 focus:ring-offset-blue-50 focus:ring-blue-600',
     close: 'text-blue-500 hover:bg-blue-200 focus:bg-blue-200',
   },
 }
 
-const AlertMessage = ({ close, onClose, type, header, message }) => {
+const AlertMessage = ({
+  noShadow,
+  close,
+  onClose,
+  type,
+  header,
+  message,
+  action,
+}) => {
   const Icon = settings[type].icon
+
+  const [hasSucceeded, setHasSucceeded] = useState(false)
+  const [hasFailed, setHasFail] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const onSuccess = () => {
+    setLoading(false)
+    setHasSucceeded(true)
+  }
+  const onFail = () => {
+    setLoading(false)
+    setHasFail(true)
+  }
+  const onLoad = () => setLoading(true)
+
   return (
-    <div className={`rounded-md p-4 ${settings[type].bg}`}>
+    <div
+      className={`rounded-md p-4 ${settings[type].bg} ${
+        noShadow ? '' : 'shadow-lg'
+      }`.trimEnd()}
+    >
       <div className='flex'>
         <div className='flex-shrink-0'>
           <Icon />
@@ -116,9 +150,37 @@ const AlertMessage = ({ close, onClose, type, header, message }) => {
           >
             {header}
           </h3>
-          <div className={`mt-2 text-sm leading-5 ${settings[type].message}`}>
+          <div
+            className={`mt-2 text-sm font-normal leading-5 ${settings[type].message}`}
+          >
             <p>{message}</p>
           </div>
+          {action && (
+            <div className='mt-4'>
+              {loading ? (
+                <Load />
+              ) : hasSucceeded ? (
+                <Success
+                  message={action.successMessage}
+                  colorClass={settings[type].header}
+                />
+              ) : hasFailed ? (
+                <Fail
+                  message={action.failMessage}
+                  colorClass={settings[type].header}
+                />
+              ) : (
+                <div className='-mx-2 -my-1.5 flex'>
+                  <button
+                    onClick={() => action.onClick(onSuccess, onFail, onLoad)}
+                    className={`${settings[type].bg} ${settings[type].header} ${settings[type].action} px-2 py-1.5 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2`}
+                  >
+                    {action.buttonText}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         {close && (
           <div className='ml-auto pl-3'>

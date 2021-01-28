@@ -75,7 +75,7 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
           leaveTo='transform opacity-0 scale-95'
         >
           <div
-            className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5'
+            className='z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5'
             ref={dropdownRef}
           >
             <div

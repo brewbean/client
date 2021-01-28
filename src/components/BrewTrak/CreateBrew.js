@@ -11,30 +11,21 @@ const CreateBrew = () => {
   const history = useHistory()
 
   const [state, setState] = useState({
-    brewType: 'Pour Over',
-    beanWeight: '',
-    beanGrind: 'Extra Fine',
-    waterAmount: '',
-    beanType: '',
-    waterTemp: '',
+    brew_type: 'Pour Over',
+    bean_weight: '',
+    bean_grind: 'Extra Fine',
+    water_amount: '',
+    bean_id: '',
+    water_temp: '',
     rating: '1',
-    brewComments: '',
+    comment: '',
+    is_private: true,
   })
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOGS_ONE)
   const { barista } = useAuth()
 
   const submitBrewLog = async () => {
-    const object = {
-      barista_id: barista.id,
-      brew_type: state.brewType,
-      bean_weight: state.beanWeight,
-      bean_grind: state.beanGrind,
-      water_temp: state.waterTemp,
-      rating: state.rating,
-      comment: state.brewComments,
-      isPrivate: true, //TODO: - temp-setting
-      water_amount: state.waterAmount,
-    }
+    const object = { ...state, barista_id: barista.id }
     await insertBrewLog({ object })
     history.push(`/brewtrak`)
   }
@@ -49,8 +40,8 @@ const CreateBrew = () => {
   return (
     <div>
       <Dropdown
-        value={state.brewType}
-        onChange={onChangeGenerator('brewType')}
+        value={state.brew_type}
+        onChange={onChangeGenerator('brew_type')}
         options={[
           'Pour Over',
           'Aeropress',
@@ -61,14 +52,14 @@ const CreateBrew = () => {
         label='brew type'
       />
       <InputRow
-        value={state.beanWeight}
-        onChange={onChangeGenerator('beanWeight')}
+        value={state.bean_weight}
+        onChange={onChangeGenerator('bean_weight')}
         placeholder='Enter coffee bean weight'
         label='coffee bean amount'
       />
       <Dropdown
-        value={state.beanGrind}
-        onChange={onChangeGenerator('beanGrind')}
+        value={state.bean_grind}
+        onChange={onChangeGenerator('bean_grind')}
         options={[
           'Extra Fine',
           'Fine',
@@ -81,20 +72,20 @@ const CreateBrew = () => {
       />
       {/* Serving Amount */}
       <InputRow
-        value={state.waterAmount}
-        onChange={onChangeGenerator('waterAmount')}
+        value={state.water_amount}
+        onChange={onChangeGenerator('water_amount')}
         placeholder='Enter water weight'
         label='water amount'
       />
       <InputRow
-        value={state.beanType}
-        onChange={onChangeGenerator('beanType')}
-        placeholder='Enter bean type'
-        label='bean type'
+        value={state.bean_id}
+        onChange={onChangeGenerator('bean_id')}
+        placeholder='Enter bean id'
+        label='bean id'
       />
       <InputRow
-        value={state.waterTemp}
-        onChange={onChangeGenerator('waterTemp')}
+        value={state.water_temp}
+        onChange={onChangeGenerator('water_temp')}
         placeholder='Enter water temperature'
         label='water temperature'
       />
@@ -104,9 +95,15 @@ const CreateBrew = () => {
         label='Rating'
         options={['1', '2', '3', '4', '5']}
       />
+      <Dropdown
+        value={state.is_private}
+        onChange={onChangeGenerator('is_private')}
+        label='Private'
+        options={['true', 'false']}
+      />
       <TextArea
-        value={state.brewComments}
-        onChange={onChangeGenerator('brewComments')}
+        value={state.comment}
+        onChange={onChangeGenerator('comment')}
         placeholder='Enter comments here'
         label='brewer comments'
       />

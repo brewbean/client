@@ -188,3 +188,18 @@ export const EyeOff = ({ className = 'w-6 h-6' }) => (
     <path d='M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z' />
   </svg>
 )
+
+export const X = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+      clipRule='evenodd'
+    />
+  </svg>
+)

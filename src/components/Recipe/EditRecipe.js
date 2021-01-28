@@ -5,11 +5,10 @@ import EditRecipeForm from './EditRecipeForm'
 
 const EditRecipe = (props) => {
   const { id } = useParams()
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE,
     variables: { id },
   })
-  const { data, fetching, error } = result
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... error: {error.message}</p>

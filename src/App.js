@@ -6,11 +6,12 @@ import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
 import RecipePlayer from 'pages/RecipePlayer'
 import BrewTrakPage from 'pages/BrewTrak'
-import DiscoverBeanPage from 'pages/DiscoverBean'
+import BeanPage from 'pages/Bean'
 import Recipe from 'pages/Recipe'
 import Login from 'pages/Login'
 import CreateAccount from 'pages/CreateAccount'
 import Activate from 'pages/Activate'
+import ModalFlowDemo from 'pages/ModalFlowDemo'
 
 const Test = () => {
   return <div className='bg-gray-200'>Test page</div>
@@ -54,20 +55,23 @@ function App() {
       <AuthRoute path='/test/:id'>
         <Test />
       </AuthRoute>
+      <ContainerRoute path='/modal-test'>
+        <ModalFlowDemo />
+      </ContainerRoute>
       <ContainerRoute path='/hi/:id/name/:slug'>
         <PathTest />
       </ContainerRoute>
       <ContainerRoute path='/recipe-player'>
         <RecipePlayer />
       </ContainerRoute>
-      <ContainerRoute path='/discover/recipe'>
+      <ContainerRoute path='/recipe'>
         <Recipe />
       </ContainerRoute>
       <ContainerRoute path='/brewtrak'>
         <BrewTrakPage />
       </ContainerRoute>
-      <ContainerRoute path='/discover/bean'>
-        <DiscoverBeanPage />
+      <ContainerRoute path='/bean'>
+        <BeanPage />
       </ContainerRoute>
       <ContainerRoute path='*'>
         <NotFound />
