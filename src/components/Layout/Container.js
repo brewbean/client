@@ -1,7 +1,13 @@
 import Header from './Header'
 import Footer from './Footer'
+import { Modal } from 'components/Modal'
 
-const Container = ({ defaultLayout = true, config, children }) => {
+const Container = ({
+  config,
+  children,
+  alertDisabled = false,
+  defaultLayout = true,
+}) => {
   let settings = defaultLayout
     ? {
         flexCol: true,
@@ -35,6 +41,7 @@ const Container = ({ defaultLayout = true, config, children }) => {
         <>{children}</>
       )}
       {settings.footer && <Footer />}
+      <Modal />
     </div>
   )
 }

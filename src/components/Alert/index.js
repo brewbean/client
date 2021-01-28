@@ -1,10 +1,10 @@
 import { useAlert } from 'context/AlertContext'
 import AlertMessage from './AlertMessage'
 
-const Alert = ({ containerStyle, noShadow = false }) => {
-  const { hasAlert, alerts, closeAlert } = useAlert()
+const Alert = ({ containerStyle, disableKey, noShadow = false }) => {
+  const { hasAlert, alerts, closeAlert, disabled } = useAlert()
 
-  if (!hasAlert) return null
+  if (!hasAlert || disableKey === disabled) return null
 
   return (
     <div className={containerStyle}>

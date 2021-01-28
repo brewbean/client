@@ -1,3 +1,4 @@
+import Modal from './Modal'
 import NewUserModal from './NewUserModal'
 
-export { NewUserModal }
+export { Modal, NewUserModal }
