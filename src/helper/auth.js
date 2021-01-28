@@ -8,7 +8,7 @@ export const logoutAPI = async () => {
   localStorage.clear()
 
   // remove refresh token cookie
-  await axios.post(AUTH_API + '/logout', { withCredentials: true })
+  await axios.post(AUTH_API + '/logout', null, { withCredentials: true })
 }
 
 export const getTokenFromRefresh = async () => {
