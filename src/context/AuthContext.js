@@ -29,6 +29,7 @@ import { AUTH_API, GRAPHQL_API, VERIFY_API } from 'config'
 import { GET_BARISTA } from 'queries'
 import { updates, keys } from 'helper/cache'
 import { print } from 'graphql'
+import { useHistory } from 'react-router-dom'
 
 const AuthContext = createContext()
 
@@ -80,11 +81,14 @@ function AuthProvider({ children }) {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  const history = useHistory()
+
   const logout = useCallback(async () => {
     await logoutAPI()
     dispatch(['logout'])
+    history.push('/')
     console.log('%cLogged out!', 'color:purple')
-  }, [])
+  }, [history])
 
   // use after another page triggers email confirmation
   const setVerifiedStatus = useCallback(() => {
@@ -115,9 +119,10 @@ function AuthProvider({ children }) {
     // to logout, thus all they need is to dispatch action as
     // localstorage is cleared & cookie is cleared for them in
     // the active tab
-    const syncLogout = async (event) => {
+    const syncLogout = (event) => {
       if (event.key === 'logout') {
         dispatch(['logout'])
+        history.push('/')
         console.log('%cLogged out!', 'color:pink')
       }
     }
