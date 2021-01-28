@@ -17,7 +17,6 @@ const EditBrewForm = ({ brewLogs, id }) => {
       id,
       object: {
         ...rest,
-        // bean_id: 4, // TODO: - Get bean_id from bean_name
       },
     })
     history.push(`/brewtrak`)
@@ -29,16 +28,6 @@ const EditBrewForm = ({ brewLogs, id }) => {
       [attr]: e.target.value,
     })
   }
-
-  // const onChangeBeanName = e => {
-  //   setState({
-  //     ...state,
-  //     bean: {
-  //       ...state.bean,
-  //       name: e.target.value
-  //     }
-  //   })
-  // }
 
   return (
     <div>

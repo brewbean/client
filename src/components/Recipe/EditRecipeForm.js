@@ -27,7 +27,7 @@ const EditRecipeForm = ({ recipe, id }) => {
         ...rest,
       },
     })
-    history.push(`/discover/recipe/${id}`)
+    history.push(`/recipe/${id}`)
   }
 
   if (barista)

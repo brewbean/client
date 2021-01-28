@@ -5,7 +5,7 @@ import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
 import { useHistory } from 'react-router-dom'
 
-const EditReviewForm = ({ beanReview, id }) => {
+const EditBeanReviewForm = ({ beanReview, id }) => {
   const [state, setState] = useState(beanReview)
   const [, updateReview] = useMutation(UPDATE_BEAN_REVIEW)
   const { barista } = useAuth()
@@ -25,7 +25,7 @@ const EditReviewForm = ({ beanReview, id }) => {
         ...rest,
       },
     })
-    history.push(`/discover/bean/${beanReview.bean_id}`)
+    history.push(`/bean/${beanReview.bean_id}`)
   }
 
   if (barista)
@@ -68,4 +68,4 @@ const EditReviewForm = ({ beanReview, id }) => {
   return null
 }
 
-export default EditReviewForm
+export default EditBeanReviewForm

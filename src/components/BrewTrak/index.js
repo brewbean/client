@@ -10,10 +10,10 @@ const BrewTrak = () => {
   const { url } = useRouteMatch()
   const [id, setId] = useState('')
   const [brewSelected, setBrewSelected] = useState(false)
-  const [result] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: GET_ALL_BREW_LOGS,
   })
-  const { data, fetching, error } = result
+
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
 
