@@ -7,7 +7,7 @@ const AuthRoute = ({ children, ...rest }) => {
   let { isFetching, isAuthenticated } = useAuth()
 
   return (
-    <ContainerRoute {...rest} alertDisabled={!isAuthenticated}>
+    <ContainerRoute {...rest}>
       {isFetching ? (
         <Loading />
       ) : isAuthenticated ? (

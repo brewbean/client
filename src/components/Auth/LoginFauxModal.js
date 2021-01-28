@@ -1,7 +1,18 @@
 import Alert from 'components/Alert'
 import LoginForm from './LoginForm'
+import { useAlert } from 'context/AlertContext'
+import { useEffect } from 'react'
 
 function LoginFauxModal({ headerText }) {
+  const { setDisabled } = useAlert()
+
+  useEffect(() => {
+    setDisabled('header')
+    // clear the disabled alert key after done with page
+    return () => setDisabled(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className='fixed inset-0 overflow-y-auto'>
       <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
