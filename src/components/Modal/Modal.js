@@ -1,9 +1,11 @@
 import { Transition } from '@headlessui/react'
 import { useModal } from 'context/ModalContext'
 import { X } from 'components/Icon'
-import { LoginForm } from 'components/Auth'
+import { CreateAccountForm, LoginForm } from 'components/Auth'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useCallback, useRef } from 'react'
+import Alert from 'components/Alert'
+import { useAlert } from 'context/AlertContext'
 /**
  * onClose -> click away or press 'X' button
  * onSuccess -> login successful, whatever render action should happen now
@@ -21,6 +23,7 @@ function Modal() {
     text,
     setContent,
   } = useModal()
+  const { setDisabled, clearAlerts } = useAlert()
 
   const location = useLocation()
   const modalRef = useRef(null)
@@ -35,7 +38,17 @@ function Modal() {
     close()
   }
 
-  const goToSignup = () => setContent('signup')
+  const goToSignup = () => setContent('signup', 'Create an account')
+  const goToLogin = () => setContent('login', 'Log in to your account')
+
+  useEffect(() => {
+    if (isVisible) {
+      setDisabled('header')
+    } else {
+      clearAlerts()
+      setDisabled(null)
+    }
+  }, [isVisible, setDisabled, clearAlerts])
 
   useEffect(exitClose, [exitClose, location])
 
@@ -106,6 +119,9 @@ function Modal() {
                   <h2 className='text-xl text-gray-800'>{text}</h2>
                 </div>
               )}
+
+              <Alert noShadow containerStyle='my-4' />
+
               <div className='mt-4'>
                 {content === 'login' ? (
                   <LoginForm
@@ -113,7 +129,10 @@ function Modal() {
                     signupCallback={goToSignup}
                   />
                 ) : content === 'signup' ? (
-                  <div>signup</div>
+                  <CreateAccountForm
+                    callback={successClose}
+                    loginCallback={goToLogin}
+                  />
                 ) : null}
               </div>
             </div>

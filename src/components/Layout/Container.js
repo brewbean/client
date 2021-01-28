@@ -26,7 +26,7 @@ const Container = ({
         settings.flexCol ? 'flex-col' : ''
       }`.trim()}
     >
-      {settings.header && <Header alertDisabled={alertDisabled} />}
+      {settings.header && <Header />}
       {settings.layout ? (
         <div
           className={`flex-1 ${

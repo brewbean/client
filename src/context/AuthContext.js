@@ -247,7 +247,7 @@ function AuthProvider({ children }) {
     }
   }
 
-  const signup = async ({ email, displayName, password }) => {
+  const signup = async ({ email, displayName, password }, callback) => {
     try {
       const {
         data: { token, tokenExpiry },
@@ -260,6 +260,8 @@ function AuthProvider({ children }) {
       dispatch(['login'])
       dispatch(['setIsIntroModalOpen', true])
       window.localStorage.setItem('hasLoggedIn', 'yes')
+
+      if (callback) callback()
     } catch (err) {
       if (!err.response && err.message === 'Network Error') {
         addAlert({

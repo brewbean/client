@@ -37,7 +37,11 @@ const ModalProvider = ({ children }) => {
     setState((prevState) => ({ ...prevState, isSuccess: true }))
   }
   const setContent = (content, text = null) => {
-    setState((prevState) => ({ ...prevState, content, text }))
+    setState((prevState) => ({
+      ...prevState,
+      content,
+      text,
+    }))
   }
   return (
     <ModalContext.Provider
