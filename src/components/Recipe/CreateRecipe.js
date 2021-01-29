@@ -43,7 +43,7 @@ const CreateRecipe = (props) => {
       <div className='font-bold'>Create Recipe</div>
       <InputRow
         value={barista?.display_name}
-        readOnly
+        readOnly={true}
         placeholder='Enter Barista'
         label='Barista'
       />

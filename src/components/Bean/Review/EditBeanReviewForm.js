@@ -34,13 +34,13 @@ const EditBeanReviewForm = ({ beanReview, id }) => {
         <div className='font-bold'>Edit Review</div>
         <InputRow
           value={barista.display_name}
-          readOnly
+          readOnly={true}
           placeholder='Enter Barista'
           label='Barista'
         />
         <InputRow
           value={state.bean.name}
-          readOnly
+          readOnly={true}
           placeholder='Enter Bean'
           label='Bean'
         />

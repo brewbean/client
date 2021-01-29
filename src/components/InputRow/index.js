@@ -1,4 +1,4 @@
-const InputRow = ({ label, placeholder, value, onChange }) => {
+const InputRow = ({ label, placeholder, value, onChange, readOnly }) => {
   return (
     <div>
       <div className='p-5 rounded-t-lg border-b border-gray-200'>
@@ -12,6 +12,7 @@ const InputRow = ({ label, placeholder, value, onChange }) => {
           value={value}
           placeholder={placeholder}
           onChange={onChange}
+          readOnly={readOnly}
         />
       </div>
     </div>

@@ -36,7 +36,7 @@ const EditRecipeForm = ({ recipe, id }) => {
         <div className='font-bold'>Edit Review</div>
         <InputRow
           value={barista.display_name}
-          readOnly
+          readOnly={true}
           placeholder='Enter Barista'
           label='Barista'
         />
