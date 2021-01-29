@@ -9,7 +9,7 @@ const BrewLog = ({ logs, setId, setBrewSelected }) => {
           setBrewSelected(true)
         }}
       >
-        <div className='flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md'>
+        <div className='flex-shrink-0 flex items-center justify-center w-16 bg-blue-400 text-white text-sm font-medium rounded-l-md'>
           {logs.bean ? firstInitials(logs.bean?.name) : 'N/A'}
         </div>
         <div className='flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate'>
