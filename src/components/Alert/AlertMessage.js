@@ -150,11 +150,13 @@ const AlertMessage = ({
           >
             {header}
           </h3>
-          <div
-            className={`mt-2 text-sm font-normal leading-5 ${settings[type].message}`}
-          >
-            <p>{message}</p>
-          </div>
+          {message && (
+            <div
+              className={`mt-2 text-sm font-normal leading-5 ${settings[type].message}`}
+            >
+              <p>{message}</p>
+            </div>
+          )}
           {action && (
             <div className='mt-4'>
               {loading ? (
