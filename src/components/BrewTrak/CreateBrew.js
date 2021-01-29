@@ -55,7 +55,7 @@ const CreateBrew = () => {
         value={state.bean_weight}
         onChange={onChangeGenerator('bean_weight')}
         placeholder='Enter coffee bean weight'
-        label='coffee bean amount'
+        label='Coffee Bean Amount'
       />
       <Dropdown
         value={state.bean_grind}
