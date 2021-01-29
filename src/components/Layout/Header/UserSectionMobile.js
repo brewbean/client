@@ -3,7 +3,7 @@ import { useAuth } from 'context/AuthContext'
 import PlaceholderAvatar from './PlaceholderAvatar'
 
 const UserSectionMobile = ({ links }) => {
-  const { isAuthenticated, barista } = useAuth()
+  const { isAuthenticated, barista, logout } = useAuth()
 
   return isAuthenticated ? (
     <>
@@ -45,11 +45,11 @@ const UserSectionMobile = ({ links }) => {
           </Link>
         ))}
         <button
-          onClick={() => console.log('signout')}
+          onClick={logout}
           className='py-1 px-3 rounded-md text-left text-base font-medium text-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-100'
           role='menuitem'
         >
-          log out
+          Log out
         </button>
       </div>
     </>
@@ -59,13 +59,13 @@ const UserSectionMobile = ({ links }) => {
         to='/create-account'
         className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 focus:bg-blue-700'
       >
-        create account
+        Create account
       </Link>
       <Link
         to='/login'
         className='mt-2 py-2 w-full flex items-center justify-center text-base font-medium text-blue-600 focus:text-blue-500'
       >
-        log in
+        Log in
       </Link>
     </>
   )

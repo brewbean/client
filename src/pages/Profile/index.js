@@ -3,10 +3,12 @@ import { useState } from 'react'
 import { useAuth } from 'context/AuthContext'
 import { useAlert, alertType } from 'context/AlertContext'
 import { BasicCard } from 'components/Layout/Panel'
+import AlertMessage from 'components/Alert/AlertMessage'
 import { validatePassword, passwordRequirements } from 'helper/form'
 import FormAlert from 'components/FormAlert'
 import { AUTH_API } from 'config'
 import SmallLoading from './SmallLoading'
+import { createUnverifiedAlert } from 'helper/auth'
 
 const showAlerts = ({ type, text }) => (
   <FormAlert key={text} type={type} text={text} />
@@ -51,14 +53,13 @@ function Profile() {
           },
           { withCredentials: true }
         )
-        // turn off loading animation
-        // set global alert to success
 
         addAlert({
           type: alertType.SUCCESS,
           header: 'Password successfully changed!',
           close: true,
         })
+
         setIsLoading(false)
         setIsEditing(false)
         setState({ oldPassword: '', newPassword: '', confirmPassword: '' })
@@ -147,6 +148,14 @@ function Profile() {
             Manage your account information here.
           </p>
         </div>
+
+        {!barista.is_verified && (
+          <AlertMessage
+            {...createUnverifiedAlert(barista.email)}
+            noShadow
+            close={false}
+          />
+        )}
 
         <div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
           <label htmlFor='email' className='text-sm font-medium text-gray-700'>
