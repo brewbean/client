@@ -1,18 +1,19 @@
 const TextArea = ({ label, placeholder, value, onChange }) => {
   return (
-    <div>
-      <div className='p-5 rounded-t-lg border-b border-gray-200'>
-        <label className='text-sm font-bold text-gray-900 uppercase'>
-          {label}
-        </label>
-      </div>
-      <div className='p-5 rounded-b-lg'>
+    <div class='sm:col-span-6'>
+      <label for={label} class='block text-sm font-medium text-gray-700'>
+        {label}
+      </label>
+      <div class='mt-1'>
         <textarea
+          id={label}
+          name={label}
+          rows='3'
           value={value}
           placeholder={placeholder}
           onChange={onChange}
-          className='p-3 h-40 text-gray-900 focus:bg-gray-100 rounded w-full border focus:outline-none'
-        />
+          class='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
+        ></textarea>
       </div>
     </div>
   )

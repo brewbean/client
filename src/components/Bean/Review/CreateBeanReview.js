@@ -52,7 +52,12 @@ const CreateBeanReview = (props) => {
         placeholder='Enter Barista'
         label='Barista'
       />
-      <InputRow value={name} readOnly placeholder='Enter Bean' label='Bean' />
+      <InputRow
+        value={name}
+        readOnly={true}
+        placeholder='Enter Bean'
+        label='Bean'
+      />
       <InputRow
         value={state.rating}
         onChange={onChangeGenerator('rating')}

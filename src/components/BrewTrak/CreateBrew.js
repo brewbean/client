@@ -15,10 +15,11 @@ const CreateBrew = () => {
     bean_weight: '',
     bean_grind: 'Extra Fine',
     water_amount: '',
-    bean_id: '',
+    // bean_id: '',
     water_temp: '',
     rating: '1',
     comment: '',
+    bean_name_free: '',
     is_private: true,
   })
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOGS_ONE)
@@ -49,13 +50,13 @@ const CreateBrew = () => {
           'Moka Pot',
           'French Press',
         ]}
-        label='brew type'
+        label='Brew Type'
       />
       <InputRow
         value={state.bean_weight}
         onChange={onChangeGenerator('bean_weight')}
         placeholder='Enter coffee bean weight'
-        label='coffee bean amount'
+        label='Coffee Bean Amount'
       />
       <Dropdown
         value={state.bean_grind}
@@ -68,26 +69,32 @@ const CreateBrew = () => {
           'Coarse',
           'Extra coarse',
         ]}
-        label='bean grind'
+        label='Bean Grind'
       />
       {/* Serving Amount */}
       <InputRow
         value={state.water_amount}
         onChange={onChangeGenerator('water_amount')}
-        placeholder='Enter water weight'
-        label='water amount'
+        placeholder='Enter water amount'
+        label='Water Amount'
       />
-      <InputRow
+      {/* <InputRow
         value={state.bean_id}
         onChange={onChangeGenerator('bean_id')}
         placeholder='Enter bean id'
-        label='bean id'
+        label='Bean ID'
+      /> */}
+      <InputRow
+        value={state.bean_name_free}
+        onChange={onChangeGenerator('bean_name_free')}
+        placeholder='Enter bean name'
+        label='Bean Name'
       />
       <InputRow
         value={state.water_temp}
         onChange={onChangeGenerator('water_temp')}
         placeholder='Enter water temperature'
-        label='water temperature'
+        label='Water Temperature'
       />
       <Dropdown
         value={state.rating}
@@ -105,7 +112,7 @@ const CreateBrew = () => {
         value={state.comment}
         onChange={onChangeGenerator('comment')}
         placeholder='Enter comments here'
-        label='brewer comments'
+        label='Brewer Comments'
       />
       {/* Create Instructions  */}
 
