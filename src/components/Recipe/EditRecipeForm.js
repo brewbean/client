@@ -56,7 +56,7 @@ const EditRecipeForm = ({ recipe, id }) => {
             'Moka Pot',
             'French Press',
           ]}
-          label='brew type'
+          label='Brew Type'
         />
         <InputRow
           value={state.about}
@@ -74,7 +74,7 @@ const EditRecipeForm = ({ recipe, id }) => {
           value={state.bean_weight}
           onChange={onChangeGenerator('bean_weight')}
           placeholder='Enter coffee bean weight'
-          label='coffee bean amount'
+          label='Coffee Bean Amount'
         />
         <Dropdown
           value={state.bean_grind}
@@ -87,26 +87,26 @@ const EditRecipeForm = ({ recipe, id }) => {
             'Coarse',
             'Extra coarse',
           ]}
-          label='bean grind'
+          label='Bean Grind'
         />
         {/* Serving Amount */}
         <InputRow
           value={state.water_amount}
           onChange={onChangeGenerator('water_amount')}
           placeholder='Enter water weight'
-          label='water amount'
+          label='Water Amount'
         />
         <InputRow
           value={state.bean_id}
           onChange={onChangeGenerator('bean_id')}
           placeholder='Enter bean type'
-          label='bean id'
+          label='Bean ID'
         />
         <InputRow
           value={state.water_temp}
           onChange={onChangeGenerator('water_temp')}
           placeholder='Enter water temperature'
-          label='water temperature'
+          label='Water Temperature'
         />
         <Dropdown
           value={state.rating}
