@@ -1,3 +1,6 @@
+import * as Alert from './Alert'
+export { Alert }
+
 export const Heart = ({ className = 'w-6 h-6' }) => (
   <svg
     className={className}

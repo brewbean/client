@@ -25,11 +25,12 @@ import {
   willAuthError,
   logoutAPI,
 } from 'helper/auth'
-import { AUTH_API, GRAPHQL_API, VERIFY_API } from 'config'
+import { AUTH_API, GRAPHQL_API } from 'config'
 import { GET_BARISTA } from 'queries'
 import { updates, keys } from 'helper/cache'
 import { print } from 'graphql'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+import { createUnverifiedAlert } from 'helper/auth'
 
 const AuthContext = createContext()
 
@@ -82,6 +83,7 @@ function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const history = useHistory()
+  const location = useLocation()
 
   const logout = useCallback(async () => {
     await logoutAPI()
@@ -182,32 +184,8 @@ function AuthProvider({ children }) {
             const barista = data.data.barista[0]
             dispatch(['setBarista', barista])
 
-            if (!barista.is_verified) {
-              addAlert({
-                type: alertType.INFO,
-                header: 'Your account is unverified',
-                message:
-                  'Please check your email for a verification link. Check your junk emails as well in case it went there. You may also click the "Resend email" button below if you cannot find your email.',
-                close: true,
-                action: {
-                  onClick: async (success, fail, load) => {
-                    try {
-                      load()
-                      await axios.post(
-                        VERIFY_API + '/resend',
-                        { email: barista.email },
-                        { withCredentials: true }
-                      )
-                      success()
-                    } catch (e) {
-                      fail()
-                    }
-                  },
-                  buttonText: 'Resend email',
-                  successMessage: 'Email sent!',
-                  failMessage: 'Sending email failed. Please try again later.',
-                },
-              })
+            if (!barista.is_verified && location.pathname !== '/profile') {
+              addAlert(createUnverifiedAlert(barista.email))
             }
           }
 
@@ -219,7 +197,13 @@ function AuthProvider({ children }) {
       }
     }
     getBarista()
-  }, [state.isLoggedIn, state.token, state.hasInit, addAlert])
+  }, [
+    state.isLoggedIn,
+    state.token,
+    state.hasInit,
+    addAlert,
+    location.pathname,
+  ])
 
   const login = async (email, password, callback) => {
     try {

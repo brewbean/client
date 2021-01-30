@@ -25,12 +25,8 @@ const links = [
 
 const settingLinks = [
   {
-    text: 'profile',
-    to: '/pour-app',
-  },
-  {
-    text: 'settings',
-    to: '/hi/3/name/what',
+    text: 'Profile',
+    to: '/profile',
   },
 ]
 

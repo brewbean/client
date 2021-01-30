@@ -11,6 +11,7 @@ import Recipe from 'pages/Recipe'
 import Login from 'pages/Login'
 import CreateAccount from 'pages/CreateAccount'
 import Activate from 'pages/Activate'
+import Profile from 'pages/Profile'
 import ModalFlowDemo from 'pages/ModalFlowDemo'
 
 const Test = () => {
@@ -52,6 +53,9 @@ function App() {
       >
         <Activate />
       </ContainerRoute>
+      <AuthRoute path='/profile'>
+        <Profile />
+      </AuthRoute>
       <AuthRoute path='/test/:id'>
         <Test />
       </AuthRoute>
