@@ -20,7 +20,11 @@ const BrewLog = ({ logs, setId, setBrewSelected }) => {
           {/* <!-- Extend touch target to entire panel --> */}
           <span className='absolute inset-0' aria-hidden='true'></span>
           <p className='text-sm font-medium text-gray-900'>
-            {logs.bean ? logs.bean?.name : 'No Bean Provided'}
+            {logs.bean
+              ? logs.bean?.name
+              : logs.bean_name_free
+              ? logs.bean_name_free
+              : 'No Bean Provided'}
           </p>
           <p className='text-sm text-gray-500 truncate'>{logs.date_added}</p>
         </div>

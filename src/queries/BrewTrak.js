@@ -17,6 +17,7 @@ const INSERT_BREW_LOGS_ONE = gql`
       comment
       is_private
       date_added
+      bean_name_free
       bean {
         id
         img
@@ -40,6 +41,7 @@ const GET_ALL_BREW_LOGS = gql`
       comment
       is_private
       date_added
+      bean_name_free
       bean {
         id
         img
@@ -63,6 +65,7 @@ const GET_SINGLE_BREW_LOG = gql`
       comment
       is_private
       date_added
+      bean_name_free
       bean {
         id
         img
@@ -86,6 +89,7 @@ const UPDATE_BREW_LOGS = gql`
       comment
       is_private
       date_added
+      bean_name_free
       bean {
         id
         img

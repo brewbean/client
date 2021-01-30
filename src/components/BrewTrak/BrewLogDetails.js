@@ -31,6 +31,8 @@ const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
     rating,
     comment,
     date_added,
+    is_private,
+    bean_name_free,
   } = data.brew_logs_by_pk
 
   return (
@@ -68,7 +70,11 @@ const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
                         <div className='mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1'>
                           <div className='sm:hidden 2xl:block mt-6 min-w-0 flex-1'>
                             <h1 className='text-2xl font-bold text-gray-900 truncate'>
-                              {bean ? bean?.name : 'No Bean Provided'}
+                              {bean
+                                ? bean?.name
+                                : bean_name_free
+                                ? bean_name_free
+                                : 'No Bean Provided'}
                             </h1>
                           </div>
                           <div className='mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4'>
@@ -211,6 +217,15 @@ const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
                         </dt>
                         <dd className='mt-1 text-sm text-gray-900'>
                           {date_added}
+                        </dd>
+                      </div>
+
+                      <div className='sm:col-span-1'>
+                        <dt className='text-sm font-medium text-gray-500'>
+                          Private Recipe
+                        </dt>
+                        <dd className='mt-1 text-sm text-gray-900'>
+                          {is_private.toString()}
                         </dd>
                       </div>
 

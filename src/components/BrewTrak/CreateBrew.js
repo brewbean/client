@@ -15,10 +15,11 @@ const CreateBrew = () => {
     bean_weight: '',
     bean_grind: 'Extra Fine',
     water_amount: '',
-    bean_id: '',
+    // bean_id: '',
     water_temp: '',
     rating: '1',
     comment: '',
+    bean_name_free: '',
     is_private: true,
   })
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOGS_ONE)
@@ -77,11 +78,17 @@ const CreateBrew = () => {
         placeholder='Enter water amount'
         label='Water Amount'
       />
-      <InputRow
+      {/* <InputRow
         value={state.bean_id}
         onChange={onChangeGenerator('bean_id')}
         placeholder='Enter bean id'
         label='Bean ID'
+      /> */}
+      <InputRow
+        value={state.bean_name_free}
+        onChange={onChangeGenerator('bean_name_free')}
+        placeholder='Enter bean name'
+        label='Bean Name'
       />
       <InputRow
         value={state.water_temp}

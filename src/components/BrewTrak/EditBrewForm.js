@@ -69,11 +69,17 @@ const EditBrewForm = ({ brewLogs, id }) => {
         placeholder='Enter water weight'
         label='Water Amount'
       />
-      <InputRow
+      {/* <InputRow
         value={state.beanType}
         onChange={onChangeGenerator('beanType')}
         placeholder='Enter bean type'
         label='Bean Type'
+      /> */}
+      <InputRow
+        value={state.bean_name_free}
+        onChange={onChangeGenerator('bean_name_free')}
+        placeholder='Enter bean name'
+        label='bean_name_free'
       />
       <InputRow
         value={state.water_temp}
