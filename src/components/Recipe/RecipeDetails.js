@@ -186,11 +186,15 @@ const RecipeDetails = (props) => {
                       id='notes-title'
                       className='text-lg font-medium text-gray-900'
                     >
-                      Reviews
+                      Recipe Reviews
                     </h2>
                   </div>
                   <div className='px-4 py-6 sm:px-6'>
-                    <RecipeReview recipe_reviews={recipe_reviews} />
+                    {recipe_reviews.length === 0 ? (
+                      'No recipe reviews available'
+                    ) : (
+                      <RecipeReview recipe_reviews={recipe_reviews} />
+                    )}
                   </div>
                 </div>
                 <div className='bg-gray-50 px-4 py-6 sm:px-6'>

@@ -1,4 +1,14 @@
+import { useRouteMatch, Link } from 'react-router-dom'
+import { DELETE_RECIPE_REVIEW } from 'queries'
+import { useMutation } from 'urql'
+
 const RecipeReview = ({ recipe_reviews }) => {
+  const { url } = useRouteMatch()
+  console.log(useMutation(DELETE_RECIPE_REVIEW))
+  const [, deleteReview] = useMutation(DELETE_RECIPE_REVIEW)
+  const deleteReviewPressed = async (id) => {
+    await deleteReview({ id })
+  }
   return (
     <div>
       <ul className='space-y-8'>
@@ -27,8 +37,20 @@ const RecipeReview = ({ recipe_reviews }) => {
                       {n.date_added.substring(0, 10)}
                     </span>
                     <span className='text-gray-500 font-medium'>&middot;</span>
-                    <button type='button' className='text-gray-900 font-medium'>
-                      Reply
+                    <Link
+                      to={`${url}/review/${n.id}/edit`}
+                      type='button'
+                      className='text-gray-900 font-medium'
+                    >
+                      Edit
+                    </Link>
+                    <span className='text-gray-500 font-medium'>&middot;</span>
+                    <button
+                      onClick={() => deleteReviewPressed(n.id)}
+                      type='button'
+                      className='text-gray-900 font-medium'
+                    >
+                      Delete
                     </button>
                   </div>
                 </div>
