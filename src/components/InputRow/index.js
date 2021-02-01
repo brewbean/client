@@ -8,10 +8,13 @@ const InputRow = ({
 }) => {
   return (
     <div>
-      <label for={label} class='block text-sm font-medium text-gray-700'>
+      <label
+        htmlFor={label}
+        className='block text-sm font-medium text-gray-700'
+      >
         {label}
       </label>
-      <div class='mt-1'>
+      <div className='mt-1'>
         <input
           type='text'
           name={label}
@@ -24,7 +27,7 @@ const InputRow = ({
           readOnly={readOnly}
         />
       </div>
-      <p class='mt-2 text-sm text-gray-500' id='email-description'>
+      <p className='mt-2 text-sm text-gray-500' id='email-description'>
         {description}
       </p>
     </div>

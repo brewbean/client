@@ -19,6 +19,8 @@ const INSERT_RECIPES_ONE = gql`
       date_added
       about
       name
+      instructions
+      bean_name_free
     }
   }
 `
@@ -39,14 +41,24 @@ const GET_ALL_RECIPES = gql`
       date_added
       about
       name
+      instructions
+      bean_name_free
       barista {
         id
         display_name
+        avatar
       }
       bean {
         id
         img
         name
+      }
+      recipe_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
       }
     }
   }
@@ -66,6 +78,8 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       date_added
       about
       name
+      instructions
+      bean_name_free
       barista {
         id
         display_name
@@ -77,10 +91,15 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       }
       recipe_reviews {
         id
-        barista_id
         recipe_id
         rating
         comment
+        date_added
+        barista {
+          id
+          display_name
+          avatar
+        }
       }
       recipe_reviews_aggregate {
         aggregate {
@@ -109,6 +128,8 @@ const GET_SINGLE_RECIPE = gql`
       date_added
       about
       name
+      instructions
+      bean_name_free
       bean {
         img
         name
@@ -122,6 +143,7 @@ const GET_SINGLE_RECIPE_REVIEW = gql`
       id
       rating
       comment
+      date_added
       barista {
         id
         display_name
@@ -141,6 +163,8 @@ const GET_RECIPE_BY_ID = gql`
     recipes_by_pk(id: $id) {
       id
       bean_weight
+      instructions
+      bean_name_free
       stages {
         id
         name
@@ -154,14 +178,19 @@ const GET_RECIPE_BY_ID = gql`
 const UPDATE_RECIPES = gql`
   mutation($id: Int!, $object: recipes_set_input) {
     update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
-      comment
-      bean_grind
-      bean_id
-      bean_weight
       brew_type
-      rating
+      bean_weight
+      bean_grind
       water_amount
       water_temp
+      rating
+      comment
+      is_private
+      date_added
+      about
+      name
+      instructions
+      bean_name_free
     }
   }
 `

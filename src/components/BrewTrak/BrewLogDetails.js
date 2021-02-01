@@ -216,7 +216,7 @@ const BrewLogDetails = ({ brewLogId, brewSelected, setBrewSelected }) => {
                           Date Added
                         </dt>
                         <dd className='mt-1 text-sm text-gray-900'>
-                          {date_added}
+                          {date_added.substring(0, 10)}
                         </dd>
                       </div>
 

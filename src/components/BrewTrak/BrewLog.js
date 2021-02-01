@@ -26,7 +26,9 @@ const BrewLog = ({ logs, setId, setBrewSelected }) => {
               ? logs.bean_name_free
               : 'No Bean Provided'}
           </p>
-          <p className='text-sm text-gray-500 truncate'>{logs.date_added}</p>
+          <p className='text-sm text-gray-500 truncate'>
+            {logs.date_added.substring(0, 10)}
+          </p>
         </div>
       </div>
     </div>
