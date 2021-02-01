@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
+import TextArea from 'components/TextArea'
 import { useMutation } from 'urql'
 import { INSERT_RECIPES_ONE } from 'queries'
 import { useAuth } from 'context/AuthContext'
@@ -21,6 +22,7 @@ const CreateRecipe = (props) => {
     is_private: false,
     about: '',
     name: '',
+    instructions: '',
   })
   const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
 
@@ -120,6 +122,12 @@ const CreateRecipe = (props) => {
         onChange={onChangeGenerator('rating')}
         label='Rating'
         options={['1', '2', '3', '4', '5']}
+      />
+      <TextArea
+        value={state.instructions}
+        onChange={onChangeGenerator('instructions')}
+        placeholder='Enter instructions here'
+        label='Brewer Instructions'
       />
       <Dropdown
         value={state.is_private}

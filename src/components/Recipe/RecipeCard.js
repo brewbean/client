@@ -1,4 +1,6 @@
 import { Link, useRouteMatch } from 'react-router-dom'
+import Star from '../BrewTrak/Icons/star.png'
+import { roundToHalfOrWhole } from 'helper/math'
 
 const RecipeCard = ({
   id,
@@ -10,6 +12,7 @@ const RecipeCard = ({
   is_private,
   barista,
   bean,
+  recipe_reviews_aggregate,
 }) => {
   const { url } = useRouteMatch()
   return (
@@ -40,7 +43,7 @@ const RecipeCard = ({
               <span className='sr-only'>{barista.display_name}</span>
               <img
                 className='h-10 w-10 rounded-full'
-                src='https://c.files.bbci.co.uk/1AD2/production/_98866860_gettyimages-486020904.jpg'
+                src={barista.avatar}
                 alt=''
               />
             </div>
@@ -50,9 +53,15 @@ const RecipeCard = ({
               <div className='hover:underline'>{barista.display_name}</div>
             </div>
             <div className='flex space-x-1 text-sm text-gray-500'>
-              <time datetime={date_added}>{date_added}</time>
-              {/* <span aria-hidden='true'>&middot;</span> */}
-              {/* <span>3 min read</span> */}
+              <time dateTime={date_added}>{date_added.substring(0, 10)}</time>
+              <span aria-hidden='true'>&middot;</span>
+              <span>
+                {roundToHalfOrWhole(
+                  recipe_reviews_aggregate.aggregate.avg.rating
+                )}
+                /5
+              </span>
+              <img className='w-4 h-4 mr-1' src={Star} alt='Star' />
             </div>
           </div>
         </div>
