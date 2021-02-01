@@ -34,7 +34,8 @@ const RecipeDetails = (props) => {
     instructions,
     barista,
     date_added,
-    bean,
+    // bean,
+    bean_name_free,
     recipe_reviews,
     recipe_reviews_aggregate,
   } = data.recipes_by_pk
@@ -147,7 +148,7 @@ const RecipeDetails = (props) => {
                         Bean
                       </dt>
                       <dd className='mt-1 text-sm text-gray-900'>
-                        {bean?.name}
+                        {bean_name_free}
                       </dd>
                     </div>
                     <div className='sm:col-span-1'>

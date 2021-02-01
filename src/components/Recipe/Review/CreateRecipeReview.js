@@ -41,7 +41,7 @@ const CreateRecipeReview = ({ id }) => {
         <div className='flex-shrink-0'>
           <img
             className='h-10 w-10 rounded-full'
-            src='https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
+            src={barista?.avatar}
             alt=''
           />
         </div>

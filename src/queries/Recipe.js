@@ -20,6 +20,7 @@ const INSERT_RECIPES_ONE = gql`
       about
       name
       instructions
+      bean_name_free
     }
   }
 `
@@ -41,6 +42,7 @@ const GET_ALL_RECIPES = gql`
       about
       name
       instructions
+      bean_name_free
       barista {
         id
         display_name
@@ -77,6 +79,7 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       about
       name
       instructions
+      bean_name_free
       barista {
         id
         display_name
@@ -126,6 +129,7 @@ const GET_SINGLE_RECIPE = gql`
       about
       name
       instructions
+      bean_name_free
       bean {
         img
         name
@@ -160,6 +164,7 @@ const GET_RECIPE_BY_ID = gql`
       id
       bean_weight
       instructions
+      bean_name_free
       stages {
         id
         name
@@ -185,6 +190,7 @@ const UPDATE_RECIPES = gql`
       about
       name
       instructions
+      bean_name_free
     }
   }
 `

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useMutation } from 'urql'
 import InputRow from 'components/InputRow'
+import TextArea from 'components/TextArea'
 import Dropdown from 'components/DropDown'
 import { UPDATE_RECIPES } from 'queries'
 import { useAuth } from 'context/AuthContext'
@@ -63,12 +64,12 @@ const EditRecipeForm = ({ recipe, id }) => {
           placeholder='Enter About'
           label='About'
         />
-        <InputRow
+        {/* <InputRow
           value={state.comment}
           onChange={onChangeGenerator('comment')}
           placeholder='Enter Comment'
           label='Comment'
-        />
+        /> */}
         <InputRow
           value={state.bean_weight}
           onChange={onChangeGenerator('bean_weight')}
@@ -95,11 +96,17 @@ const EditRecipeForm = ({ recipe, id }) => {
           placeholder='Enter water weight'
           label='Water Amount'
         />
-        <InputRow
+        {/* <InputRow
           value={state.bean_id}
           onChange={onChangeGenerator('bean_id')}
           placeholder='Enter bean type'
           label='Bean ID'
+        /> */}
+        <InputRow
+          value={state.bean_name_free}
+          onChange={onChangeGenerator('bean_name_free')}
+          placeholder='Enter bean name'
+          label='Bean Name'
         />
         <InputRow
           value={state.water_temp}
@@ -113,6 +120,12 @@ const EditRecipeForm = ({ recipe, id }) => {
           label='Rating'
           options={['1', '2', '3', '4', '5']}
         />
+        <TextArea
+          value={state.instructions}
+          onChange={onChangeGenerator('instructions')}
+          placeholder='Enter instructions here'
+          label='Brewer Instructions'
+        />
         <Dropdown
           value={state.is_private}
           onChange={onChangeGenerator('is_private')}
@@ -124,7 +137,7 @@ const EditRecipeForm = ({ recipe, id }) => {
           onClick={submitUpdateRecipe}
           className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
         >
-          edit review
+          Edit Review
         </button>
       </div>
     )
