@@ -19,7 +19,6 @@ const EditRecipeForm = ({ recipe, id }) => {
   }
 
   const submitUpdateRecipe = async () => {
-    console.log('State', state)
     const { bean, date_added, __typename, ...rest } = state
     await updateRecipe({
       id,
@@ -33,7 +32,7 @@ const EditRecipeForm = ({ recipe, id }) => {
   if (barista)
     return (
       <div>
-        <div className='font-bold'>Edit Review</div>
+        <div className='font-bold'>Edit Recipe</div>
         <InputRow
           value={barista.display_name}
           readOnly={true}
