@@ -6,7 +6,7 @@ import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
 import RecipePlayer from 'pages/RecipePlayer'
 import BrewTrakPage from 'pages/BrewTrak'
-import BeanPage from 'pages/Bean'
+// import BeanPage from 'pages/Bean'
 import Recipe from 'pages/Recipe'
 import Login from 'pages/Login'
 import CreateAccount from 'pages/CreateAccount'
@@ -74,9 +74,9 @@ function App() {
       <AuthRoute path='/brewtrak'>
         <BrewTrakPage />
       </AuthRoute>
-      <ContainerRoute path='/bean'>
+      {/* <ContainerRoute path='/bean'>
         <BeanPage />
-      </ContainerRoute>
+      </ContainerRoute> */}
       <ContainerRoute path='*'>
         <NotFound />
       </ContainerRoute>
