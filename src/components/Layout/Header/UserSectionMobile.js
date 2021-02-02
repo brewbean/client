@@ -49,7 +49,7 @@ const UserSectionMobile = ({ links }) => {
           className='py-1 px-3 rounded-md text-left text-base font-medium text-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-100'
           role='menuitem'
         >
-          Log out
+          Log Out
         </button>
       </div>
     </>

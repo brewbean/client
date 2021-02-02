@@ -6,19 +6,19 @@ import UserSectionMobile from './UserSectionMobile'
 
 const links = [
   {
-    text: 'pour over app',
+    text: 'Pour Over App',
     to: '/brewtrak',
   },
   {
-    text: 'discover brews',
+    text: 'Discover Brews',
     to: '/recipe',
   },
   // {
-  //   text: 'buy beans',
+  //   text: 'Buy Beans',
   //   to: '/bean',
   // },
   {
-    text: 'recipe player',
+    text: 'Recipe Player',
     to: '/recipe-player',
   },
 ]
