@@ -4,13 +4,14 @@ import RecipeReview from './Review/RecipeReview'
 import { useHistory, useParams, Link, useRouteMatch } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
 import CreateRecipeReview from './Review/CreateRecipeReview'
+import { useAuth } from 'context/AuthContext'
 
 const RecipeDetails = (props) => {
   const history = useHistory()
   const { url } = useRouteMatch()
   const { id } = useParams()
   const [, deleteRecipe] = useMutation(DELETE_RECIPES)
-
+  const { barista: userBarista } = useAuth()
   const deleteRecipePressed = async () => {
     await deleteRecipe({ id })
     history.push(`/recipe`)
@@ -39,7 +40,6 @@ const RecipeDetails = (props) => {
     recipe_reviews,
     recipe_reviews_aggregate,
   } = data.recipes_by_pk
-
   return (
     <div className='min-h-screen bg-gray-100'>
       <main className='py-10'>
@@ -62,27 +62,31 @@ const RecipeDetails = (props) => {
             <div>
               <h1 className='text-2xl font-bold text-gray-900'>{name}</h1>
               <p className='text-sm font-medium text-gray-500'>
-                Created by {barista?.display_name} on{' '}
+                Created by {barista?.display_name} on
                 <time dateTime={date_added}>{date_added.substring(0, 10)}</time>
               </p>
             </div>
           </div>
-          <div className='mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3'>
-            <button
-              onClick={deleteRecipePressed}
-              type='button'
-              className='inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
-            >
-              Delete Recipe
-            </button>
-            <Link
-              to={`${url}/edit`}
-              type='button'
-              className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
-            >
-              Edit Recipe
-            </Link>
-          </div>
+          {userBarista?.id === barista?.id ? (
+            <div className='mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3'>
+              <button
+                onClick={deleteRecipePressed}
+                type='button'
+                className='inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
+              >
+                Delete Recipe
+              </button>
+              <Link
+                to={`${url}/edit`}
+                type='button'
+                className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
+              >
+                Edit Recipe
+              </Link>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
 
         <div className='mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3'>
