@@ -13,10 +13,10 @@ const links = [
     text: 'discover brews',
     to: '/recipe',
   },
-  {
-    text: 'buy beans',
-    to: '/bean',
-  },
+  // {
+  //   text: 'buy beans',
+  //   to: '/bean',
+  // },
   {
     text: 'recipe player',
     to: '/recipe-player',
