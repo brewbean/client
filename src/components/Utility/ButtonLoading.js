@@ -1,4 +1,4 @@
-const SmallLoading = () => (
+const ButtonLoading = () => (
   <svg
     className='animate-spin text-white h-5 w-5 mr-2'
     xmlns='http://www.w3.org/2000/svg'
@@ -21,4 +21,4 @@ const SmallLoading = () => (
   </svg>
 )
 
-export default SmallLoading
+export default ButtonLoading
