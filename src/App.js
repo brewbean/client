@@ -13,6 +13,7 @@ import CreateAccount from 'pages/CreateAccount'
 import Activate from 'pages/Activate'
 import Profile from 'pages/Profile'
 import ModalFlowDemo from 'pages/ModalFlowDemo'
+import Reset from 'pages/Reset'
 
 const Test = () => {
   return <div className='bg-gray-200'>Test page</div>
@@ -52,6 +53,18 @@ function App() {
         }}
       >
         <Activate />
+      </ContainerRoute>
+      <ContainerRoute
+        path='/reset'
+        defaultLayout={false}
+        config={{
+          flexCol: true,
+          layout: true,
+          paddedContent: true,
+          layoutClass: 'flex',
+        }}
+      >
+        <Reset />
       </ContainerRoute>
       <AuthRoute path='/profile'>
         <Profile />
