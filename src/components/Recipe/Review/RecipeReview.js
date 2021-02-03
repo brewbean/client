@@ -1,6 +1,7 @@
 import { useRouteMatch, Link } from 'react-router-dom'
 import { DELETE_RECIPE_REVIEW } from 'queries'
 import { useMutation } from 'urql'
+import { useAuth } from 'context/AuthContext'
 
 const RecipeReview = ({ recipe_reviews }) => {
   const { url } = useRouteMatch()
@@ -8,6 +9,8 @@ const RecipeReview = ({ recipe_reviews }) => {
   const deleteReviewPressed = async (id) => {
     await deleteReview({ id })
   }
+  const { barista: userBarista } = useAuth()
+
   return (
     <div>
       <ul className='space-y-8'>
@@ -39,22 +42,32 @@ const RecipeReview = ({ recipe_reviews }) => {
                     <span className='text-gray-500 font-medium'>
                       {n.date_added.substring(0, 10)}
                     </span>
-                    <span className='text-gray-500 font-medium'>&middot;</span>
-                    <Link
-                      to={`${url}/review/${n.id}/edit`}
-                      type='button'
-                      className='text-gray-900 font-medium'
-                    >
-                      Edit
-                    </Link>
-                    <span className='text-gray-500 font-medium'>&middot;</span>
-                    <button
-                      onClick={() => deleteReviewPressed(n.id)}
-                      type='button'
-                      className='text-gray-900 font-medium'
-                    >
-                      Delete
-                    </button>
+                    {userBarista?.id === n.barista?.id ? (
+                      <div>
+                        <span className='text-gray-500 font-medium'>
+                          &middot;
+                        </span>
+                        <Link
+                          to={`${url}/review/${n.id}/edit`}
+                          type='button'
+                          className='text-gray-900 font-medium'
+                        >
+                          Edit
+                        </Link>
+                        <span className='text-gray-500 font-medium'>
+                          &middot;
+                        </span>
+                        <button
+                          onClick={() => deleteReviewPressed(n.id)}
+                          type='button'
+                          className='text-gray-900 font-medium'
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </div>
               </div>

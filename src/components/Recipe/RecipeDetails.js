@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW, DELETE_RECIPES } from 'queries'
 import { useQuery, useMutation } from 'urql'
 import RecipeReview from './Review/RecipeReview'
@@ -20,6 +21,16 @@ const RecipeDetails = (props) => {
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
     variables: { id },
+    context: useMemo(
+      () => ({
+        fetchOptions: {
+          headers: {
+            'x-hasura-role': 'guest',
+          },
+        },
+      }),
+      []
+    ),
   })
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
