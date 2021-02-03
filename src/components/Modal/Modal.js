@@ -1,7 +1,11 @@
 import { Transition } from '@headlessui/react'
 import { useModal } from 'context/ModalContext'
 import { X } from 'components/Icon'
-import { CreateAccountForm, LoginForm } from 'components/Auth'
+import {
+  CreateAccountForm,
+  ForgotPasswordForm,
+  LoginForm,
+} from 'components/Auth'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useCallback, useRef } from 'react'
 import Alert from 'components/Alert'
@@ -22,6 +26,7 @@ function Modal() {
     content,
     text,
     setContent,
+    setText,
   } = useModal()
   const { setDisabled, clearAlerts } = useAlert()
 
@@ -38,6 +43,11 @@ function Modal() {
     close()
   }
 
+  const goToForgotPassword = () =>
+    setContent(
+      'forgotPassword',
+      'Enter your email to receive a password reset email'
+    )
   const goToSignup = () => setContent('signup', 'Create an account')
   const goToLogin = () => setContent('login', 'Log in to your account')
 
@@ -115,7 +125,7 @@ function Modal() {
                 </button>
               </div>
               {text && (
-                <div className='sm:mt-4 pb-4 border-gray-200 border-b'>
+                <div className='sm:mt-4 py-4 border-gray-200 border-b'>
                   <h2 className='text-xl text-gray-800'>{text}</h2>
                 </div>
               )}
@@ -127,11 +137,17 @@ function Modal() {
                   <LoginForm
                     callback={successClose}
                     signupCallback={goToSignup}
+                    forgotPWCallback={goToForgotPassword}
                   />
                 ) : content === 'signup' ? (
                   <CreateAccountForm
                     callback={successClose}
                     loginCallback={goToLogin}
+                  />
+                ) : content === 'forgotPassword' ? (
+                  <ForgotPasswordForm
+                    loginCallback={goToLogin}
+                    callback={() => setText(null)}
                   />
                 ) : null}
               </div>
