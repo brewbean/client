@@ -134,6 +134,11 @@ const GET_SINGLE_RECIPE = gql`
         img
         name
       }
+      barista {
+        id
+        display_name
+        avatar
+      }
     }
   }
 `

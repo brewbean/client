@@ -179,6 +179,7 @@ function AuthProvider({ children }) {
               type: alertType.ERROR,
               header: error.extensions.code,
               message: error.message,
+              close: true,
             })
           } else {
             const barista = data.data.barista[0]
