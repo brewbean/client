@@ -12,7 +12,7 @@ const Recipes = () => {
       () => ({
         fetchOptions: {
           headers: {
-            'x-hasura-role': 'guest',
+            'x-hasura-role': 'all_barista',
           },
         },
       }),
