@@ -112,9 +112,7 @@ const RecipeDetails = (props) => {
                   >
                     Recipe Details
                   </h2>
-                  <p className='mt-1 max-w-2xl text-sm text-gray-500'>
-                    Personal details and application.
-                  </p>
+                  <p className='mt-1 max-w-2xl text-sm text-gray-500'></p>
                 </div>
                 <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
                   <dl className='grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2'>
