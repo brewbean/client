@@ -13,7 +13,7 @@ import Activate from 'pages/Activate'
 import Profile from 'pages/Profile'
 import ModalFlowDemo from 'pages/ModalFlowDemo'
 import Reset from 'pages/Reset'
-import StageForm from 'pages/StageForm'
+import StageForm from 'components/StageForm'
 
 const Test = () => {
   return <div className='bg-gray-200'>Test page</div>

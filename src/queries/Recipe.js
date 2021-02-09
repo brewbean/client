@@ -13,10 +13,9 @@ const INSERT_RECIPES_ONE = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
       instructions
@@ -35,10 +34,9 @@ const GET_ALL_RECIPES = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
       instructions
@@ -72,10 +70,9 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       bean_grind
       water_amount
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
       instructions
@@ -122,10 +119,9 @@ const GET_SINGLE_RECIPE = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
       instructions
@@ -172,7 +168,7 @@ const GET_RECIPE_BY_ID = gql`
       bean_name_free
       stages {
         id
-        name
+        action
         end
         start
         weight
@@ -188,8 +184,6 @@ const UPDATE_RECIPES = gql`
       bean_grind
       water_amount
       water_temp
-      rating
-      comment
       is_private
       date_added
       about
