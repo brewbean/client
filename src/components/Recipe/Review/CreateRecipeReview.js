@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMutation } from 'urql'
 import { INSERT_RECIPE_REVIEW_ONE } from 'queries'
 import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
+import { useModal } from 'context/ModalContext'
 
 const CreateRecipeReview = ({ id }) => {
   const [state, setState] = useState({
     rating: '5',
     comment: '',
   })
-  const { barista } = useAuth()
+  const { barista, isAuthenticated } = useAuth()
   const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW_ONE)
-
+  const { open, setContent, setKey, isSuccess, key } = useModal()
+  const [isFormOpen, setFormOpen] = useState(false)
   const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,
@@ -34,6 +36,23 @@ const CreateRecipeReview = ({ id }) => {
       comment: '',
     })
   }
+
+  const showForm = (e) => {
+    e.preventDefault()
+    if (isAuthenticated) {
+      setFormOpen(true)
+    } else {
+      open()
+      setKey('loginForm')
+      setContent('login', 'You must be logged in to add a review')
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccess && key === 'loginForm') {
+      setFormOpen(true)
+    }
+  }, [isSuccess, key])
 
   return (
     <div className='bg-gray-50 px-4 py-6 sm:px-6'>
@@ -85,12 +104,21 @@ const CreateRecipeReview = ({ id }) => {
                 </svg>
                 <span>Some HTML is okay.</span>
               </div> */}
-              <button
-                onClick={submitReview}
-                className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-              >
-                Add Review
-              </button>
+              {isFormOpen ? (
+                <button
+                  onClick={submitReview}
+                  className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                >
+                  Add Review
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => showForm(e)}
+                  className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                >
+                  Add Review
+                </button>
+              )}
             </div>
           </form>
         </div>
