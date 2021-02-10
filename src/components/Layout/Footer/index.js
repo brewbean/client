@@ -39,7 +39,7 @@ export default function Footer() {
             ))}
           </nav>
           <div className='text-center text-gray-400 text-sm pt-2 sm:pt-0'>
-            &copy; 2020 Brewbean, Inc. All rights reserved.
+            &copy; 2021 Brewbean, Inc. All rights reserved.
           </div>
         </div>
       </div>
