@@ -20,6 +20,23 @@ const INSERT_RECIPES_ONE = gql`
       name
       instructions
       bean_name_free
+      barista {
+        id
+        display_name
+        avatar
+      }
+      bean {
+        id
+        img
+        name
+      }
+      recipe_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
+      }
     }
   }
 `

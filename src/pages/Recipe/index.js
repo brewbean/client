@@ -16,7 +16,7 @@ const RecipePage = (props) => {
         <Recipes />
       </Route>
       <Route exact path={`${url}/new`}>
-        <CreateRecipe /> {/*this needs to be CreateRecipe*/}
+        <CreateRecipe />
       </Route>
       <Route path={`${url}/:id/edit`}>
         <EditRecipe />

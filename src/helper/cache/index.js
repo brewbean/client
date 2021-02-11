@@ -59,7 +59,7 @@ export const updates = {
         (data) => {
           // Null error if user navigates to /recipe/new directly
           // Maybe we should avoid directly form navigation
-          data?.recipes.push(result.insert_recipes_one)
+          data.recipes.push(result.insert_recipes_one)
           return data
         }
       )

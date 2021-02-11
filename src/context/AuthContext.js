@@ -337,10 +337,12 @@ function AuthProvider({ children }) {
  */
 function useAuth() {
   const context = useContext(AuthContext)
-  const isAuthenticated = context.barista
+  const isAuthenticated = context.barista !== null
+  const isVerified = isAuthenticated && context.barista.is_verified
   return {
     ...context,
     isAuthenticated,
+    isVerified,
   }
 }
 
