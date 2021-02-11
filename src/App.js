@@ -4,7 +4,6 @@ import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation'
 import { NotFound } from 'components/Utility'
 import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
-import RecipePlayer from 'pages/RecipePlayer'
 import BrewTrakPage from 'pages/BrewTrak'
 import Recipe from 'pages/Recipe'
 import Login from 'pages/Login'
@@ -80,9 +79,6 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/form'>
         <StageForm />
-      </ContainerRoute>
-      <ContainerRoute path='/recipe-player'>
-        <RecipePlayer />
       </ContainerRoute>
       <ContainerRoute path='/recipe'>
         <Recipe />

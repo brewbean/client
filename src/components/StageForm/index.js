@@ -66,7 +66,6 @@ function StageForm({ editStages, save, onCancel, onDelete }) {
 
   const submitStages = () => {
     const isValid = checkStagesOK(stages)
-    console.log(isValid, stages)
     setIsValid(isValid)
     if (isValid) {
       save(stages)

@@ -1,10 +1,12 @@
+import { useMutation } from 'urql'
 import { useReducer } from 'react'
+import { useHistory, useLocation, Link, Redirect } from 'react-router-dom'
+import { useAuth } from 'context/AuthContext'
+import { useAlert, alertType } from 'context/AlertContext'
+import { INSERT_RECIPES_ONE } from 'queries'
 import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
-import { useMutation } from 'urql'
-import { INSERT_RECIPES_ONE } from 'queries'
-import { useHistory } from 'react-router-dom'
 import StageForm from 'components/StageForm'
 import StageRow from './StageRow'
 import { checkSchema, convertEmptyStringToNull } from 'helper/sanitize'
@@ -66,9 +68,14 @@ function reducer(state, [type, payload]) {
       return state
   }
 }
+// Check pushState; if not from another page then redirect back
 
-const CreateRecipe = (props) => {
+function CreateRecipe() {
   const history = useHistory()
+  const location = useLocation()
+
+  const { isAuthenticated } = useAuth()
+  const { addAlert, clearAlerts, hasAlerts } = useAlert()
   const [{ form, stages, isVisible, hasIssues }, dispatch] = useReducer(
     reducer,
     initState
@@ -80,6 +87,9 @@ const CreateRecipe = (props) => {
     const { value, type } = target
     if (hasIssues) {
       dispatch(['setHasIssues', false])
+    }
+    if (hasAlerts) {
+      clearAlerts()
     }
     dispatch([
       'setForm',
@@ -99,16 +109,35 @@ const CreateRecipe = (props) => {
     } else {
       // use 'value' instead of 'form' because all empty strings are converted to nulls (SAFER)
       // removed 'barista_id' because I grab it from JWT 'x-hasura-barista-id' in Hasura
-      let input = { ...value }
       if (stages) {
-        input.stages = { data: stages }
+        value.stages = { data: stages }
       }
-      const { error } = await insertRecipe({ object: input })
+      const { error } = await insertRecipe({ object: value })
       if (error) {
+        addAlert({
+          type: alertType.ERROR,
+          header: error.message,
+          close: true,
+        })
+      } else {
+        history.push(`/recipe`, { createdRecipe: true })
       }
-      history.push(`/recipe`)
     }
   }
+
+  const closeForm = () => dispatch(['closeForm'])
+  const save = (stages) => {
+    dispatch(['saveStages', stages])
+    closeForm()
+  }
+  const onDelete = () => {
+    dispatch(['deleteStages'])
+    closeForm()
+  }
+
+  const saveDisabled = hasAlerts || hasIssues || isVisible
+
+  if (!location.state || !isAuthenticated) return <Redirect to='/recipe' />
 
   return (
     <div className='max-w-4xl mx-auto mt-2 sm:mt-6'>
@@ -261,24 +290,12 @@ const CreateRecipe = (props) => {
               </p>
             </div>
             <div className='mt-4 sm:mt-0 sm:col-span-2 space-y-2'>
-              {/* 
-              3 states
-                - button add stage
-                - stage form open
-                - stage summary
-              */}
               {isVisible ? (
                 <StageForm
                   editStages={stages}
-                  save={(stages) => {
-                    dispatch(['saveStages', stages])
-                    dispatch(['closeForm'])
-                  }}
-                  onCancel={() => dispatch(['closeForm'])}
-                  onDelete={() => {
-                    dispatch(['deleteStages'])
-                    dispatch(['closeForm'])
-                  }}
+                  save={save}
+                  onCancel={closeForm}
+                  onDelete={onDelete}
                 />
               ) : stages ? (
                 <StageRow
@@ -332,15 +349,18 @@ const CreateRecipe = (props) => {
         )}
         {/* Button row */}
         <div className='flex justify-end'>
-          <button
-            type='button'
+          <Link
+            to='/recipe'
             className='bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
           >
             Cancel
-          </button>
+          </Link>
           <button
+            disabled={saveDisabled}
             type='submit'
-            className='ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            className={`disabled:opacity-50 ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+              !saveDisabled ? 'hover:bg-blue-700' : 'cursor-not-allowed'
+            }`}
           >
             Save
           </button>
