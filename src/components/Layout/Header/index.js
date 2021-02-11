@@ -42,7 +42,7 @@ const Header = () => {
   }, [path])
 
   return (
-    <nav className='flex-none bg-white sticky top-0 shadow'>
+    <nav className='flex-none bg-white sticky top-0 shadow z-50'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between h-16'>
           <div className='flex'>

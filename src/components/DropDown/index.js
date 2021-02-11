@@ -1,20 +1,26 @@
-const Dropdown = ({ label, value, onChange, options }) => {
+const Dropdown = ({ label, options, noLabel = false, ...props }) => {
   return (
     <div>
-      <label
-        htmlFor='location'
-        className='block text-sm font-medium text-gray-700'
-      >
-        {label}
-      </label>
+      {!noLabel && (
+        <div className='flex justify-between items-center'>
+          <label
+            htmlFor={props.id}
+            className='block text-sm font-medium text-gray-700'
+          >
+            {label}
+          </label>
+          {!props.required && (
+            <p className='text-xs text-gray-500 italic'>optional</p>
+          )}
+        </div>
+      )}
       <select
-        id='location'
-        name='location'
-        className='mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+        {...props}
+        className='placeholder-gray-400 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md'
       >
-        {options.map((value) => (
-          <option key={value} value={value}>
-            {value}
+        {options.map(({ key, value }) => (
+          <option key={key} value={value}>
+            {key}
           </option>
         ))}
       </select>
@@ -23,26 +29,3 @@ const Dropdown = ({ label, value, onChange, options }) => {
 }
 
 export default Dropdown
-/* <div>
-<div className='p-5 rounded-t-lg border-b border-gray-200'>
-  <label className='text-sm font-bold text-gray-900 uppercase'>
-    {label}
-  </label>
-</div>
-<div className='p-5 rounded-b-lg'>
-  <div className='border p-3 rounded'>
-    <select
-      className='rounded w-full focus:outline-none'
-      value={value}
-      onChange={onChange}
-    >
-      {options.map((value) => (
-        <option key={value} value={value}>
-          {value}
-        </option>
-      ))}
-    </select>
-  </div>
-</div>
-</div>
- */

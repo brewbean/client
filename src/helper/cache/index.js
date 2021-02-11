@@ -57,6 +57,8 @@ export const updates = {
           query: GET_ALL_RECIPES,
         },
         (data) => {
+          // Null error if user navigates to /recipe/new directly
+          // Maybe we should avoid directly form navigation
           data.recipes.push(result.insert_recipes_one)
           return data
         }

@@ -10,6 +10,7 @@ const initState = {
   isPending: false,
   isSuccess: false,
   didExit: false,
+  hasModalAlert: true,
 }
 
 const ModalProvider = ({ children }) => {
@@ -17,15 +18,24 @@ const ModalProvider = ({ children }) => {
 
   // visibility & pending flags only - success/exit context must be handled explicitly
   // open must reset to init state in case this is second try opening
-  const open = () => {
-    setState({ ...initState, isVisible: true, isPending: true })
-  }
+  const open = useCallback(() => {
+    setState({
+      ...initState,
+      isVisible: true,
+      isPending: true,
+    })
+  }, [])
+
+  const reset = useCallback(() => {
+    setState(initState)
+  }, [])
 
   const close = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
       isVisible: false,
       isPending: false,
+      hasModalAlert: true,
     }))
   }, [])
 
@@ -35,6 +45,10 @@ const ModalProvider = ({ children }) => {
 
   const setKey = useCallback((key) => {
     setState((prevState) => ({ ...prevState, key }))
+  }, [])
+
+  const setModalAlert = useCallback((hasModalAlert) => {
+    setState((prevState) => ({ ...prevState, hasModalAlert }))
   }, [])
 
   const success = () => {
@@ -63,10 +77,12 @@ const ModalProvider = ({ children }) => {
         open,
         close,
         exit,
+        reset,
         success,
         setContent,
         setKey,
         setText,
+        setModalAlert,
       }}
     >
       {children}

@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import { useEffect, useCallback, useRef } from 'react'
 import Alert from 'components/Alert'
 import { useAlert } from 'context/AlertContext'
+import Unverified from './Unverified'
 /**
  * onClose -> click away or press 'X' button
  * onSuccess -> login successful, whatever render action should happen now
@@ -20,6 +21,7 @@ import { useAlert } from 'context/AlertContext'
 function Modal() {
   const {
     isVisible,
+    hasModalAlert,
     close,
     exit,
     success,
@@ -130,7 +132,7 @@ function Modal() {
                 </div>
               )}
 
-              <Alert noShadow containerStyle='my-4' />
+              {hasModalAlert && <Alert noShadow containerStyle='my-4' />}
 
               <div className='mt-4'>
                 {content === 'login' ? (
@@ -149,6 +151,8 @@ function Modal() {
                     loginCallback={goToLogin}
                     callback={() => setText(null)}
                   />
+                ) : content === 'unverified' ? (
+                  <Unverified />
                 ) : null}
               </div>
             </div>

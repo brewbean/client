@@ -9,7 +9,7 @@ const Player = ({ stages, coffeeWeight }) => {
   const [seconds, setSeconds] = useState(0)
   const [isActive, setIsActive] = useState(false)
 
-  const serve = stages.find((s) => s.name === 'serve').start
+  const serve = stages.find((s) => s.action === 'serve').start
 
   const start = () => setIsActive(true)
   const stop = () => setIsActive(false)
@@ -39,7 +39,7 @@ const Player = ({ stages, coffeeWeight }) => {
         setStage('wait')
       } else {
         setRemainingTime(findStage.end - seconds)
-        setStage(findStage.name)
+        setStage(findStage.action)
         setWeight(findStage.weight)
       }
 
@@ -66,7 +66,7 @@ const Player = ({ stages, coffeeWeight }) => {
         stage={stage}
         weight={weight}
         remainingTime={remainingTime}
-        totalTime={stages.find((s) => s.name === 'serve').end}
+        totalTime={stages.find((s) => s.action === 'serve').end}
       />
       <Timeline stages={stages} stage={stage} seconds={seconds} />
     </div>
