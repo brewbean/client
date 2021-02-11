@@ -13,7 +13,7 @@ const AuthRoute = ({ children, ...rest }) => {
       ) : isAuthenticated ? (
         children
       ) : (
-        <LoginFauxModal headerText='You must login to view this page' />
+        <LoginFauxModal />
       )}
     </ContainerRoute>
   )

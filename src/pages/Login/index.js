@@ -1,36 +1,77 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import coffeeCover from './espresso_cover.jpg'
 import Alert from 'components/Alert'
-import { LoginForm } from 'components/Auth'
+import { LoginForm, ForgotPasswordForm } from 'components/Auth'
 
-const Login = () => (
-  <>
-    <div className='flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24'>
-      <div className='mx-auto w-full max-w-sm lg:w-96'>
-        <Link
-          to='/'
-          className='text-3xl leading-9 font-extrabold tracking-widest text-blue-500'
-        >
-          brew<span className='text-pink-400'>(</span>bean
-          <span className='text-pink-400'>)</span>
-        </Link>
+function Login() {
+  const [showLogin, setShowLogin] = useState(true)
+  const [showLogo, setShowLogo] = useState(true)
+  const [headerText, setHeaderText] = useState(null)
 
-        <Alert containerStyle='mt-8' />
+  const showForgotPW = () => {
+    setShowLogin(false)
+    setHeaderText('Enter your email to reset your password')
+  }
 
-        <div className='mt-8'>
-          <LoginForm />
+  const loginCallback = () => {
+    setShowLogin(true)
+    setShowLogo(true)
+  }
+
+  const completeForgotPW = () => {
+    setHeaderText(null)
+    setShowLogo(false)
+  }
+
+  const onErrorForgotPW = () => {
+    setHeaderText(null)
+    setShowLogo(false)
+  }
+
+  return (
+    <>
+      <div className='flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24'>
+        <div className='mx-auto w-full max-w-sm lg:w-96 space-y-6'>
+          {showLogo && (
+            <Link
+              to='/'
+              className='text-3xl leading-9 font-extrabold tracking-widest text-blue-500'
+            >
+              brew<span className='text-pink-400'>(</span>bean
+              <span className='text-pink-400'>)</span>
+            </Link>
+          )}
+
+          <Alert />
+
+          {headerText && (
+            <h3 className='text-lg text-gray-600 font-semibold'>
+              {headerText}
+            </h3>
+          )}
+
+          {showLogin ? (
+            <LoginForm forgotPWCallback={showForgotPW} />
+          ) : (
+            <ForgotPasswordForm
+              errorCallback={onErrorForgotPW}
+              callback={completeForgotPW}
+              loginCallback={loginCallback}
+            />
+          )}
         </div>
       </div>
-    </div>
 
-    <div className='hidden lg:block relative w-0 flex-1'>
-      <img
-        className='absolute inset-0 h-full w-full object-cover'
-        src={coffeeCover}
-        alt='espresso'
-      />
-    </div>
-  </>
-)
+      <div className='hidden lg:block relative w-0 flex-1'>
+        <img
+          className='absolute inset-0 h-full w-full object-cover'
+          src={coffeeCover}
+          alt='espresso'
+        />
+      </div>
+    </>
+  )
+}
 
 export default Login

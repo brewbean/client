@@ -13,8 +13,6 @@ const INSERT_RECIPES_ONE = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
       about
@@ -35,8 +33,6 @@ const GET_ALL_RECIPES = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
       about
@@ -72,8 +68,6 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       bean_grind
       water_amount
       water_temp
-      rating
-      comment
       is_private
       date_added
       about
@@ -122,8 +116,6 @@ const GET_SINGLE_RECIPE = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
       about
@@ -133,6 +125,11 @@ const GET_SINGLE_RECIPE = gql`
       bean {
         img
         name
+      }
+      barista {
+        id
+        display_name
+        avatar
       }
     }
   }
@@ -183,8 +180,6 @@ const UPDATE_RECIPES = gql`
       bean_grind
       water_amount
       water_temp
-      rating
-      comment
       is_private
       date_added
       about

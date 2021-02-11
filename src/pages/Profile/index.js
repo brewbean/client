@@ -7,7 +7,7 @@ import AlertMessage from 'components/Alert/AlertMessage'
 import { validatePassword, passwordRequirements } from 'helper/form'
 import FormAlert from 'components/FormAlert'
 import { AUTH_API } from 'config'
-import SmallLoading from './SmallLoading'
+import { ButtonLoading } from 'components/Utility'
 import { createUnverifiedAlert } from 'helper/auth'
 
 const showAlerts = ({ type, text }) => (
@@ -45,7 +45,7 @@ function Profile() {
         setIsLoading(true)
 
         await axios.put(
-          AUTH_API + '/change-password',
+          AUTH_API + '/password/update',
           {
             email: barista.email,
             currentPassword: state.oldPassword,
@@ -289,7 +289,7 @@ function Profile() {
                 >
                   {isLoading ? (
                     <>
-                      <SmallLoading />
+                      <ButtonLoading />
                       Processing
                     </>
                   ) : (

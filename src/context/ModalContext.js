@@ -20,6 +20,7 @@ const ModalProvider = ({ children }) => {
   const open = () => {
     setState({ ...initState, isVisible: true, isPending: true })
   }
+
   const close = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
@@ -27,15 +28,19 @@ const ModalProvider = ({ children }) => {
       isPending: false,
     }))
   }, [])
+
   const exit = useCallback(() => {
     setState((prevState) => ({ ...prevState, didExit: true }))
   }, [])
+
   const setKey = useCallback((key) => {
     setState((prevState) => ({ ...prevState, key }))
   }, [])
+
   const success = () => {
     setState((prevState) => ({ ...prevState, isSuccess: true }))
   }
+
   const setContent = (content, text = null) => {
     setState((prevState) => ({
       ...prevState,
@@ -43,9 +48,26 @@ const ModalProvider = ({ children }) => {
       text,
     }))
   }
+
+  const setText = (text) => {
+    setState((prevState) => ({
+      ...prevState,
+      text,
+    }))
+  }
+
   return (
     <ModalContext.Provider
-      value={{ ...state, open, close, exit, success, setContent, setKey }}
+      value={{
+        ...state,
+        open,
+        close,
+        exit,
+        success,
+        setContent,
+        setKey,
+        setText,
+      }}
     >
       {children}
     </ModalContext.Provider>
