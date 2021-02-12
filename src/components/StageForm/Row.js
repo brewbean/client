@@ -22,7 +22,7 @@ const Row = ({
           }
         : {
             ...stage,
-            [name]: type === 'number' ? parseInt(value) : value,
+            [name]: type === 'number' && value !== '' ? parseInt(value) : value,
           }
     )
   }

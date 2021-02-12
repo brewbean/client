@@ -11,6 +11,7 @@ import { useEffect, useCallback, useRef } from 'react'
 import Alert from 'components/Alert'
 import { useAlert } from 'context/AlertContext'
 import Unverified from './Unverified'
+import DeleteConfirmation from './DeleteConfirmation'
 /**
  * onClose -> click away or press 'X' button
  * onSuccess -> login successful, whatever render action should happen now
@@ -153,6 +154,11 @@ function Modal() {
                   />
                 ) : content === 'unverified' ? (
                   <Unverified />
+                ) : content === 'delete' ? (
+                  <DeleteConfirmation
+                    onCancel={exitClose}
+                    onConfirm={successClose}
+                  />
                 ) : null}
               </div>
             </div>

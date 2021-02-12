@@ -3,7 +3,7 @@ import { DELETE_RECIPE_REVIEW } from 'queries'
 import { useMutation } from 'urql'
 import { useAuth } from 'context/AuthContext'
 
-const RecipeReview = ({ recipe_reviews }) => {
+const All = ({ recipe_reviews }) => {
   const { url } = useRouteMatch()
   const [, deleteReview] = useMutation(DELETE_RECIPE_REVIEW)
   const deleteReviewPressed = async (id) => {
@@ -79,4 +79,4 @@ const RecipeReview = ({ recipe_reviews }) => {
   )
 }
 
-export default RecipeReview
+export default All

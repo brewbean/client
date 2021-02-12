@@ -26,7 +26,7 @@ const Container = ({ config, children, defaultLayout = true }) => {
         <div
           className={`flex-1 ${
             settings.paddedContent
-              ? 'w-full max-w-7xl mx-auto p-4 sm:px-6 lg:px-8'
+              ? 'w-full max-w-7xl mx-auto p-4 sm:px-6 lg:py-6 lg:px-8'
               : ''
           } ${settings.layoutClass}`.trimEnd()}
         >
