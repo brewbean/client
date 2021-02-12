@@ -1,10 +1,13 @@
 import Alert from 'components/Alert'
 import LoginForm from './LoginForm'
+import ForgotPasswordForm from './ForgotPasswordForm'
 import { useAlert } from 'context/AlertContext'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 function LoginFauxModal({ headerText }) {
-  const { setDisabled } = useAlert()
+  const { setDisabled, clearAlerts } = useAlert()
+  const [isLogin, setIsLogin] = useState(true)
+  const [header, setHeader] = useState('')
 
   useEffect(() => {
     setDisabled('header')
@@ -12,6 +15,16 @@ function LoginFauxModal({ headerText }) {
     return () => setDisabled(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (isLogin) {
+      setHeader('You must login to view this page')
+    } else {
+      setHeader('Enter your login email to get a password reset email')
+    }
+
+    clearAlerts()
+  }, [isLogin, clearAlerts])
 
   return (
     <div className='fixed inset-0 overflow-y-auto'>
@@ -34,19 +47,26 @@ function LoginFauxModal({ headerText }) {
           aria-modal='true'
           aria-labelledby='modal-headline'
         >
-          <div className='pb-4 border-gray-200 border-b space-y-4 text-center'>
-            <h1 className='text-2xl font-extrabold tracking-widest text-blue-500'>
-              brew<span className='text-pink-400'>(</span>bean
-              <span className='text-pink-400'>)</span>
-            </h1>
-            {headerText && (
-              <h2 className='text-xl text-gray-800'>{headerText}</h2>
-            )}
-          </div>
+          {header !== '' && (
+            <div className='pb-4 mb-4 border-gray-200 border-b space-y-4 text-center'>
+              <h1 className='text-2xl font-extrabold tracking-widest text-blue-500'>
+                brew<span className='text-pink-400'>(</span>bean
+                <span className='text-pink-400'>)</span>
+              </h1>
+              <h2 className='text-xl text-gray-800'>{header}</h2>
+            </div>
+          )}
+
           <Alert noShadow containerStyle='my-4' />
-          <div className='mt-4'>
-            <LoginForm />
-          </div>
+
+          {isLogin ? (
+            <LoginForm forgotPWCallback={() => setIsLogin(false)} />
+          ) : (
+            <ForgotPasswordForm
+              callback={() => setHeader('')}
+              loginCallback={() => setIsLogin(true)}
+            />
+          )}
         </div>
       </div>
     </div>

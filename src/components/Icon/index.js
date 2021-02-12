@@ -1,6 +1,23 @@
 import * as Alert from './Alert'
 export { Alert }
 
+export const Plus = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    stroke='currentColor'
+    fill='none'
+    viewBox='0 0 24 24'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M12 6v6m0 0v6m0-6h6m-6 0H6'
+    />
+  </svg>
+)
+
 export const Heart = ({ className = 'w-6 h-6' }) => (
   <svg
     className={className}
@@ -11,6 +28,20 @@ export const Heart = ({ className = 'w-6 h-6' }) => (
     <path
       fillRule='evenodd'
       d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+export const ArrowNarrowLeft = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z'
       clipRule='evenodd'
     />
   </svg>

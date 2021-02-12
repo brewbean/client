@@ -1,16 +1,18 @@
+import { useMemo } from 'react'
 import { GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW, DELETE_RECIPES } from 'queries'
 import { useQuery, useMutation } from 'urql'
 import RecipeReview from './Review/RecipeReview'
 import { useHistory, useParams, Link, useRouteMatch } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
 import CreateRecipeReview from './Review/CreateRecipeReview'
+import { useAuth } from 'context/AuthContext'
 
 const RecipeDetails = (props) => {
   const history = useHistory()
   const { url } = useRouteMatch()
   const { id } = useParams()
   const [, deleteRecipe] = useMutation(DELETE_RECIPES)
-
+  const { barista: userBarista } = useAuth()
   const deleteRecipePressed = async () => {
     await deleteRecipe({ id })
     history.push(`/recipe`)
@@ -19,6 +21,16 @@ const RecipeDetails = (props) => {
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
     variables: { id },
+    context: useMemo(
+      () => ({
+        fetchOptions: {
+          headers: {
+            'x-hasura-role': 'all_barista',
+          },
+        },
+      }),
+      []
+    ),
   })
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
@@ -39,7 +51,6 @@ const RecipeDetails = (props) => {
     recipe_reviews,
     recipe_reviews_aggregate,
   } = data.recipes_by_pk
-
   return (
     <div className='min-h-screen bg-gray-100'>
       <main className='py-10'>
@@ -62,27 +73,31 @@ const RecipeDetails = (props) => {
             <div>
               <h1 className='text-2xl font-bold text-gray-900'>{name}</h1>
               <p className='text-sm font-medium text-gray-500'>
-                Created by {barista?.display_name} on{' '}
+                Created by {barista?.display_name} on
                 <time dateTime={date_added}>{date_added.substring(0, 10)}</time>
               </p>
             </div>
           </div>
-          <div className='mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3'>
-            <button
-              onClick={deleteRecipePressed}
-              type='button'
-              className='inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
-            >
-              Delete Recipe
-            </button>
-            <Link
-              to={`${url}/edit`}
-              type='button'
-              className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
-            >
-              Edit Recipe
-            </Link>
-          </div>
+          {userBarista?.id === barista?.id ? (
+            <div className='mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3'>
+              <button
+                onClick={deleteRecipePressed}
+                type='button'
+                className='inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
+              >
+                Delete Recipe
+              </button>
+              <Link
+                to={`${url}/edit`}
+                type='button'
+                className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
+              >
+                Edit Recipe
+              </Link>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
 
         <div className='mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3'>
@@ -97,9 +112,7 @@ const RecipeDetails = (props) => {
                   >
                     Recipe Details
                   </h2>
-                  <p className='mt-1 max-w-2xl text-sm text-gray-500'>
-                    Personal details and application.
-                  </p>
+                  <p className='mt-1 max-w-2xl text-sm text-gray-500'></p>
                 </div>
                 <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
                   <dl className='grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2'>
@@ -219,128 +232,7 @@ const RecipeDetails = (props) => {
               </h2>
 
               {/*<!-- Activity Feed -->*/}
-              {/* <div className="mt-6 flow-root">
-            <ul className="-mb-8">
-              <li>
-                <div className="relative pb-8">
-                  <span className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
-                        <!-- Heroicon name: user -->
-                        <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                    </div>
-                    <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                      <div>
-                        <p className="text-sm text-gray-500">Applied to <a href="#" className="font-medium text-gray-900">Front End Developer</a></p>
-                      </div>
-                      <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                        <time dateTime="2020-09-20">Sep 20</time>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
 
-              <li>
-                <div className="relative pb-8">
-                  <span className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
-                        <!-- Heroicon name: thumb-up -->
-                        <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                        </svg>
-                      </span>
-                    </div>
-                    <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                      <div>
-                        <p className="text-sm text-gray-500">Advanced to phone screening by <a href="#" className="font-medium text-gray-900">Bethany Blake</a></p>
-                      </div>
-                      <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                        <time dateTime="2020-09-22">Sep 22</time>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div className="relative pb-8">
-                  <span className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
-                       <!-- Heroicon name: check --> 
-                        <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                    </div>
-                    <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                      <div>
-                        <p className="text-sm text-gray-500">Completed phone screening with <a href="#" className="font-medium text-gray-900">Martha Gardner</a></p>
-                      </div>
-                      <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                        <time dateTime="2020-09-28">Sep 28</time>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div className="relative pb-8">
-                  <span className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
-                        <!-- Heroicon name: thumb-up --> 
-                        <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                        </svg>
-                      </span>
-                    </div>
-                    <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                      <div>
-                        <p className="text-sm text-gray-500">Advanced to interview by <a href="#" className="font-medium text-gray-900">Bethany Blake</a></p>
-                      </div>
-                      <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                        <time dateTime="2020-09-30">Sep 30</time>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div className="relative pb-8">
-                  <div className="relative flex space-x-3">
-                    <div>
-                      <span className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
-                        <!-- Heroicon name: check -->
-                        <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                    </div>
-                    <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                      <div>
-                        <p className="text-sm text-gray-500">Completed interview with <a href="#" className="font-medium text-gray-900">Katherine Snyder</a></p>
-                      </div>
-                      <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                        <time dateTime="2020-10-04">Oct 4</time>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div> */}
               <div className='mt-6 flex flex-col justify-stretch'>
                 <Link
                   to={`/recipe-player`}
@@ -359,71 +251,3 @@ const RecipeDetails = (props) => {
 }
 
 export default RecipeDetails
-
-/*<div>
-      <div className='bg-gray-800 pb-32'>
-        <header className='py-10'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'></div>
-        </header>
-      </div>
-      <main className='-mt-32'>
-        <div className='max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8'>
-          <div className='bg-white rounded-lg shadow px-5 py-6 sm:px-6'>
-            <div className='px-4 py-4 rounded-lg h-auto'>
-              <div>
-                <img
-                  className='w-64 h-64 flex-shrink-0 mx-auto bg-black'
-                  src={bean.img}
-                  alt=''
-                />
-
-                <div className='text-3xl leading-9 font-bold'>{name}</div>
-                <div className='flex items-center text-2xl leading-9'>
-                  <img className='w-5 h-5 mr-1' src={Star} alt='Star' />/:
-                  {roundToHalfOrWhole(
-                    recipe_reviews_aggregate.aggregate.avg.rating
-                  )}
-                  /5
-                </div>
-
-                <div className='font-bold'>About this Recipe</div>
-                <div>{about ? about : 'No description available'}</div>
-                <button
-                  type='button'
-                  className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
-                >
-                  buy recipe
-                </button>
-                <Link
-                  to={`${url}/review/new`}
-                  className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
-                >
-                  submit review
-                </Link>
-                <Link
-                  to={`${url}/edit`}
-                  className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
-                >
-                  EDIT RECIPE
-                </Link>
-                <button
-                  onClick={deleteRecipePressed}
-                  type='button'
-                  className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
-                >
-                  delete recipe
-                </button>
-                {recipe_reviews.length > 0 ? (
-                  <RecipeReview
-                    recipe_id={id}
-                    recipe_reviews={recipe_reviews}
-                  />
-                ) : (
-                  'No recipe reviews available.'
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>*/
