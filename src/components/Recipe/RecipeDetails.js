@@ -8,13 +8,12 @@ import CreateRecipeReview from './Review/CreateRecipeReview'
 import { Table } from 'components/Stage'
 import { useAuth } from 'context/AuthContext'
 
-const RecipeDetails = (props) => {
+const RecipeDetails = () => {
   const { isAuthenticated, barista: user } = useAuth()
   const history = useHistory()
   const { url } = useRouteMatch()
   const { id } = useParams()
   const [, deleteRecipe] = useMutation(DELETE_RECIPES)
-
   const deleteRecipePressed = async () => {
     await deleteRecipe({ id })
     history.push(`/recipe`)
@@ -53,7 +52,6 @@ const RecipeDetails = (props) => {
     recipe_reviews_aggregate,
     stages,
   } = data.recipes_by_pk
-
   return (
     <main className='py-10'>
       {/*<!-- Page header -->*/}

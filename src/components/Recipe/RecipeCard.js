@@ -40,17 +40,17 @@ const RecipeCard = ({
         <div className='mt-6 flex items-center'>
           <div className='flex-shrink-0'>
             <div>
-              <span className='sr-only'>{barista.display_name}</span>
+              <span className='sr-only'>{barista?.display_name}</span>
               <img
                 className='h-10 w-10 rounded-full'
-                src={barista.avatar}
+                src={barista?.avatar}
                 alt=''
               />
             </div>
           </div>
           <div className='ml-3'>
             <div className='text-sm font-medium text-gray-900'>
-              <div className='hover:underline'>{barista.display_name}</div>
+              <div className='hover:underline'>{barista?.display_name}</div>
             </div>
             <div className='flex space-x-1 text-sm text-gray-500'>
               <time dateTime={date_added}>{date_added.substring(0, 10)}</time>

@@ -12,7 +12,6 @@ const CreateRecipeReview = ({ id }) => {
   })
   const { barista } = useAuth()
   const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW_ONE)
-
   const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,
@@ -20,8 +19,7 @@ const CreateRecipeReview = ({ id }) => {
     })
   }
 
-  const submitReview = async (e) => {
-    e.preventDefault()
+  const submitReview = async () => {
     await insertRecipeReview({
       object: {
         barista_id: barista.id,
