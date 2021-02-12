@@ -3,6 +3,7 @@ import { useMutation } from 'urql'
 import { INSERT_RECIPE_REVIEW_ONE } from 'queries'
 import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
+import { PlaceHolder } from 'components/Icon'
 
 const CreateRecipeReview = ({ id }) => {
   const [state, setState] = useState({
@@ -37,11 +38,15 @@ const CreateRecipeReview = ({ id }) => {
     <div className='bg-gray-50 px-4 py-6 sm:px-6'>
       <div className='flex space-x-3'>
         <div className='flex-shrink-0'>
-          <img
-            className='h-10 w-10 rounded-full'
-            src={barista?.avatar}
-            alt=''
-          />
+          {barista?.avatar ? (
+            <img
+              className='h-10 w-10 rounded-full'
+              src={barista?.avatar}
+              alt=''
+            />
+          ) : (
+            <PlaceHolder className='h-10 w-10' />
+          )}
         </div>
         <div className='min-w-0 flex-1'>
           <form>

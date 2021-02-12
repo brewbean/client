@@ -94,6 +94,13 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       name
       instructions
       bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
       barista {
         id
         display_name
@@ -143,6 +150,13 @@ const GET_SINGLE_RECIPE = gql`
       name
       instructions
       bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
       bean {
         img
         name
