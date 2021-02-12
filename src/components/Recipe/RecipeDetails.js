@@ -54,7 +54,6 @@ const RecipeDetails = (props) => {
     stages,
   } = data.recipes_by_pk
 
-  console.log(stages)
   return (
     <main className='py-10'>
       {/*<!-- Page header -->*/}
