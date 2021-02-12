@@ -73,7 +73,6 @@ const CreateRecipeReview = ({ id }) => {
               >
                 Add Review
               </button>
-              )}
             </div>
           </form>
         </div>
