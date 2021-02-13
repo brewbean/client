@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import CoffeeCover from './hero_espresso.jpg'
@@ -7,15 +7,15 @@ import PourOver from './pour_over.jpg'
 import Scale from './scale.jpg'
 
 export default function Home() {
-  const [search, setSearch] = useState('')
+  // const [search, setSearch] = useState('')
 
-  const onChange = ({ target }) => setSearch(target.value)
+  // const onChange = ({ target }) => setSearch(target.value)
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    console.log('search sent')
-    setSearch('')
-  }
+  // const onSubmit = (e) => {
+  //   e.preventDefault()
+  //   console.log('search sent')
+  //   setSearch('')
+  // }
 
   return (
     <div className='space-y-8'>
@@ -29,73 +29,51 @@ export default function Home() {
               Discover the world of coffee
             </h1>
             <h2 className='sm:text-lg md:text-xl text-gray-900'>
-              Explore and share coffee recipes, reviews, and more
+              Explore and share coffee recipes, reviews, and more.
+            </h2>
+            <h2 className='sm:text-lg md:text-xl text-gray-900'>
+              New to brewing?
             </h2>
           </div>
-
-          <form
-            onSubmit={onSubmit}
-            className='mt-6 flex rounded-md shadow-lg w-full sm:w-2/3 lg:w-2/5'
-          >
-            <input
-              type='text'
-              value={search}
-              onChange={onChange}
-              className='focus:ring-blue-500 focus:border-blue-500 border-none block w-full rounded-none rounded-l-md sm:text-sm'
-              placeholder='Colombian'
-            />
-
-            <button
-              type='submit'
-              className='-ml-px inline-flex items-center px-4 py-2 text-sm font-medium rounded-r-md bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500'
-            >
-              <svg
-                className='w-6 h-6 text-white'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z'
-                  clipRule='evenodd'
-                />
-              </svg>
-            </button>
-          </form>
+          <div className='mt-5 sm:flex sm:justify-center lg:justify-start'>
+            <div className='rounded-md shadow'>
+              <div className='w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 md:py-4 md:text-lg md:px-10'>
+                Start here
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid sm:grid-cols-3 gap-4'>
+        {/* These can be changed to a component */}
         <Link to='/beans' className='flex flex-col'>
           <img
             className='h-64 object-cover sm:rounded-lg'
-            src={Beans}
+            src={Beans} /*TODO: - Update to new cloudinary url*/
             alt='beans'
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>
-            Bean Reviews
+            Discover Beans
           </h2>
         </Link>
 
         <Link to='/recipes' className='flex flex-col'>
           <img
             className='h-64 object-cover sm:rounded-lg'
-            src={PourOver}
+            src={PourOver} /*TODO: - Update to new cloudinary url*/
             alt='pour over'
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
 
-        <Link to='/pour-app' className='flex flex-col'>
+        <Link to='/brewtrak' className='flex flex-col'>
           <img
             className='h-64 object-cover sm:rounded-lg'
-            src={Scale}
+            src={Scale} /*TODO: - Update to new cloudinary url*/
             alt='scale'
           />
-          <h2 className='mt-2 text-lg font-medium text-gray-900'>
-            Recipe Player
-          </h2>
+          <h2 className='mt-2 text-lg font-medium text-gray-900'>Brew Logs</h2>
         </Link>
       </div>
 
