@@ -125,10 +125,10 @@ function StageForm({ editStages, save, onCancel, onDelete }) {
         </button>
         <button
           type='button'
-          onClick={editStages === null ? onCancel : onDelete}
+          onClick={stages.length > 1 ? onCancel : onDelete}
           className='inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
         >
-          {editStages === null ? 'Cancel' : 'Delete'}
+          {stages.length > 1 ? 'Cancel' : 'Delete'}
         </button>
       </div>
     </div>

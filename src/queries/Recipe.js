@@ -224,6 +224,7 @@ const UPDATE_RECIPES = gql`
     }
   }
 `
+
 const UPDATE_RECIPE_REVIEW = gql`
   mutation($id: Int!, $object: recipe_reviews_set_input!) {
     update_recipe_reviews_by_pk(pk_columns: { id: $id }, _set: $object) {
@@ -263,7 +264,50 @@ const DELETE_RECIPE_REVIEW = gql`
   }
 `
 
+const deleteStages = gql`
+  fragment DeleteStages on mutation_root {
+    delete_stage(where: { recipe_id: { _eq: $id } }) {
+      affected_rows
+    }
+  }
+`
+
+// delete by pk stage
+// update by pk stage
+// insert stage
+
+const updateRecipeByPK = gql`
+  fragment UpdateRecipeByPK on mutation_root {
+    update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      water_temp
+      is_private
+      date_added
+      about
+      name
+      instructions
+      bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
+    }
+  }
+`
+
+const fragment = {
+  deleteStages,
+  updateRecipeByPK,
+}
+
 export {
+  fragment,
   INSERT_RECIPES_ONE,
   GET_ALL_RECIPES,
   GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,

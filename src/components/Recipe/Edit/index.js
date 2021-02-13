@@ -1,14 +1,13 @@
 import { useMutation } from 'urql'
 import { useReducer } from 'react'
-import { useHistory, useLocation, Link, Redirect } from 'react-router-dom'
-import { useAuth } from 'context/AuthContext'
+import { useHistory, Link } from 'react-router-dom'
 import { useAlert, alertType } from 'context/AlertContext'
-import { INSERT_RECIPES_ONE } from 'queries'
+import { UPDATE_RECIPES } from 'queries'
 import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
 import StageForm from 'components/StageForm'
-import StageRow from './StageRow'
+import StageRow from 'pages/Recipe/CreateRecipe/StageRow'
 import { checkSchema, convertEmptyStringToNull } from 'helper/sanitize'
 
 const recipeType = {
@@ -25,24 +24,12 @@ const recipeType = {
   instructions: { isNullable: false },
 }
 
-const initState = {
-  form: {
-    brew_type: 'Pour Over',
-    bean_weight: '',
-    bean_grind: 'Extra-fine',
-    device: '',
-    water_amount: '',
-    bean_name_free: '',
-    water_temp: 100,
-    is_private: false,
-    about: '',
-    name: '',
-    instructions: '',
-  },
-  stages: null,
+const setInitState = ({ stages, ...recipe }) => ({
+  form: recipe,
+  stages,
   isVisible: false,
   hasIssues: false,
-}
+})
 
 function reducer(state, [type, payload]) {
   switch (type) {
@@ -68,20 +55,17 @@ function reducer(state, [type, payload]) {
       return state
   }
 }
-// Check pushState; if not from another page then redirect back
 
-function CreateRecipe() {
+function Edit({ recipe, id }) {
   const history = useHistory()
-  const location = useLocation()
 
-  const { isAuthenticated } = useAuth()
   const { addAlert, clearAlerts, hasAlerts } = useAlert()
   const [{ form, stages, isVisible, hasIssues }, dispatch] = useReducer(
     reducer,
-    initState
+    setInitState(recipe)
   )
 
-  const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
+  const [, updateRecipe] = useMutation(UPDATE_RECIPES)
 
   const onChangeGenerator = (attr) => ({ target }) => {
     const { value, type } = target
@@ -112,7 +96,7 @@ function CreateRecipe() {
       if (stages) {
         value.stages = { data: stages }
       }
-      const { error } = await insertRecipe({ object: value })
+      const { error } = await updateRecipe({ object: value })
       if (error) {
         addAlert({
           type: alertType.ERROR,
@@ -120,7 +104,7 @@ function CreateRecipe() {
           close: true,
         })
       } else {
-        history.push(`/recipe`, { createdRecipe: true })
+        history.push(`/recipe/${id}`, { edited: true })
       }
     }
   }
@@ -137,10 +121,8 @@ function CreateRecipe() {
 
   const saveDisabled = hasAlerts || hasIssues || isVisible
 
-  if (!location.state || !isAuthenticated) return <Redirect to='/recipe' />
-
   return (
-    <div className='max-w-4xl mx-auto mt-2 sm:mt-6'>
+    <div className='max-w-4xl mx-auto mt-2 sm:mt-0'>
       <form onSubmit={submitRecipe} className='space-y-6 sm:space-y-5'>
         {/* Header */}
         <div>
@@ -370,4 +352,4 @@ function CreateRecipe() {
   )
 }
 
-export default CreateRecipe
+export default Edit

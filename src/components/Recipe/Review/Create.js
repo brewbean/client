@@ -5,7 +5,7 @@ import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
 import { PlaceHolder } from 'components/Icon'
 
-const CreateRecipeReview = ({ id }) => {
+const Create = ({ id }) => {
   const [state, setState] = useState({
     rating: '5',
     comment: '',
@@ -73,6 +73,7 @@ const CreateRecipeReview = ({ id }) => {
 
             <div className='mt-3 flex items-center justify-between'>
               <button
+                type='button'
                 onClick={submitReview}
                 className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
               >
@@ -86,4 +87,4 @@ const CreateRecipeReview = ({ id }) => {
   )
 }
 
-export default CreateRecipeReview
+export default Create

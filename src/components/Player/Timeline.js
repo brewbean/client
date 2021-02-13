@@ -9,13 +9,13 @@ const Timeline = ({ stages, stage, seconds }) => (
       </h3>
 
       <ul>
-        {stages.map(({ name, start, end }, index) => (
+        {stages.map(({ action, start, end }, index) => (
           <Row
-            key={name}
-            stage={name}
+            key={index}
+            stage={action}
             start={timeString(start)}
             bottom={index === stages.length - 1}
-            isCurrent={stage === name}
+            isCurrent={stage === action}
             isDone={seconds >= end}
           />
         ))}
