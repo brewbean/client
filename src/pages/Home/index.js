@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import CoffeeCover from './hero_espresso.jpg'
-import Beans from './beans.jpg'
-import PourOver from './pour_over.jpg'
-import Scale from './scale.jpg'
+import { Beans, PourOver, Scale, CoffeeCover } from 'cloudinaryImages'
 
 export default function Home() {
   const [search, setSearch] = useState('')
@@ -77,16 +74,14 @@ export default function Home() {
             Bean Reviews
           </h2>
         </Link>
-
         <Link to='/recipes' className='flex flex-col'>
           <img
             className='h-64 object-cover sm:rounded-lg'
             src={PourOver}
-            alt='pour over'
+            alt='pourover'
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
-
         <Link to='/pour-app' className='flex flex-col'>
           <img
             className='h-64 object-cover sm:rounded-lg'
