@@ -1,4 +1,4 @@
-const DeleteConfirmation = ({ onCancel, onConfirm }) => (
+const DeleteConfirmation = ({ item, onCancel, onConfirm }) => (
   <>
     <div className='sm:flex sm:items-start'>
       <div className='mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10'>
@@ -23,11 +23,11 @@ const DeleteConfirmation = ({ onCancel, onConfirm }) => (
           className='text-lg leading-6 font-medium text-gray-900'
           id='modal-headline'
         >
-          Delete recipe
+          Delete {item}
         </h3>
         <div className='mt-2'>
           <p className='text-sm text-gray-500'>
-            Are you sure you want to delete this recipe?
+            Are you sure you want to delete this {item}?
           </p>
         </div>
       </div>

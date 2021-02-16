@@ -97,7 +97,11 @@ const Detail = () => {
           <CommentSection
             recipeId={id}
             recipeReviews={recipe_reviews}
-            canReview={isAuthenticated && user.id !== barista?.id}
+            canReview={
+              isAuthenticated &&
+              user.id !== barista?.id &&
+              !recipe_reviews.find((review) => review.barista.id === user.id)
+            }
           />
         </div>
       </div>

@@ -21,7 +21,19 @@ const PlayerContainer = () => {
   if (stages.length === 0)
     return <Message type={alertType.ERROR}>This recipe is not playable</Message>
 
-  return <Player stages={stages} coffeeWeight={bean_weight} />
+  const serve = stages.find(({ action }) => action === 'serve')
+
+  return (
+    <Player
+      stages={[
+        ...stages
+          .filter((s) => s.action !== 'serve')
+          .sort((a, b) => a.start - b.start),
+        serve,
+      ]}
+      coffeeWeight={bean_weight}
+    />
+  )
 }
 
 export default PlayerContainer

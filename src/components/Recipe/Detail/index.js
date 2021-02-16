@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import { InfoCircleSolid } from 'components/Icon'
 import { Table } from 'components/Stage'
-import { All, Create } from 'components/Recipe/Review'
+import { All, Create, Edit } from 'components/Recipe/Review'
 import { Description } from './Description'
+import { useState } from 'react'
 
 export const DescriptionSection = ({ recipe }) => (
   <section>
@@ -51,6 +52,10 @@ export const ActivitySection = ({ stages, playerPath }) => (
 )
 
 export const CommentSection = ({ recipeId, recipeReviews, canReview }) => {
+  const [editReview, setEditReview] = useState(null)
+  const onEdit = (review) => () => setEditReview(review)
+  const close = () => setEditReview(null)
+
   return (
     <section>
       <div className='bg-white shadow sm:rounded-lg sm:overflow-hidden'>
@@ -66,11 +71,16 @@ export const CommentSection = ({ recipeId, recipeReviews, canReview }) => {
                 No recipe reviews available
               </p>
             ) : (
-              <All recipe_reviews={recipeReviews} />
+              <All
+                recipe_reviews={recipeReviews}
+                onEdit={onEdit}
+                isEditing={editReview !== null}
+              />
             )}
           </div>
         </div>
         {canReview && <Create id={recipeId} />}
+        {editReview && <Edit review={editReview} close={close} />}
       </div>
     </section>
   )
