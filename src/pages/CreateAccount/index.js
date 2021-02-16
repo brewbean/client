@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import Alert from 'components/Alert'
 import { CreateAccountForm } from 'components/Auth'
-
-import coffeeCover from './coffee_cover.jpg'
+import { cover } from 'image'
 
 const CreateAccount = () => (
   <>
@@ -36,7 +35,7 @@ const CreateAccount = () => (
     <div className='hidden lg:block relative w-0 flex-1'>
       <img
         className='absolute inset-0 h-full w-full object-cover'
-        src={coffeeCover}
+        src={cover.alt}
         alt='espresso'
       />
     </div>

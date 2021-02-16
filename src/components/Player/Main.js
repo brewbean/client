@@ -1,6 +1,7 @@
 import { timeString } from 'helper/timer'
 import { Play, Pause, Refresh, Scale, Clock } from 'components/Icon'
 import { ButtonLeftIcon } from 'components/Button'
+import { gif } from 'image'
 
 const Main = ({
   step,
@@ -18,13 +19,13 @@ const Main = ({
 }) => {
   const imgSrc =
     stage === 'serve'
-      ? 'https://res.cloudinary.com/brewbean/image/upload/v1613436365/serve-no-loop_fidevw.gif'
+      ? gif.serve
       : step === 1 && stage !== 'wait'
-      ? 'https://res.cloudinary.com/brewbean/image/upload/v1613436367/preinfusion-no-loop_mhi9pr.gif'
+      ? gif.preinfusion
       : step === 2 && stage !== 'wait'
-      ? 'https://res.cloudinary.com/brewbean/image/upload/v1613446016/first-pour_nefh39.gif'
+      ? gif.firstPour
       : step === 3 && stage !== 'wait'
-      ? 'https://res.cloudinary.com/brewbean/image/upload/v1613446018/second-pour_yfpyrd.gif'
+      ? gif.secondPour
       : null
   return (
     <div className='lg:col-start-1 lg:col-span-3'>
@@ -75,7 +76,11 @@ const Main = ({
 
             {imgSrc && (
               <div className='mt-4'>
-                <img src={imgSrc} className='h-48 w-48 rounded shadow' alt='brewing' />
+                <img
+                  src={imgSrc}
+                  className='h-48 w-48 rounded shadow'
+                  alt='brewing'
+                />
               </div>
             )}
 

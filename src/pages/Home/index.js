@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Beans, PourOver, Scale, CoffeeCover } from 'cloudinaryImages'
+import { Beans, PourOver, Scale, cover } from 'image'
 
 export default function Home() {
   const [search, setSearch] = useState('')
@@ -18,7 +18,7 @@ export default function Home() {
     <div className='space-y-8'>
       <div
         className='h-screen-3/4 bg-cover'
-        style={{ backgroundImage: `url(${CoffeeCover})` }}
+        style={{ backgroundImage: `url(${cover.landscape})` }}
       >
         <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col h-full justify-center'>
           <div className='text-start space-y-2 md:max-w-md xl:max-w-lg'>

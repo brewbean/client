@@ -10,8 +10,8 @@ import {
   ModifyRow,
   TitleSection,
 } from 'components/Recipe/Detail'
-import cup from './coffee_cup.jpg'
 import { useModal } from 'context/ModalContext'
+import { placeholder } from 'image'
 
 const Detail = () => {
   const history = useHistory()
@@ -72,7 +72,7 @@ const Detail = () => {
           name={barista?.display_name}
           recipeName={name}
           dateAdded={date_added}
-          img={{ src: cup, alt: 'coffee cup' }}
+          img={{ src: placeholder.cup, alt: 'coffee cup' }}
         />
         <ModifyRow
           canModify={isAuthenticated && user.id === barista?.id}
