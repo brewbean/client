@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import coffeeCover from './espresso_cover.jpg'
 import Alert from 'components/Alert'
 import { LoginForm, ForgotPasswordForm } from 'components/Auth'
+import { cover } from 'image'
 
 function Login() {
   const [showLogin, setShowLogin] = useState(true)
@@ -66,7 +66,7 @@ function Login() {
       <div className='hidden lg:block relative w-0 flex-1'>
         <img
           className='absolute inset-0 h-full w-full object-cover'
-          src={coffeeCover}
+          src={cover.portrait}
           alt='espresso'
         />
       </div>
