@@ -64,18 +64,16 @@ export default function NewUserModal() {
                     />
                   </svg>
                 </div>
-                <div className='mt-3 text-center sm:mt-5'>
+                <div className='mt-3 text-center sm:mt-5 space-y-2'>
                   <h3
                     className='text-lg leading-6 font-medium text-gray-900'
                     id='-headline'
                   >
                     Account created!
                   </h3>
-                  <div className='mt-2'>
-                    <p className='text-sm text-gray-500'>
-                      Check your email to confirm your new account
-                    </p>
-                  </div>
+                  <p className='text-sm text-gray-500'>
+                    Check your email to confirm your new account
+                  </p>
                 </div>
               </div>
               <div className='mt-5 sm:mt-6'>

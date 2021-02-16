@@ -1,18 +1,24 @@
-const TextArea = ({ label, placeholder, value, onChange }) => {
+const TextArea = ({ label, ...props }) => {
   return (
     <div>
-      <div className='p-5 rounded-t-lg border-b border-gray-200'>
-        <label className='text-sm font-bold text-gray-900 uppercase'>
+      <div className='flex justify-between items-center'>
+        <label
+          htmlFor={props.id}
+          className='block text-sm font-medium text-gray-700'
+        >
           {label}
         </label>
+        {!props.required && (
+          <p className='text-xs text-gray-500 italic'>optional</p>
+        )}
       </div>
-      <div className='p-5 rounded-b-lg'>
+      <div className='mt-1'>
         <textarea
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-          className='p-3 h-40 text-gray-900 focus:bg-gray-100 rounded w-full border focus:outline-none'
-        />
+          name={label}
+          rows='3'
+          className='placeholder-gray-400 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
+          {...props}
+        ></textarea>
       </div>
     </div>
   )

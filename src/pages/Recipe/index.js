@@ -1,11 +1,9 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import Recipes from 'components/Recipe'
-import RecipeDetails from 'components/Recipe/RecipeDetails'
-import CreateRecipe from 'components/Recipe/CreateRecipe'
-import EditRecipe from 'components/Recipe/EditRecipe'
-import CreateRecipeReview from 'components/Recipe/Review/CreateRecipeReview'
-import EditRecipeReview from 'components/Recipe/Review/EditRecipeReview'
-import StagePage from './StagePage'
+import Recipes from './Recipe'
+import CreateRecipe from './CreateRecipe'
+import EditRecipe from './EditRecipe'
+import Player from './Player'
+import Detail from './Detail'
 
 const RecipePage = (props) => {
   const { url } = useRouteMatch()
@@ -16,23 +14,16 @@ const RecipePage = (props) => {
         <Recipes />
       </Route>
       <Route exact path={`${url}/new`}>
-        <CreateRecipe /> {/*this needs to be CreateRecipe*/}
+        <CreateRecipe />
+      </Route>
+      <Route exact path={`${url}/:id`}>
+        <Detail />
       </Route>
       <Route path={`${url}/:id/edit`}>
         <EditRecipe />
       </Route>
-      <Route exact path={`${url}/:id`}>
-        <RecipeDetails />
-      </Route>
-
-      <Route exact path={`${url}/:id/review/new`}>
-        <CreateRecipeReview />
-      </Route>
-      <Route exact path={`${url}/:id/review/:review_id/edit`}>
-        <EditRecipeReview />
-      </Route>
-      <Route path={`${url}/new/stage`}>
-        <StagePage />
+      <Route path={`${url}/:id/player`}>
+        <Player />
       </Route>
     </Switch>
   )

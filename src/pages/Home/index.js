@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import CoffeeCover from './hero_espresso.jpg'
-import Beans from './beans.jpg'
-import PourOver from './pour_over.jpg'
-import Scale from './scale.jpg'
+import { Beans, PourOver, Scale, cover } from 'image'
 
 export default function Home() {
   const [search, setSearch] = useState('')
@@ -21,7 +18,7 @@ export default function Home() {
     <div className='space-y-8'>
       <div
         className='h-screen-3/4 bg-cover'
-        style={{ backgroundImage: `url(${CoffeeCover})` }}
+        style={{ backgroundImage: `url(${cover.landscape})` }}
       >
         <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col h-full justify-center'>
           <div className='text-start space-y-2 md:max-w-md xl:max-w-lg'>
@@ -77,16 +74,14 @@ export default function Home() {
             Bean Reviews
           </h2>
         </Link>
-
         <Link to='/recipes' className='flex flex-col'>
           <img
             className='h-64 object-cover sm:rounded-lg'
             src={PourOver}
-            alt='pour over'
+            alt='pourover'
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
-
         <Link to='/pour-app' className='flex flex-col'>
           <img
             className='h-64 object-cover sm:rounded-lg'

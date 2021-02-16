@@ -41,13 +41,13 @@ const EditBrewForm = ({ brewLogs, id }) => {
           'Moka Pot',
           'French Press',
         ]}
-        label='brew type'
+        label='Brew Type'
       />
       <InputRow
         value={state.bean_weight}
         onChange={onChangeGenerator('bean_weight')}
         placeholder='Enter coffee bean weight'
-        label='coffee bean amount'
+        label='Coffee Bean Amount'
       />
       <Dropdown
         value={state.bean_grind}
@@ -60,26 +60,32 @@ const EditBrewForm = ({ brewLogs, id }) => {
           'Coarse',
           'Extra coarse',
         ]}
-        label='bean grind'
+        label='Bean Grind'
       />
       {/* Serving Amount */}
       <InputRow
         value={state.water_amount}
         onChange={onChangeGenerator('water_amount')}
         placeholder='Enter water weight'
-        label='water amount'
+        label='Water Amount'
       />
-      <InputRow
+      {/* <InputRow
         value={state.beanType}
         onChange={onChangeGenerator('beanType')}
         placeholder='Enter bean type'
-        label='bean type'
+        label='Bean Type'
+      /> */}
+      <InputRow
+        value={state.bean_name_free}
+        onChange={onChangeGenerator('bean_name_free')}
+        placeholder='Enter bean name'
+        label='Bean Name'
       />
       <InputRow
         value={state.water_temp}
         onChange={onChangeGenerator('water_temp')}
         placeholder='Enter water temperature'
-        label='water temperature'
+        label='Water Temperature'
       />
       <Dropdown
         value={state.rating}
@@ -91,7 +97,7 @@ const EditBrewForm = ({ brewLogs, id }) => {
         value={state.comment}
         onChange={onChangeGenerator('comment')}
         placeholder='Enter comments here'
-        label='brewer comments'
+        label='Brewer Comments'
       />
       {/* Create Instructions  */}
       {/* Next button to stage */}
@@ -101,7 +107,7 @@ const EditBrewForm = ({ brewLogs, id }) => {
           type='button'
           className='mt-2 w-full px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
         >
-          edit brew log
+          Edit Brew Log
         </button>
       </div>
     </div>

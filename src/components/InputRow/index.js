@@ -1,19 +1,45 @@
-const InputRow = ({ label, placeholder, value, onChange }) => {
+const InputRow = ({
+  label,
+  description,
+  descriptionId,
+  symbol,
+  symbolPadding = '',
+  type = 'text',
+  ...props
+}) => {
   return (
     <div>
-      <div className='p-5 rounded-t-lg border-b border-gray-200'>
-        <label className='text-sm font-bold text-gray-900 uppercase'>
+      <div className='flex justify-between items-center'>
+        <label
+          htmlFor={props.id}
+          className='block text-sm font-medium text-gray-700'
+        >
           {label}
         </label>
+        {!props.required && (
+          <p className='text-xs text-gray-500 italic'>optional</p>
+        )}
       </div>
-      <div className='p-5 rounded-b-lg'>
+      <div className={`mt-1 ${symbol ? 'relative' : ''}`.trimEnd()}>
         <input
-          className='text-xs form-input block w-full mt-1 rounded-md shadow-sm'
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
+          {...props}
+          type={type}
+          className={`placeholder-gray-400 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md ${
+            symbol ? symbolPadding : ''
+          }`.trimEnd()}
+          aria-describedby={descriptionId}
         />
+        {symbol && (
+          <div className='absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
+            <p className='text-sm text-gray-500'>{symbol}</p>
+          </div>
+        )}
       </div>
+      {description && (
+        <p className='mt-2 text-sm text-gray-500' id={descriptionId}>
+          {description}
+        </p>
+      )}
     </div>
   )
 }

@@ -6,10 +6,11 @@ const Player = ({ stages, coffeeWeight }) => {
   const [stage, setStage] = useState('')
   const [weight, setWeight] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
+  const [stageIds, setStageIds] = useState(new Set(stages.map((s) => s.id)))
   const [seconds, setSeconds] = useState(0)
   const [isActive, setIsActive] = useState(false)
 
-  const serve = stages.find((s) => s.name === 'serve').start
+  const serve = stages.find((s) => s.action === 'serve').start
 
   const start = () => setIsActive(true)
   const stop = () => setIsActive(false)
@@ -17,6 +18,7 @@ const Player = ({ stages, coffeeWeight }) => {
   const reset = () => {
     stop()
     setSeconds(0)
+    setStageIds(new Set(stages.map((s) => s.id)))
   }
 
   const isFinished = seconds === serve
@@ -29,6 +31,11 @@ const Player = ({ stages, coffeeWeight }) => {
       }, 1000)
 
       let findStage = stages.find((r) => seconds >= r.start && seconds < r.end)
+      if (stageIds.has(findStage?.id)) {
+        const newSet = new Set(stageIds)
+        newSet.delete(findStage.id)
+        setStageIds(newSet)
+      }
       if (findStage === undefined) {
         let nextStage = stages.find((r) => r.start > seconds)
         if (nextStage !== undefined) {
@@ -39,7 +46,7 @@ const Player = ({ stages, coffeeWeight }) => {
         setStage('wait')
       } else {
         setRemainingTime(findStage.end - seconds)
-        setStage(findStage.name)
+        setStage(findStage.action)
         setWeight(findStage.weight)
       }
 
@@ -51,11 +58,12 @@ const Player = ({ stages, coffeeWeight }) => {
       clearInterval(interval)
     }
     return () => clearInterval(interval)
-  }, [isActive, seconds, serve, stages, isFinished])
+  }, [isActive, seconds, serve, stages, isFinished, stageIds])
 
   return (
     <div className='grid grid-cols-1 gap-6 lg:grid-cols-4'>
       <Main
+        step={stages.length - stageIds.size}
         isFinished={isFinished}
         start={start}
         stop={stop}
@@ -66,9 +74,9 @@ const Player = ({ stages, coffeeWeight }) => {
         stage={stage}
         weight={weight}
         remainingTime={remainingTime}
-        totalTime={stages.find((s) => s.name === 'serve').end}
+        totalTime={stages.find((s) => s.action === 'serve').end}
       />
-      <Timeline stages={stages} stage={stage} seconds={seconds} />
+      <Timeline stages={stages} seconds={seconds} />
     </div>
   )
 }

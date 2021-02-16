@@ -3,6 +3,7 @@ import {
   GET_ALL_BREW_LOGS,
   GET_ALL_RECIPES,
   GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
+  fragment,
 } from 'queries'
 
 export const updates = {
@@ -43,13 +44,25 @@ export const updates = {
         },
         (data) => {
           const updateIndex = data.brew_logs.findIndex((b) => b.id === args.id)
-          return [
-            ...data.brew_logs.slice(0, updateIndex),
-            result.update_brew_logs_by_pk,
-            ...data.brew_logs.slice(updateIndex + 1),
-          ]
+          return {
+            ...data,
+            brew_logs: [
+              ...data.brew_logs.slice(0, updateIndex),
+              result.update_brew_logs_by_pk,
+              ...data.brew_logs.slice(updateIndex + 1),
+            ],
+          }
         }
       )
+    },
+    update_recipes_by_pk: (result, args, cache, info) => {
+      /**
+       * `writeFragment` is the right function for adding updates since they can be
+       * made even if a user hasn't requested a list of entities already
+       * ex. edit recipe 34 even though you haven't cached 'get all recipes'
+       * (causes null error or bad cache with `updateQuery`)
+       */
+      cache.writeFragment(fragment.recipeInfo, result.update_recipes_by_pk)
     },
     insert_recipes_one: (result, args, cache, info) => {
       cache.updateQuery(
@@ -57,6 +70,8 @@ export const updates = {
           query: GET_ALL_RECIPES,
         },
         (data) => {
+          // Null error if user navigates to /recipe/new directly
+          // Maybe we should avoid directly form navigation
           data.recipes.push(result.insert_recipes_one)
           return data
         }
@@ -64,6 +79,20 @@ export const updates = {
     },
     delete_recipes_by_pk: (result, args, cache, info) => {
       cache.invalidate({ __typename: 'recipes', id: args.id })
+    },
+    update_recipe_reviews_by_pk: (result, args, cache, info) => {
+      cache.updateQuery(
+        {
+          query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
+          variables: { id: args.object.recipe_id },
+        },
+        (data) => {
+          data.recipes_by_pk.recipe_reviews = data.recipes_by_pk.recipe_reviews.map(
+            (r) => (r.id === args.id ? result.update_recipe_reviews_by_pk : r)
+          )
+          return data
+        }
+      )
     },
     insert_recipe_reviews_one: (result, args, cache, info) => {
       cache.updateQuery(

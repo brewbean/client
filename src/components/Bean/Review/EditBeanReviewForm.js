@@ -34,13 +34,13 @@ const EditBeanReviewForm = ({ beanReview, id }) => {
         <div className='font-bold'>Edit Review</div>
         <InputRow
           value={barista.display_name}
-          readOnly
+          readOnly={true}
           placeholder='Enter Barista'
           label='Barista'
         />
         <InputRow
           value={state.bean.name}
-          readOnly
+          readOnly={true}
           placeholder='Enter Bean'
           label='Bean'
         />
@@ -61,7 +61,7 @@ const EditBeanReviewForm = ({ beanReview, id }) => {
           onClick={submitUpdateReview}
           className='mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150'
         >
-          edit review
+          Edit Review
         </button>
       </div>
     )

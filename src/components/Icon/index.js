@@ -1,3 +1,52 @@
+import * as Alert from './Alert'
+export { Alert }
+
+export const InfoCircleSolid = ({ className = 'h-6 w-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
+export const PlaceHolder = ({ className = 'h-6 w-6' }) => (
+  <span
+    className={`inline-block shadow-inner rounded-full overflow-hidden bg-blue-100 ${className}`}
+  >
+    <svg
+      className='h-full w-full text-blue-300'
+      fill='currentColor'
+      viewBox='0 0 24 24'
+    >
+      <path d='M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z' />
+    </svg>
+  </span>
+)
+
+export const Plus = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    stroke='currentColor'
+    fill='none'
+    viewBox='0 0 24 24'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M12 6v6m0 0v6m0-6h6m-6 0H6'
+    />
+  </svg>
+)
+
 export const Heart = ({ className = 'w-6 h-6' }) => (
   <svg
     className={className}
@@ -8,6 +57,20 @@ export const Heart = ({ className = 'w-6 h-6' }) => (
     <path
       fillRule='evenodd'
       d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+export const ArrowNarrowLeft = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    fill='currentColor'
+    viewBox='0 0 20 20'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      d='M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z'
       clipRule='evenodd'
     />
   </svg>

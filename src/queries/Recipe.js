@@ -13,17 +13,35 @@ const INSERT_RECIPES_ONE = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
+      instructions
+      bean_name_free
+      barista {
+        id
+        display_name
+        avatar
+      }
+      bean {
+        id
+        img
+        name
+      }
+      recipe_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
+      }
     }
   }
 `
 const GET_ALL_RECIPES = gql`
-  query {
+  query GetAllRecipes {
     recipes(order_by: { id: desc }) {
       id
       barista_id
@@ -33,20 +51,36 @@ const GET_ALL_RECIPES = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
+      instructions
+      bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
       barista {
         id
         display_name
+        avatar
       }
       bean {
         id
         img
         name
+      }
+      recipe_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
       }
     }
   }
@@ -60,12 +94,20 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       bean_grind
       water_amount
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
+      instructions
+      bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
       barista {
         id
         display_name
@@ -77,10 +119,15 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
       }
       recipe_reviews {
         id
-        barista_id
         recipe_id
         rating
         comment
+        date_added
+        barista {
+          id
+          display_name
+          avatar
+        }
       }
       recipe_reviews_aggregate {
         aggregate {
@@ -103,15 +150,28 @@ const GET_SINGLE_RECIPE = gql`
       water_amount
       bean_id
       water_temp
-      rating
-      comment
       is_private
       date_added
+      device
       about
       name
+      instructions
+      bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
       bean {
         img
         name
+      }
+      barista {
+        id
+        display_name
+        avatar
       }
     }
   }
@@ -122,6 +182,7 @@ const GET_SINGLE_RECIPE_REVIEW = gql`
       id
       rating
       comment
+      date_added
       barista {
         id
         display_name
@@ -141,9 +202,11 @@ const GET_RECIPE_BY_ID = gql`
     recipes_by_pk(id: $id) {
       id
       bean_weight
+      instructions
+      bean_name_free
       stages {
         id
-        name
+        action
         end
         start
         weight
@@ -154,17 +217,21 @@ const GET_RECIPE_BY_ID = gql`
 const UPDATE_RECIPES = gql`
   mutation($id: Int!, $object: recipes_set_input) {
     update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
-      comment
-      bean_grind
-      bean_id
-      bean_weight
       brew_type
-      rating
+      bean_weight
+      bean_grind
       water_amount
       water_temp
+      is_private
+      date_added
+      about
+      name
+      instructions
+      bean_name_free
     }
   }
 `
+
 const UPDATE_RECIPE_REVIEW = gql`
   mutation($id: Int!, $object: recipe_reviews_set_input!) {
     update_recipe_reviews_by_pk(pk_columns: { id: $id }, _set: $object) {
@@ -204,7 +271,121 @@ const DELETE_RECIPE_REVIEW = gql`
   }
 `
 
+const UPDATE_RECIPE_WITH_STAGES = gql`
+  mutation UpdateRecipeWithStages(
+    $id: Int!
+    $recipe: recipes_set_input
+    $stages: [stage_insert_input!]!
+  ) {
+    delete_stage(where: { recipe_id: { _eq: $id } }) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+    insert_stage(objects: $stages) {
+      returning {
+        id
+        action
+        start
+        end
+        weight
+      }
+    }
+    update_recipes_by_pk(pk_columns: { id: $id }, _set: $recipe) {
+      id
+      barista_id
+      brew_type
+      bean_weight
+      bean_grind
+      water_amount
+      bean_id
+      water_temp
+      is_private
+      date_added
+      device
+      about
+      name
+      instructions
+      bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
+      barista {
+        id
+        display_name
+        avatar
+      }
+      bean {
+        id
+        img
+        name
+      }
+      recipe_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
+      }
+    }
+  }
+`
+
+const recipeInfo = gql`
+  fragment RecipeInfo on recipes {
+    id
+    barista_id
+    brew_type
+    bean_weight
+    bean_grind
+    water_amount
+    bean_id
+    water_temp
+    is_private
+    date_added
+    device
+    about
+    name
+    instructions
+    bean_name_free
+    stages {
+      id
+      action
+      end
+      start
+      weight
+    }
+    barista {
+      id
+      display_name
+      avatar
+    }
+    bean {
+      id
+      img
+      name
+    }
+    recipe_reviews_aggregate {
+      aggregate {
+        avg {
+          rating
+        }
+      }
+    }
+  }
+`
+
+const fragment = {
+  recipeInfo,
+}
+
 export {
+  fragment,
   INSERT_RECIPES_ONE,
   GET_ALL_RECIPES,
   GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
@@ -213,6 +394,7 @@ export {
   GET_RECIPE_BY_ID,
   UPDATE_RECIPES,
   UPDATE_RECIPE_REVIEW,
+  UPDATE_RECIPE_WITH_STAGES,
   DELETE_RECIPES,
   INSERT_RECIPE_REVIEW_ONE,
   DELETE_RECIPE_REVIEW,

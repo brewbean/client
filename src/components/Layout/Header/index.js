@@ -6,31 +6,27 @@ import UserSectionMobile from './UserSectionMobile'
 
 const links = [
   {
-    text: 'pour over app',
+    text: 'Pour Over App',
     to: '/brewtrak',
   },
   {
-    text: 'discover brews',
+    text: 'Discover Brews',
     to: '/recipe',
   },
+  // {
+  //   text: 'Buy Beans',
+  //   to: '/bean',
+  // },
   {
-    text: 'buy beans',
-    to: '/bean',
-  },
-  {
-    text: 'recipe player',
+    text: 'Recipe Player',
     to: '/recipe-player',
   },
 ]
 
 const settingLinks = [
   {
-    text: 'profile',
-    to: '/pour-app',
-  },
-  {
-    text: 'settings',
-    to: '/hi/3/name/what',
+    text: 'Profile',
+    to: '/profile',
   },
 ]
 
@@ -46,7 +42,7 @@ const Header = () => {
   }, [path])
 
   return (
-    <nav className='flex-none bg-white sticky top-0 shadow'>
+    <nav className='flex-none bg-white sticky top-0 shadow z-50'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between h-16'>
           <div className='flex'>
