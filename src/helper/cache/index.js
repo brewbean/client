@@ -80,6 +80,20 @@ export const updates = {
     delete_recipes_by_pk: (result, args, cache, info) => {
       cache.invalidate({ __typename: 'recipes', id: args.id })
     },
+    update_recipe_reviews_by_pk: (result, args, cache, info) => {
+      cache.updateQuery(
+        {
+          query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
+          variables: { id: args.object.recipe_id },
+        },
+        (data) => {
+          data.recipes_by_pk.recipe_reviews = data.recipes_by_pk.recipe_reviews.map(
+            (r) => (r.id === args.id ? result.update_recipe_reviews_by_pk : r)
+          )
+          return data
+        }
+      )
+    },
     insert_recipe_reviews_one: (result, args, cache, info) => {
       cache.updateQuery(
         {

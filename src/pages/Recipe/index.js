@@ -4,9 +4,6 @@ import CreateRecipe from './CreateRecipe'
 import EditRecipe from './EditRecipe'
 import Player from './Player'
 import Detail from './Detail'
-// import CreateRecipeReview from './Review/CreateRecipeReview'
-// import EditRecipeReview from './Review/EditRecipeReview'
-// import StagePage from './StagePage'
 
 const RecipePage = (props) => {
   const { url } = useRouteMatch()
@@ -28,16 +25,6 @@ const RecipePage = (props) => {
       <Route path={`${url}/:id/player`}>
         <Player />
       </Route>
-
-      {/* <Route exact path={`${url}/:id/review/new`}>
-        <CreateRecipeReview />
-      </Route> */}
-      {/* <Route exact path={`${url}/:id/review/:review_id/edit`}>
-        <EditRecipeReview />
-      </Route> */}
-      {/* <Route path={`${url}/new/stage`}>
-        <StagePage />
-      </Route> */}
     </Switch>
   )
 }
