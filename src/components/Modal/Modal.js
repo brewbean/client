@@ -156,6 +156,13 @@ function Modal() {
                   <Unverified />
                 ) : content === 'delete' ? (
                   <DeleteConfirmation
+                    item='recipe'
+                    onCancel={exitClose}
+                    onConfirm={successClose}
+                  />
+                ) : content === 'deleteReview' ? (
+                  <DeleteConfirmation
+                    item='review'
                     onCancel={exitClose}
                     onConfirm={successClose}
                   />

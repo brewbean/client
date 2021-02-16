@@ -12,17 +12,18 @@ const Row = ({
 }) => {
   const onChange = ({ target }) => {
     const { name, type, value } = target
+    let newValue = type === 'number' && value !== '' ? parseInt(value) : value
 
     setStage(
       stage.action === 'serve' && name === 'start'
         ? {
             ...stage,
-            start: parseInt(value),
-            end: parseInt(value),
+            start: newValue,
+            end: newValue,
           }
         : {
             ...stage,
-            [name]: type === 'number' && value !== '' ? parseInt(value) : value,
+            [name]: newValue,
           }
     )
   }

@@ -2,7 +2,7 @@ import { Plus } from 'components/Icon'
 import { useState } from 'react'
 import Row from './Row'
 
-function StageForm({ editStages, save, onCancel, onDelete }) {
+function StageForm({ isEditPage, editStages, save, onCancel, onDelete }) {
   const [isValid, setIsValid] = useState(null)
   const [stages, setStages] = useState(
     editStages !== null
@@ -116,20 +116,41 @@ function StageForm({ editStages, save, onCancel, onDelete }) {
         </div>
       )}
       <div className='flex justify-start mt-2'>
-        <button
-          onClick={submitStages}
-          type='button'
-          className='inline-flex items-center px-4 py-2 border border-transparent text-blue-700 text-sm font-medium rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-        >
-          Save
-        </button>
-        <button
-          type='button'
-          onClick={stages.length > 1 ? onCancel : onDelete}
-          className='inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-        >
-          {stages.length > 1 ? 'Cancel' : 'Delete'}
-        </button>
+        {isEditPage ? (
+          <>
+            <button
+              onClick={stages.length > 1 ? submitStages : onDelete}
+              type='button'
+              className='inline-flex items-center px-4 py-2 border border-transparent text-blue-700 text-sm font-medium rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            >
+              {stages.length > 1 ? 'Save' : 'Delete'}
+            </button>
+            <button
+              type='button'
+              onClick={onCancel}
+              className='inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={submitStages}
+              type='button'
+              className='inline-flex items-center px-4 py-2 border border-transparent text-blue-700 text-sm font-medium rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            >
+              Save
+            </button>
+            <button
+              type='button'
+              onClick={stages.length > 1 ? onCancel : onDelete}
+              className='inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            >
+              {stages.length > 1 ? 'Cancel' : 'Delete'}
+            </button>
+          </>
+        )}
       </div>
     </div>
   )

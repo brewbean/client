@@ -2,7 +2,7 @@ import { useMutation } from 'urql'
 import { useReducer } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { useAlert, alertType } from 'context/AlertContext'
-import { UPDATE_RECIPES } from 'queries'
+import { UPDATE_RECIPE_WITH_STAGES } from 'queries'
 import InputRow from 'components/InputRow'
 import Dropdown from 'components/DropDown'
 import TextArea from 'components/TextArea'
@@ -24,9 +24,17 @@ const recipeType = {
   instructions: { isNullable: false },
 }
 
+/**
+ * 'stages'
+ * - omit 'id' so that update mutation can create new id's
+ * - omit '__typename' due to metadata
+ */
 const setInitState = ({ stages, ...recipe }) => ({
   form: recipe,
-  stages,
+  stages:
+    stages.length > 1
+      ? stages.map(({ id, __typename, ...stage }) => stage)
+      : null,
   isVisible: false,
   hasIssues: false,
 })
@@ -65,7 +73,12 @@ function Edit({ recipe, id }) {
     setInitState(recipe)
   )
 
-  const [, updateRecipe] = useMutation(UPDATE_RECIPES)
+  /**
+   * $id: Int!
+   * $recipe: recipe_set_input
+   * $stages: [stage_insert_input!]!
+   */
+  const [, updateRecipe] = useMutation(UPDATE_RECIPE_WITH_STAGES)
 
   const onChangeGenerator = (attr) => ({ target }) => {
     const { value, type } = target
@@ -93,10 +106,13 @@ function Edit({ recipe, id }) {
     } else {
       // use 'value' instead of 'form' because all empty strings are converted to nulls (SAFER)
       // removed 'barista_id' because I grab it from JWT 'x-hasura-barista-id' in Hasura
-      if (stages) {
-        value.stages = { data: stages }
-      }
-      const { error } = await updateRecipe({ object: value })
+
+      const { error } = await updateRecipe({
+        id,
+        recipe: value,
+        stages: stages ? stages.map((s) => ({ ...s, recipe_id: id })) : [], // change 'null' to empty array to add no new stages; old stages get deleted regardless
+      })
+
       if (error) {
         addAlert({
           type: alertType.ERROR,
@@ -274,6 +290,7 @@ function Edit({ recipe, id }) {
             <div className='mt-4 sm:mt-0 sm:col-span-2 space-y-2'>
               {isVisible ? (
                 <StageForm
+                  isEditPage
                   editStages={stages}
                   save={save}
                   onCancel={closeForm}

@@ -41,7 +41,7 @@ const INSERT_RECIPES_ONE = gql`
   }
 `
 const GET_ALL_RECIPES = gql`
-  query {
+  query GetAllRecipes {
     recipes(order_by: { id: desc }) {
       id
       barista_id
@@ -58,6 +58,13 @@ const GET_ALL_RECIPES = gql`
       name
       instructions
       bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
       barista {
         id
         display_name
@@ -264,28 +271,39 @@ const DELETE_RECIPE_REVIEW = gql`
   }
 `
 
-const deleteStages = gql`
-  fragment DeleteStages on mutation_root {
+const UPDATE_RECIPE_WITH_STAGES = gql`
+  mutation UpdateRecipeWithStages(
+    $id: Int!
+    $recipe: recipes_set_input
+    $stages: [stage_insert_input!]!
+  ) {
     delete_stage(where: { recipe_id: { _eq: $id } }) {
       affected_rows
+      returning {
+        id
+      }
     }
-  }
-`
-
-// delete by pk stage
-// update by pk stage
-// insert stage
-
-const updateRecipeByPK = gql`
-  fragment UpdateRecipeByPK on mutation_root {
-    update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
+    insert_stage(objects: $stages) {
+      returning {
+        id
+        action
+        start
+        end
+        weight
+      }
+    }
+    update_recipes_by_pk(pk_columns: { id: $id }, _set: $recipe) {
+      id
+      barista_id
       brew_type
       bean_weight
       bean_grind
       water_amount
+      bean_id
       water_temp
       is_private
       date_added
+      device
       about
       name
       instructions
@@ -297,13 +315,73 @@ const updateRecipeByPK = gql`
         start
         weight
       }
+      barista {
+        id
+        display_name
+        avatar
+      }
+      bean {
+        id
+        img
+        name
+      }
+      recipe_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
+      }
+    }
+  }
+`
+
+const recipeInfo = gql`
+  fragment RecipeInfo on recipes {
+    id
+    barista_id
+    brew_type
+    bean_weight
+    bean_grind
+    water_amount
+    bean_id
+    water_temp
+    is_private
+    date_added
+    device
+    about
+    name
+    instructions
+    bean_name_free
+    stages {
+      id
+      action
+      end
+      start
+      weight
+    }
+    barista {
+      id
+      display_name
+      avatar
+    }
+    bean {
+      id
+      img
+      name
+    }
+    recipe_reviews_aggregate {
+      aggregate {
+        avg {
+          rating
+        }
+      }
     }
   }
 `
 
 const fragment = {
-  deleteStages,
-  updateRecipeByPK,
+  recipeInfo,
 }
 
 export {
@@ -316,6 +394,7 @@ export {
   GET_RECIPE_BY_ID,
   UPDATE_RECIPES,
   UPDATE_RECIPE_REVIEW,
+  UPDATE_RECIPE_WITH_STAGES,
   DELETE_RECIPES,
   INSERT_RECIPE_REVIEW_ONE,
   DELETE_RECIPE_REVIEW,
