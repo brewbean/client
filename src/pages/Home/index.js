@@ -1,17 +1,14 @@
 // import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import CoffeeCover from './hero_espresso.jpg'
-import Beans from './beans.jpg'
-import PourOver from './pour_over.jpg'
-import Scale from './scale.jpg'
+import { Beans, PourOver, Scale, cover } from 'image'
 
 export default function Home() {
   return (
     <div className='space-y-8'>
       <div
         className='h-screen-3/4 bg-cover'
-        style={{ backgroundImage: `url(${CoffeeCover})` }}
+        style={{ backgroundImage: `url(${cover.landscape})` }}
       >
         <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col h-full justify-center'>
           <div className='text-start space-y-2 md:max-w-md xl:max-w-lg'>
@@ -53,7 +50,6 @@ export default function Home() {
             Discover Beans
           </h2>
         </Link>
-
         <Link to='/recipe' className='flex flex-col text-center'>
           <img
             className='h-64 object-cover sm:rounded-lg'

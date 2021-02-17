@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+
+/* https://tailwindcss.com/docs/extracting-components */
+@layer components {
+  .navlink {
+    @apply inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none;
+  }
+  .navlink--state-active {
+    @apply border-blue-500 text-gray-900 focus:border-blue-700;
+  }
+  .navlink--state-inactive {
+    @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300;
+  }
+  .menu__link {
+    @apply text-left pl-3 pr-4 py-2 border-l-4 text-base font-medium focus:outline-none;
+  }
+  .menu__link--state-active {
+    @apply border-blue-500 text-blue-700 bg-blue-50 focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700;
+  }
+  .menu__link--state-inactive {
+    @apply border-transparent text-gray-600 focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300;
+  }
+}
+/* https://tailwindcss.com/docs/adding-new-utilities */
+@layer utilities {
+  .unavailable {
+    -webkit-transition: all .5s ease;
+    position: relative;
+    text-align: center;
+  }
+  .unavailable-text {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+}
+
+@layer utilities {
+  @variants hover, group-hover {
+    .unavailable-filter {
+      filter: gray; 
+      /* IE */
+      -webkit-filter: grayscale(100%); 
+      /* Chrome & Safari */
+      -webkit-transition: all .5s ease;
+      /* Fade to color for Chrome and Safari */
+      -webkit-backface-visibility: hidden;
+    }
+    .unavailable-text-filter {
+      opacity: 1;
+    }   
+  }
+}
