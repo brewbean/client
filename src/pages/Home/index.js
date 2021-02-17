@@ -9,40 +9,40 @@ export default function Home() {
         style={{ backgroundImage: `url(${cover.landscape})` }}
       >
         <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col h-full justify-center'>
-          <div className='text-start space-y-2 md:max-w-md xl:max-w-lg'>
+          <div className='text-start space-y-4 md:max-w-md xl:max-w-lg'>
             <h1 className='text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl text-gray-900'>
               Discover the world of coffee
             </h1>
             <h2 className='sm:text-lg md:text-xl text-gray-900'>
               Explore and share coffee recipes, reviews, and more.
             </h2>
-            <h2 className='sm:text-lg md:text-xl text-gray-90 font-bold'>
-              New to brewing?
-            </h2>
-          </div>
-          <div className='mt-5 sm:flex sm:justify-center lg:justify-start'>
-            <div className='rounded-md shadow'>
-              <div className='w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 md:py-4 md:text-lg md:px-10'>
+            <div className='flex'>
+              <Link
+                to='/guide'
+                className='w-full md:w-auto flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-600 bg-white hover:bg-blue-50 sm:px-8'
+              >
                 Start here
-              </div>
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
       <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid sm:grid-cols-3 gap-4'>
-        <div className='flex flex-col group unavailable hover:unavailable-filter'>
-          <img
-            className='h-64 object-cover sm:rounded-lg '
-            src={Beans}
-            alt='beans'
-          />
-          <span className='text-lg font-medium text-white-900 unavailable-text group-hover:unavailable-text-filter'>
-            COMING SOON
-          </span>
-          <h2 className='mt-2 text-lg font-medium text-gray-900'>
-            Discover Beans
-          </h2>
+        <div className='flex flex-col items-center'>
+          <div className='relative'>
+            <img
+              className='h-64 object-cover sm:rounded-lg '
+              src={Beans}
+              alt='beans'
+            />
+            <div className='opacity-0 hover:opacity-100 flex transition duration-500 ease-in-out items-center justify-center absolute top-0 h-full w-full sm:rounded-lg bg-gray-100 bg-opacity-90'>
+              <span className='text-lg font-bold text-gray-800 pointer-events-none'>
+                COMING SOON
+              </span>
+            </div>
+          </div>
+          <h2 className='mt-2 text-lg font-medium text-gray-900'>Beans</h2>
         </div>
         <Link to='/recipe' className='flex flex-col text-center'>
           <img
@@ -52,16 +52,20 @@ export default function Home() {
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
-        <div wclassName='flex flex-col group unavailable hover:unavailable-filter'>
-          <img
-            className='h-64 object-cover sm:rounded-lg'
-            src={Scale}
-            alt='scale'
-          />
-          <span className='text-lg font-medium text-white-900 unavailable-text group-hover:unavailable-text-filter'>
-            COMING SOON
-          </span>
-          <h2 className='mt-2 text-lg font-medium text-gray-900'>Brew Logs</h2>
+        <div className='flex flex-col items-center'>
+          <div className='relative'>
+            <img
+              className='h-64 w-full object-cover sm:rounded-lg'
+              src={Scale}
+              alt='scale'
+            />
+            <div className='opacity-0 hover:opacity-100 flex transition duration-500 ease-in-out items-center justify-center absolute top-0 h-full w-full sm:rounded-lg bg-gray-100 bg-opacity-90'>
+              <span className='text-lg font-bold text-gray-800 pointer-events-none'>
+                COMING SOON
+              </span>
+            </div>
+          </div>
+          <h2 className='mt-2 text-lg font-medium text-gray-900'>Brew logs</h2>
         </div>
       </div>
 
@@ -93,7 +97,7 @@ export default function Home() {
                   Roasters from everywhere
                 </dt>
                 <dd className='mt-2 text-base text-gray-500'>
-                  Discover hidden gems in roasters and beans that would be hard
+                  Discover hidden gems of roasters and beans that would be hard
                   to find in your local stores.
                 </dd>
               </div>
