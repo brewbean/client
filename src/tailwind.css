@@ -55,10 +55,6 @@
     }
     .unavailable-text-filter {
       opacity: 1;
-    }
-    .unavailable .unavailable-text-filter{
-      opacity: 1;
-    }
-    
+    }   
   }
 }
