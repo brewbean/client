@@ -1,6 +1,4 @@
-// import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
 import { Beans, PourOver, Scale, cover } from 'image'
 
 export default function Home() {
@@ -33,14 +31,10 @@ export default function Home() {
       </div>
 
       <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid sm:grid-cols-3 gap-4'>
-        {/* These can be changed to a component */}
-        <Link
-          to='/'
-          className='flex flex-col group unavailable hover:unavailable-filter'
-        >
+        <div className='flex flex-col group unavailable hover:unavailable-filter'>
           <img
             className='h-64 object-cover sm:rounded-lg '
-            src={Beans} /*TODO: - Update to new cloudinary url*/
+            src={Beans}
             alt='beans'
           />
           <span className='text-lg font-medium text-white-900 unavailable-text group-hover:unavailable-text-filter'>
@@ -49,30 +43,26 @@ export default function Home() {
           <h2 className='mt-2 text-lg font-medium text-gray-900'>
             Discover Beans
           </h2>
-        </Link>
+        </div>
         <Link to='/recipe' className='flex flex-col text-center'>
           <img
             className='h-64 object-cover sm:rounded-lg'
-            src={PourOver} /*TODO: - Update to new cloudinary url*/
+            src={PourOver}
             alt='pour over'
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
-
-        <Link
-          to='/'
-          className='flex flex-col group unavailable hover:unavailable-filter'
-        >
+        <div wclassName='flex flex-col group unavailable hover:unavailable-filter'>
           <img
             className='h-64 object-cover sm:rounded-lg'
-            src={Scale} /*TODO: - Update to new cloudinary url*/
+            src={Scale}
             alt='scale'
           />
           <span className='text-lg font-medium text-white-900 unavailable-text group-hover:unavailable-text-filter'>
             COMING SOON
           </span>
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Brew Logs</h2>
-        </Link>
+        </div>
       </div>
 
       <div className='max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 border-t'>
