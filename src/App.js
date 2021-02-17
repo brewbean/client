@@ -14,6 +14,7 @@ import ModalFlowDemo from 'pages/ModalFlowDemo'
 import Reset from 'pages/Reset'
 import StageForm from 'components/StageForm'
 import Guide from 'pages/GuidePage'
+import BrewSelect from 'pages/GuidePage/BrewSelect'
 
 const Test = () => {
   return <div className='bg-gray-200'>Test page</div>
@@ -86,6 +87,9 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/guide'>
         <Guide />
+      </ContainerRoute>
+      <ContainerRoute path='/brewselect'>
+        <BrewSelect />
       </ContainerRoute>
       <AuthRoute path='/brewtrak'>
         <BrewTrakPage />

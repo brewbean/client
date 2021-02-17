@@ -12,6 +12,41 @@ export const Beans = cld
   .resize(scale().width(400))
   .toURL()
 
+export const MokaPot = cld
+  .image('mokapot_btrqqd.jpg')
+  .delivery(format(auto()))
+  .delivery(quality(autoBest()))
+  .resize(scale().width(400))
+  .toURL()
+
+export const FrenchPress = cld
+  .image('frenchpress_b8ecsx.jpg')
+  .delivery(format(auto()))
+  .delivery(quality(autoBest()))
+  .resize(scale().width(400))
+  .toURL()
+
+export const Espresso = cld
+  .image('espresso_sev1ld.jpg')
+  .delivery(format(auto()))
+  .delivery(quality(autoBest()))
+  .resize(scale().width(400))
+  .toURL()
+
+export const Capsule = cld
+  .image('capsule_tp05hi.jpg')
+  .delivery(format(auto()))
+  .delivery(quality(autoBest()))
+  .resize(scale().width(400))
+  .toURL()
+
+export const Aeropress = cld
+  .image('aeropress_db3fg6.jpg')
+  .delivery(format(auto()))
+  .delivery(quality(autoBest()))
+  .resize(scale().width(400))
+  .toURL()
+
 export const PourOver = cld
   .image('pour_over_usakst.jpg')
   .delivery(format(auto()))
