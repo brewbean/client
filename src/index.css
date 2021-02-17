@@ -24,3 +24,6 @@
     @apply border-transparent text-gray-600 focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300;
   }
 }
+/* https://tailwindcss.com/docs/adding-new-utilities */
+@layer utilities {
+}

@@ -4,7 +4,6 @@ import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation'
 import { NotFound } from 'components/Utility'
 import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
-import BrewTrakPage from 'pages/BrewTrak'
 import Recipe from 'pages/Recipe'
 import Login from 'pages/Login'
 import CreateAccount from 'pages/CreateAccount'
@@ -83,9 +82,6 @@ function App() {
       <ContainerRoute path='/recipe'>
         <Recipe />
       </ContainerRoute>
-      <AuthRoute path='/brewtrak'>
-        <BrewTrakPage />
-      </AuthRoute>
       <ContainerRoute path='*'>
         <NotFound />
       </ContainerRoute>
