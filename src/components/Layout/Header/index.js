@@ -6,7 +6,7 @@ import UserSectionMobile from './UserSectionMobile'
 
 const links = [
   {
-    text: 'Discover Brews',
+    text: 'Discover recipes',
     to: '/recipe',
   },
 ]
