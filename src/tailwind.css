@@ -24,3 +24,41 @@
     @apply border-transparent text-gray-600 focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300;
   }
 }
+/* https://tailwindcss.com/docs/adding-new-utilities */
+@layer utilities {
+  .unavailable {
+    -webkit-transition: all .5s ease;
+    position: relative;
+    text-align: center;
+  }
+  .unavailable-text {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+}
+
+@layer utilities {
+  @variants hover, group-hover {
+    .unavailable-filter {
+      filter: gray; 
+      /* IE */
+      -webkit-filter: grayscale(100%); 
+      /* Chrome & Safari */
+      -webkit-transition: all .5s ease;
+      /* Fade to color for Chrome and Safari */
+      -webkit-backface-visibility: hidden;
+    }
+    .unavailable-text-filter {
+      opacity: 1;
+    }
+    .unavailable .unavailable-text-filter{
+      opacity: 1;
+    }
+    
+  }
+}

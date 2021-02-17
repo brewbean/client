@@ -7,16 +7,6 @@ import PourOver from './pour_over.jpg'
 import Scale from './scale.jpg'
 
 export default function Home() {
-  // const [search, setSearch] = useState('')
-
-  // const onChange = ({ target }) => setSearch(target.value)
-
-  // const onSubmit = (e) => {
-  //   e.preventDefault()
-  //   console.log('search sent')
-  //   setSearch('')
-  // }
-
   return (
     <div className='space-y-8'>
       <div
@@ -31,7 +21,7 @@ export default function Home() {
             <h2 className='sm:text-lg md:text-xl text-gray-900'>
               Explore and share coffee recipes, reviews, and more.
             </h2>
-            <h2 className='sm:text-lg md:text-xl text-gray-900'>
+            <h2 className='sm:text-lg md:text-xl text-gray-90 font-bold'>
               New to brewing?
             </h2>
           </div>
@@ -47,18 +37,24 @@ export default function Home() {
 
       <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid sm:grid-cols-3 gap-4'>
         {/* These can be changed to a component */}
-        <Link to='/beans' className='flex flex-col'>
+        <Link
+          to='/'
+          className='flex flex-col group unavailable hover:unavailable-filter'
+        >
           <img
-            className='h-64 object-cover sm:rounded-lg'
+            className='h-64 object-cover sm:rounded-lg '
             src={Beans} /*TODO: - Update to new cloudinary url*/
             alt='beans'
           />
+          <span className='text-lg font-medium text-white-900 unavailable-text group-hover:unavailable-text-filter'>
+            COMING SOON
+          </span>
           <h2 className='mt-2 text-lg font-medium text-gray-900'>
             Discover Beans
           </h2>
         </Link>
 
-        <Link to='/recipes' className='flex flex-col'>
+        <Link to='/recipe' className='flex flex-col text-center'>
           <img
             className='h-64 object-cover sm:rounded-lg'
             src={PourOver} /*TODO: - Update to new cloudinary url*/
@@ -67,12 +63,18 @@ export default function Home() {
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
 
-        <Link to='/brewtrak' className='flex flex-col'>
+        <Link
+          to='/'
+          className='flex flex-col group unavailable hover:unavailable-filter'
+        >
           <img
             className='h-64 object-cover sm:rounded-lg'
             src={Scale} /*TODO: - Update to new cloudinary url*/
             alt='scale'
           />
+          <span className='text-lg font-medium text-white-900 unavailable-text group-hover:unavailable-text-filter'>
+            COMING SOON
+          </span>
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Brew Logs</h2>
         </Link>
       </div>
