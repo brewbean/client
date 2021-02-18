@@ -12,6 +12,7 @@ import Profile from 'pages/Profile'
 import ModalFlowDemo from 'pages/ModalFlowDemo'
 import Reset from 'pages/Reset'
 import StageForm from 'components/StageForm'
+import Guide from 'pages/Guide'
 
 const Test = () => {
   return <div className='bg-gray-200'>Test page</div>
@@ -81,6 +82,9 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/recipe'>
         <Recipe />
+      </ContainerRoute>
+      <ContainerRoute path='/guide'>
+        <Guide />
       </ContainerRoute>
       <ContainerRoute path='*'>
         <NotFound />
