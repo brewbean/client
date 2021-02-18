@@ -1,19 +1,7 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
 import { Beans, PourOver, Scale, cover } from 'image'
 
 export default function Home() {
-  const [search, setSearch] = useState('')
-
-  const onChange = ({ target }) => setSearch(target.value)
-
-  const onSubmit = (e) => {
-    e.preventDefault()
-    console.log('search sent')
-    setSearch('')
-  }
-
   return (
     <div className='space-y-8'>
       <div
@@ -21,77 +9,64 @@ export default function Home() {
         style={{ backgroundImage: `url(${cover.landscape})` }}
       >
         <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col h-full justify-center'>
-          <div className='text-start space-y-2 md:max-w-md xl:max-w-lg'>
+          <div className='text-start space-y-4 md:max-w-md xl:max-w-lg'>
             <h1 className='text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl text-gray-900'>
               Discover the world of coffee
             </h1>
             <h2 className='sm:text-lg md:text-xl text-gray-900'>
-              Explore and share coffee recipes, reviews, and more
+              Explore and share coffee recipes, reviews, and more.
             </h2>
-          </div>
-
-          <form
-            onSubmit={onSubmit}
-            className='mt-6 flex rounded-md shadow-lg w-full sm:w-2/3 lg:w-2/5'
-          >
-            <input
-              type='text'
-              value={search}
-              onChange={onChange}
-              className='focus:ring-blue-500 focus:border-blue-500 border-none block w-full rounded-none rounded-l-md sm:text-sm'
-              placeholder='Colombian'
-            />
-
-            <button
-              type='submit'
-              className='-ml-px inline-flex items-center px-4 py-2 text-sm font-medium rounded-r-md bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500'
-            >
-              <svg
-                className='w-6 h-6 text-white'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-                xmlns='http://www.w3.org/2000/svg'
+            <div className='flex'>
+              <Link
+                to='/guide'
+                className='w-full md:w-auto flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-600 bg-white hover:bg-blue-50 sm:px-8'
               >
-                <path
-                  fillRule='evenodd'
-                  d='M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z'
-                  clipRule='evenodd'
-                />
-              </svg>
-            </button>
-          </form>
+                Start here
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className='px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid sm:grid-cols-3 gap-4'>
-        <Link to='/beans' className='flex flex-col'>
-          <img
-            className='h-64 object-cover sm:rounded-lg'
-            src={Beans}
-            alt='beans'
-          />
-          <h2 className='mt-2 text-lg font-medium text-gray-900'>
-            Bean Reviews
-          </h2>
-        </Link>
-        <Link to='/recipes' className='flex flex-col'>
+        <div className='flex flex-col items-center'>
+          <div className='relative'>
+            <img
+              className='h-64 object-cover sm:rounded-lg '
+              src={Beans}
+              alt='beans'
+            />
+            <div className='opacity-0 hover:opacity-100 flex transition duration-500 ease-in-out items-center justify-center absolute top-0 h-full w-full sm:rounded-lg bg-gray-100 bg-opacity-90'>
+              <span className='text-lg font-bold text-gray-800 pointer-events-none'>
+                COMING SOON
+              </span>
+            </div>
+          </div>
+          <h2 className='mt-2 text-lg font-medium text-gray-900'>Beans</h2>
+        </div>
+        <Link to='/recipe' className='flex flex-col text-center'>
           <img
             className='h-64 object-cover sm:rounded-lg'
             src={PourOver}
-            alt='pourover'
+            alt='pour over'
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
-        <Link to='/pour-app' className='flex flex-col'>
-          <img
-            className='h-64 object-cover sm:rounded-lg'
-            src={Scale}
-            alt='scale'
-          />
-          <h2 className='mt-2 text-lg font-medium text-gray-900'>
-            Recipe Player
-          </h2>
-        </Link>
+        <div className='flex flex-col items-center'>
+          <div className='relative'>
+            <img
+              className='h-64 w-full object-cover sm:rounded-lg'
+              src={Scale}
+              alt='scale'
+            />
+            <div className='opacity-0 hover:opacity-100 flex transition duration-500 ease-in-out items-center justify-center absolute top-0 h-full w-full sm:rounded-lg bg-gray-100 bg-opacity-90'>
+              <span className='text-lg font-bold text-gray-800 pointer-events-none'>
+                COMING SOON
+              </span>
+            </div>
+          </div>
+          <h2 className='mt-2 text-lg font-medium text-gray-900'>Brew logs</h2>
+        </div>
       </div>
 
       <div className='max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 border-t'>
@@ -122,7 +97,7 @@ export default function Home() {
                   Roasters from everywhere
                 </dt>
                 <dd className='mt-2 text-base text-gray-500'>
-                  Discover hidden gems in roasters and beans that would be hard
+                  Discover hidden gems of roasters and beans that would be hard
                   to find in your local stores.
                 </dd>
               </div>
