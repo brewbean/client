@@ -71,8 +71,9 @@ export const updates = {
         },
         (data) => {
           // Null error if user navigates to /recipe/new directly
-          // Maybe we should avoid directly form navigation
-          data.recipes.push(result.insert_recipes_one)
+          // Maybe we should avoid directly form navigation or use `writeFragment`
+          // `unshift` adds to top of recipe results
+          data.recipes.unshift(result.insert_recipes_one)
           return data
         }
       )
@@ -81,17 +82,9 @@ export const updates = {
       cache.invalidate({ __typename: 'recipes', id: args.id })
     },
     update_recipe_reviews_by_pk: (result, args, cache, info) => {
-      cache.updateQuery(
-        {
-          query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
-          variables: { id: args.object.recipe_id },
-        },
-        (data) => {
-          data.recipes_by_pk.recipe_reviews = data.recipes_by_pk.recipe_reviews.map(
-            (r) => (r.id === args.id ? result.update_recipe_reviews_by_pk : r)
-          )
-          return data
-        }
+      cache.writeFragment(
+        fragment.recipeReviewInfo,
+        result.update_recipe_reviews_by_pk
       )
     },
     insert_recipe_reviews_one: (result, args, cache, info) => {
