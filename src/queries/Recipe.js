@@ -1,9 +1,77 @@
 import { gql } from 'urql'
+
+/**
+ * Fragments
+ */
+const recipeInfo = gql`
+  fragment RecipeInfo on recipes {
+    id
+    barista_id
+    brew_type
+    bean_weight
+    bean_grind
+    water_amount
+    bean_id
+    water_temp
+    is_private
+    date_added
+    device
+    about
+    name
+    instructions
+    bean_name_free
+    stages {
+      id
+      action
+      end
+      start
+      weight
+    }
+    barista {
+      id
+      display_name
+      avatar
+    }
+    bean {
+      id
+      img
+      name
+    }
+    recipe_reviews_aggregate {
+      aggregate {
+        avg {
+          rating
+        }
+      }
+    }
+  }
+`
+
+const recipeReviewInfo = gql`
+  fragment RecipeReviewInfo on recipe_reviews {
+    id
+    recipe_id
+    rating
+    comment
+    date_added
+    barista {
+      id
+      display_name
+      avatar
+    }
+  }
+`
+
+const fragment = {
+  recipeInfo,
+  recipeReviewInfo,
+}
+
 /*
   Recipe Queries
 */
 const INSERT_RECIPES_ONE = gql`
-  mutation($object: recipes_insert_input!) {
+  mutation InsertOneRecipe($object: recipes_insert_input!) {
     insert_recipes_one(object: $object) {
       id
       barista_id
@@ -86,7 +154,7 @@ const GET_ALL_RECIPES = gql`
   }
 `
 const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
-  query($id: Int!) {
+  query GetOneRecipeWithReviews($id: Int!) {
     recipes_by_pk(id: $id) {
       id
       brew_type
@@ -140,7 +208,7 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
   }
 `
 const GET_SINGLE_RECIPE = gql`
-  query($id: Int!) {
+  query GetOneRecipe($id: Int!) {
     recipes_by_pk(id: $id) {
       id
       barista_id
@@ -177,7 +245,7 @@ const GET_SINGLE_RECIPE = gql`
   }
 `
 const GET_SINGLE_RECIPE_REVIEW = gql`
-  query($id: Int!) {
+  query GetOneRecipeReview($id: Int!) {
     recipe_reviews_by_pk(id: $id) {
       id
       rating
@@ -198,7 +266,7 @@ const GET_SINGLE_RECIPE_REVIEW = gql`
  * Recipe & Recipe Player
  */
 const GET_RECIPE_BY_ID = gql`
-  query($id: Int!) {
+  query GetRecipeByIdAndStages($id: Int!) {
     recipes_by_pk(id: $id) {
       id
       bean_weight
@@ -215,7 +283,7 @@ const GET_RECIPE_BY_ID = gql`
   }
 `
 const UPDATE_RECIPES = gql`
-  mutation($id: Int!, $object: recipes_set_input) {
+  mutation UpdateRecipe($id: Int!, $object: recipes_set_input) {
     update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
       brew_type
       bean_weight
@@ -233,16 +301,15 @@ const UPDATE_RECIPES = gql`
 `
 
 const UPDATE_RECIPE_REVIEW = gql`
-  mutation($id: Int!, $object: recipe_reviews_set_input!) {
+  mutation UpdateRecipeReview($id: Int!, $object: recipe_reviews_set_input!) {
     update_recipe_reviews_by_pk(pk_columns: { id: $id }, _set: $object) {
-      id
-      comment
-      rating
+      ...RecipeReviewInfo
     }
   }
+  ${fragment.recipeReviewInfo}
 `
 const DELETE_RECIPES = gql`
-  mutation($id: Int!) {
+  mutation DeleteRecipe($id: Int!) {
     delete_recipes_by_pk(id: $id) {
       id
     }
@@ -252,18 +319,16 @@ const DELETE_RECIPES = gql`
   Recipe Review Queries
 */
 const INSERT_RECIPE_REVIEW_ONE = gql`
-  mutation($object: recipe_reviews_insert_input!) {
+  mutation InsertRecipeReview($object: recipe_reviews_insert_input!) {
     insert_recipe_reviews_one(object: $object) {
-      id
-      barista_id
-      recipe_id
-      rating
-      comment
+      ...RecipeReviewInfo
     }
   }
+  ${fragment.recipeReviewInfo}
 `
+
 const DELETE_RECIPE_REVIEW = gql`
-  mutation($id: Int!) {
+  mutation DeleteRecipeReview($id: Int!) {
     delete_recipe_reviews_by_pk(id: $id) {
       id
       recipe_id
@@ -335,54 +400,6 @@ const UPDATE_RECIPE_WITH_STAGES = gql`
     }
   }
 `
-
-const recipeInfo = gql`
-  fragment RecipeInfo on recipes {
-    id
-    barista_id
-    brew_type
-    bean_weight
-    bean_grind
-    water_amount
-    bean_id
-    water_temp
-    is_private
-    date_added
-    device
-    about
-    name
-    instructions
-    bean_name_free
-    stages {
-      id
-      action
-      end
-      start
-      weight
-    }
-    barista {
-      id
-      display_name
-      avatar
-    }
-    bean {
-      id
-      img
-      name
-    }
-    recipe_reviews_aggregate {
-      aggregate {
-        avg {
-          rating
-        }
-      }
-    }
-  }
-`
-
-const fragment = {
-  recipeInfo,
-}
 
 export {
   fragment,
