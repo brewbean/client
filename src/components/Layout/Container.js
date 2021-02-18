@@ -17,7 +17,7 @@ const Container = ({ config, children, defaultLayout = true }) => {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-b from-gray-50 to-blue-50 flex ${
+      className={`min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex ${
         settings.flexCol ? 'flex-col' : ''
       }`.trim()}
     >
