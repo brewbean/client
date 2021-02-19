@@ -6,15 +6,15 @@ const links = [
     to: '/about',
   },
   {
-    text: 'Privacy Policy',
-    to: '/privacy-policy',
+    text: 'Privacy',
+    to: '/privacy',
   },
   {
-    text: 'Changelog',
-    to: '/changelog',
+    text: 'Terms',
+    to: '/terms',
   },
   {
-    text: 'Contact Us',
+    text: 'Contact us',
     to: '/contact-us',
   },
 ]
