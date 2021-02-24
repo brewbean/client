@@ -8,4 +8,4 @@ export const VERIFY_API =
     ? 'http://localhost:4000/verify'
     : 'https://api.brewbean.io/verify'
 
-export const GRAPHQL_API = 'https://brewbean-graphql.herokuapp.com/v1/graphql'
+export const GRAPHQL_API = 'https://graphql.brewbean.io/v1/graphql'
