@@ -1,11 +1,3 @@
-export const AUTH_API =
-  process.env.NODE_ENV !== 'production'
-    ? 'http://localhost:4000/auth'
-    : 'https://api.brewbean.io/auth'
-
-export const VERIFY_API =
-  process.env.NODE_ENV !== 'production'
-    ? 'http://localhost:4000/verify'
-    : 'https://api.brewbean.io/verify'
-
-export const GRAPHQL_API = 'https://graphql.brewbean.io/v1/graphql'
+export const AUTH_API = process.env.REACT_APP_API_BASE + '/auth'
+export const VERIFY_API = process.env.REACT_APP_API_BASE + '/verify'
+export const GRAPHQL_API = process.env.REACT_APP_GRAPHQL_API
