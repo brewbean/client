@@ -1,0 +1,19 @@
+[build]
+base = ""
+command = "npm run build"
+publish = "build/"
+
+[context.production.environment]
+API_BASE = "https://api.brewbean.io"
+GRAPHQL_API = "https://graphql.brewbean.io/v1/graphql"
+NODE_ENV = "production"
+
+[context.stage.environment]
+API_BASE = "https://staging-api.brewbean.io"
+GRAPHQL_API = "https://staging-graphql.brewbean.io/v1/graphql"
+NODE_ENV = "production"
+
+[[redirects]]
+from = "/*"
+status = 200
+to = "/index.html"
