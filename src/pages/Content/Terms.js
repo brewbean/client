@@ -30,7 +30,7 @@ export default function Terms() {
 
         <p>
           By accessing or using the Service you agree to be bound by these
-          Terms. If you disagree with any part of the terms then you may not
+          Terms. If you disagree with any part of the Terms then you may not
           access the Service.
         </p>
 
@@ -57,7 +57,7 @@ export default function Terms() {
 
         <p>
           You may not use as a username the name of another person or entity or
-          that is not lawfully available for use, a name or trade mark that is
+          that is not lawfully available for use, a name or trademark that is
           subject to any rights of another person or entity other than you
           without appropriate authorization, or a name that is otherwise
           offensive, vulgar or obscene.
@@ -162,15 +162,15 @@ export default function Terms() {
         <p>
           We reserve the right, at our sole discretion, to modify or replace
           these Terms at any time. If a revision is material we will try to
-          provide at least 30 days notice prior to any new terms taking effect.
+          provide at least 30 days notice prior to any new Terms taking effect.
           What constitutes a material change will be determined at our sole
           discretion.
         </p>
 
         <p>
           By continuing to access or use our Service after those revisions
-          become effective, you agree to be bound by the revised terms. If you
-          do not agree to the new terms, please stop using the Service.
+          become effective, you agree to be bound by the revised Terms. If you
+          do not agree to the new Terms, please stop using the Service.
         </p>
 
         <p>
