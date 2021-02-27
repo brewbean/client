@@ -9,12 +9,12 @@ export default function PrivacyPolicy() {
       <div className='mt-6 prose prose-blue prose-md text-gray-700 mx-auto'>
         <p>
           Brewbean is a privacy-first company. We make money from paying
-          customers in our marketplace, along with first party advertisement
-          that does not use any tracking cookies. This means that you will never
-          get personalized ads nor will advertisers know any personal details
-          about you. Fundamental to our ethos is being a decent online denizen.
-          This means we thrive to never collect any extraneous data on our users
-          beyond what we need to provide a high quality service.
+          customers in our marketplace, along with first-party advertisement
+          that does not use any tracking cookies. This means that you will
+          neither get personalized ads nor will advertisers know any personal
+          details about you. Fundamental to our ethos is being a decent online
+          denizen. This means we thrive to never collect any extraneous data on
+          our users beyond what we need to provide a high quality service.
         </p>
         <p>
           We only ask for personal information when we actually need it—like our
@@ -37,7 +37,7 @@ export default function PrivacyPolicy() {
             analytics tool that is compliant with GDPR, ePrivacy, PECR, CCPA,
             and COPPA. Analytics data is never sold. Only basic page view
             metrics such as unique visits and average time on site are shared
-            with first party advertisers.
+            with first-party advertisers.
           </li>
           <li>
             Stripe, for third-party secure payment processing. We do not store
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
         <p>The legal text for our privacy policy:</p>
         <p>Effective date: February 18, 2021</p>
         <p>
-          Brewbean LLC ("us", "we", or "our") operates the https://brewbean.io
+          Brewbean ("us", "we", or "our") operates the https://brewbean.io
           website (hereinafter referred to as the "Service"). This page informs
           you of our policies regarding the collection, use and disclosure of
           personal data when you use our Service and the choices you have
@@ -64,7 +64,7 @@ export default function PrivacyPolicy() {
         <ul>
           <li>
             Service: service is the https://brewbean.io website operated by
-            Brewbean LLC.
+            Brewbean.
           </li>
           <li>
             Personal Data: personal Data means data about a living individual
@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
             mobile device).
           </li>
           <li>
-            Data Controller: data Controller means the natural or legal person
+            Data Controller: Data Controller means the natural or legal person
             who (either alone or jointly or in common with other persons)
             determines the purposes for which and the manner in which any
             personal information are, or are to be, processed. For the purpose
@@ -90,13 +90,13 @@ export default function PrivacyPolicy() {
             Data.
           </li>
           <li>
-            Data Processors (or Service Providers): data Processor (or Service
+            Data Processors (or Service Providers): Data Processor (or Service
             Provider) means any natural or legal person who processes the data
             on behalf of the Data Controller. We may use the services of various
             Service Providers in order to process your data more effectively.
           </li>
           <li>
-            Data Subject (or User): data Subject is any living individual who is
+            Data Subject (or User): Data Subject is any living individual who is
             using our Service and is the subject of Personal Data.
           </li>
         </ul>
@@ -131,7 +131,7 @@ export default function PrivacyPolicy() {
         <p>
           We do not use and store information about your location except for
           country of origin (we do not track IP address or anything more
-          granular than country.
+          granular than country).
         </p>
         <h3>Tracking & Cookies Data</h3>
         <p>
@@ -141,7 +141,7 @@ export default function PrivacyPolicy() {
           <a href='https://usefathom.com/blog/anonymization'>here</a>.
         </p>
         <h3>Use of Data</h3>
-        <p>Brewbean LLC uses the collected data for various purposes:</p>
+        <p>Brewbean uses the collected data for various purposes:</p>
         <ul>
           <li>To provide and maintain our Service</li>
           <li>To notify you about changes to our Service</li>
@@ -180,12 +180,12 @@ export default function PrivacyPolicy() {
           Protection Regulation (GDPR)
         </h3>
         <p>
-          If you are from the European Economic Area (EEA), Brewbean LLC legal
+          If you are from the European Economic Area (EEA), Brewbean's legal
           basis for collecting and using the personal information described in
           this Privacy Policy depends on the Personal Data we collect and the
           specific context in which we collect it.
         </p>
-        <p>Brewbean LLC may process your Personal Data because:</p>
+        <p>Brewbean may process your Personal Data because:</p>
         <ul>
           <li>We need to perform a contract with you</li>
           <li>You have given us permission to do so</li>
@@ -198,7 +198,7 @@ export default function PrivacyPolicy() {
         </ul>
         <h3>Retention of Data</h3>
         <p>
-          Brewbean LLC will retain your Personal Data only for as long as is
+          Brewbean will retain your Personal Data only for as long as is
           necessary for the purposes set out in this Privacy Policy. We will
           retain and use your Personal Data to the extent necessary to comply
           with our legal obligations (for example, if we are required to retain
@@ -206,11 +206,11 @@ export default function PrivacyPolicy() {
           enforce our legal agreements and policies.
         </p>
         <p>
-          Brewbean LLC will also retain Usage Data for internal analysis
-          purposes. Usage Data is generally retained for a shorter period of
-          time, except when this data is used to strengthen the security or to
-          improve the functionality of our Service, or we are legally obligated
-          to retain this data for longer periods.
+          Brewbean will also retain Usage Data for internal analysis purposes.
+          Usage Data is generally retained for a shorter period of time, except
+          when this data is used to strengthen the security or to improve the
+          functionality of our Service, or we are legally obligated to retain
+          this data for longer periods.
         </p>
         <h3>Transfer of Data</h3>
         <p>
@@ -225,26 +225,26 @@ export default function PrivacyPolicy() {
           Personal Data, to North America and process it there.
         </p>
         <p>
-          Brewbean LLC will take all the steps reasonably necessary to ensure
-          that your data is treated securely and in accordance with this Privacy
+          Brewbean will take all the steps reasonably necessary to ensure that
+          your data is treated securely and in accordance with this Privacy
           Policy and no transfer of your Personal Data will take place to an
           organization or a country unless there are adequate controls in place
           including the security of your data and other personal information.
         </p>
         <h3>Disclosure for Law Enforcement</h3>
         <p>
-          Under certain circumstances, Brewbean LLC may be required to disclose
-          your Personal Data if required to do so by law or in response to valid
+          Under certain circumstances, Brewbean may be required to disclose your
+          Personal Data if required to do so by law or in response to valid
           requests by public authorities (e.g. a court or a government agency).
         </p>
         <h3>Legal Requirements</h3>
         <p>
-          Brewbean LLC may disclose your Personal Data in the good faith belief
-          that such action is necessary to:
+          Brewbean may disclose your Personal Data in the good faith belief that
+          such action is necessary to:
         </p>
         <ul>
           <li>To comply with a legal obligation</li>
-          <li>To protect and defend the rights or property of Brewbean LLC</li>
+          <li>To protect and defend the rights or property of Brewbean</li>
           <li>
             To prevent or investigate possible wrongdoing in connection with the
             Service
@@ -268,8 +268,8 @@ export default function PrivacyPolicy() {
         </h3>
         <p>
           If you are a resident of the European Economic Area (EEA), you have
-          certain data protection rights. Brewbean LLC aims to take reasonable
-          steps to allow you to correct, amend, delete or limit the use of your
+          certain data protection rights. Brewbean aims to take reasonable steps
+          to allow you to correct, amend, delete or limit the use of your
           Personal Data.
         </p>
         <p>
@@ -308,8 +308,8 @@ export default function PrivacyPolicy() {
           </li>
           <li>
             The right to withdraw consent. You also have the right to withdraw
-            your consent at any time where Brewbean LLC relied on your consent
-            to process your personal information.
+            your consent at any time where Brewbean relied on your consent to
+            process your personal information.
           </li>
         </ul>
         <p>
@@ -325,7 +325,7 @@ export default function PrivacyPolicy() {
         </p>
         <h3>Service Providers</h3>
         <p>
-          We may employ third party companies and individuals to facilitate our
+          We may employ third-party companies and individuals to facilitate our
           Service ("Service Providers"), provide the Service on our behalf,
           perform Service-related services or assist us in analyzing how our
           Service is used.
@@ -340,13 +340,13 @@ export default function PrivacyPolicy() {
         <h3>Links to Other Sites</h3>
         <p>
           Our Service may contain links to other sites that are not operated by
-          us. If you click a third party link, you will be directed to that
-          third party's site. We strongly advise you to review the Privacy
+          us. If you click a third-party link, you will be directed to that
+          third-party's site. We strongly advise you to review the Privacy
           Policy of every site you visit.
         </p>
         <p>
           We have no control over and assume no responsibility for the content,
-          privacy policies or practices of any third party sites or services.
+          privacy policies or practices of any third-party sites or services.
         </p>
         <h3>Children's Privacy</h3>
         <p>

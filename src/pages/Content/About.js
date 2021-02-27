@@ -22,13 +22,13 @@ export default function About() {
         <p>
           After perusing many forums, blog articles, and videos, we found ways
           to make coffee that we love. However, we think this process is both
-          slow, but also not ideal. We think that the coffee world's internet
-          presence is abysmal compared to how pervasive it throughout everyday
-          life. Our goal is to be able to get all the best ideas from hobbyists
-          and professionals alike on what their favorite recipes and beans are.
-          That way we can make the journey for a new lover of coffee much more
-          pleasant, and who knows, maybe show an old lover of coffee some new
-          ideas and cool roasters out there.
+          slow and less than ideal. We think that the coffee world's internet
+          presence is abysmal compared to how pervasive it is throughout
+          everyday life. Our goal is to be able to get all the best ideas from
+          hobbyists and professionals alike on what their favorite recipes and
+          beans are. That way we can make the journey for a new lover of coffee
+          much more pleasant, and who knows, maybe show an old lover of coffee
+          some new ideas and cool roasters out there.
         </p>
         <h2>We love code</h2>
         <p>
@@ -36,19 +36,19 @@ export default function About() {
           it comes to a passion project like this, coding is amazing! We get to
           think about all the interesting ways that technology can be used to
           make coffee making, buying, and learning more pleasant. One example is
-          our recipe player when you check out the recipes on our site. A lot of
-          us have struggled to initially follow recipes for pour-overs because
-          they involve both a stopwatch, scale, and recipe on hand. Our hope
-          with the recipe player is that we can simplify this experience so that
-          you'll be more inclined to try out new recipes all the time.
+          our integrated recipe player with the recipes on our site. A lot of us
+          have struggled to initially follow recipes for pour-overs because they
+          involve both a stopwatch, scale, and recipe on hand. Our hope with the
+          recipe player is that we can simplify this experience so that you'll
+          be more inclined to try out new recipes all the time.
         </p>
         <p>
           It's hard to say now at the beginning stages, but we truly believe we
-          can create some amazing stuff leveraging technology and cool projects
-          from the industry. Such future ideas include integrating with smart
-          scales and coffee machines. Truly the opportunities are endless. Like
-          we mentioned before, the coffee world's presence on the internet and
-          technology for that matter has been abysmal.
+          can create some amazing innovations leveraging technology and cool
+          projects from the industry. Such future ideas include integrating with
+          smart scales and coffee machines. Truly the opportunities are endless.
+          Like we mentioned before, the coffee world's presence on the internet
+          and technology for that matter has been abysmal.
         </p>
         <h2>What we want to provide</h2>
         <p>
@@ -58,7 +58,7 @@ export default function About() {
           you have a fixed amount of coffee you buy every week or whatever
           interval you choose so just by nature of decision fatigue you aren't
           hunting for a cool brand all the time. This is natural, but it's also
-          why small coffee roasters and cafe often struggle. Especially in the
+          why small coffee roasters and cafes often struggle. Especially in the
           times of COVID-19, cafes and small roasters are needing to shift to an
           online market. Without a large marketing budget and plan, many
           struggle to shift their efforts online.
@@ -66,10 +66,10 @@ export default function About() {
         <p>
           Let's be clear here, this is largely a talk related to marketing and
           business, but for us consumers, this says little about the best
-          product we can get. That's really the kicker, we're often buying the
+          product we can get. That's really the kicker: We're often buying the
           beans we know rather than the beans we think are best &mdash;{' '}
           <em>
-            unless you are the special enthusiast is constantly in search of new
+            unless you are the special enthusiast constantly in search of new
             beans.
           </em>{' '}
           By creating a platform that allows people to review coffee beans from
