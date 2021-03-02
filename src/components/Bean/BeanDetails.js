@@ -1,4 +1,4 @@
-import Star from '../BrewTrak/Icons/star.png'
+import { StarSolid } from 'components/Icon'
 import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
 import { useQuery } from 'urql'
 import { Link, useRouteMatch, useParams } from 'react-router-dom'
@@ -49,8 +49,7 @@ const BeanDetails = (props) => {
                 <div className='text-2xl text-gray-400'>{company_name}</div>
                 <div className='text-3xl leading-9 font-bold'>{name}</div>
                 <div className='flex items-center text-2xl leading-9'>
-                  <img className='w-5 h-5 mr-1' src={Star} alt='Star' />:
-                  {rating}/5
+                  <StarSolid className='w-5 h-5 mr-1' />:{rating}/5
                 </div>
                 <div className='text-2xl font-bold'>${price}</div>
                 <div className='font-bold'>Profile Notes</div>
