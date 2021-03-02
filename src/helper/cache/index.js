@@ -23,33 +23,38 @@ export const updates = {
     delete_bean_review_by_pk: (result, args, cache, info) => {
       cache.invalidate({ __typename: 'bean_review', id: args.id })
     },
-    insert_brew_logs_one: (result, args, cache, info) => {
+    insert_brew_log_one: (result, args, cache, info) => {
       cache.updateQuery(
         {
           query: GET_ALL_BREW_LOGS,
         },
         (data) => {
-          data.brew_logs.push(result.insert_brew_logs_one)
+          data.brew_log.push(result.insert_brew_log_one)
           return data
         }
       )
     },
-    delete_brew_logs_by_pk: (result, args, cache, info) => {
-      cache.invalidate({ __typename: 'brew_logs', id: args.id })
+    delete_brew_log_by_pk: (result, args, cache, info) => {
+      cache.invalidate({ __typename: 'brew_log', id: args.id })
     },
-    update_brew_logs_by_pk: (result, args, cache, info) => {
+    update_brew_log_by_pk: (result, args, cache, info) => {
+      /**
+       * [ TO DO ]
+       * should implement a `writeFragment` instead of this `updateQuery`
+       * lookup if you can construct fragments composing of other fragments
+       */
       cache.updateQuery(
         {
           query: GET_ALL_BREW_LOGS,
         },
         (data) => {
-          const updateIndex = data.brew_logs.findIndex((b) => b.id === args.id)
+          const updateIndex = data.brew_log.findIndex((b) => b.id === args.id)
           return {
             ...data,
-            brew_logs: [
-              ...data.brew_logs.slice(0, updateIndex),
-              result.update_brew_logs_by_pk,
-              ...data.brew_logs.slice(updateIndex + 1),
+            brew_log: [
+              ...data.brew_log.slice(0, updateIndex),
+              result.update_brew_log_by_pk,
+              ...data.brew_log.slice(updateIndex + 1),
             ],
           }
         }
