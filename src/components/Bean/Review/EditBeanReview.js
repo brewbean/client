@@ -12,9 +12,9 @@ const EditBeanReview = (props) => {
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... error: {error.message}</p>
-  if (data?.bean_reviews_by_pk)
+  if (data?.bean_review_by_pk)
     return (
-      <EditBeanReviewForm beanReview={data.bean_reviews_by_pk} id={review_id} />
+      <EditBeanReviewForm beanReview={data.bean_review_by_pk} id={review_id} />
     )
   return null
 }

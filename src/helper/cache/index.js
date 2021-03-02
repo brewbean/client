@@ -8,20 +8,20 @@ import {
 
 export const updates = {
   Mutation: {
-    insert_bean_reviews_one: (result, args, cache, info) => {
+    insert_bean_review_one: (result, args, cache, info) => {
       cache.updateQuery(
         {
           query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
           variables: { id: args.object.bean_id },
         },
         (data) => {
-          data.bean_by_pk.bean_reviews.push(result.insert_bean_reviews_one)
+          data.bean_by_pk.bean_reviews.push(result.insert_bean_review_one)
           return data
         }
       )
     },
-    delete_bean_reviews_by_pk: (result, args, cache, info) => {
-      cache.invalidate({ __typename: 'bean_reviews', id: args.id })
+    delete_bean_review_by_pk: (result, args, cache, info) => {
+      cache.invalidate({ __typename: 'bean_review', id: args.id })
     },
     insert_brew_logs_one: (result, args, cache, info) => {
       cache.updateQuery(
@@ -108,9 +108,9 @@ export const updates = {
 }
 
 export const keys = {
-  bean_reviews_aggregate: () => null,
-  bean_reviews_aggregate_fields: () => null,
-  bean_reviews_avg_fields: () => null,
+  bean_review_aggregate: () => null,
+  bean_review_aggregate_fields: () => null,
+  bean_review_avg_fields: () => null,
   recipe_review_aggregate: () => null,
   recipe_review_aggregate_fields: () => null,
   recipe_review_avg_fields: () => null,

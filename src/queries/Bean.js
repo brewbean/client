@@ -76,8 +76,8 @@ const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
   Bean Review Queries
 */
 const INSERT_REVIEW_ONE = gql`
-  mutation($object: bean_reviews_insert_input!) {
-    insert_bean_reviews_one(object: $object) {
+  mutation($object: bean_review_insert_input!) {
+    insert_bean_review_one(object: $object) {
       id
       rating
       comment
@@ -90,7 +90,7 @@ const INSERT_REVIEW_ONE = gql`
 `
 const GET_SINGLE_REVIEW = gql`
   query($id: Int!) {
-    bean_reviews_by_pk(id: $id) {
+    bean_review_by_pk(id: $id) {
       id
       barista_id
       bean_id
@@ -104,8 +104,8 @@ const GET_SINGLE_REVIEW = gql`
   }
 `
 const UPDATE_BEAN_REVIEW = gql`
-  mutation($id: Int!, $object: bean_reviews_set_input!) {
-    update_bean_reviews_by_pk(pk_columns: { id: $id }, _set: $object) {
+  mutation($id: Int!, $object: bean_review_set_input!) {
+    update_bean_review_by_pk(pk_columns: { id: $id }, _set: $object) {
       id
       comment
       rating
@@ -114,7 +114,7 @@ const UPDATE_BEAN_REVIEW = gql`
 `
 const DELETE_BEAN_REVIEW = gql`
   mutation($id: Int!) {
-    delete_bean_reviews_by_pk(id: $id) {
+    delete_bean_review_by_pk(id: $id) {
       id
       bean_id
     }
