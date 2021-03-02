@@ -62,7 +62,7 @@ const Detail = () => {
     date_added,
     recipe_reviews,
     stages,
-  } = data.recipes_by_pk
+  } = data.recipe_by_pk
 
   return (
     <main className='max-w-3xl mx-auto lg:max-w-7xl sm:px-6'>
@@ -84,7 +84,7 @@ const Detail = () => {
       <div className='mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3'>
         {/*<!-- Description list-->*/}
         <div className='space-y-6 lg:col-span-2'>
-          <DescriptionSection recipe={data.recipes_by_pk} />
+          <DescriptionSection recipe={data.recipe_by_pk} />
         </div>
 
         {/*<!-- Activity Feed -->*/}

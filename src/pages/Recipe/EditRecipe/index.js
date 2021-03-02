@@ -16,12 +16,12 @@ const EditRecipe = () => {
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... error: {error.message}</p>
 
-  if (!data?.recipes_by_pk) return null
+  if (!data?.recipe_by_pk) return null
 
-  if (!isVerified || data?.recipes_by_pk.barista_id !== barista?.id)
+  if (!isVerified || data?.recipe_by_pk.barista_id !== barista?.id)
     return <Redirect to={`/recipe/${id}`} />
 
-  return <Edit recipe={data.recipes_by_pk} id={id} />
+  return <Edit recipe={data.recipe_by_pk} id={id} />
 }
 
 export default EditRecipe

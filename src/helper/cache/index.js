@@ -55,16 +55,16 @@ export const updates = {
         }
       )
     },
-    update_recipes_by_pk: (result, args, cache, info) => {
+    update_recipe_by_pk: (result, args, cache, info) => {
       /**
        * `writeFragment` is the right function for adding updates since they can be
        * made even if a user hasn't requested a list of entities already
        * ex. edit recipe 34 even though you haven't cached 'get all recipes'
        * (causes null error or bad cache with `updateQuery`)
        */
-      cache.writeFragment(fragment.recipeInfo, result.update_recipes_by_pk)
+      cache.writeFragment(fragment.recipeInfo, result.update_recipe_by_pk)
     },
-    insert_recipes_one: (result, args, cache, info) => {
+    insert_recipe_one: (result, args, cache, info) => {
       cache.updateQuery(
         {
           query: GET_ALL_RECIPES,
@@ -73,36 +73,36 @@ export const updates = {
           // Null error if user navigates to /recipe/new directly
           // Maybe we should avoid directly form navigation or use `writeFragment`
           // `unshift` adds to top of recipe results
-          data.recipes.unshift(result.insert_recipes_one)
+          data.recipe.unshift(result.insert_recipe_one)
           return data
         }
       )
     },
-    delete_recipes_by_pk: (result, args, cache, info) => {
-      cache.invalidate({ __typename: 'recipes', id: args.id })
+    delete_recipe_by_pk: (result, args, cache, info) => {
+      cache.invalidate({ __typename: 'recipe', id: args.id })
     },
-    update_recipe_reviews_by_pk: (result, args, cache, info) => {
+    update_recipe_review_by_pk: (result, args, cache, info) => {
       cache.writeFragment(
         fragment.recipeReviewInfo,
-        result.update_recipe_reviews_by_pk
+        result.update_recipe_review_by_pk
       )
     },
-    insert_recipe_reviews_one: (result, args, cache, info) => {
+    insert_recipe_review_one: (result, args, cache, info) => {
       cache.updateQuery(
         {
           query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
           variables: { id: args.object.recipe_id },
         },
         (data) => {
-          data.recipes_by_pk.recipe_reviews.push(
-            result.insert_recipe_reviews_one
+          data.recipe_by_pk.recipe_reviews.push(
+            result.insert_recipe_review_one
           )
           return data
         }
       )
     },
-    delete_recipe_reviews_by_pk: (result, args, cache, info) => {
-      cache.invalidate({ __typename: 'recipe_reviews', id: args.id })
+    delete_recipe_review_by_pk: (result, args, cache, info) => {
+      cache.invalidate({ __typename: 'recipe_review', id: args.id })
     },
   },
 }
@@ -111,7 +111,7 @@ export const keys = {
   bean_reviews_aggregate: () => null,
   bean_reviews_aggregate_fields: () => null,
   bean_reviews_avg_fields: () => null,
-  recipe_reviews_aggregate: () => null,
-  recipe_reviews_aggregate_fields: () => null,
-  recipe_reviews_avg_fields: () => null,
+  recipe_review_aggregate: () => null,
+  recipe_review_aggregate_fields: () => null,
+  recipe_review_avg_fields: () => null,
 }

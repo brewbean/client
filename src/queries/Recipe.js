@@ -4,7 +4,7 @@ import { gql } from 'urql'
  * Fragments
  */
 const recipeInfo = gql`
-  fragment RecipeInfo on recipes {
+  fragment RecipeInfo on recipe {
     id
     barista_id
     brew_type
@@ -48,7 +48,7 @@ const recipeInfo = gql`
 `
 
 const recipeReviewInfo = gql`
-  fragment RecipeReviewInfo on recipe_reviews {
+  fragment RecipeReviewInfo on recipe_review {
     id
     recipe_id
     rating
@@ -71,8 +71,8 @@ const fragment = {
   Recipe Queries
 */
 const INSERT_RECIPES_ONE = gql`
-  mutation InsertOneRecipe($object: recipes_insert_input!) {
-    insert_recipes_one(object: $object) {
+  mutation InsertOneRecipe($object: recipe_insert_input!) {
+    insert_recipe_one(object: $object) {
       id
       barista_id
       brew_type
@@ -110,7 +110,7 @@ const INSERT_RECIPES_ONE = gql`
 `
 const GET_ALL_RECIPES = gql`
   query GetAllRecipes {
-    recipes(order_by: { id: desc }) {
+    recipe(order_by: { id: desc }) {
       id
       barista_id
       brew_type
@@ -155,7 +155,7 @@ const GET_ALL_RECIPES = gql`
 `
 const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
   query GetOneRecipeWithReviews($id: Int!) {
-    recipes_by_pk(id: $id) {
+    recipe_by_pk(id: $id) {
       id
       brew_type
       bean_weight
@@ -209,7 +209,7 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
 `
 const GET_SINGLE_RECIPE = gql`
   query GetOneRecipe($id: Int!) {
-    recipes_by_pk(id: $id) {
+    recipe_by_pk(id: $id) {
       id
       barista_id
       brew_type
@@ -246,7 +246,7 @@ const GET_SINGLE_RECIPE = gql`
 `
 const GET_SINGLE_RECIPE_REVIEW = gql`
   query GetOneRecipeReview($id: Int!) {
-    recipe_reviews_by_pk(id: $id) {
+    recipe_review_by_pk(id: $id) {
       id
       rating
       comment
@@ -267,7 +267,7 @@ const GET_SINGLE_RECIPE_REVIEW = gql`
  */
 const GET_RECIPE_BY_ID = gql`
   query GetRecipeByIdAndStages($id: Int!) {
-    recipes_by_pk(id: $id) {
+    recipe_by_pk(id: $id) {
       id
       bean_weight
       instructions
@@ -283,8 +283,8 @@ const GET_RECIPE_BY_ID = gql`
   }
 `
 const UPDATE_RECIPES = gql`
-  mutation UpdateRecipe($id: Int!, $object: recipes_set_input) {
-    update_recipes_by_pk(pk_columns: { id: $id }, _set: $object) {
+  mutation UpdateRecipe($id: Int!, $object: recipe_set_input) {
+    update_recipe_by_pk(pk_columns: { id: $id }, _set: $object) {
       brew_type
       bean_weight
       bean_grind
@@ -301,8 +301,8 @@ const UPDATE_RECIPES = gql`
 `
 
 const UPDATE_RECIPE_REVIEW = gql`
-  mutation UpdateRecipeReview($id: Int!, $object: recipe_reviews_set_input!) {
-    update_recipe_reviews_by_pk(pk_columns: { id: $id }, _set: $object) {
+  mutation UpdateRecipeReview($id: Int!, $object: recipe_review_set_input!) {
+    update_recipe_review_by_pk(pk_columns: { id: $id }, _set: $object) {
       ...RecipeReviewInfo
     }
   }
@@ -310,7 +310,7 @@ const UPDATE_RECIPE_REVIEW = gql`
 `
 const DELETE_RECIPES = gql`
   mutation DeleteRecipe($id: Int!) {
-    delete_recipes_by_pk(id: $id) {
+    delete_recipe_by_pk(id: $id) {
       id
     }
   }
@@ -319,8 +319,8 @@ const DELETE_RECIPES = gql`
   Recipe Review Queries
 */
 const INSERT_RECIPE_REVIEW_ONE = gql`
-  mutation InsertRecipeReview($object: recipe_reviews_insert_input!) {
-    insert_recipe_reviews_one(object: $object) {
+  mutation InsertRecipeReview($object: recipe_review_insert_input!) {
+    insert_recipe_review_one(object: $object) {
       ...RecipeReviewInfo
     }
   }
@@ -329,7 +329,7 @@ const INSERT_RECIPE_REVIEW_ONE = gql`
 
 const DELETE_RECIPE_REVIEW = gql`
   mutation DeleteRecipeReview($id: Int!) {
-    delete_recipe_reviews_by_pk(id: $id) {
+    delete_recipe_review_by_pk(id: $id) {
       id
       recipe_id
     }
@@ -339,7 +339,7 @@ const DELETE_RECIPE_REVIEW = gql`
 const UPDATE_RECIPE_WITH_STAGES = gql`
   mutation UpdateRecipeWithStages(
     $id: Int!
-    $recipe: recipes_set_input
+    $recipe: recipe_set_input
     $stages: [stage_insert_input!]!
   ) {
     delete_stage(where: { recipe_id: { _eq: $id } }) {
@@ -357,7 +357,7 @@ const UPDATE_RECIPE_WITH_STAGES = gql`
         weight
       }
     }
-    update_recipes_by_pk(pk_columns: { id: $id }, _set: $recipe) {
+    update_recipe_by_pk(pk_columns: { id: $id }, _set: $recipe) {
       id
       barista_id
       brew_type
