@@ -94,7 +94,7 @@ const Recipes = () => {
         </button>
       </div>
       <div className='mt-8 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
-        {data && data.recipes.map((x, i) => <RecipeCard key={i} {...x} />)}
+        {data && data.recipe.map((x, i) => <RecipeCard key={i} {...x} />)}
       </div>
     </div>
   )
