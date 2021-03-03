@@ -29,10 +29,10 @@ export const StarSolid = ({ className = 'h-6 w-6' }) => (
 
 export const PlaceHolder = ({ className = 'h-6 w-6' }) => (
   <span
-    className={`inline-block shadow-inner rounded-full overflow-hidden bg-blue-100 ${className}`}
+    className={`inline-block shadow-inner rounded-full overflow-hidden bg-indigo-100 ${className}`}
   >
     <svg
-      className='h-full w-full text-blue-300'
+      className='h-full w-full text-indigo-400'
       fill='currentColor'
       viewBox='0 0 24 24'
     >

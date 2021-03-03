@@ -1,5 +1,5 @@
-import { Switch, Redirect, useLocation } from 'react-router-dom'
-import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation'
+import { Switch, Redirect, Route, useLocation } from 'react-router-dom'
+import { AuthRoute, ContainerRoute, RedirectIf } from 'navigation'
 import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
 import Recipe from 'pages/Recipe'
@@ -16,45 +16,26 @@ function App() {
   return (
     <Switch>
       <Redirect from='/:url*(/+)' to={pathname.slice(0, -1) + search} />
-      <ContainerRoute exact path='/' config={{ paddedContent: false }}>
+      <ContainerRoute exact path='/'>
         <Home />
         <NewUserModal />
       </ContainerRoute>
-      <RedirectRoute path='/login' ifCond='auth' goTo='/' defaultLayout={false}>
-        <Login />
-      </RedirectRoute>
-      <RedirectRoute
-        path='/create-account'
-        ifCond='auth'
-        goTo='/'
-        defaultLayout={false}
-      >
-        <CreateAccount />
-      </RedirectRoute>
-      <ContainerRoute
-        path='/activate'
-        defaultLayout={false}
-        config={{
-          flexCol: true,
-          layout: true,
-          paddedContent: true,
-          layoutClass: 'flex',
-        }}
-      >
+      <Route path='/login'>
+        <RedirectIf cond='isLoggedIn' goTo='/'>
+          <Login />
+        </RedirectIf>
+      </Route>
+      <Route path='/create-account'>
+        <RedirectIf cond='isLoggedIn' goTo='/'>
+          <CreateAccount />
+        </RedirectIf>
+      </Route>
+      <Route path='/activate'>
         <Activate />
-      </ContainerRoute>
-      <ContainerRoute
-        path='/reset'
-        defaultLayout={false}
-        config={{
-          flexCol: true,
-          layout: true,
-          paddedContent: true,
-          layoutClass: 'flex',
-        }}
-      >
+      </Route>
+      <Route path='/reset'>
         <Reset />
-      </ContainerRoute>
+      </Route>
       <AuthRoute path='/profile'>
         <Profile />
       </AuthRoute>
