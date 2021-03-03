@@ -16,7 +16,7 @@ const PlayerContainer = () => {
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Error...</p>
 
-  const { stages, bean_weight } = data.recipes_by_pk
+  const { stages, bean_weight } = data.recipe_by_pk
 
   if (stages.length === 0)
     return <Message type={alertType.ERROR}>This recipe is not playable</Message>
