@@ -1,5 +1,5 @@
 import AuthRoute from './AuthRoute'
 import ContainerRoute from './ContainerRoute'
-import RedirectRoute from './RedirectRoute'
+import RedirectIf from './RedirectIf'
 
-export { AuthRoute, ContainerRoute, RedirectRoute }
+export { AuthRoute, ContainerRoute, RedirectIf }

@@ -5,6 +5,7 @@ import { Loading } from 'components/Utility'
 import { Link, useLocation } from 'react-router-dom'
 import { VERIFY_API } from 'config'
 import { useAuth } from 'context/AuthContext'
+import { CenterPanelContainer } from 'components/Layout'
 
 function Activate() {
   const [isLoading, setIsLoading] = useState(true)
@@ -76,86 +77,73 @@ function Activate() {
   }
 
   return (
-    <div className='flex-1 flex items-center justify-center'>
-      <div className='absolute top-0 mt-10'>
-        <Link
-          to='/'
-          className={`text-2xl font-extrabold tracking-widest text-blue-500 ${
-            isLoading ? 'pointer-events-none' : ''
-          }`.trimEnd()}
-        >
-          brew<span className='text-pink-400'>(</span>bean
-          <span className='text-pink-400'>)</span>
-        </Link>
-      </div>
-      <div className='bg-white shadow sm:rounded-lg max-w-sm'>
-        <div className='px-4 py-5 sm:p-8'>
-          <div className='pb-5'>
-            {isLoading ? (
-              <Loading sizeClass='h-12 w-12' defaultPadding={false} />
-            ) : isSuccess ? (
-              <div className='mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100'>
-                <svg
-                  className='w-6 h-6 text-green-600'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </div>
-            ) : (
-              <div className='mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100'>
-                <svg
-                  className='w-6 h-6 text-red-600'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </div>
-            )}
-          </div>
-          <h3 className='text-lg text-center font-medium text-gray-900'>
-            {title}
-          </h3>
-
-          <div className='mt-2 max-w-xl text-sm text-gray-500 text-center'>
-            <p>{subtext}</p>
-          </div>
-          {isSuccess && (
-            <div className='mt-5 flex justify-center'>
-              <Link
-                to='/'
-                className='inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm'
+    <CenterPanelContainer disableLogo={isLoading}>
+      <div className='px-4 py-5 sm:p-8'>
+        <div className='pb-5'>
+          {isLoading ? (
+            <Loading sizeClass='h-12 w-12' defaultPadding={false} />
+          ) : isSuccess ? (
+            <div className='mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100'>
+              <svg
+                className='w-6 h-6 text-green-600'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
               >
-                Go to home page
-              </Link>
+                <path
+                  fillRule='evenodd'
+                  d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                  clipRule='evenodd'
+                />
+              </svg>
             </div>
-          )}
-          {showResend && (
-            <div className='mt-5 flex justify-center'>
-              <button
-                onClick={resendEmail}
-                type='button'
-                className='inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm'
+          ) : (
+            <div className='mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100'>
+              <svg
+                className='w-6 h-6 text-red-600'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
               >
-                Resend confirmation email
-              </button>
+                <path
+                  fillRule='evenodd'
+                  d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+                  clipRule='evenodd'
+                />
+              </svg>
             </div>
           )}
         </div>
+        <h3 className='text-lg text-center font-medium text-gray-900'>
+          {title}
+        </h3>
+
+        <div className='mt-2 max-w-xl text-sm text-gray-500 text-center'>
+          <p>{subtext}</p>
+        </div>
+        {isSuccess && (
+          <div className='mt-5 flex justify-center'>
+            <Link
+              to='/'
+              className='inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm'
+            >
+              Go to home page
+            </Link>
+          </div>
+        )}
+        {showResend && (
+          <div className='mt-5 flex justify-center'>
+            <button
+              onClick={resendEmail}
+              type='button'
+              className='inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm'
+            >
+              Resend confirmation email
+            </button>
+          </div>
+        )}
       </div>
-    </div>
+    </CenterPanelContainer>
   )
 }
 

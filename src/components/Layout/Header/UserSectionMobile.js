@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from 'context/AuthContext'
-import PlaceholderAvatar from './PlaceholderAvatar'
+import { PlaceHolder } from 'components/Icon'
 
 const UserSectionMobile = ({ links }) => {
   const { isAuthenticated, barista, logout } = useAuth()
@@ -16,7 +16,7 @@ const UserSectionMobile = ({ links }) => {
               alt='user avatar'
             />
           ) : (
-            <PlaceholderAvatar containerStyle='h-10 w-10' />
+            <PlaceHolder className='h-10 w-10' />
           )}
         </div>
         <div className='ml-3'>
