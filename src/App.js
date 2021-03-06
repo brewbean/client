@@ -3,6 +3,7 @@ import { AuthRoute, RedirectRoute, ContainerRoute } from 'navigation'
 import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
 import Recipe from 'pages/Recipe'
+import BrewLog from 'pages/BrewLog'
 import Login from 'pages/Login'
 import CreateAccount from 'pages/CreateAccount'
 import Activate from 'pages/Activate'
@@ -72,6 +73,9 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/recipe'>
         <Recipe />
+      </ContainerRoute>
+      <ContainerRoute path='/brewlog'>
+        <BrewLog />
       </ContainerRoute>
       <ContainerRoute path='/guide'>
         <Guide />
