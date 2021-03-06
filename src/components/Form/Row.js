@@ -1,56 +1,61 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import Dropdown from 'components/DropDown'
 import InputRow from 'components/InputRow'
 import TextArea from 'components/TextArea'
 
-const initState = {
-  form: {},
+// const initState = {
+//   form: {},
+// }
+
+// const reducer = (state, [type, payload]) => {
+//   switch (type) {
+//     case 'setForm':
+//       return {
+//         ...state,
+//         form: {
+//           ...state.form,
+//           [payload.key]: payload.value,
+//         },
+//       }
+//     default:
+//       return state
+//   }
+// }
+const SwitchForm = ({ type, name, id, placeholder, label, props, options }) => {
+  console.log('name: ', name)
+  switch (type) {
+    case 'input':
+      return (
+        <InputRow
+          id={id}
+          // value={state.name}
+          // onChange={onChangeGenerator(name)}
+          placeholder={placeholder}
+          label={label}
+          {...props}
+          // required={required}
+        />
+      )
+    case 'dropdown':
+      return <Dropdown id={id} options={options} {...props} />
+    case 'textarea':
+      return <TextArea id={id} label={label} {...props} />
+    default:
+      return null
+  }
 }
 export const Row = ({ config }) => {
-  const [state, setState] = useState(initState)
+  // const onChangeGenerator = (attr) => ({ target }) => {
+  //   const { value, type } = target
+  //   console.log('Value', value)
+  //   console.log('Type', type)
+  //   console.log('target', target)
 
-  const SwitchForm = ({
-    type,
-    name,
-    id,
-    placeholder,
-    label,
-    props,
-    options,
-  }) => {
-    console.log('name: ', name)
-    return (
-      <>
-        {type === 'input' && (
-          <InputRow
-            id={id}
-            value={state.name}
-            onChange={onChangeGenerator(name)}
-            placeholder={placeholder}
-            label={label}
-            {...props}
-            // required={required}
-          />
-        )}
-        {type === 'dropdown' && (
-          <Dropdown id={id} options={options} {...props} />
-        )}
-        {type === 'textarea' && <TextArea id={id} label={label} {...props} />}
-      </>
-    )
-  }
-
-  const onChangeGenerator = (attr) => ({ target }) => {
-    const { value, type } = target
-    console.log('Value', value)
-    console.log('Type', type)
-    console.log('target', target)
-
-    setState({
-      ...state,
-      [attr]: value,
-    })
-  }
+  //   setState({
+  //     ...state,
+  //     [attr]: value,
+  //   })
+  // }
   console.log('rerendered')
   return (
     <div className='space-y-6 sm:space-y-5'>
