@@ -6,60 +6,72 @@ const Create = () => {
       rowDescription: 'Tell us some details about your recipe',
       rows: [
         {
-          type: 'input',
-          id: 'recipe-name',
-          placeholder: 'e.g. My favorite pour over recipe',
-          label: 'Recipe Name',
-          name: 'name',
+          rowType: 'input',
+          value: 'name',
           props: {
+            id: 'recipe-name',
+            placeholder: 'e.g. My favorite pour over recipe',
+            label: 'Recipe Name',
             required: true,
           },
         },
-        // {
-        //   type: 'input',
-        //   id: 'recipe-about',
-        //   placeholder: 'e.g. Super amazing elixir',
-        //   label: 'About',
-
-        // },
+        {
+          rowType: 'input',
+          value: 'about',
+          props: {
+            id: 'recipe-about',
+            placeholder: 'e.g. Super amazing elixir',
+            label: 'About',
+          },
+        },
       ],
     },
-    // {
-    //   rowTitle: 'Basics 2',
-    //   rowDescription: 'Tell us some details about your recipe 2',
-    //   rows: [
-    //     {
-    //       type: 'input',
-    //       id: 'recipe-name',
-    //       placeholder: 'e.g. My favorite pour over recipe!!',
-    //       label: 'Recipe Name',
-
-    //     },
-    //     {
-    //       type: 'input',
-    //       id: 'recipe-about',
-    //       placeholder: 'e.g. Super amazing elixir!!!',
-    //       label: 'About',
-    //       props: {
-    //         required: true
-    //       }
-    //     },
-    //     {
-    //       type: 'dropdown',
-    //       id: 'bean-grind',
-    //       options: [
-    //         { key: 'Extra-fine', value: 'Extra-fine' },
-    //         { key: 'Fine', value: 'Fine' },
-    //         { key: 'Medium-fine', value: 'Medium-fine' },
-    //         { key: 'Medium-coarse', value: 'Medium-coarse' },
-    //         { key: 'Coarse', value: 'Coarse' },
-    //         { key: 'Extra-coarse', value: 'Extra-coarse' },
-    //       ],
-    //       label: 'Bean Grind'
-
-    //     }
-    //   ],
-    // },
+    {
+      rowTitle: 'Bean',
+      rowDescription: 'Add details about your coffee bean',
+      rows: [
+        {
+          rowType: 'input',
+          value: 'bean_name_free',
+          props: {
+            id: 'bean-name',
+            placeholder: 'e.g. Kurasu House Blend Dark',
+            label: 'Bean Name',
+          },
+        },
+        {
+          rowType: 'input',
+          value: 'bean_weight',
+          props: {
+            id: 'bean-weight',
+            placeholder: 'e.g. 12',
+            label: 'Coffee Bean Amount',
+            type: 'number',
+            symbol: 'grams',
+            symbolPadding: 'pr-14',
+            min: 1,
+            required: true,
+          },
+        },
+        {
+          rowType: 'dropdown',
+          props: {
+            id: 'bean-grind',
+            value: 'bean_grind',
+            options: [
+              { key: 'Extra-fine', value: 'Extra-fine' },
+              { key: 'Fine', value: 'Fine' },
+              { key: 'Medium-fine', value: 'Medium-fine' },
+              { key: 'Medium-coarse', value: 'Medium-coarse' },
+              { key: 'Coarse', value: 'Coarse' },
+              { key: 'Extra-coarse', value: 'Extra-coarse' },
+            ],
+            label: 'Bean Grind',
+            required: true,
+          },
+        },
+      ],
+    },
   ]
   return (
     <div>

@@ -2,7 +2,7 @@ import { useReducer } from 'react'
 import Dropdown from 'components/DropDown'
 import InputRow from 'components/InputRow'
 import TextArea from 'components/TextArea'
-
+import { Link } from 'react-router-dom'
 const initState = {
   form: {},
 }
@@ -52,27 +52,45 @@ export const Row = ({ config }) => {
           <div className='mt-4 sm:mt-0 sm:col-span-2 space-y-2'>
             {c.rows.map((r, i) => (
               <div key={i}>
-                {r.type === 'input' && (
+                {r.rowType === 'input' && (
                   <InputRow
-                    id={r.id}
-                    value={form[r.name] || ''}
-                    onChange={onChangeGenerator(r.name)}
-                    placeholder={r.placeholder}
-                    label={r.label}
+                    value={form[r.value] || ''}
+                    onChange={onChangeGenerator(r.value)}
                     {...r.props}
                   />
                 )}
-                {r.type === 'dropdown' && (
-                  <Dropdown id={r.id} options={r.options} {...r.props} />
+                {r.rowType === 'dropdown' && (
+                  <Dropdown
+                    value={form[r.value] || ''}
+                    onChange={onChangeGenerator(r.value)}
+                    {...r.props}
+                  />
                 )}
-                {r.type === 'textarea' && (
+                {r.rowType === 'textarea' && (
                   <TextArea id={r.id} label={r.label} {...r.props} />
                 )}
               </div>
             ))}
           </div>
+          {/* Button row */}
         </div>
       ))}
+      <div className='flex justify-end'>
+        <Link
+          to='/recipe'
+          className='bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+        >
+          Cancel
+        </Link>
+        <button
+          // disabled={saveDisabled}
+          type='submit'
+          //${!saveDisabled ? 'hover:bg-blue-700' : 'cursor-not-allowed'}`
+          className={`disabled:opacity-50 ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+        >
+          Save
+        </button>
+      </div>
     </div>
   )
 }
