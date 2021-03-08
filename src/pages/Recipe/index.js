@@ -1,7 +1,7 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import Recipes from './Recipe'
-import CreateRecipe from './CreateRecipe'
-import EditRecipe from './EditRecipe'
+import Create from './Create'
+import Edit from './Edit'
 import Player from './Player'
 import Detail from './Detail'
 
@@ -14,13 +14,13 @@ const RecipePage = (props) => {
         <Recipes />
       </Route>
       <Route exact path={`${url}/new`}>
-        <CreateRecipe />
+        <Create />
       </Route>
       <Route exact path={`${url}/:id`}>
         <Detail />
       </Route>
       <Route path={`${url}/:id/edit`}>
-        <EditRecipe />
+        <Edit />
       </Route>
       <Route path={`${url}/:id/player`}>
         <Player />

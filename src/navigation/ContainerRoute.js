@@ -1,11 +1,9 @@
 import { Route } from 'react-router-dom'
 import { Container } from 'components/Layout'
 
-const ContainerRoute = ({ defaultLayout, config, children, ...rest }) => (
+const ContainerRoute = ({ children, ...rest }) => (
   <Route {...rest}>
-    <Container defaultLayout={defaultLayout} config={config}>
-      {children}
-    </Container>
+    <Container>{children}</Container>
   </Route>
 )
 

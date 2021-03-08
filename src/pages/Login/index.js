@@ -30,7 +30,7 @@ function Login() {
   }
 
   return (
-    <>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex'>
       <div className='flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24'>
         <div className='mx-auto w-full max-w-sm lg:w-96 space-y-6'>
           {showLogo && (
@@ -70,7 +70,7 @@ function Login() {
           alt='espresso'
         />
       </div>
-    </>
+    </div>
   )
 }
 

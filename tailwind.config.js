@@ -12,6 +12,7 @@ module.exports = {
   variants: {
     extend: {
       opacity: ['disabled'],
+      pointerEvents: ['disabled']
     },
   },
   plugins: [

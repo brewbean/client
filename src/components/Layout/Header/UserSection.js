@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import { useAuth } from 'context/AuthContext'
-import PlaceholderAvatar from './PlaceholderAvatar'
+import { PlaceHolder } from 'components/Icon'
 
 const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
   const dropdownRef = useRef(null)
@@ -60,7 +60,7 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
                 alt='user avatar'
               />
             ) : (
-              <PlaceholderAvatar />
+              <PlaceHolder className='h-8 w-8' />
             )}
           </button>
         </div>
@@ -110,13 +110,13 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
     <div className='hidden sm:flex sm:items-center'>
       <Link
         to='/login'
-        className='mr-3 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+        className='mr-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
       >
         Log in
       </Link>
       <Link
         to='/create-account'
-        className='inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+        className='inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
       >
         Create account
       </Link>

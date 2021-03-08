@@ -78,6 +78,8 @@ export const updates = {
           // Null error if user navigates to /recipe/new directly
           // Maybe we should avoid directly form navigation or use `writeFragment`
           // `unshift` adds to top of recipe results
+          // [NEW BUG] Issue also happens when you log in on clicking 'Create Recipe'
+          //  as logging in clears cache
           data.recipe.unshift(result.insert_recipe_one)
           return data
         }

@@ -1,10 +1,10 @@
-import { useQuery } from 'urql'
-import { GET_SINGLE_RECIPE } from 'queries'
-import { Redirect, useParams } from 'react-router-dom'
-import Edit from 'components/Recipe/Edit'
 import { useAuth } from 'context/AuthContext'
+import { Redirect, useParams } from 'react-router-dom'
+import { GET_SINGLE_RECIPE } from 'queries'
+import { useQuery } from 'urql'
+import Container from './Container'
 
-const EditRecipe = () => {
+export default function EditRecipe() {
   const { id } = useParams()
   const { isVerified, barista } = useAuth()
 
@@ -15,13 +15,11 @@ const EditRecipe = () => {
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... error: {error.message}</p>
-
   if (!data?.recipe_by_pk) return null
 
+  // needs to be last or else it will always redirect because query is slower
   if (!isVerified || data?.recipe_by_pk.barista_id !== barista?.id)
     return <Redirect to={`/recipe/${id}`} />
 
-  return <Edit recipe={data.recipe_by_pk} id={id} />
+  return <Container recipe={data.recipe_by_pk} />
 }
-
-export default EditRecipe
