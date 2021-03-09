@@ -11,7 +11,7 @@ import Profile from 'pages/Profile'
 import Reset from 'pages/Reset'
 import Guide from 'pages/Guide'
 import { About, Contact, PrivacyPolicy, Terms, NotFound } from 'pages/Content'
-
+import FormTest from 'pages/FormTest'
 function App() {
   const { pathname, search } = useLocation()
   return (
@@ -79,6 +79,9 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/guide'>
         <Guide />
+      </ContainerRoute>
+      <ContainerRoute path='/Test'>
+        <FormTest />
       </ContainerRoute>
       <ContainerRoute path='*'>
         <NotFound />
