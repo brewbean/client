@@ -22,7 +22,7 @@ const reducer = (state, [type, payload]) => {
   }
 }
 
-export const Row = ({ config }) => {
+export const Row = ({ config, register }) => {
   const [{ form }, dispatch] = useReducer(reducer, initState)
 
   const onChangeGenerator = (attr) => ({ target }) => {
@@ -56,7 +56,9 @@ export const Row = ({ config }) => {
                   <InputRow
                     value={form[r.value] || ''}
                     onChange={onChangeGenerator(r.value)}
+                    register={register}
                     {...r.props}
+                    validation={r.validation}
                   />
                 )}
                 {r.rowType === 'dropdown' && (

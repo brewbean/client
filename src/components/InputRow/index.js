@@ -5,6 +5,8 @@ const InputRow = ({
   symbol,
   symbolPadding = '',
   type = 'text',
+  register, // can move to props later
+  validation,
   ...props
 }) => {
   return (
@@ -24,10 +26,12 @@ const InputRow = ({
         <input
           {...props}
           type={type}
+          name={props.id}
           className={`placeholder-gray-400 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md ${
             symbol ? symbolPadding : ''
           }`.trimEnd()}
           aria-describedby={descriptionId}
+          ref={register({ ...validation })} // replace with props later
         />
         {symbol && (
           <div className='absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
