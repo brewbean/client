@@ -1,7 +1,12 @@
 import { Row } from 'components/Form/Row'
 import { useForm } from 'react-hook-form'
-
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 const Create = () => {
+  const schema = yup.object().shape({
+    recipeName: yup.string().required(),
+    recipeAbout: yup.string().required(),
+  })
   const config = [
     {
       rowTitle: 'Basics',
@@ -14,7 +19,7 @@ const Create = () => {
             id: 'recipe-name',
             placeholder: 'e.g. My favorite pour over recipe',
             label: 'Recipe Name',
-            // required: true,
+            name: 'recipeName',
           },
           validation: {
             required: true,
@@ -27,6 +32,7 @@ const Create = () => {
             id: 'recipe-about',
             placeholder: 'e.g. Super amazing elixir',
             label: 'About',
+            name: 'recipeAbout',
           },
         },
         {
@@ -36,6 +42,7 @@ const Create = () => {
             id: 'recipe-about2',
             placeholder: 'e.g. Super amazing elixir222',
             label: 'About222',
+            name: 'recipeAbout222',
           },
           validation: {
             required: true,
@@ -90,13 +97,20 @@ const Create = () => {
     //   ],
     // },
   ]
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  })
   const onSubmit = (data) => console.log(data)
   return (
     <div>
       <h1>Create Brew Log</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Row config={config} register={register} />
+        <Row
+          config={config}
+          register={register}
+          schema={schema}
+          errors={errors}
+        />
       </form>
     </div>
   )

@@ -7,6 +7,7 @@ const InputRow = ({
   type = 'text',
   register, // can move to props later
   validation,
+  errors,
   ...props
 }) => {
   return (
@@ -26,13 +27,15 @@ const InputRow = ({
         <input
           {...props}
           type={type}
-          name={props.id}
+          name={props.name}
           className={`placeholder-gray-400 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md ${
             symbol ? symbolPadding : ''
           }`.trimEnd()}
           aria-describedby={descriptionId}
           ref={register({ ...validation })} // replace with props later
         />
+        <p>{errors[props.name] && errors[props.name].message}</p>
+
         {symbol && (
           <div className='absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
             <p className='text-sm text-gray-500'>{symbol}</p>
