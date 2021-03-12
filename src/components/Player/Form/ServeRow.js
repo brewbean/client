@@ -12,7 +12,7 @@ const ServeRow = ({ errors, register }) => {
             id='serve-time'
             name='serve'
             type='number'
-            className={combineClass('input', {
+            className={combineClass('input pr-9', {
               'input--state-error': errors.serve,
             })}
             ref={register()}
