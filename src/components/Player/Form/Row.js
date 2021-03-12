@@ -40,7 +40,7 @@ const Row = ({
             defaultValue={start}
             type='number'
             readOnly={disabledInputs.start}
-            className={combineClass('input', {
+            className={combineClass('input pr-9', {
               'input--state-error':
                 errorType === 'is-row-valid-with-prev-end-time' ||
                 errorType === 'is-row-time-valid' ||
@@ -65,7 +65,7 @@ const Row = ({
             defaultValue={end}
             type='number'
             readOnly={disabledInputs.end}
-            className={combineClass('input', {
+            className={combineClass('input pr-9', {
               'input--state-error':
                 errorType === 'is-row-time-valid' || error?.end,
               disabled: disabledInputs.end,
@@ -88,7 +88,7 @@ const Row = ({
             defaultValue={weight}
             type='number'
             readOnly={disabledInputs.weight}
-            className={combineClass('input', {
+            className={combineClass('input pr-6', {
               'input--state-error':
                 errorType === 'is-row-valid-with-prev-weight' || error?.weight,
               disabled: disabledInputs.weight,
