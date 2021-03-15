@@ -37,14 +37,14 @@ const Main = ({
             </h2>
             <div className='flex flex-col space-y-2'>
               <h4 className='inline-flex items-center text-md font-medium'>
-                <span className='mr-2 rounded-md bg-yellow-400 p-2 text-white'>
+                <span className='mr-2 rounded-md bg-indigo-500 p-2 text-white'>
                   <Scale />
                 </span>
                 Coffee weight {String.fromCharCode(8212)}
                 <span className='ml-1 font-bold'>{coffeeWeight}g</span>
               </h4>
               <h4 className='inline-flex items-center text-md font-medium'>
-                <span className='mr-2 rounded-md bg-blue-400 p-2 text-white'>
+                <span className='mr-2 rounded-md bg-indigo-500 p-2 text-white'>
                   <Clock />
                 </span>
                 Total time {String.fromCharCode(8212)}
@@ -52,7 +52,7 @@ const Main = ({
               </h4>
             </div>
             <ButtonLeftIcon
-              className='w-full lg:w-1/2 inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2'
+              className='w-full lg:w-1/2 btn btn--lg text-white'
               icon={Play}
               onClick={start}
               size='med'
@@ -68,7 +68,7 @@ const Main = ({
             )}
 
             {!isFinished && (
-              <div className='flex flex-col items-center text-blue-700'>
+              <div className='flex flex-col items-center text-indigo-700'>
                 <h5 className='text-lg'>Target Weight</h5>
                 <h5 className='text-xl font-semibold'>{weight} g</h5>
               </div>

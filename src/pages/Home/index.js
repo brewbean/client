@@ -14,10 +14,7 @@ export default function Home() {
           reviews, daily coffee notes, and much more.
         </h2>
 
-        <Link
-          to='/guide'
-          className='inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-        >
+        <Link to='/guide' className='btn btn--primary btn--xl'>
           Start here
         </Link>
       </div>

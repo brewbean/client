@@ -4,6 +4,7 @@ import { validatePassword, passwordRequirements } from 'helper/form'
 import FormAlert from 'components/FormAlert'
 import { ButtonLoading } from 'components/Utility'
 import { AUTH_API } from 'config'
+import { combineClass } from 'helper/stringHelper'
 
 const showAlerts = ({ type, text }) => (
   <FormAlert key={text} type={type} text={text} />
@@ -62,11 +63,6 @@ function Form({ code, email, onSuccess, onFail }) {
     ({ isActive }) => isActive
   )
 
-  const inputStyle = {
-    default: 'border-gray-300 focus:ring-blue-700 focus:border-blue-700',
-    error: 'border-red-300 focus:ring-red-700 focus:border-red-700',
-  }
-
   const isSubmitDisabled =
     state.password === '' ||
     state.confirmPassword === '' ||
@@ -97,9 +93,9 @@ function Form({ code, email, onSuccess, onFail }) {
             value={state.password}
             disabled={isLoading}
             onChange={onChange}
-            className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none sm:text-sm ${
-              errorMsg ? inputStyle.error : inputStyle.default
-            }`}
+            className={combineClass('mt-1 input', {
+              'input--state-error': errorMsg,
+            })}
           />
         </div>
         <div>
@@ -118,9 +114,9 @@ function Form({ code, email, onSuccess, onFail }) {
             value={state.confirmPassword}
             disabled={isLoading}
             onChange={onChange}
-            className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none sm:text-sm ${
-              errorMsg ? inputStyle.error : inputStyle.default
-            }`}
+            className={combineClass('mt-1 input', {
+              'input--state-error': errorMsg,
+            })}
           />
         </div>
         {errorMsg && <p className='text-sm italic text-red-600'>{errorMsg}</p>}
@@ -132,8 +128,8 @@ function Form({ code, email, onSuccess, onFail }) {
         <button
           type='submit'
           disabled={isSubmitDisabled}
-          className={`inline-flex items-center justify-center w-full py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-600 focus:ring-blue-500 disabled:opacity-50 ${
-            isSubmitDisabled ? 'cursor-not-allowed' : 'hover:bg-blue-700'
+          className={`disabled:opacity-50 w-full btn btn--primary btn--md ${
+            isSubmitDisabled ? 'pointer-events-none' : ''
           }`.trimEnd()}
         >
           {isLoading ? (

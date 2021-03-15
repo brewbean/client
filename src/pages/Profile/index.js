@@ -9,6 +9,7 @@ import FormAlert from 'components/FormAlert'
 import { AUTH_API } from 'config'
 import { ButtonLoading } from 'components/Utility'
 import { createUnverifiedAlert } from 'helper/auth'
+import { combineClass } from 'helper/stringHelper'
 
 const showAlerts = ({ type, text }) => (
   <FormAlert key={text} type={type} text={text} />
@@ -124,11 +125,6 @@ function Profile() {
     ({ isActive }) => isActive
   )
 
-  const inputStyle = {
-    default: 'border-gray-300 focus:ring-blue-700 focus:border-blue-700',
-    error: 'border-red-300 focus:ring-red-700 focus:border-red-700',
-  }
-
   const isSaveDisabled =
     state.oldPassword === '' ||
     state.newPassword === '' ||
@@ -214,12 +210,11 @@ function Profile() {
                     value={state.oldPassword}
                     disabled={isLoading}
                     onChange={onChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none sm:text-sm ${
-                      error.type === 'bad_password' ||
-                      error.type === 'no_change'
-                        ? inputStyle.error
-                        : inputStyle.default
-                    }`}
+                    className={combineClass('mt-1 input', {
+                      'input--state-error':
+                        error.type === 'bad_password' ||
+                        error.type === 'no_change',
+                    })}
                   />
                 </div>
                 <div>
@@ -240,11 +235,10 @@ function Profile() {
                     value={state.newPassword}
                     disabled={isLoading}
                     onChange={onChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none sm:text-sm ${
-                      error.type === 'mismatch' || error.type === 'no_change'
-                        ? inputStyle.error
-                        : inputStyle.default
-                    }`}
+                    className={combineClass('mt-1 input', {
+                      'input--state-error':
+                        error.type === 'mismatch' || error.type === 'no_change',
+                    })}
                   />
                 </div>
                 <div>
@@ -265,11 +259,9 @@ function Profile() {
                     value={state.confirmPassword}
                     disabled={isLoading}
                     onChange={onChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none sm:text-sm ${
-                      error.type === 'mismatch'
-                        ? inputStyle.error
-                        : inputStyle.default
-                    }`}
+                    className={combineClass('mt-1 input', {
+                      'input--state-error': error.type === 'mismatch',
+                    })}
                   />
                 </div>
                 {error.type && (
@@ -283,9 +275,12 @@ function Profile() {
                 <button
                   type='submit'
                   disabled={isSaveDisabled}
-                  className={`mr-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-600 focus:ring-blue-500 disabled:opacity-50 ${
-                    isSaveDisabled ? 'cursor-not-allowed' : 'hover:bg-blue-700'
-                  }`.trimEnd()}
+                  className={combineClass(
+                    'disabled:opacity-50 mr-2 btn btn--primary btn--md',
+                    {
+                      'pointer-events-none': isSaveDisabled,
+                    }
+                  )}
                 >
                   {isLoading ? (
                     <>
@@ -296,10 +291,7 @@ function Profile() {
                     'Save'
                   )}
                 </button>
-                <button
-                  onClick={cancel}
-                  className='inline-flex items-center px-4 py-2 border d shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                >
+                <button onClick={cancel} className='btn btn--white btn--md'>
                   Cancel
                 </button>
               </div>
@@ -312,7 +304,7 @@ function Profile() {
               <button
                 type='button'
                 onClick={() => setIsEditing(true)}
-                className='inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                className='btn btn--primary btn--md'
               >
                 Update
               </button>
