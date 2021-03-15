@@ -6,7 +6,7 @@ export default function Terms() {
       <HeaderSection>
         <HeaderBlock preTitle='Terms & Conditions' title='Our service' />
       </HeaderSection>
-      <div className='mt-6 prose prose-blue prose-md text-gray-700 mx-auto'>
+      <div className='mt-6 prose prose-indigo prose-md text-gray-700 mx-auto'>
         <p>
           <em>Last updated: February 19, 2021</em>
         </p>

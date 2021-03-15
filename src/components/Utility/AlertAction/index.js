@@ -15,5 +15,5 @@ export const Fail = ({ message, colorClass }) => (
 )
 
 export const Load = () => (
-  <DotsHorizontal className='h-5 w-5 text-blue-600 animate-pulse' />
+  <DotsHorizontal className='h-5 w-5 text-indigo-600 animate-pulse' />
 )

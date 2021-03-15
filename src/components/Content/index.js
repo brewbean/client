@@ -9,7 +9,7 @@ export const HeaderSection = ({ children }) => (
 export const HeaderBlock = ({ preTitle, title }) => (
   <h1>
     {preTitle && (
-      <span className='mb-2 block text-base text-center text-blue-600 font-semibold tracking-wide uppercase'>
+      <span className='mb-2 block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase'>
         {preTitle}
       </span>
     )}

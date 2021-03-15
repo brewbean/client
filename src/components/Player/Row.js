@@ -16,8 +16,8 @@ const Container = ({ bottom, children }) =>
 const Row = ({ bottom = false, stage, start, isCurrent, isDone }) => {
   const gray = 'bg-gray-400'
   const green = 'bg-green-500'
-  const blue = 'bg-blue-500'
-  const color = isDone ? green : isCurrent ? blue : gray
+  const indigo = 'bg-indigo-500'
+  const color = isDone ? green : isCurrent ? indigo : gray
   const Icon = isDone ? Check : isCurrent ? Heart : DotsHorizontal
 
   return (

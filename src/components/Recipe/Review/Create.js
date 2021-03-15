@@ -49,7 +49,7 @@ const Create = ({ id }) => {
           )}
         </div>
         <div className='min-w-0 flex-1'>
-          <form>
+          <div className='space-y-3'>
             <div>
               <label htmlFor='comment' className='sr-only'>
                 About
@@ -61,9 +61,10 @@ const Create = ({ id }) => {
                 value={state.comment}
                 onChange={onChangeGenerator('comment')}
                 placeholder='Enter Review'
-                className='shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md'
+                className='input'
               />
             </div>
+
             <InputRow
               value={state.rating}
               onChange={onChangeGenerator('rating')}
@@ -71,16 +72,14 @@ const Create = ({ id }) => {
               label='Rating'
             />
 
-            <div className='mt-3 flex items-center justify-between'>
-              <button
-                type='button'
-                onClick={submitReview}
-                className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-              >
-                Add Review
-              </button>
-            </div>
-          </form>
+            <button
+              type='button'
+              onClick={submitReview}
+              className='btn btn--primary btn--md'
+            >
+              Add Review
+            </button>
+          </div>
         </div>
       </div>
     </div>

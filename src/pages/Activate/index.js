@@ -123,10 +123,7 @@ function Activate() {
         </div>
         {isSuccess && (
           <div className='mt-5 flex justify-center'>
-            <Link
-              to='/'
-              className='inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm'
-            >
+            <Link to='/' className='btn btn--secondary btn--md'>
               Go to home page
             </Link>
           </div>
@@ -136,7 +133,7 @@ function Activate() {
             <button
               onClick={resendEmail}
               type='button'
-              className='inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm'
+              className='btn btn--secondary btn--md'
             >
               Resend confirmation email
             </button>

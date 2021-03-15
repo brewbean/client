@@ -9,7 +9,7 @@ export default function About() {
           title='A story of coffee & code'
         />
       </HeaderSection>
-      <div className='mt-6 prose prose-blue prose-md text-gray-700 mx-auto'>
+      <div className='mt-6 prose prose-indigo prose-md text-gray-700 mx-auto'>
         <h2>Why we created this</h2>
         <p>
           Since you're here on our site, I assume you like coffee. We enjoy

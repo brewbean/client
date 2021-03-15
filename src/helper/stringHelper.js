@@ -10,7 +10,7 @@ export const wordCapitalized = (str) =>
   str.charAt(0).toUpperCase() + str.slice(1)
 
 /**
- * base: 'text-blue-500'
+ * base: 'text-indigo-500'
  * classObj: { 'text-red-500': hasError }
  */
 export const combineClass = (base, classObj) =>
