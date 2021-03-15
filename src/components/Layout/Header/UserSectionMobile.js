@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from 'context/AuthContext'
-import PlaceholderAvatar from './PlaceholderAvatar'
+import { PlaceHolder } from 'components/Icon'
 
 const UserSectionMobile = ({ links }) => {
   const { isAuthenticated, barista, logout } = useAuth()
@@ -16,7 +16,7 @@ const UserSectionMobile = ({ links }) => {
               alt='user avatar'
             />
           ) : (
-            <PlaceholderAvatar containerStyle='h-10 w-10' />
+            <PlaceHolder className='h-10 w-10' />
           )}
         </div>
         <div className='ml-3'>
@@ -55,15 +55,12 @@ const UserSectionMobile = ({ links }) => {
     </>
   ) : (
     <>
-      <Link
-        to='/create-account'
-        className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 focus:bg-blue-700'
-      >
+      <Link to='/create-account' className='w-full btn btn--primary btn--lg'>
         Create account
       </Link>
       <Link
         to='/login'
-        className='mt-2 py-2 w-full flex items-center justify-center text-base font-medium text-blue-600 focus:text-blue-500'
+        className='mt-2 py-2 w-full flex items-center justify-center text-base font-medium text-indigo-600 focus:text-indigo-500'
       >
         Log in
       </Link>

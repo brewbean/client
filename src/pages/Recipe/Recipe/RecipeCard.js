@@ -29,7 +29,7 @@ const RecipeCard = ({
 
       <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
         <div className='flex-1'>
-          <h3 className='text-sm font-medium text-blue-600'>{brew_type}</h3>
+          <h3 className='text-sm font-medium text-indigo-600'>{brew_type}</h3>
           <div className='block mt-1 space-y-2'>
             <h1 className='text-xl font-semibold text-gray-900'>{name}</h1>
             <h3 className='text-base text-gray-500'>{about}</h3>

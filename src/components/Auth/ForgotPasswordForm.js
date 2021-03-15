@@ -50,16 +50,16 @@ function ForgotPasswordForm({ callback, errorCallback, loginCallback }) {
           disabled={isLoading}
           autoComplete='email'
           required
-          className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+          className='input'
         />
       </div>
       <div className='mt-5 sm:mt-6'>
         <button
           disabled={email === ''}
           type='submit'
-          className={`inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm disabled:opacity-50 ${
-            email === '' ? 'cursor-not-allowed' : 'hover:bg-blue-700 '
-          }`}
+          className={`disabled:opacity-50 w-full btn btn--primary btn--md ${
+            email === '' ? 'pointer-events-none' : ''
+          }`.trimEnd()}
         >
           {isLoading ? (
             <>
@@ -88,7 +88,7 @@ function ForgotPasswordForm({ callback, errorCallback, loginCallback }) {
       <div className='mt-5 sm:mt-6'>
         <button
           onClick={loginCallback}
-          className='inline-flex items-center font-medium text-blue-600 hover:text-blue-400 focus:outline-none text-base sm:text-sm'
+          className='inline-flex items-center font-medium text-indigo-600 hover:text-indigo-400 focus:outline-none text-base sm:text-sm'
         >
           <ArrowNarrowLeft />
           <span className='ml-2'>Log in</span>
@@ -111,7 +111,7 @@ function ForgotPasswordForm({ callback, errorCallback, loginCallback }) {
       <div className='mt-5 sm:mt-6'>
         <button
           onClick={loginCallback}
-          className='inline-flex items-center font-medium text-blue-600 hover:text-blue-400 focus:outline-none text-base sm:text-sm'
+          className='inline-flex items-center font-medium text-indigo-600 hover:text-indigo-400 focus:outline-none text-base sm:text-sm'
         >
           <ArrowNarrowLeft />
           <span className='ml-2'>Log in</span>

@@ -30,16 +30,15 @@ function Login() {
   }
 
   return (
-    <>
+    <div className='min-h-screen bg-gray-100 flex'>
       <div className='flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24'>
         <div className='mx-auto w-full max-w-sm lg:w-96 space-y-6'>
           {showLogo && (
             <Link
               to='/'
-              className='text-3xl leading-9 font-extrabold tracking-widest text-blue-500'
+              className='text-3xl font-extrabold tracking-wide text-gray-700'
             >
-              brew<span className='text-pink-400'>(</span>bean
-              <span className='text-pink-400'>)</span>
+              brew(<span className='text-indigo-500'>bean</span>)
             </Link>
           )}
 
@@ -70,7 +69,7 @@ function Login() {
           alt='espresso'
         />
       </div>
-    </>
+    </div>
   )
 }
 

@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
       <HeaderSection>
         <HeaderBlock preTitle='Privacy Policy' title='Our guidelines' />
       </HeaderSection>
-      <div className='mt-6 prose prose-blue prose-md text-gray-700 mx-auto'>
+      <div className='mt-6 prose prose-indigo prose-md text-gray-700 mx-auto'>
         <p>
           Brewbean is a privacy-first company. We make money from paying
           customers in our marketplace, along with first party advertisement

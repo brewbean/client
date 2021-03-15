@@ -4,7 +4,7 @@ import ForgotPasswordForm from './ForgotPasswordForm'
 import { useAlert } from 'context/AlertContext'
 import { useEffect, useState } from 'react'
 
-function LoginFauxModal({ headerText }) {
+function LoginFauxModal() {
   const { setDisabled, clearAlerts } = useAlert()
   const [isLogin, setIsLogin] = useState(true)
   const [header, setHeader] = useState('')
@@ -49,9 +49,8 @@ function LoginFauxModal({ headerText }) {
         >
           {header !== '' && (
             <div className='pb-4 mb-4 border-gray-200 border-b space-y-4 text-center'>
-              <h1 className='text-2xl font-extrabold tracking-widest text-blue-500'>
-                brew<span className='text-pink-400'>(</span>bean
-                <span className='text-pink-400'>)</span>
+              <h1 className='text-2xl font-extrabold tracking-wide text-gray-700'>
+                brew(<span className='text-indigo-500'>bean</span>)
               </h1>
               <h2 className='text-xl text-gray-800'>{header}</h2>
             </div>

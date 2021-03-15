@@ -55,7 +55,7 @@ function LoginForm({ callback, signupCallback, forgotPWCallback }) {
             type='email'
             autoComplete='email'
             required
-            className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+            className='input'
           />
         </div>
       </div>
@@ -74,7 +74,7 @@ function LoginForm({ callback, signupCallback, forgotPWCallback }) {
             autoComplete='current-password'
             type='password'
             required
-            className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+            className='input'
           />
         </div>
       </div>
@@ -83,9 +83,9 @@ function LoginForm({ callback, signupCallback, forgotPWCallback }) {
           <button
             disabled={hasAlert}
             type='submit'
-            className={`disabled:opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out ${
-              !hasAlert ? 'hover:bg-blue-500' : 'cursor-not-allowed'
-            }`}
+            className={`disabled:opacity-50 w-full btn btn--primary btn--md ${
+              hasAlert ? 'pointer-events-none' : ''
+            }`.trimEnd()}
           >
             Log in
           </button>
@@ -94,13 +94,13 @@ function LoginForm({ callback, signupCallback, forgotPWCallback }) {
       <div className='my-3 flex items-center justify-between'>
         <button
           onClick={goToCreateAccount}
-          className='text-sm leading-5 font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150'
+          className='text-sm leading-5 font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150'
         >
           Create account
         </button>
         <button
           onClick={goToForgotPassword}
-          className='text-sm leading-5 font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150'
+          className='text-sm leading-5 font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150'
         >
           Forgot your password?
         </button>

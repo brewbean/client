@@ -88,6 +88,13 @@ const INSERT_RECIPES_ONE = gql`
       name
       instructions
       bean_name_free
+      stages {
+        id
+        action
+        end
+        start
+        weight
+      }
       barista {
         id
         display_name
