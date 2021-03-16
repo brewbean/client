@@ -11,6 +11,8 @@ module.exports = {
   },
   variants: {
     extend: {
+      fontWeight: ['disabled'],
+      textColor: ['disabled'],
       opacity: ['disabled'],
       pointerEvents: ['disabled']
     },
