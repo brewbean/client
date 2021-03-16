@@ -11,6 +11,7 @@ import Reset from 'pages/Reset'
 import Guide from 'pages/Guide'
 import { About, Contact, PrivacyPolicy, Terms, NotFound } from 'pages/Content'
 import Create from 'components/Recipe/Form'
+import Form from 'components/BrewLog/Form'
 
 function App() {
   const { pathname, search } = useLocation()
@@ -57,6 +58,9 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/recipe'>
         <Recipe />
+      </ContainerRoute>
+      <ContainerRoute path='/brewlog'>
+        <Form />
       </ContainerRoute>
       <ContainerRoute path='/guide'>
         <Guide />
