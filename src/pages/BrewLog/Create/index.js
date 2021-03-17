@@ -24,9 +24,18 @@ const Create = () => {
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOG_ONE)
 
   const submitBrewLog = async (data) => {
-    console.log('Data: ', data)
-    const { stages, serve, ...recipe } = data
-    let object = { ...recipe }
+    const { stages, serve, rating, title, comment, ...recipe } = data
+
+    const object = {
+      comment: comment,
+      title: title,
+      rating: rating,
+      recipe: {
+        data: {
+          ...recipe,
+        },
+      },
+    }
 
     if (stages) {
       object.stages = {
@@ -42,8 +51,9 @@ const Create = () => {
       }
     }
 
-    const { error } = await insertBrewLog({ object })
-
+    // const { error } = await insertBrewLog({ object })
+    const result = await insertBrewLog({ object })
+    const error = result.error
     if (error) {
       addAlert({
         type: alertType.ERROR,

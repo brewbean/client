@@ -29,7 +29,7 @@ export const updates = {
           query: GET_ALL_BREW_LOGS,
         },
         (data) => {
-          data.brew_log.push(result.insert_brew_log_one)
+          data && data.brew_log.push(result.insert_brew_log_one)
           return data
         }
       )
@@ -80,7 +80,7 @@ export const updates = {
           // `unshift` adds to top of recipe results
           // [NEW BUG] Issue also happens when you log in on clicking 'Create Recipe'
           //  as logging in clears cache
-          data.recipe.unshift(result.insert_recipe_one)
+          data && data.recipe.unshift(result.insert_recipe_one)
           return data
         }
       )
@@ -101,9 +101,7 @@ export const updates = {
           variables: { id: args.object.recipe_id },
         },
         (data) => {
-          data.recipe_by_pk.recipe_reviews.push(
-            result.insert_recipe_review_one
-          )
+          data.recipe_by_pk.recipe_reviews.push(result.insert_recipe_review_one)
           return data
         }
       )

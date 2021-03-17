@@ -240,7 +240,7 @@ const Form = ({
               name: 'is_private',
               className: 'input',
               type: 'select',
-              defaultValue: false,
+              defaultValue: true,
               options: [
                 { value: false, text: 'Public' },
                 { value: true, text: 'Private' },
@@ -250,20 +250,42 @@ const Form = ({
         />
 
         <SectionMap
-          title='Comments'
-          subtitle='Enter Brew Log Comments'
+          title='Brew Log'
+          subtitle='Enter Brew Log Details'
           register={register}
           data={[
             {
+              name: 'title',
+              type: 'text',
+              label: 'Brew Log Title',
+              isOptional: true,
+              className: 'input',
+              placeholder: 'e.g. 10/01/2021 Brew Log',
+            },
+            {
               label: 'Brewer Comments',
-              error: errors?.comments,
-              name: 'comments',
+              error: errors?.comment,
+              isOptional: true,
+              name: 'comment',
               type: 'textarea',
               className: combineClass('input', {
-                'input--state-error': errors?.comments,
+                'input--state-error': errors?.comment,
               }),
-              placeholder: 'e.g. I really liked the brew today...',
+              placeholder: 'e.g. The brew had a full body taste today...',
               rows: '3',
+            },
+            {
+              label: 'rating',
+              symbol: 'stars',
+              error: errors?.rating,
+              name: 'rating',
+              type: 'number',
+              min: 0,
+              max: 5,
+              className: combineClass('input pr-14', {
+                'input--state-error': errors?.rating,
+              }),
+              placeholder: 'e.g. 5',
             },
           ]}
         />
