@@ -68,7 +68,7 @@ const All = ({ recipe_reviews, onEdit, isEditing }) => {
                       <button
                         onClick={onEdit(review)}
                         type='button'
-                        className='text-sm font-medium text-gray-700 hover:text-blue-500 focus:outline-none'
+                        className='text-sm font-medium text-gray-700 hover:text-indigo-500 focus:outline-none'
                       >
                         Edit
                       </button>

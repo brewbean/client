@@ -39,7 +39,7 @@ export default function Form({
             id='email'
             autoComplete='email'
             required
-            className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+            className='input'
           />
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function Form({
             id='display-name'
             required
             minLength='3'
-            className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+            className='input'
           />
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function Form({
             required
             minLength='8'
             pattern='^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
-            className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+            className='input'
           />
           <div className='absolute inset-y-0 right-0 pr-3 flex items-center'>
             <button
@@ -106,8 +106,8 @@ export default function Form({
           <button
             disabled={hasAlert}
             type='submit'
-            className={`disabled:opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out ${
-              !hasAlert ? 'hover:bg-blue-500' : 'cursor-not-allowed'
+            className={`disabled:opacity-50 w-full btn btn--primary btn--md ${
+              hasAlert ? 'pointer-events-none' : ''
             }`.trimEnd()}
           >
             Create account
@@ -119,7 +119,7 @@ export default function Form({
           Already have an account?{' '}
           <button
             onClick={goToLoginPage}
-            className='focus:underline font-medium not-italic hover:text-blue-500 text-blue-600'
+            className='focus:underline font-medium not-italic hover:text-indigo-500 text-indigo-600'
           >
             Log in
           </button>

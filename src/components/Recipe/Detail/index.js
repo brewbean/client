@@ -33,14 +33,14 @@ export const ActivitySection = ({ stages, playerPath }) => (
           <Link
             to={playerPath}
             type='button'
-            className='w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            className='w-full btn btn--primary btn--md'
           >
             Go to Recipe Player
           </Link>
         </>
       ) : (
         <p className='text-sm text-gray-900 inline-flex items-start'>
-          <InfoCircleSolid className='w-6 h-6 text-blue-500 mr-2' />
+          <InfoCircleSolid className='w-6 h-6 text-indigo-500 mr-2' />
           This recipe does not contain a playable format
         </p>
       )}
@@ -102,14 +102,11 @@ export const ModifyRow = ({ canModify, onDelete, editPath }) =>
       <button
         onClick={onDelete}
         type='button'
-        className='inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
+        className='btn btn--white btn--md'
       >
         Delete Recipe
       </button>
-      <Link
-        to={editPath}
-        className='inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
-      >
+      <Link to={editPath} className='btn btn--primary btn--md'>
         Edit Recipe
       </Link>
     </div>

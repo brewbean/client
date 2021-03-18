@@ -31,8 +31,8 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
   if (isFetching) {
     return (
       <div className='hidden sm:animate-pulse sm:ml-6 sm:flex sm:items-center'>
-        <div className='w-20 h-3 rounded bg-blue-300'></div>
-        <div className='ml-3 rounded-full bg-blue-300 h-8 w-8'></div>
+        <div className='w-20 h-3 rounded bg-indigo-300'></div>
+        <div className='ml-3 rounded-full bg-indigo-300 h-8 w-8'></div>
       </div>
     )
   }
@@ -48,7 +48,7 @@ const UserSection = ({ links, setDropdownOpen, isDropdownOpen }) => {
         <div>
           <button
             ref={avatarRef}
-            className='flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-150 ease-in-out'
+            className='flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50 transition duration-150 ease-in-out'
             id='user-menu'
             aria-label='User menu'
             aria-haspopup='true'
