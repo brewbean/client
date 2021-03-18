@@ -1,12 +1,13 @@
 import Form from 'components/BrewLog/Form'
-// import { useAuth } from 'context/AuthContext'
-import { useAlert, alertType } from 'context/AlertContext'
-import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { INSERT_BREW_LOG_ONE } from 'queries'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schema } from 'components/Recipe/Schema'
+import { schema } from 'components/BrewLog/Schema'
+// import { useAuth } from 'context/AuthContext'
+import { useAlert, alertType } from 'context/AlertContext'
+import { useHistory } from 'react-router-dom'
+
 const Create = () => {
   const history = useHistory()
   // const location = useLocation()
@@ -51,9 +52,8 @@ const Create = () => {
       }
     }
 
-    // const { error } = await insertBrewLog({ object })
-    const result = await insertBrewLog({ object })
-    const error = result.error
+    const { error } = await insertBrewLog({ object })
+
     if (error) {
       addAlert({
         type: alertType.ERROR,
@@ -61,9 +61,10 @@ const Create = () => {
         close: true,
       })
     } else {
-      history.push(`/recipe`, { createdRecipe: true })
+      history.push(`/brewlog`, { createdBrewLog: true })
     }
   }
+
   // if (!location.state || !isAuthenticated) return <Redirect to='/brewlog' />
 
   return <Form {...methods} onSubmit={methods.handleSubmit(submitBrewLog)} />
