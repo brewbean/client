@@ -1,5 +1,5 @@
 import { array, boolean, string, number, object } from 'yup'
-import { formatDate } from 'helper/stringHelper'
+
 export const schema = object().shape({
   name: string().required('Recipe name is a required field').trim(),
   about: string()
@@ -77,12 +77,7 @@ export const schema = object().shape({
       return schema.min(0)
     })
     .optional(),
-  title: string()
-    .nullable(true)
-    .transform((value) =>
-      value === '' ? `${formatDate(new Date())} Brew Log` : value
-    )
-    .trim(),
+  title: string().trim().required('Title is required'),
   comment: string().nullable(true).trim(),
   rating: number()
     .min(0, 'Must be greater than or equal to 0')

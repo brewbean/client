@@ -257,9 +257,12 @@ const Form = ({
             {
               name: 'title',
               type: 'text',
+              error: errors?.title,
               label: 'Brew Log Title',
-              isOptional: true,
-              className: 'input',
+              isOptional: false,
+              className: combineClass('input', {
+                'input--state-error': errors?.title,
+              }),
               placeholder: 'e.g. 10/01/2021 Brew Log',
             },
             {
@@ -275,13 +278,14 @@ const Form = ({
               rows: '3',
             },
             {
-              label: 'rating',
+              label: 'Rating',
               symbol: 'stars',
               error: errors?.rating,
               name: 'rating',
               type: 'number',
               min: 0,
               max: 5,
+              isOptional: false,
               className: combineClass('input pr-14', {
                 'input--state-error': errors?.rating,
               }),
