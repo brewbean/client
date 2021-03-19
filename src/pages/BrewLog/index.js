@@ -15,6 +15,7 @@ const BrewLog = (props) => {
         <Create />
       </Route>
       <Route exact path={`${url}/import`}>
+        {/* Change import to new, am just using this for now */}
         <Import />
       </Route>
     </Switch>
