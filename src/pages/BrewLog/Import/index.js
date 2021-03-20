@@ -2,6 +2,8 @@ import { useCallback, useState } from 'react'
 // import { useHistory, useRouteMatch } from 'react-router-dom'
 import { useAuth } from 'context/AuthContext'
 import { useModal } from 'context/ModalContext'
+import Search from './Search'
+
 const Import = () => {
   // const history = useHistory()
   // const { url } = useRouteMatch()
@@ -13,6 +15,7 @@ const Import = () => {
     showSearchRecipe: false,
     showCreateForm: false,
   })
+
   const navigateToImport = () => {
     if (isVerified) {
       setState({ ...state, showSearchRecipe: true })
@@ -46,16 +49,7 @@ const Import = () => {
       {state.showCreateForm ? (
         <div>Form here</div>
       ) : state.showSearchRecipe ? (
-        <div>
-          Recipe Here
-          <button
-            onClick={navigateToCreate}
-            className='my-4 btn btn--primary btn--lg'
-          >
-            {' '}
-            Import Recipe{' '}
-          </button>
-        </div>
+        <Search navigateToCreate={navigateToCreate} />
       ) : (
         <div>
           <h1>Import</h1>
