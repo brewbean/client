@@ -14,6 +14,7 @@ const Import = () => {
     // Use this might need to change to reducer
     showSearchRecipe: false,
     showCreateForm: false,
+    data: {},
   })
 
   const navigateToImport = () => {
@@ -27,9 +28,9 @@ const Import = () => {
     }
   }
 
-  const navigateToCreate = () => {
+  const navigateToCreate = (data) => {
     if (isVerified) {
-      setState({ ...state, showCreateForm: true })
+      setState({ ...state, showCreateForm: true, data })
     } else if (isAuthenticated) {
       triggerUnverifiedModal()
     } else {
