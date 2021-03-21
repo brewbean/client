@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import { useAuth } from 'context/AuthContext'
 import { useModal } from 'context/ModalContext'
 import Search from './Search'
-
+import Create from '../Create'
 const Import = () => {
   // const history = useHistory()
   // const { url } = useRouteMatch()
@@ -48,7 +48,9 @@ const Import = () => {
   return (
     <>
       {state.showCreateForm ? (
-        <div>Form here</div>
+        <div>
+          <Create defaultValue={state.data} />
+        </div>
       ) : state.showSearchRecipe ? (
         <Search navigateToCreate={navigateToCreate} />
       ) : (
@@ -65,7 +67,7 @@ const Import = () => {
           <h1>Create Your Own</h1>
           <div>Would you like to create your own brew log?</div>
           <button
-            onClick={navigateToCreate}
+            onClick={() => navigateToCreate()}
             className='my-4 btn btn--primary btn--lg'
           >
             Fresh Brew Log
