@@ -116,8 +116,8 @@ const INSERT_RECIPES_ONE = gql`
   }
 `
 const GET_ALL_RECIPES = gql`
-  query GetAllRecipes {
-    recipe(order_by: { id: desc }) {
+  query GetAllRecipes($limit: Int, $offset: Int) {
+    recipe(order_by: { id: desc }, limit: $limit, offset: $offset) {
       id
       barista_id
       brew_type
@@ -156,6 +156,11 @@ const GET_ALL_RECIPES = gql`
             rating
           }
         }
+      }
+    }
+    recipe_aggregate {
+      aggregate {
+        count
       }
     }
   }
