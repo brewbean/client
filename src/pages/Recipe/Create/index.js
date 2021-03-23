@@ -1,5 +1,4 @@
 import { useAuth } from 'context/AuthContext'
-import { useAlert, alertType } from 'context/AlertContext'
 import Form from 'components/Recipe/Form'
 import { useHistory, useLocation, Redirect } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -12,7 +11,6 @@ export default function CreateRecipe() {
   const history = useHistory()
   const location = useLocation()
   const { isAuthenticated } = useAuth()
-  const { addAlert } = useAlert()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -44,11 +42,10 @@ export default function CreateRecipe() {
 
     const { error } = await insertRecipe({ object })
 
-    if (error) {
-      addAlert({
-        type: alertType.ERROR,
-        header: error.message,
-        close: true,
+    if (error?.message.includes('Uniqueness violation')) {
+      methods.setError('name', {
+        message: 'Recipe name must be unique',
+        shouldFocus: true,
       })
     } else {
       history.push(`/recipe`, { createdRecipe: true })
