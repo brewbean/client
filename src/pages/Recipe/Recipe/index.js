@@ -1,11 +1,14 @@
 import { useMemo, useEffect, useCallback } from 'react'
 import { useQuery } from 'urql'
-import RecipeCard from './RecipeCard'
+import qs from 'qs'
 import { GET_ALL_RECIPES } from 'queries'
 import { useRouteMatch, useLocation, useHistory } from 'react-router-dom'
 import { useAlert, alertType } from 'context/AlertContext'
 import { useAuth } from 'context/AuthContext'
 import { useModal } from 'context/ModalContext'
+import Table from './Table'
+import { range } from 'helper/array'
+import Pagination from './Pagination'
 
 const Recipes = () => {
   const { isAuthenticated, isVerified } = useAuth()
@@ -22,9 +25,15 @@ const Recipes = () => {
   const { addAlert } = useAlert()
   const location = useLocation()
   const history = useHistory()
+  const { page } = qs.parse(location.search, { ignoreQueryPrefix: true })
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_ALL_RECIPES,
+    variables: {
+      limit: 10,
+      offset:
+        page === undefined || page === '1' ? 0 : (parseInt(page) - 1) * 10,
+    },
     context: useMemo(
       () => ({
         fetchOptions: {
@@ -77,8 +86,11 @@ const Recipes = () => {
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
 
+  const totalPages = Math.ceil(data.recipe_aggregate.aggregate.count / 10)
+  const pageNumbers = totalPages > 1 ? range(1, totalPages) : []
+
   return (
-    <div className='my-8 max-w-7xl mx-auto'>
+    <div className='my-8 space-y-8 max-w-7xl mx-auto'>
       <div className='text-center'>
         <h2 className='text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl'>
           Recipes
@@ -88,14 +100,15 @@ const Recipes = () => {
         </div>
         <button
           onClick={navigateToCreate}
-          className='my-4 btn btn--primary btn--lg'
+          className='mt-4 btn btn--primary btn--lg'
         >
           Create Recipe
         </button>
       </div>
-      <div className='mt-8 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
-        {data && data.recipe.map((x, i) => <RecipeCard key={i} {...x} />)}
-      </div>
+
+      <Table recipes={data.recipe} />
+
+      {pageNumbers.length > 1 && <Pagination pageNumbers={pageNumbers} />}
     </div>
   )
 }

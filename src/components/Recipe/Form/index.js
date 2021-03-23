@@ -260,7 +260,9 @@ export default function Form({
         </Link>
         <button
           type='submit'
-          disabled={formMounted && !isHidden}
+          disabled={
+            (formMounted && !isHidden) || Object.keys(errors).length > 0
+          }
           className={`disabled:opacity-50 disabled:pointer-events-none ml-3 btn btn--md btn--primary`}
         >
           Save

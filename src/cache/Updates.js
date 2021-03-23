@@ -70,9 +70,23 @@ export const updates = {
       cache.writeFragment(fragment.recipeInfo, result.update_recipe_by_pk)
     },
     insert_recipe_one: (result, args, cache, info) => {
+      const key = 'Query'
+      cache
+        .inspectFields(key)
+        .filter((field) => field.fieldName === 'recipe')
+        .forEach((field) => {
+          if (field.arguments.offset !== 0) {
+            cache.invalidate(key, field.fieldKey)
+          }
+        })
+
       cache.updateQuery(
         {
           query: GET_ALL_RECIPES,
+          variables: {
+            limit: 10,
+            offset: 0,
+          },
         },
         (data) => {
           // Null error if user navigates to /recipe/new directly
@@ -81,6 +95,10 @@ export const updates = {
           // [NEW BUG] Issue also happens when you log in on clicking 'Create Recipe'
           //  as logging in clears cache
           data.recipe.unshift(result.insert_recipe_one)
+          if (data.recipe.length > 10) {
+            data.recipe.pop()
+          }
+          data.recipe_aggregate.aggregate.count++
           return data
         }
       )
@@ -101,9 +119,7 @@ export const updates = {
           variables: { id: args.object.recipe_id },
         },
         (data) => {
-          data.recipe_by_pk.recipe_reviews.push(
-            result.insert_recipe_review_one
-          )
+          data.recipe_by_pk.recipe_reviews.push(result.insert_recipe_review_one)
           return data
         }
       )
@@ -112,13 +128,4 @@ export const updates = {
       cache.invalidate({ __typename: 'recipe_review', id: args.id })
     },
   },
-}
-
-export const keys = {
-  bean_review_aggregate: () => null,
-  bean_review_aggregate_fields: () => null,
-  bean_review_avg_fields: () => null,
-  recipe_review_aggregate: () => null,
-  recipe_review_aggregate_fields: () => null,
-  recipe_review_avg_fields: () => null,
 }
