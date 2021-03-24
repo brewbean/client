@@ -94,11 +94,13 @@ export const updates = {
           // `unshift` adds to top of recipe results
           // [NEW BUG] Issue also happens when you log in on clicking 'Create Recipe'
           //  as logging in clears cache
-          data.recipe.unshift(result.insert_recipe_one)
-          if (data.recipe.length > 10) {
-            data.recipe.pop()
+          if (data) {
+            data.recipe.unshift(result.insert_recipe_one)
+            if (data.recipe.length > 10) {
+              data.recipe.pop()
+            }
+            data.recipe_aggregate.aggregate.count++
           }
-          data.recipe_aggregate.aggregate.count++
           return data
         }
       )
