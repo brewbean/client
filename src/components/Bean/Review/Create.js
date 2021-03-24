@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { useMutation } from 'urql'
-import { UPDATE_RECIPE_REVIEW } from 'queries'
+import { INSERT_BEAN_REVIEW_ONE } from 'queries'
 import InputRow from 'components/InputRow'
+import { useAuth } from 'context/AuthContext'
 import { PlaceHolder } from 'components/Icon'
 
-const Edit = ({ review, close }) => {
+const Create = ({ id }) => {
   const [state, setState] = useState({
-    rating: review.rating,
-    comment: review.comment,
+    rating: '5',
+    comment: '',
   })
-
-  const [, updateReview] = useMutation(UPDATE_RECIPE_REVIEW)
+  const { barista } = useAuth()
+  const [, insertBeanReview] = useMutation(INSERT_BEAN_REVIEW_ONE)
   const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,
@@ -19,25 +20,27 @@ const Edit = ({ review, close }) => {
   }
 
   const submitReview = async () => {
-    await updateReview({
-      id: review.id,
+    await insertBeanReview({
       object: {
-        recipe_id: review.recipe_id,
-        date_updated: new Date().toISOString(),
-        ...state,
+        bean_id: id,
+        rating: state.rating,
+        comment: state.comment,
       },
     })
-    close()
+    setState({
+      rating: '5',
+      comment: '',
+    })
   }
 
   return (
     <div className='bg-gray-50 px-4 py-6 sm:px-6'>
       <div className='flex space-x-3'>
         <div className='flex-shrink-0'>
-          {review.barista?.avatar ? (
+          {barista?.avatar ? (
             <img
               className='h-10 w-10 rounded-full'
-              src={review.barista?.avatar}
+              src={barista?.avatar}
               alt=''
             />
           ) : (
@@ -60,6 +63,7 @@ const Edit = ({ review, close }) => {
                 className='input'
               />
             </div>
+
             <InputRow
               value={state.rating}
               onChange={onChangeGenerator('rating')}
@@ -67,22 +71,13 @@ const Edit = ({ review, close }) => {
               label='Rating'
             />
 
-            <div className='flex justify-end'>
-              <button
-                type='button'
-                onClick={submitReview}
-                className='mr-2 btn btn--primary btn--md'
-              >
-                Submit
-              </button>
-              <button
-                type='button'
-                onClick={close}
-                className='btn btn--white btn--md'
-              >
-                Cancel
-              </button>
-            </div>
+            <button
+              type='button'
+              onClick={submitReview}
+              className='btn btn--primary btn--md'
+            >
+              Add Review
+            </button>
           </div>
         </div>
       </div>
@@ -90,4 +85,4 @@ const Edit = ({ review, close }) => {
   )
 }
 
-export default Edit
+export default Create

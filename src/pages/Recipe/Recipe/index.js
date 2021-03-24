@@ -8,7 +8,7 @@ import { useAuth } from 'context/AuthContext'
 import { useModal } from 'context/ModalContext'
 import Table from './Table'
 import { range } from 'helper/array'
-import Pagination from './Pagination'
+import { Pagination } from 'components/Utility/List'
 
 const Recipes = () => {
   const { isAuthenticated, isVerified } = useAuth()

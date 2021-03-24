@@ -2,9 +2,9 @@ import { gql } from 'urql'
 /*
   Bean Queries
 */
-const GET_ALL_BEANS = gql`
-  query {
-    bean(order_by: { id: asc }) {
+export const GET_ALL_BEANS = gql`
+  query GetAllBeans($limit: Int, $offset: Int) {
+    bean(order_by: { id: asc }, limit: $limit, offset: $offset) {
       id
       company_name
       name
@@ -16,11 +16,28 @@ const GET_ALL_BEANS = gql`
       img
       about
       price
-      rating
+      date_added
+      author {
+        id
+        display_name
+      }
+      bean_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
+      }
+    }
+    bean_aggregate {
+      aggregate {
+        count
+      }
     }
   }
 `
-const GET_SINGLE_BEAN = gql`
+
+export const GET_SINGLE_BEAN = gql`
   query($id: Int!) {
     bean_by_pk(id: $id) {
       id
@@ -34,12 +51,23 @@ const GET_SINGLE_BEAN = gql`
       img
       about
       price
-      rating
+      date_added
+      author {
+        id
+        display_name
+      }
+      bean_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
+      }
     }
   }
 `
-const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
-  query($id: Int!) {
+export const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
+  query BeanAndBeanReviewsById($id: Int!) {
     bean_by_pk(id: $id) {
       id
       company_name
@@ -52,11 +80,16 @@ const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
       img
       about
       price
-      rating
-      bean_reviews {
+      date_added
+      author {
+        id
+        display_name
+      }
+      bean_reviews(order_by: { date_updated: desc }) {
         id
         rating
         comment
+        date_added
         barista {
           id
           display_name
@@ -75,12 +108,13 @@ const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
 /*
   Bean Review Queries
 */
-const INSERT_REVIEW_ONE = gql`
+export const INSERT_BEAN_REVIEW_ONE = gql`
   mutation($object: bean_review_insert_input!) {
     insert_bean_review_one(object: $object) {
       id
       rating
       comment
+      date_added
       barista {
         id
         display_name
@@ -88,7 +122,7 @@ const INSERT_REVIEW_ONE = gql`
     }
   }
 `
-const GET_SINGLE_REVIEW = gql`
+export const GET_SINGLE_REVIEW = gql`
   query($id: Int!) {
     bean_review_by_pk(id: $id) {
       id
@@ -103,16 +137,17 @@ const GET_SINGLE_REVIEW = gql`
     }
   }
 `
-const UPDATE_BEAN_REVIEW = gql`
+export const UPDATE_BEAN_REVIEW = gql`
   mutation($id: Int!, $object: bean_review_set_input!) {
     update_bean_review_by_pk(pk_columns: { id: $id }, _set: $object) {
       id
       comment
       rating
+      date_added
     }
   }
 `
-const DELETE_BEAN_REVIEW = gql`
+export const DELETE_BEAN_REVIEW = gql`
   mutation($id: Int!) {
     delete_bean_review_by_pk(id: $id) {
       id
@@ -120,13 +155,3 @@ const DELETE_BEAN_REVIEW = gql`
     }
   }
 `
-
-export {
-  GET_ALL_BEANS,
-  GET_SINGLE_BEAN,
-  GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
-  INSERT_REVIEW_ONE,
-  GET_SINGLE_REVIEW,
-  UPDATE_BEAN_REVIEW,
-  DELETE_BEAN_REVIEW,
-}
