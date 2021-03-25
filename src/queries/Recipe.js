@@ -197,7 +197,7 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
         img
         name
       }
-      recipe_reviews {
+      recipe_reviews(order_by: { date_updated: desc }) {
         id
         recipe_id
         rating
