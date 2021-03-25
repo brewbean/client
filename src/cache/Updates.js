@@ -2,12 +2,47 @@ import {
   GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
   GET_ALL_BREW_LOGS,
   GET_ALL_RECIPES,
+  GET_ALL_BEANS,
   GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
   fragment,
 } from 'queries'
 
 export const updates = {
   Mutation: {
+    insert_bean_one: (result, args, cache, info) => {
+      const key = 'Query'
+      cache
+        .inspectFields(key)
+        .filter((field) => field.fieldName === 'bean')
+        .forEach((field) => {
+          if (field.arguments.offset !== 0) {
+            cache.invalidate(key, field.fieldKey)
+          }
+        })
+
+      cache.updateQuery(
+        {
+          query: GET_ALL_BEANS,
+          variables: {
+            limit: 10,
+            offset: 0,
+          },
+        },
+        (data) => {
+          if (data) {
+            data.bean.unshift(result.insert_bean_one)
+            if (data.bean.length > 10) {
+              data.bean.pop()
+            }
+            data.bean_aggregate.aggregate.count++
+          }
+          return data
+        }
+      )
+    },
+    update_bean_by_pk: (result, args, cache, info) => {
+      cache.writeFragment(fragment.beanInfo, result.update_bean_by_pk)
+    },
     insert_bean_review_one: (result, args, cache, info) => {
       cache.updateQuery(
         {

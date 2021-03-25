@@ -68,7 +68,7 @@ export default function List({ beans }) {
                   <td className='rounded-l-lg px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                     <div>{name}</div>
                     <div className='text-gray-500 text-xs font-normal'>
-                      {profile_note.join(', ')}
+                      {profile_note}
                     </div>
                   </td>
                   <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>

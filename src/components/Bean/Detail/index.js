@@ -28,11 +28,11 @@ export const CommentSection = ({ beanId, beanReviews, canReview }) => {
       <div className='bg-white shadow sm:rounded-lg sm:overflow-hidden'>
         <div className='divide-y divide-gray-200'>
           <div className='px-4 py-5 sm:px-6'>
-            <h2 className='text-lg font-medium text-gray-900'>Bean Reviews</h2>
+            <h2 className='text-lg font-medium text-gray-900'>Reviews</h2>
           </div>
           <div className='px-4 py-6 sm:px-6'>
             {beanReviews.length === 0 ? (
-              <p className='text-sm text-gray-900'>No bean reviews yet</p>
+              <p className='text-sm text-gray-900'>No reviews yet</p>
             ) : (
               <All
                 beanReviews={beanReviews}
