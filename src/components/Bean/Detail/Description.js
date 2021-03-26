@@ -1,3 +1,4 @@
+import { Rating } from 'components/Badge'
 import { roundToHalfOrWhole } from 'helper/math'
 import { wordCapitalized } from 'helper/stringHelper'
 
@@ -42,9 +43,9 @@ export const Description = ({
       {price ? `${price} USD` : 'N/A'}
     </Section>
     <Section className='sm:col-span-1' label='Rating'>
-      {bean_reviews_aggregate.aggregate.avg.rating
-        ? `${roundToHalfOrWhole(bean_reviews_aggregate.aggregate.avg.rating)}/5`
-        : 'not rated'}
+      <Rating
+        value={roundToHalfOrWhole(bean_reviews_aggregate.aggregate.avg.rating)}
+      />
     </Section>
     <Section className='sm:col-span-2 whitespace-pre-line' label='About'>
       {about ? about : 'N/A'}
