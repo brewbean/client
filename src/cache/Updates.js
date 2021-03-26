@@ -64,7 +64,7 @@ export const updates = {
           query: GET_ALL_BREW_LOGS,
         },
         (data) => {
-          data.brew_log.push(result.insert_brew_log_one)
+          data && data.brew_log.push(result.insert_brew_log_one)
           return data
         }
       )

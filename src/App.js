@@ -11,6 +11,7 @@ import Reset from 'pages/Reset'
 import Guide from 'pages/Guide'
 import { About, Contact, PrivacyPolicy, Terms, NotFound } from 'pages/Content'
 import Create from 'components/Recipe/Form'
+import BrewLog from 'pages/BrewLog'
 import BeanPage from 'pages/Bean'
 
 function App() {
@@ -58,6 +59,9 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/recipe'>
         <Recipe />
+      </ContainerRoute>
+      <ContainerRoute path='/brewlog'>
+        <BrewLog />
       </ContainerRoute>
       <ContainerRoute path='/bean'>
         <BeanPage />
