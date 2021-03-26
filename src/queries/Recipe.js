@@ -68,90 +68,15 @@ const recipeReviewInfo = gql`
 const INSERT_RECIPES_ONE = gql`
   mutation InsertOneRecipe($object: recipe_insert_input!) {
     insert_recipe_one(object: $object) {
-      id
-      barista_id
-      brew_type
-      bean_weight
-      bean_grind
-      water_amount
-      bean_id
-      water_temp
-      is_private
-      date_added
-      device
-      about
-      name
-      instructions
-      bean_name_free
-      stages {
-        id
-        action
-        end
-        start
-        weight
-      }
-      barista {
-        id
-        display_name
-        avatar
-      }
-      bean {
-        id
-        img
-        name
-      }
-      recipe_reviews_aggregate {
-        aggregate {
-          avg {
-            rating
-          }
-        }
-      }
+      ...RecipeInfo
     }
   }
+  ${recipeInfo}
 `
 const GET_ALL_RECIPES = gql`
   query GetAllRecipes($limit: Int, $offset: Int) {
     recipe(order_by: { id: desc }, limit: $limit, offset: $offset) {
-      id
-      barista_id
-      brew_type
-      bean_weight
-      bean_grind
-      water_amount
-      bean_id
-      water_temp
-      is_private
-      date_added
-      device
-      about
-      name
-      instructions
-      bean_name_free
-      stages {
-        id
-        action
-        end
-        start
-        weight
-      }
-      barista {
-        id
-        display_name
-        avatar
-      }
-      bean {
-        id
-        img
-        name
-      }
-      recipe_reviews_aggregate {
-        aggregate {
-          avg {
-            rating
-          }
-        }
-      }
+      ...RecipeInfo
     }
     recipe_aggregate {
       aggregate {
@@ -159,39 +84,12 @@ const GET_ALL_RECIPES = gql`
       }
     }
   }
+  ${recipeInfo}
 `
 const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
   query GetOneRecipeWithReviews($id: Int!) {
     recipe_by_pk(id: $id) {
-      id
-      brew_type
-      bean_weight
-      bean_grind
-      water_amount
-      water_temp
-      is_private
-      date_added
-      device
-      about
-      name
-      instructions
-      bean_name_free
-      stages {
-        id
-        action
-        end
-        start
-        weight
-      }
-      barista {
-        id
-        display_name
-      }
-      bean {
-        id
-        img
-        name
-      }
+      ...RecipeInfo
       recipe_reviews(order_by: { date_updated: desc }) {
         id
         recipe_id
@@ -204,52 +102,17 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
           avatar
         }
       }
-      recipe_reviews_aggregate {
-        aggregate {
-          avg {
-            rating
-          }
-        }
-      }
     }
   }
+  ${recipeInfo}
 `
 const GET_SINGLE_RECIPE = gql`
   query GetOneRecipe($id: Int!) {
     recipe_by_pk(id: $id) {
-      id
-      barista_id
-      brew_type
-      bean_weight
-      bean_grind
-      water_amount
-      bean_id
-      water_temp
-      is_private
-      date_added
-      device
-      about
-      name
-      instructions
-      bean_name_free
-      stages {
-        id
-        action
-        end
-        start
-        weight
-      }
-      bean {
-        img
-        name
-      }
-      barista {
-        id
-        display_name
-        avatar
-      }
+      ...RecipeInfo
     }
   }
+  ${recipeInfo}
 `
 const GET_SINGLE_RECIPE_REVIEW = gql`
   query GetOneRecipeReview($id: Int!) {
@@ -365,47 +228,10 @@ const UPDATE_RECIPE_WITH_STAGES = gql`
       }
     }
     update_recipe_by_pk(pk_columns: { id: $id }, _set: $recipe) {
-      id
-      barista_id
-      brew_type
-      bean_weight
-      bean_grind
-      water_amount
-      bean_id
-      water_temp
-      is_private
-      date_added
-      device
-      about
-      name
-      instructions
-      bean_name_free
-      stages {
-        id
-        action
-        end
-        start
-        weight
-      }
-      barista {
-        id
-        display_name
-        avatar
-      }
-      bean {
-        id
-        img
-        name
-      }
-      recipe_reviews_aggregate {
-        aggregate {
-          avg {
-            rating
-          }
-        }
-      }
+      ...RecipeInfo
     }
   }
+  ${recipeInfo}
 `
 
 export {

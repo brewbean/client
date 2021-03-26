@@ -1,3 +1,4 @@
+import { Rating } from 'components/Badge'
 import { roundToHalfOrWhole } from 'helper/math'
 
 const Section = ({ className, label, children }) => (
@@ -16,11 +17,15 @@ export const Description = ({
   bean_name_free,
   recipe_reviews_aggregate,
   about,
+  device,
   instructions,
 }) => (
   <dl className='grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2'>
     <Section className='sm:col-span-1' label='Brew Type'>
       {brew_type}
+    </Section>
+    <Section className='sm:col-span-1' label='Bean'>
+      {bean_name_free ? bean_name_free : 'N/A'}
     </Section>
     <Section className='sm:col-span-1' label='Bean Weight'>
       {bean_weight}g
@@ -34,14 +39,18 @@ export const Description = ({
     <Section className='sm:col-span-1' label='Water Temp'>
       {water_temp}F
     </Section>
-    <Section className='sm:col-span-1' label='Bean'>
-      {bean_name_free}
-    </Section>
     <Section className='sm:col-span-1' label='Rating'>
-      {roundToHalfOrWhole(recipe_reviews_aggregate.aggregate.avg.rating)}/5
+      <Rating
+        value={roundToHalfOrWhole(
+          recipe_reviews_aggregate.aggregate.avg.rating
+        )}
+      />
+    </Section>
+    <Section className='sm:col-span-1' label='Device'>
+      {device ? device : 'N/A'}
     </Section>
     <Section className='sm:col-span-2' label='About'>
-      {about}
+      {about ? about : 'N/A'}
     </Section>
     <Section className='sm:col-span-2 whitespace-pre-line' label='Instructions'>
       {instructions}
