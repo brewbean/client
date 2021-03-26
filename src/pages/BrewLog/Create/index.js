@@ -72,6 +72,14 @@ const Create = ({ defaultValue }) => {
       {...methods}
       defaultValue={defaultValue}
       onSubmit={methods.handleSubmit(submitBrewLog)}
+      preload={
+        defaultValue.stages !== 0 && {
+          formMount: true,
+          isHidden: true,
+          stages: defaultValue.stages,
+          serveTime: defaultValue.serve,
+        }
+      }
     />
   )
 }
