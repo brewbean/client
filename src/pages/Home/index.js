@@ -20,21 +20,14 @@ export default function Home() {
       </div>
 
       <div className='grid sm:grid-cols-3 gap-4'>
-        <div className='flex flex-col items-center'>
-          <div className='relative'>
-            <img
-              className='h-64 w-full object-cover sm:rounded-lg'
-              src={Beans}
-              alt='beans'
-            />
-            <div className='opacity-0 hover:opacity-100 flex transition duration-500 ease-in-out items-center justify-center absolute top-0 h-full w-full sm:rounded-lg bg-gray-100 bg-opacity-90'>
-              <span className='text-lg font-bold text-gray-800 pointer-events-none'>
-                COMING SOON
-              </span>
-            </div>
-          </div>
+        <Link to='/bean' className='flex flex-col text-center'>
+          <img
+            className='h-64 object-cover sm:rounded-lg'
+            src={Beans}
+            alt='beans'
+          />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Beans</h2>
-        </div>
+        </Link>
         <Link to='/recipe' className='flex flex-col text-center'>
           <img
             className='h-64 object-cover sm:rounded-lg'

@@ -6,8 +6,12 @@ import UserSectionMobile from './UserSectionMobile'
 
 const links = [
   {
-    text: 'Discover recipes',
+    text: 'Recipes',
     to: '/recipe',
+  },
+  {
+    text: 'Beans',
+    to: '/bean',
   },
 ]
 
@@ -39,7 +43,7 @@ const Header = () => {
           >
             brew(<span className='text-indigo-500'>bean</span>)
           </Link>
-          <div className='hidden sm:ml-8 sm:flex sm:space-y-8 sm:items-end'>
+          <div className='hidden sm:ml-8 sm:flex sm:space-x-8 sm:items-end'>
             {links.map((link, i) => (
               <Link
                 key={link.to}

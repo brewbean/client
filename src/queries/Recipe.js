@@ -62,11 +62,6 @@ const recipeReviewInfo = gql`
   }
 `
 
-const fragment = {
-  recipeInfo,
-  recipeReviewInfo,
-}
-
 /*
   Recipe Queries
 */
@@ -197,7 +192,7 @@ const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
         img
         name
       }
-      recipe_reviews {
+      recipe_reviews(order_by: { date_updated: desc }) {
         id
         recipe_id
         rating
@@ -318,7 +313,7 @@ const UPDATE_RECIPE_REVIEW = gql`
       ...RecipeReviewInfo
     }
   }
-  ${fragment.recipeReviewInfo}
+  ${recipeReviewInfo}
 `
 const DELETE_RECIPES = gql`
   mutation DeleteRecipe($id: Int!) {
@@ -336,7 +331,7 @@ const INSERT_RECIPE_REVIEW_ONE = gql`
       ...RecipeReviewInfo
     }
   }
-  ${fragment.recipeReviewInfo}
+  ${recipeReviewInfo}
 `
 
 const DELETE_RECIPE_REVIEW = gql`
@@ -414,7 +409,8 @@ const UPDATE_RECIPE_WITH_STAGES = gql`
 `
 
 export {
-  fragment,
+  recipeInfo,
+  recipeReviewInfo,
   INSERT_RECIPES_ONE,
   GET_ALL_RECIPES,
   GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,

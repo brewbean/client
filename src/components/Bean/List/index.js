@@ -1,8 +1,7 @@
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
-import { Check, X } from 'components/Icon'
 
-export default function Table({ recipes }) {
+export default function List({ beans }) {
   const { url } = useRouteMatch()
   const history = useHistory()
 
@@ -21,13 +20,19 @@ export default function Table({ recipes }) {
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Writer
+              Company
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Brew Type
+              Roast
+            </th>
+            <th
+              scope='col'
+              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
+            >
+              Region
             </th>
             <th
               scope='col'
@@ -35,26 +40,20 @@ export default function Table({ recipes }) {
             >
               Rating
             </th>
-            <th
-              scope='col'
-              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
-            >
-              Playable?
-            </th>
           </tr>
         </thead>
         <tbody>
-          {recipes.map(
+          {beans.map(
             ({
               id,
-              recipe_reviews_aggregate,
-              barista,
+              company_name,
               name,
-              about,
-              brew_type,
-              stages,
+              region,
+              roast_type,
+              profile_note,
+              bean_reviews_aggregate,
             }) => {
-              let avgRating = recipe_reviews_aggregate.aggregate.avg.rating
+              let avgRating = bean_reviews_aggregate.aggregate.avg.rating
               if (avgRating) {
                 avgRating = roundToHalfOrWhole(avgRating)
               }
@@ -69,14 +68,17 @@ export default function Table({ recipes }) {
                   <td className='rounded-l-lg px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                     <div>{name}</div>
                     <div className='text-gray-500 text-xs font-normal'>
-                      {about}
+                      {profile_note}
                     </div>
                   </td>
                   <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                    {barista.display_name}
+                    {company_name}
                   </td>
                   <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize'>
-                    {brew_type}
+                    {roast_type}
+                  </td>
+                  <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize'>
+                    {region}
                   </td>
                   <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
                     <span
@@ -92,13 +94,6 @@ export default function Table({ recipes }) {
                     >
                       {avgRating ? avgRating : 'not rated'}
                     </span>
-                  </td>
-                  <td className='rounded-r-lg px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                    {stages.length > 0 ? (
-                      <Check className='h-5 w-5 text-green-600' />
-                    ) : (
-                      <X className='h-5 w-5 text-red-600' />
-                    )}
                   </td>
                 </tr>
               )
