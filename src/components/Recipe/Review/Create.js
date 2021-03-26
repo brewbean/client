@@ -22,7 +22,6 @@ const Create = ({ id }) => {
   const submitReview = async () => {
     await insertRecipeReview({
       object: {
-        barista_id: barista.id,
         recipe_id: id,
         rating: state.rating,
         comment: state.comment,

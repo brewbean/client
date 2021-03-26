@@ -1,16 +1,16 @@
 import { useMemo, useEffect, useCallback } from 'react'
+import { useRouteMatch, useLocation, useHistory } from 'react-router-dom'
 import { useQuery } from 'urql'
 import qs from 'qs'
-import { GET_ALL_RECIPES } from 'queries'
-import { useRouteMatch, useLocation, useHistory } from 'react-router-dom'
 import { useAlert, alertType } from 'context/AlertContext'
 import { useAuth } from 'context/AuthContext'
 import { useModal } from 'context/ModalContext'
-import Table from './Table'
+import { GET_ALL_BEANS } from 'queries'
+import List from 'components/Bean/List'
 import { range } from 'helper/array'
 import { Pagination } from 'components/Utility/List'
 
-const Recipes = () => {
+export default function Main() {
   const { isAuthenticated, isVerified } = useAuth()
   const {
     isSuccess,
@@ -28,7 +28,7 @@ const Recipes = () => {
   const { page } = qs.parse(location.search, { ignoreQueryPrefix: true })
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_ALL_RECIPES,
+    query: GET_ALL_BEANS,
     variables: {
       limit: 10,
       offset:
@@ -47,10 +47,10 @@ const Recipes = () => {
   })
 
   useEffect(() => {
-    if (location.state?.createdRecipe) {
+    if (location.state?.createdBean) {
       addAlert({
         type: alertType.SUCCESS,
-        header: 'Recipe successfully created!',
+        header: 'Bean successfully created!',
         close: true,
       })
     }
@@ -65,12 +65,12 @@ const Recipes = () => {
 
   const navigateToCreate = () => {
     if (isVerified) {
-      history.push(`${url}/new`, { fromRecipe: true })
+      history.push(`${url}/new`, { fromBean: true })
     } else if (isAuthenticated) {
       triggerUnverifiedModal()
     } else {
       open()
-      setContent('login', 'You must be logged in to create a recipe')
+      setContent('login', 'You must be logged in to add a bean entry')
     }
   }
 
@@ -86,30 +86,29 @@ const Recipes = () => {
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
 
-  const totalPages = Math.ceil(data.recipe_aggregate.aggregate.count / 10)
+  const totalPages = Math.ceil(data.bean_aggregate.aggregate.count / 10)
   const pageNumbers = totalPages > 1 ? range(1, totalPages) : []
 
   return (
     <div className='my-8 space-y-8 max-w-7xl mx-auto'>
       <div className='text-center'>
         <h2 className='text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl'>
-          Recipes
+          Beans
         </h2>
         <div className='mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4'>
-          Explore coffee recipes here!
+          Explore coffee beans here!
         </div>
         <button
           onClick={navigateToCreate}
           className='mt-4 btn btn--primary btn--lg'
         >
-          Create Recipe
+          Add Bean
         </button>
       </div>
 
-      <Table recipes={data.recipe} />
+      <List beans={data.bean} />
 
       {pageNumbers.length > 1 && <Pagination pageNumbers={pageNumbers} />}
     </div>
   )
 }
-export default Recipes

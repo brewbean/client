@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useMutation } from 'urql'
-import { UPDATE_RECIPE_REVIEW } from 'queries'
+import { UPDATE_BEAN_REVIEW } from 'queries'
 import InputRow from 'components/InputRow'
 import { PlaceHolder } from 'components/Icon'
 
@@ -10,7 +10,7 @@ const Edit = ({ review, close }) => {
     comment: review.comment,
   })
 
-  const [, updateReview] = useMutation(UPDATE_RECIPE_REVIEW)
+  const [, updateReview] = useMutation(UPDATE_BEAN_REVIEW)
   const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,
@@ -22,7 +22,7 @@ const Edit = ({ review, close }) => {
     await updateReview({
       id: review.id,
       object: {
-        recipe_id: review.recipe_id,
+        bean_id: review.bean_id,
         date_updated: new Date().toISOString(),
         ...state,
       },

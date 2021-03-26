@@ -12,6 +12,7 @@ import Guide from 'pages/Guide'
 import { About, Contact, PrivacyPolicy, Terms, NotFound } from 'pages/Content'
 import Create from 'components/Recipe/Form'
 import BrewLog from 'pages/BrewLog'
+import BeanPage from 'pages/Bean'
 
 function App() {
   const { pathname, search } = useLocation()
@@ -61,6 +62,9 @@ function App() {
       </ContainerRoute>
       <ContainerRoute path='/brewlog'>
         <BrewLog />
+      </ContainerRoute>
+      <ContainerRoute path='/bean'>
+        <BeanPage />
       </ContainerRoute>
       <ContainerRoute path='/guide'>
         <Guide />
