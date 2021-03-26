@@ -8,6 +8,9 @@ import {
 } from './BrewLog'
 
 import {
+  beanInfo,
+  INSERT_BEAN_ONE,
+  UPDATE_BEAN,
   GET_ALL_BEANS,
   GET_SINGLE_BEAN,
   GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
@@ -18,7 +21,8 @@ import {
 } from './Bean.js'
 
 import {
-  fragment,
+  recipeInfo,
+  recipeReviewInfo,
   INSERT_RECIPES_ONE,
   GET_ALL_RECIPES,
   GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
@@ -46,6 +50,8 @@ export const GET_BARISTA = gql`
   }
 `
 
+const fragment = { recipeInfo, recipeReviewInfo, beanInfo }
+
 export {
   fragment,
   INSERT_BREW_LOG_ONE,
@@ -53,6 +59,8 @@ export {
   GET_SINGLE_BREW_LOG,
   UPDATE_BREW_LOG,
   DELETE_BREW_LOG,
+  INSERT_BEAN_ONE,
+  UPDATE_BEAN,
   GET_ALL_BEANS,
   GET_SINGLE_BEAN,
   GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
