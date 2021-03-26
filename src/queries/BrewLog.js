@@ -9,6 +9,7 @@ const baristaInfo = gql`
     email
     id
     is_verified
+    password
     avatar
   }
 `
