@@ -28,11 +28,27 @@ const SectionMap = ({ title, subtitle, register, data }) => (
             </select>
           ) : type === 'textarea' ? (
             <textarea
-              {...{ id, name, className, placeholder, rows, ref: register }}
+              {...{
+                id,
+                name,
+                className,
+                defaultValue,
+                placeholder,
+                rows,
+                ref: register,
+              }}
             />
           ) : (
             <input
-              {...{ id, name, type, className, placeholder, ref: register }}
+              {...{
+                id,
+                name,
+                type,
+                className,
+                defaultValue,
+                placeholder,
+                ref: register,
+              }}
             />
           )}
         </TwoColumnInput>
