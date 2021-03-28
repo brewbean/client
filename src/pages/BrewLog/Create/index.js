@@ -1,9 +1,13 @@
-import Form from 'components/BrewLog/Form'
+import { Form as BrewLogForm } from 'components/BrewLog/Form'
+import Form from 'components/Recipe/Form'
+
 import { useForm } from 'react-hook-form'
-import { INSERT_BREW_LOG_ONE } from 'queries'
+import { INSERT_BREW_LOG_ONE, INSERT_RECIPES_ONE } from 'queries'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schema } from 'components/BrewLog/Schema'
+// import { schema } from 'components/BrewLog/Schema'
+import { schema } from 'components/Recipe/Schema'
+
 // import { useAuth } from 'context/AuthContext'
 import { useAlert, alertType } from 'context/AlertContext'
 import { useHistory } from 'react-router-dom'
@@ -26,7 +30,6 @@ const Create = ({ defaultValue }) => {
 
   const submitBrewLog = async (data) => {
     const { stages, serve, rating, title, comment, ...recipe } = data
-
     const object = {
       comment: comment,
       title: title,
@@ -37,6 +40,37 @@ const Create = ({ defaultValue }) => {
         },
       },
     }
+    if (stages) {
+      object.stages = {
+        data: [
+          ...stages,
+          {
+            action: 'serve',
+            start: serve,
+            end: serve,
+            weight: stages[stages.length - 1].weight,
+          },
+        ],
+      }
+    }
+    const { error } = await insertBrewLog({ object })
+    if (error) {
+      addAlert({
+        type: alertType.ERROR,
+        header: error.message,
+        close: true,
+      })
+    } else {
+      history.push(`/brewlog`, { createdBrewLog: true })
+    }
+  }
+
+  const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
+
+  const submitRecipe = async (data) => {
+    console.log('Brew Log Create: ', data)
+    const { stages, serve, ...recipe } = data
+    let object = { ...recipe }
 
     if (stages) {
       object.stages = {
@@ -52,36 +86,41 @@ const Create = ({ defaultValue }) => {
       }
     }
 
-    const { error } = await insertBrewLog({ object })
+    const { error } = await insertRecipe({ object })
 
-    if (error) {
-      addAlert({
-        type: alertType.ERROR,
-        header: error.message,
-        close: true,
+    if (error?.message.includes('Uniqueness violation')) {
+      methods.setError('name', {
+        message: 'Recipe name must be unique',
+        shouldFocus: true,
       })
     } else {
-      history.push(`/brewlog`, { createdBrewLog: true })
+      history.push(`/recipe`, { createdRecipe: true })
     }
   }
 
   // if (!location.state || !isAuthenticated) return <Redirect to='/brewlog' />
 
   return (
-    <Form
-      {...methods}
-      defaultValue={defaultValue}
-      onSubmit={methods.handleSubmit(submitBrewLog)}
-      preload={
-        defaultValue &&
-        defaultValue?.stages !== 0 && {
-          formMount: true,
-          isHidden: true,
-          stages: defaultValue.stages,
-          serveTime: defaultValue.serve,
+    <>
+      <BrewLogForm
+        {...methods}
+        onSubmit={methods.handleSubmit(submitBrewLog)}
+      />
+      <Form
+        {...methods}
+        defaultValue={defaultValue}
+        onSubmit={methods.handleSubmit(submitRecipe)}
+        preload={
+          defaultValue &&
+          defaultValue?.stages !== 0 && {
+            formMount: true,
+            isHidden: true,
+            stages: defaultValue.stages,
+            serveTime: defaultValue.serve,
+          }
         }
-      }
-    />
+      />
+    </>
   )
 }
 
