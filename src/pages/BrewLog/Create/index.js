@@ -1,6 +1,6 @@
 import { Form as BrewLogForm } from 'components/BrewLog/Form'
 import Form from 'components/Recipe/Form'
-
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { INSERT_BREW_LOG_ONE, INSERT_RECIPES_ONE } from 'queries'
 import { useMutation } from 'urql'
@@ -17,7 +17,10 @@ const Create = ({ defaultValue }) => {
   // const location = useLocation()
   // const { isAuthenticated } = useAuth()
   const { addAlert } = useAlert()
-
+  const [state, setState] = useState({
+    showBrewLog: false,
+    recipeSubmitted: false,
+  })
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -29,16 +32,12 @@ const Create = ({ defaultValue }) => {
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOG_ONE)
 
   const submitBrewLog = async (data) => {
-    const { stages, serve, rating, title, comment, ...recipe } = data
+    const { stages, serve, rating, title, comment } = data
     const object = {
       comment: comment,
       title: title,
       rating: rating,
-      recipe: {
-        data: {
-          ...recipe,
-        },
-      },
+      recipe_id: state.recipe_id,
     }
     if (stages) {
       object.stages = {
@@ -86,15 +85,21 @@ const Create = ({ defaultValue }) => {
       }
     }
 
-    const { error } = await insertRecipe({ object })
+    const { data: queryData, error } = await insertRecipe({ object })
 
     if (error?.message.includes('Uniqueness violation')) {
       methods.setError('name', {
         message: 'Recipe name must be unique',
         shouldFocus: true,
       })
+    } else if (state.recipeSubmitted) {
     } else {
-      history.push(`/recipe`, { createdRecipe: true })
+      // history.push(`/recipe`, { createdRecipe: true })
+      setState({
+        ...state,
+        showBrewLog: true,
+        recipe_id: queryData.insert_recipe_one.id,
+      })
     }
   }
 
@@ -102,24 +107,27 @@ const Create = ({ defaultValue }) => {
 
   return (
     <>
-      <BrewLogForm
-        {...methods}
-        onSubmit={methods.handleSubmit(submitBrewLog)}
-      />
-      <Form
-        {...methods}
-        defaultValue={defaultValue}
-        onSubmit={methods.handleSubmit(submitRecipe)}
-        preload={
-          defaultValue &&
-          defaultValue?.stages !== 0 && {
-            formMount: true,
-            isHidden: true,
-            stages: defaultValue.stages,
-            serveTime: defaultValue.serve,
+      {state.showBrewLog ? (
+        <BrewLogForm
+          {...methods}
+          onSubmit={methods.handleSubmit(submitBrewLog)}
+        />
+      ) : (
+        <Form
+          {...methods}
+          defaultValue={defaultValue}
+          onSubmit={methods.handleSubmit(submitRecipe)}
+          preload={
+            defaultValue &&
+            defaultValue?.stages !== 0 && {
+              formMount: true,
+              isHidden: true,
+              stages: defaultValue.stages,
+              serveTime: defaultValue.serve,
+            }
           }
-        }
-      />
+        />
+      )}
     </>
   )
 }
