@@ -5,30 +5,36 @@ import { useForm } from 'react-hook-form'
 import { INSERT_BREW_LOG_ONE, INSERT_RECIPES_ONE } from 'queries'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
-// import { schema } from 'components/BrewLog/Schema'
-import { schema } from 'components/Recipe/Schema'
-
+import { schema as brewLogSchema } from 'components/BrewLog/Schema'
+import { schema as recipeSchema } from 'components/Recipe/Schema'
 // import { useAuth } from 'context/AuthContext'
-import { useAlert, alertType } from 'context/AlertContext'
 import { useHistory } from 'react-router-dom'
 
 const Create = ({ defaultValue }) => {
   const history = useHistory()
   // const location = useLocation()
   // const { isAuthenticated } = useAuth()
-  const { addAlert } = useAlert()
   const [state, setState] = useState({
     showBrewLog: false,
     recipeSubmitted: false,
   })
-  const methods = useForm({
-    resolver: yupResolver(schema),
+  const recipeMethods = useForm({
+    resolver: yupResolver(recipeSchema),
     defaultValues: {
       stages: [{ action: 'pour', start: 0, end: 0, weight: 0 }],
       serve: 0,
     },
   })
-
+  const brewLogMethods = useForm({
+    resolver: yupResolver(brewLogSchema),
+  })
+  // const cancelBrewLog = () => {
+  //   console.log("Create index cancelBrewLog")
+  //   setState = {
+  //     ...state,
+  //     showBrewLog: false
+  //   }
+  // }
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOG_ONE)
 
   const submitBrewLog = async (data) => {
@@ -53,11 +59,11 @@ const Create = ({ defaultValue }) => {
       }
     }
     const { error } = await insertBrewLog({ object })
-    if (error) {
-      addAlert({
-        type: alertType.ERROR,
-        header: error.message,
-        close: true,
+
+    if (error?.message.includes('Uniqueness violation')) {
+      brewLogMethods.setError('title', {
+        message: 'Brew Log title must be unique',
+        shouldFocus: true,
       })
     } else {
       history.push(`/brewlog`, { createdBrewLog: true })
@@ -67,7 +73,6 @@ const Create = ({ defaultValue }) => {
   const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
 
   const submitRecipe = async (data) => {
-    console.log('Brew Log Create: ', data)
     const { stages, serve, ...recipe } = data
     let object = { ...recipe }
 
@@ -88,7 +93,7 @@ const Create = ({ defaultValue }) => {
     const { data: queryData, error } = await insertRecipe({ object })
 
     if (error?.message.includes('Uniqueness violation')) {
-      methods.setError('name', {
+      recipeMethods.setError('name', {
         message: 'Recipe name must be unique',
         shouldFocus: true,
       })
@@ -109,14 +114,15 @@ const Create = ({ defaultValue }) => {
     <>
       {state.showBrewLog ? (
         <BrewLogForm
-          {...methods}
-          onSubmit={methods.handleSubmit(submitBrewLog)}
+          {...brewLogMethods}
+          // cancelBrewLog={cancelBrewLog}
+          onSubmit={brewLogMethods.handleSubmit(submitBrewLog)}
         />
       ) : (
         <Form
-          {...methods}
+          {...recipeMethods}
           defaultValue={defaultValue}
-          onSubmit={methods.handleSubmit(submitRecipe)}
+          onSubmit={recipeMethods.handleSubmit(submitRecipe)}
           preload={
             defaultValue &&
             defaultValue?.stages !== 0 && {

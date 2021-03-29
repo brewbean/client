@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { SectionMap } from 'components/Form/Layout'
 import { combineClass } from 'helper/stringHelper'
 
-const Form = ({ register, errors, onSubmit }) => {
+const Form = ({ register, errors, onSubmit, cancelBrewLog }) => {
   return (
     <form
       onSubmit={onSubmit}

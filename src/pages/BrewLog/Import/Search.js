@@ -19,7 +19,6 @@ const Search = ({ navigateToCreate }) => {
 
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
-  console.log('Search: ', data)
   return (
     <div>
       Recipe Here
