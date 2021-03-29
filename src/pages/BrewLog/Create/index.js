@@ -126,10 +126,11 @@ const Create = ({ defaultValue }) => {
           preload={
             defaultValue &&
             defaultValue?.stages !== 0 && {
-              formMount: true,
+              formMounted: true,
               isHidden: true,
               stages: defaultValue.stages,
-              serveTime: defaultValue.serve,
+              serveTime:
+                defaultValue.stages[defaultValue.stages.length - 1].start,
             }
           }
         />
