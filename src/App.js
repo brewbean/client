@@ -60,9 +60,9 @@ function App() {
       <ContainerRoute path='/recipe'>
         <Recipe />
       </ContainerRoute>
-      <ContainerRoute path='/brewlog'>
+      <Route path='/brewlog'>
         <BrewLog />
-      </ContainerRoute>
+      </Route>
       <ContainerRoute path='/bean'>
         <BeanPage />
       </ContainerRoute>

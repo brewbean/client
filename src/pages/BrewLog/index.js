@@ -1,7 +1,7 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import BrewLogs from './BrewLog'
 import Create from './Create'
 import Import from './Import'
+import Main from './Main'
 
 const BrewLog = (props) => {
   const { url } = useRouteMatch()
@@ -9,7 +9,7 @@ const BrewLog = (props) => {
   return (
     <Switch>
       <Route exact path={url}>
-        <BrewLogs />
+        <Main />
       </Route>
       <Route exact path={`${url}/new`}>
         <Create />

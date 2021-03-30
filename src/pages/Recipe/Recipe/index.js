@@ -90,7 +90,7 @@ const Recipes = () => {
   const pageNumbers = totalPages > 1 ? range(1, totalPages) : []
 
   return (
-    <div className='my-8 space-y-8 max-w-7xl mx-auto'>
+    <div className='my-8 space-y-8'>
       <div className='text-center'>
         <h2 className='text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl'>
           Recipes
