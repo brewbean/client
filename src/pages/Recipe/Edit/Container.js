@@ -32,7 +32,7 @@ const getDefaultValues = (recipe) => {
   }
 }
 
-export default function Container({ recipe }) {
+export default function Container({ recipe, isBrewLog, setBrewLog }) {
   const { addAlert } = useAlert()
   const { id } = useParams()
   const history = useHistory()
@@ -71,6 +71,8 @@ export default function Container({ recipe }) {
         header: error.message,
         close: true,
       })
+    } else if (isBrewLog) {
+      setBrewLog(true)
     } else {
       history.push(`/recipe/${id}`, { edited: true })
     }

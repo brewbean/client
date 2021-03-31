@@ -1,12 +1,16 @@
 import { useAuth } from 'context/AuthContext'
+import { useState } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import { GET_SINGLE_BREW_LOG } from 'queries'
 import { useQuery } from 'urql'
 import Container from 'pages/Recipe/Edit/Container'
+import BrewLogContainer from 'pages/BrewLog/Edit/Container'
 
 const EditBrewLog = () => {
   const { id } = useParams()
   const { isVerified, barista } = useAuth()
+  // const [showBrewLog, setShowBrewLog] = useStateE
+  const [showBrewLog, setBrewLog] = useState(false)
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BREW_LOG,
@@ -22,7 +26,19 @@ const EditBrewLog = () => {
   if (!isVerified || data?.brew_log_by_pk.barista.id !== barista?.id)
     return <Redirect to={`/brewlog`} />
 
-  return <Container recipe={data.brew_log_by_pk.recipe} />
+  return (
+    <>
+      {showBrewLog ? (
+        <BrewLogContainer brew_log={data.brew_log_by_pk} />
+      ) : (
+        <Container
+          recipe={data.brew_log_by_pk.recipe}
+          isBrewLog={true}
+          setBrewLog={setBrewLog}
+        />
+      )}
+    </>
+  )
 }
 
 export default EditBrewLog
