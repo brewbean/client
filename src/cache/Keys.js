@@ -9,4 +9,6 @@ export const keys = {
   recipe_review_avg_fields: () => null,
   recipe_aggregate: () => null,
   recipe_aggregate_fields: () => null,
+  brew_log_aggregate: () => null,
+  brew_log_aggregate_fields: () => null,
 }
