@@ -27,6 +27,8 @@ const recipeInfo = gql`
     instructions
     is_private
     name
+    water_amount
+    water_temp
     barista {
       id
       display_name
