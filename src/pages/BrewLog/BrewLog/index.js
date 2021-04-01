@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react'
 import { Link, useLocation, useRouteMatch } from 'react-router-dom'
 import { useAlert, alertType } from 'context/AlertContext'
-import { useQuery } from 'urql'
-import { GET_ALL_BREW_LOGS } from 'queries'
+import { useQuery, useMutation } from 'urql'
+import { DELETE_BREW_LOG, GET_ALL_BREW_LOGS } from 'queries'
 const Brewlogs = () => {
   const { url } = useRouteMatch()
 
@@ -21,6 +21,10 @@ const Brewlogs = () => {
       []
     ),
   })
+  const [, deleteRecipe] = useMutation(DELETE_BREW_LOG)
+  const onDelete = async (id) => {
+    await deleteRecipe({ id })
+  }
   useEffect(() => {
     if (location.state?.createdBrewLog) {
       addAlert({
@@ -49,6 +53,12 @@ const Brewlogs = () => {
             {' '}
             Edit Brew Log{' '}
           </Link>
+          <button
+            className='my-4 btn btn--primary btn--lg'
+            onClick={() => onDelete(r.id)}
+          >
+            Delete Brew Log
+          </button>
         </div>
       ))}
     </div>
