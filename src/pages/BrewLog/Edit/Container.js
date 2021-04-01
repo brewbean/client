@@ -21,10 +21,9 @@ const EditBrewLogContainer = ({ brew_log }) => {
   })
 
   const submitBrewLog = async (data) => {
-    console.log('Data: ', data)
     const { error } = await updateBrewLog({
       id,
-      data,
+      brew_log: data,
     })
     if (error) {
       addAlert({

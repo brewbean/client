@@ -1,6 +1,6 @@
 import { useAlert, alertType } from 'context/AlertContext'
 import Form from 'components/Recipe/Form'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { UPDATE_RECIPE_WITH_STAGES } from 'queries'
 import { useMutation } from 'urql'
@@ -34,13 +34,13 @@ const getDefaultValues = (recipe) => {
 
 export default function Container({ recipe, isBrewLog, setBrewLog }) {
   const { addAlert } = useAlert()
-  const { id } = useParams()
+  const { id } = recipe
   const history = useHistory()
 
   const [, updateRecipe] = useMutation(UPDATE_RECIPE_WITH_STAGES)
 
   const defaultValues = getDefaultValues(recipe)
-  console.log('Recipe container default Value: ', defaultValues)
+
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues,

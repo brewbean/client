@@ -1,5 +1,6 @@
 import { gql } from 'urql'
 import {
+  brewLogInfo,
   INSERT_BREW_LOG_ONE,
   GET_ALL_BREW_LOGS,
   GET_SINGLE_BREW_LOG,
@@ -50,7 +51,7 @@ export const GET_BARISTA = gql`
   }
 `
 
-const fragment = { recipeInfo, recipeReviewInfo, beanInfo }
+const fragment = { recipeInfo, recipeReviewInfo, beanInfo, brewLogInfo }
 
 export {
   fragment,

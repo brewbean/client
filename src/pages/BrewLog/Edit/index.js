@@ -16,8 +16,7 @@ const EditBrewLog = () => {
     query: GET_SINGLE_BREW_LOG,
     variables: { id },
   })
-  console.log('IsVerified:', isVerified)
-  console.log('Data:', data)
+
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... error: {error.message}</p>
   if (!data?.brew_log_by_pk) return null
