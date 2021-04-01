@@ -4,10 +4,10 @@ import { Modal } from 'components/Modal'
 
 const Container = ({ children }) => {
   return (
-    <div className='bg-gray-100 flex flex-col'>
+    <div className='bg-gray-100'>
       <div className='w-full flex flex-col min-h-screen max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
         <Header />
-        <div className='flex-1'>{children}</div>
+        <div className='flex-1 flex flex-col'>{children}</div>
         <Footer />
       </div>
       <Modal />

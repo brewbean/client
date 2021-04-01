@@ -65,7 +65,7 @@ const Detail = () => {
   } = data.recipe_by_pk
 
   return (
-    <main className='max-w-3xl mx-auto lg:max-w-7xl sm:px-6'>
+    <main>
       {/*<!-- Page header -->*/}
       <div className='md:flex md:items-center md:justify-between md:space-x-5'>
         <TitleSection

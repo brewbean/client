@@ -50,10 +50,7 @@ export default function Form({
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className='max-w-4xl mx-auto mt-2 sm:mt-0 space-y-6 sm:space-y-5'
-    >
+    <form onSubmit={onSubmit} className='mt-2 sm:mt-0 space-y-6 sm:space-y-5'>
       {/* Header */}
       <div>
         <h3 className='text-lg leading-6 font-medium text-gray-900'>

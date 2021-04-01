@@ -66,8 +66,8 @@ const INSERT_BREW_LOG_ONE = gql`
   ${fragment.baristaInfo}
 `
 const GET_ALL_BREW_LOGS = gql`
-  query {
-    brew_log(order_by: { id: desc }) {
+  query GetAllBrewLogs($limit: Int, $offset: Int) {
+    brew_log(order_by: { id: desc }, limit: $limit, offset: $offset) {
       id
       comment
       title
@@ -82,6 +82,11 @@ const GET_ALL_BREW_LOGS = gql`
       }
       template_recipe {
         ...recipeFragment
+      }
+    }
+    brew_log_aggregate {
+      aggregate {
+        count
       }
     }
   }
