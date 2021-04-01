@@ -13,6 +13,10 @@ const links = [
     text: 'Beans',
     to: '/bean',
   },
+  {
+    text: 'Brew Log',
+    to: '/brewlog',
+  },
 ]
 
 const settingLinks = [

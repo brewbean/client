@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { schema } from 'components/BrewLog/Schema'
 
-const EditBrewLogContainer = () => {
+const EditBrewLogContainer = ({ brew_log }) => {
   const { addAlert } = useAlert()
   const { id } = useParams()
   const history = useHistory()
@@ -17,6 +17,7 @@ const EditBrewLogContainer = () => {
   const methods = useForm({
     resolver: yupResolver(schema),
     // need to add default value here...maybe have to update the other default value
+    defaultValues: brew_log,
   })
 
   const submitBrewLog = async (data) => {
