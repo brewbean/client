@@ -1,8 +1,8 @@
 export const Rating = ({ value }) => (
   <span
-    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+    className={`badge ${
       value === null
-        ? 'bg-gray-300 text-gray-800'
+        ? 'badge--gray'
         : value >= 4
         ? 'bg-green-200 text-green-800'
         : value >= 3

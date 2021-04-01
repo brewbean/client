@@ -1,49 +1,70 @@
-import { Link } from 'react-router-dom'
-import { InfoCircleSolid } from 'components/Icon'
-import { Table } from 'components/Stage'
-import { All, Create, Edit } from 'components/Recipe/Review'
-import { Description } from './Description'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { roundToHalfOrWhole } from 'helper/math'
+import { StageSection } from 'components/Stage'
+import { Rating } from 'components/Badge'
+import { All, Create, Edit } from 'components/Recipe/Review'
+import { DataSection } from 'components/Layout/Detail'
 
-export const DescriptionSection = ({ recipe }) => (
-  <section>
-    <div className='bg-white shadow sm:rounded-lg'>
-      <div className='px-4 py-5 sm:px-6'>
-        <h2 className='text-lg leading-6 font-medium text-gray-900'>
-          Recipe Details
-        </h2>
-      </div>
-      <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
-        <Description {...recipe} />
-      </div>
-    </div>
-  </section>
+export const Description = ({
+  brew_type,
+  bean_weight,
+  bean_grind,
+  water_amount,
+  water_temp,
+  bean_name_free,
+  recipe_reviews_aggregate,
+  about,
+  device,
+  instructions,
+}) => (
+  <>
+    <DataSection className='sm:col-span-1' label='Brew Type'>
+      {brew_type}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Bean'>
+      {bean_name_free ? bean_name_free : 'N/A'}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Bean Weight'>
+      {bean_weight}g
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Bean Grind'>
+      {bean_grind}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Water Amount'>
+      {water_amount}g
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Water Temp'>
+      {water_temp}F
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Rating'>
+      <Rating
+        value={roundToHalfOrWhole(
+          recipe_reviews_aggregate.aggregate.avg.rating
+        )}
+      />
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Device'>
+      {device ? device : 'N/A'}
+    </DataSection>
+    <DataSection className='sm:col-span-2' label='About'>
+      {about ? about : 'N/A'}
+    </DataSection>
+    <DataSection
+      className='sm:col-span-2 whitespace-pre-line'
+      label='Instructions'
+    >
+      {instructions}
+    </DataSection>
+  </>
 )
 
 export const ActivitySection = ({ stages, playerPath }) => (
   <section>
-    <div className='space-y-4 bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6'>
-      <h2 className='text-lg font-medium text-gray-900'>Stages</h2>
+    <div className='bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6'>
+      <h2 className='mb-4 text-lg font-medium text-gray-900'>Stages</h2>
 
-      {stages.length > 0 ? (
-        <>
-          <div className='flex p-2 rounded-md bg-gray-50 shadow-inner border-gray-300'>
-            <Table stages={stages} />
-          </div>
-          <Link
-            to={playerPath}
-            type='button'
-            className='w-full btn btn--primary btn--md'
-          >
-            Go to Recipe Player
-          </Link>
-        </>
-      ) : (
-        <p className='text-sm text-gray-900 inline-flex items-start'>
-          <InfoCircleSolid className='w-6 h-6 text-indigo-500 mr-2' />
-          This recipe does not contain a playable format
-        </p>
-      )}
+      <StageSection stages={stages} playerPath={playerPath} />
     </div>
   </section>
 )

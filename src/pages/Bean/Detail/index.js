@@ -6,9 +6,10 @@ import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
 import {
   ModifyRow,
   TitleSection,
-  DescriptionSection,
+  Description,
   CommentSection,
 } from 'components/Bean/Detail'
+import { DescriptionSection } from 'components/Layout/Detail'
 
 const Detail = () => {
   const { id } = useParams()
@@ -60,7 +61,9 @@ const Detail = () => {
       <div className='mt-6'>
         {/*<!-- Description list-->*/}
         <div className='space-y-6'>
-          <DescriptionSection bean={data.bean_by_pk} />
+          <DescriptionSection title='Bean Details'>
+            <Description {...data.bean_by_pk} />
+          </DescriptionSection>
         </div>
 
         {/*<!-- Comments-->*/}

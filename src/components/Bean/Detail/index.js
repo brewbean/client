@@ -1,21 +1,53 @@
 import { Link } from 'react-router-dom'
-import { All, Create, Edit } from 'components/Bean/Review'
-import { Description } from './Description'
 import { useState } from 'react'
+import { All, Create, Edit } from 'components/Bean/Review'
+import { Rating } from 'components/Badge'
+import { roundToHalfOrWhole } from 'helper/math'
+import { wordCapitalized } from 'helper/stringHelper'
+import { DataSection } from 'components/Layout/Detail'
 
-export const DescriptionSection = ({ bean }) => (
-  <section>
-    <div className='bg-white shadow sm:rounded-lg'>
-      <div className='px-4 py-5 sm:px-6'>
-        <h2 className='text-lg leading-6 font-medium text-gray-900'>
-          Bean Details
-        </h2>
-      </div>
-      <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
-        <Description {...bean} />
-      </div>
-    </div>
-  </section>
+export const Description = ({
+  altitude,
+  varietal,
+  process,
+  profile_note,
+  region,
+  roast_type,
+  about,
+  price,
+  bean_reviews_aggregate,
+}) => (
+  <>
+    <DataSection className='sm:col-span-1' label='Roast Type'>
+      {wordCapitalized(roast_type)}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Profile Notes'>
+      {profile_note}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Region'>
+      {region}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Altitude'>
+      {altitude ? `${altitude} km` : 'N/A'}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Variety'>
+      {varietal ? varietal : 'N/A'}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Process'>
+      {process ? process : 'N/A'}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Price'>
+      {price ? `${price} USD` : 'N/A'}
+    </DataSection>
+    <DataSection className='sm:col-span-1' label='Rating'>
+      <Rating
+        value={roundToHalfOrWhole(bean_reviews_aggregate.aggregate.avg.rating)}
+      />
+    </DataSection>
+    <DataSection className='sm:col-span-2 whitespace-pre-line' label='About'>
+      {about ? about : 'N/A'}
+    </DataSection>
+  </>
 )
 
 export const CommentSection = ({ beanId, beanReviews, canReview }) => {
