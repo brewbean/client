@@ -1,12 +1,12 @@
 import { Form as BrewLogForm } from 'components/BrewLog/Form'
-// import Form from 'components/Recipe/Form'
+import Form from 'components/Recipe/Form'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { INSERT_BREW_LOG_ONE } from 'queries'
+import { INSERT_BREW_LOG_ONE, INSERT_RECIPES_ONE } from 'queries'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema as brewLogSchema } from 'components/BrewLog/Schema'
-// import { schema as recipeSchema } from 'components/Recipe/Schema'
+import { schema as recipeSchema } from 'components/Recipe/Schema'
 // import { useAuth } from 'context/AuthContext'
 import { useHistory } from 'react-router-dom'
 import Container from 'pages/Recipe/Edit/Container'
@@ -16,17 +16,17 @@ const Create = ({ recipe }) => {
   const history = useHistory()
   // const location = useLocation()
   // const { isAuthenticated } = useAuth()
-  const [state] = useState({
+  const [state, setState] = useState({
     showBrewLog: false,
     recipeSubmitted: false,
   })
-  // const recipeMethods = useForm({
-  //   resolver: yupResolver(recipeSchema),
-  //   defaultValues: {
-  //     stages: [{ action: 'pour', start: 0, end: 0, weight: 0 }],
-  //     serve: 0,
-  //   },
-  // })
+  const recipeMethods = useForm({
+    resolver: yupResolver(recipeSchema),
+    defaultValues: {
+      stages: [{ action: 'pour', start: 0, end: 0, weight: 0 }],
+      serve: 0,
+    },
+  })
   const brewLogMethods = useForm({
     resolver: yupResolver(brewLogSchema),
   })
@@ -72,43 +72,43 @@ const Create = ({ recipe }) => {
     }
   }
 
-  // const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
+  const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
 
-  // const submitRecipe = async (data) => {
-  //   const { stages, serve, ...recipe } = data
-  //   let object = { ...recipe }
+  const submitRecipe = async (data) => {
+    const { stages, serve, ...recipe } = data
+    let object = { ...recipe }
 
-  //   if (stages) {
-  //     object.stages = {
-  //       data: [
-  //         ...stages,
-  //         {
-  //           action: 'serve',
-  //           start: serve,
-  //           end: serve,
-  //           weight: stages[stages.length - 1].weight,
-  //         },
-  //       ],
-  //     }
-  //   }
+    if (stages) {
+      object.stages = {
+        data: [
+          ...stages,
+          {
+            action: 'serve',
+            start: serve,
+            end: serve,
+            weight: stages[stages.length - 1].weight,
+          },
+        ],
+      }
+    }
 
-  //   const { data: queryData, error } = await insertRecipe({ object })
+    const { data: queryData, error } = await insertRecipe({ object })
 
-  //   if (error?.message.includes('Uniqueness violation')) {
-  //     recipeMethods.setError('name', {
-  //       message: 'Recipe name must be unique',
-  //       shouldFocus: true,
-  //     })
-  //   } else if (state.recipeSubmitted) {
-  //   } else {
-  //     // history.push(`/recipe`, { createdRecipe: true })
-  //     setState({
-  //       ...state,
-  //       showBrewLog: true,
-  //       recipe_id: queryData.insert_recipe_one.id,
-  //     })
-  //   }
-  // }
+    if (error?.message.includes('Uniqueness violation')) {
+      recipeMethods.setError('name', {
+        message: 'Recipe name must be unique',
+        shouldFocus: true,
+      })
+    } else if (state.recipeSubmitted) {
+    } else {
+      // history.push(`/recipe`, { createdRecipe: true })
+      setState({
+        ...state,
+        showBrewLog: true,
+        recipe_id: queryData.insert_recipe_one.id,
+      })
+    }
+  }
 
   // if (!location.state || !isAuthenticated) return <Redirect to='/brewlog' />
 
@@ -120,8 +120,9 @@ const Create = ({ recipe }) => {
           // cancelBrewLog={cancelBrewLog}
           onSubmit={brewLogMethods.handleSubmit(submitBrewLog)}
         />
-      ) : (
+      ) : recipe ? (
         <Container recipe={recipe} />
+      ) : (
         /* <Form
           {...recipeMethods}
           defaultValue={defaultValue}
@@ -137,6 +138,10 @@ const Create = ({ recipe }) => {
             }
           }
         /> */
+        <Form
+          {...recipeMethods}
+          onSubmit={recipeMethods.handleSubmit(submitRecipe)}
+        />
       )}
     </>
   )
