@@ -1,37 +1,13 @@
 import { gql } from 'urql'
+import { recipeInfo } from 'queries/Recipe'
 /*
   Brew Logs Queries
 */
 const baristaInfo = gql`
-  fragment baristaFragment on barista {
+  fragment BaristaInfo on barista {
     display_name
-    created_on
-    email
     id
-    is_verified
     avatar
-  }
-`
-const recipeInfo = gql`
-  fragment recipeFragment on recipe {
-    about
-    bean_grind
-    bean_id
-    bean_name_free
-    bean_weight
-    brew_type
-    date_added
-    date_updated
-    device
-    id
-    instructions
-    is_private
-    name
-    barista {
-      id
-      display_name
-      avatar
-    }
   }
 `
 
@@ -50,13 +26,13 @@ const INSERT_BREW_LOG_ONE = gql`
       is_private
       rating
       barista {
-        ...baristaFragment
+        ...BaristaInfo
       }
       recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
       template_recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
     }
   }
@@ -73,13 +49,13 @@ const GET_ALL_BREW_LOGS = gql`
       is_private
       rating
       barista {
-        ...baristaFragment
+        ...BaristaInfo
       }
       recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
       template_recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
     }
     brew_log_aggregate {
@@ -101,13 +77,13 @@ const GET_SINGLE_BREW_LOG = gql`
       is_private
       rating
       barista {
-        ...baristaFragment
+        ...BaristaInfo
       }
       recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
       template_recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
     }
   }
@@ -124,13 +100,13 @@ const UPDATE_BREW_LOG = gql`
       is_private
       rating
       barista {
-        ...baristaFragment
+        ...BaristaInfo
       }
       recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
       template_recipe {
-        ...recipeFragment
+        ...RecipeInfo
       }
     }
   }

@@ -6,10 +6,11 @@ import { useAuth } from 'context/AuthContext'
 import {
   ActivitySection,
   CommentSection,
-  DescriptionSection,
+  Description,
   ModifyRow,
   TitleSection,
 } from 'components/Recipe/Detail'
+import { DescriptionSection } from 'components/Layout/Detail'
 import { useModal } from 'context/ModalContext'
 import { placeholder } from 'image'
 
@@ -84,7 +85,9 @@ const Detail = () => {
       <div className='mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3'>
         {/*<!-- Description list-->*/}
         <div className='space-y-6 lg:col-span-2'>
-          <DescriptionSection recipe={data.recipe_by_pk} />
+          <DescriptionSection title='Recipe Details'>
+            <Description {...data.recipe_by_pk} />
+          </DescriptionSection>
         </div>
 
         {/*<!-- Activity Feed -->*/}
