@@ -1,35 +1,29 @@
-import { useState } from 'react'
 import { useMutation } from 'urql'
 import { INSERT_RECIPE_REVIEW_ONE } from 'queries'
-import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
 import { PlaceHolder } from 'components/Icon'
 
-const Create = ({ id }) => {
-  const [state, setState] = useState({
-    rating: '5',
-    comment: '',
-  })
-  const { barista } = useAuth()
-  const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW_ONE)
-  const onChangeGenerator = (attr) => (e) => {
-    setState({
-      ...state,
-      [attr]: e.target.value,
-    })
-  }
+import Form from 'components/Recipe/Review/Form'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schema } from './Schema'
 
-  const submitReview = async () => {
+const Create = ({ id }) => {
+  const { barista } = useAuth()
+
+  const methods = useForm({
+    resolver: yupResolver(schema),
+  })
+
+  const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW_ONE)
+
+  const submitReview = async ({ rating, comment }) => {
     await insertRecipeReview({
       object: {
         recipe_id: id,
-        rating: state.rating,
-        comment: state.comment,
+        rating,
+        comment,
       },
-    })
-    setState({
-      rating: '5',
-      comment: '',
     })
   }
 
@@ -48,37 +42,7 @@ const Create = ({ id }) => {
           )}
         </div>
         <div className='min-w-0 flex-1'>
-          <div className='space-y-3'>
-            <div>
-              <label htmlFor='comment' className='sr-only'>
-                About
-              </label>
-              <textarea
-                id='comment'
-                name='comment'
-                rows='3'
-                value={state.comment}
-                onChange={onChangeGenerator('comment')}
-                placeholder='Enter Review'
-                className='input'
-              />
-            </div>
-
-            <InputRow
-              value={state.rating}
-              onChange={onChangeGenerator('rating')}
-              placeholder='Enter Rating'
-              label='Rating'
-            />
-
-            <button
-              type='button'
-              onClick={submitReview}
-              className='btn btn--primary btn--md'
-            >
-              Add Review
-            </button>
-          </div>
+          <Form {...methods} onSubmit={methods.handleSubmit(submitReview)} />
         </div>
       </div>
     </div>
