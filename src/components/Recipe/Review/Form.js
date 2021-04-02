@@ -1,9 +1,7 @@
-// import { Link } from 'react-router-dom'
 import { FieldError } from 'components/Form/Error'
 import { combineClass } from 'helper/stringHelper'
 
 export default function Form({ register, errors, onSubmit }) {
-  console.log('errors->', errors)
   return (
     <form onSubmit={onSubmit} className='space-y-3'>
       <div>

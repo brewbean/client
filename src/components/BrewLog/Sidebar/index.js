@@ -44,6 +44,13 @@ const Sidebar = ({ loading, error, logs }) =>
     </div>
   ) : (
     <ul className='divide-y divide-gray-200'>
+      {logs.length === 0 && (
+        <div className='p-4 text-gray-700 flex flex-col items-center'>
+          <h1 className='text-sm font-medium'>
+            Create your first entry! ☕ 📝
+          </h1>
+        </div>
+      )}
       {logs.map((log) => (
         <li key={log.id}>
           <LinkButton {...log} />

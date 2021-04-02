@@ -4,9 +4,11 @@ import { ContentSection } from 'components/Layout/Detail'
 import Footer from 'components/Layout/Footer'
 import { useQueryParams } from 'components/Utility/Hook'
 import { BasicPagination } from 'components/Utility/List'
+import { Link, useRouteMatch } from 'react-router-dom'
 import Routes from './Routes'
 
 export default function Main({ fetching, error, data }) {
+  const { url } = useRouteMatch()
   const { page } = useQueryParams()
   const currPage = page ? parseInt(page) : 1
   const offset = (currPage - 1) * 10
@@ -23,9 +25,12 @@ export default function Main({ fetching, error, data }) {
             <aside className='flex-shrink-0'>
               <div className='h-full flex flex-col w-80 bg-gray-50 rounded-lg'>
                 <div className='flex-shrink-0 h-16 px-6 flex flex-col justify-center border-b border-gray-200'>
-                  <h2 className='text-lg leading-6 font-medium text-gray-900'>
+                  <Link
+                    to={url}
+                    className='text-lg leading-6 font-medium text-gray-900'
+                  >
                     Brew logs
-                  </h2>
+                  </Link>
                 </div>
 
                 <nav className='min-h-0 flex-1 overflow-y-auto'>
