@@ -40,7 +40,7 @@ export default function Container({ recipe, isBrewLog, setBrewLog }) {
   const [, updateRecipe] = useMutation(UPDATE_RECIPE_WITH_STAGES)
 
   const defaultValues = getDefaultValues(recipe)
-
+  console.log('Default value in Container/RecipeEdit: ', defaultValues)
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues,

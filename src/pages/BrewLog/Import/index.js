@@ -49,7 +49,7 @@ const Import = () => {
     <>
       {state.showCreateForm ? (
         <div>
-          <Create defaultValue={state.data} />
+          <Create recipe={state.data} />
         </div>
       ) : state.showSearchRecipe ? (
         <Search navigateToCreate={navigateToCreate} />

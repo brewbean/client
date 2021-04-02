@@ -15,7 +15,6 @@ export default function Form({
   getValues,
   onSubmit,
   preload,
-  defaultValue,
 }) {
   const [formMounted, setFormMounted] = useState(
     preload?.formMounted ? preload.formMounted : false
@@ -77,7 +76,6 @@ export default function Form({
                 'input--state-error': errors.name,
               }),
               placeholder: 'e.g. My favorite pour over recipe',
-              defaultValue: defaultValue?.name,
             },
             {
               label: 'About',
@@ -86,7 +84,6 @@ export default function Form({
               type: 'text',
               className: 'input',
               placeholder: 'e.g. Super amazing elixir!',
-              defaultValue: defaultValue?.about,
             },
           ]}
         />
@@ -103,14 +100,11 @@ export default function Form({
               isOptional: true,
               className: 'input',
               placeholder: 'e.g. Kurasu House Blend Dark',
-              defaultValue: defaultValue?.bean_name_free,
             },
             {
               name: 'bean_grind',
               type: 'select',
-              defaultValue: defaultValue?.bean_grind
-                ? defaultValue?.bean_grind
-                : 'medium-coarse',
+              defaultValue: 'medium-coarse',
               label: 'Bean Grind',
               className: 'input',
               options: [
@@ -132,7 +126,6 @@ export default function Form({
               placeholder: 'e.g. 12',
               symbol: 'grams',
               error: errors.bean_weight,
-              defaultValue: defaultValue?.bean_weight,
             },
           ]}
         />
@@ -157,7 +150,6 @@ export default function Form({
               type: 'text',
               className: 'input',
               placeholder: 'e.g. Hario V60',
-              defaultValue: defaultValue?.device,
             },
           ]}
         />
@@ -177,7 +169,6 @@ export default function Form({
                 'input--state-error': errors.water_amount,
               }),
               placeholder: 'e.g. 200',
-              defaultValue: defaultValue?.water_amount,
             },
             {
               label: 'Water Temperature',
@@ -189,7 +180,6 @@ export default function Form({
                 'input--state-error': errors.water_temp,
               }),
               placeholder: 'e.g. 100',
-              defaultValue: defaultValue?.water_temp,
             },
             {
               label: 'Brewer Instructions',
@@ -201,7 +191,6 @@ export default function Form({
               }),
               placeholder: 'e.g. Step 1: wet the filter...',
               rows: '3',
-              defaultValue: defaultValue?.instructions,
             },
           ]}
         />
