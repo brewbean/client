@@ -34,6 +34,7 @@ const EditBrewLog = () => {
           recipe={data.brew_log_by_pk.recipe}
           isBrewLog={true}
           setBrewLog={setBrewLog}
+          isNew={false}
         />
       )}
     </>

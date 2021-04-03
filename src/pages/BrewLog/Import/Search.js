@@ -28,7 +28,7 @@ const Search = ({ navigateToCreate }) => {
           <p>ID: {r.id}</p>
           <p>Name: {r.name}</p>
           <button
-            onClick={() => navigateToCreate(r)}
+            onClick={() => navigateToCreate(r, true)}
             className='my-4 btn btn--primary btn--lg'
           >
             {' '}

@@ -11,13 +11,14 @@ import { schema as recipeSchema } from 'components/Recipe/Schema'
 import { useHistory } from 'react-router-dom'
 import Container from 'pages/Recipe/Edit/Container'
 
-const Create = ({ recipe }) => {
-  console.log('Recipe in Import class: ', recipe)
+const Create = ({ recipe, isImport }) => {
+  console.log('ISImport:', isImport)
   const history = useHistory()
   // const location = useLocation()
   // const { isAuthenticated } = useAuth()
-  const [state, setState] = useState({
-    showBrewLog: false,
+  const [showBrewLog, setBrewLog] = useState(false)
+  const [recipe_id, setRecipeId] = useState(null)
+  const [state] = useState({
     recipeSubmitted: false,
   })
   const recipeMethods = useForm({
@@ -40,12 +41,13 @@ const Create = ({ recipe }) => {
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOG_ONE)
 
   const submitBrewLog = async (data) => {
+    console.log('Submitting Brew Log Data', data)
     const { stages, serve, rating, title, comment } = data
     const object = {
       comment: comment,
       title: title,
       rating: rating,
-      recipe_id: state.recipe_id,
+      recipe_id: recipe_id,
     }
     if (stages) {
       object.stages = {
@@ -61,7 +63,7 @@ const Create = ({ recipe }) => {
       }
     }
     const { error } = await insertBrewLog({ object })
-
+    console.log('Submit Brew Log Error', error)
     if (error?.message.includes('Uniqueness violation')) {
       brewLogMethods.setError('title', {
         message: 'Brew Log title must be unique',
@@ -102,26 +104,29 @@ const Create = ({ recipe }) => {
     } else if (state.recipeSubmitted) {
     } else {
       // history.push(`/recipe`, { createdRecipe: true })
-      setState({
-        ...state,
-        showBrewLog: true,
-        recipe_id: queryData.insert_recipe_one.id,
-      })
+      setBrewLog(true)
+      setRecipeId(queryData.insert_recipe_one.id)
     }
   }
 
   // if (!location.state || !isAuthenticated) return <Redirect to='/brewlog' />
-
+  // NTS: - have to fix the state here
   return (
     <>
-      {state.showBrewLog ? (
+      {showBrewLog ? (
         <BrewLogForm
           {...brewLogMethods}
           // cancelBrewLog={cancelBrewLog}
           onSubmit={brewLogMethods.handleSubmit(submitBrewLog)}
         />
-      ) : recipe ? (
-        <Container recipe={recipe} />
+      ) : isImport ? (
+        <Container
+          recipe={recipe}
+          isBrewLog={true}
+          setRecipeId={setRecipeId}
+          setBrewLog={setBrewLog}
+          isNew={true}
+        />
       ) : (
         /* <Form
           {...recipeMethods}

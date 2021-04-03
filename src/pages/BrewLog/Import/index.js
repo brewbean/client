@@ -14,6 +14,7 @@ const Import = () => {
     // Use this might need to change to reducer
     showSearchRecipe: false,
     showCreateForm: false,
+    isImport: false,
     data: {},
   })
 
@@ -28,9 +29,9 @@ const Import = () => {
     }
   }
 
-  const navigateToCreate = (data) => {
+  const navigateToCreate = (data, isImport = false) => {
     if (isVerified) {
-      setState({ ...state, showCreateForm: true, data })
+      setState({ ...state, showCreateForm: true, data, isImport })
     } else if (isAuthenticated) {
       triggerUnverifiedModal()
     } else {
@@ -49,7 +50,7 @@ const Import = () => {
     <>
       {state.showCreateForm ? (
         <div>
-          <Create recipe={state.data} />
+          <Create recipe={state.data} isImport={state.isImport} />
         </div>
       ) : state.showSearchRecipe ? (
         <Search navigateToCreate={navigateToCreate} />
@@ -67,7 +68,7 @@ const Import = () => {
           <h1>Create Your Own</h1>
           <div>Would you like to create your own brew log?</div>
           <button
-            onClick={() => navigateToCreate()}
+            onClick={() => navigateToCreate(false)}
             className='my-4 btn btn--primary btn--lg'
           >
             Fresh Brew Log
