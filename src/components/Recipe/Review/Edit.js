@@ -1,30 +1,31 @@
-import { useState } from 'react'
 import { useMutation } from 'urql'
 import { UPDATE_RECIPE_REVIEW } from 'queries'
-import InputRow from 'components/InputRow'
 import { PlaceHolder } from 'components/Icon'
 
+import Form from 'components/Recipe/Review/Form'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schema } from './Schema'
+
 const Edit = ({ review, close }) => {
-  const [state, setState] = useState({
-    rating: review.rating,
-    comment: review.comment,
+  const methods = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      comment: review.comment,
+      rating: review.rating,
+    },
   })
 
   const [, updateReview] = useMutation(UPDATE_RECIPE_REVIEW)
-  const onChangeGenerator = (attr) => (e) => {
-    setState({
-      ...state,
-      [attr]: e.target.value,
-    })
-  }
 
-  const submitReview = async () => {
+  const submitReview = async ({ comment, rating }) => {
     await updateReview({
       id: review.id,
       object: {
         recipe_id: review.recipe_id,
         date_updated: new Date().toISOString(),
-        ...state,
+        comment,
+        rating,
       },
     })
     close()
@@ -45,45 +46,7 @@ const Edit = ({ review, close }) => {
           )}
         </div>
         <div className='min-w-0 flex-1'>
-          <div className='space-y-3'>
-            <div>
-              <label htmlFor='comment' className='sr-only'>
-                About
-              </label>
-              <textarea
-                id='comment'
-                name='comment'
-                rows='3'
-                value={state.comment}
-                onChange={onChangeGenerator('comment')}
-                placeholder='Enter Review'
-                className='input'
-              />
-            </div>
-            <InputRow
-              value={state.rating}
-              onChange={onChangeGenerator('rating')}
-              placeholder='Enter Rating'
-              label='Rating'
-            />
-
-            <div className='flex justify-end'>
-              <button
-                type='button'
-                onClick={submitReview}
-                className='mr-2 btn btn--primary btn--md'
-              >
-                Submit
-              </button>
-              <button
-                type='button'
-                onClick={close}
-                className='btn btn--white btn--md'
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+          <Form {...methods} onSubmit={methods.handleSubmit(submitReview)} />
         </div>
       </div>
     </div>

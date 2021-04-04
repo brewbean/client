@@ -1,30 +1,45 @@
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import Create from './Create'
-import Import from './Import'
-import Edit from './Edit'
-// import Main from './Main'
-import BrewLogs from './BrewLog'
-const BrewLog = (props) => {
-  const { url } = useRouteMatch()
+import { useMemo } from 'react'
+import { useQuery } from 'urql'
+import { GET_ALL_BREW_LOGS } from 'queries'
+import { useQueryParams } from 'components/Utility/Hook'
+import Main from 'pages/BrewLog/Main'
 
-  return (
-    <Switch>
-      <Route exact path={url}>
-        {/* <Main /> */}
-        <BrewLogs />
-      </Route>
-      <Route exact path={`${url}/new`}>
-        <Create />
-      </Route>
-      <Route exact path={`${url}/import`}>
-        {/* Change import to new, am just using this for now */}
-        <Import />
-      </Route>
-      <Route path={`${url}/:id/edit`}>
-        <Edit />
-      </Route>
-    </Switch>
-  )
+export default function Brewlog() {
+  const { page } = useQueryParams()
+  const [result] = useQuery({
+    query: GET_ALL_BREW_LOGS,
+    variables: {
+      limit: 10,
+      offset:
+        page === undefined || page === '1' ? 0 : (parseInt(page) - 1) * 10,
+    },
+    context: useMemo(
+      () => ({
+        fetchOptions: {
+          headers: {
+            'x-hasura-role': 'all_barista',
+          },
+        },
+      }),
+      []
+    ),
+  })
+  /**
+   * Goal
+   * - container level data fetching
+   * - leave rendering to UI components (agnostic to data)
+   *
+   * Architecture
+   *
+   * Data container (here)
+   * ├── Sidebar (UI only; pass loading/error down)
+   * └── Main viewer
+   *     ├── Detail view - based on clicking on sidebar (UI only; no queries)
+   *     └── Create flow
+   *         ├── Form (data & conditional rendering) container
+   *         └── Form views
+   *
+   */
+
+  return <Main {...result} />
 }
-
-export default BrewLog

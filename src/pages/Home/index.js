@@ -36,21 +36,14 @@ export default function Home() {
           />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Recipes</h2>
         </Link>
-        <div className='flex flex-col items-center'>
-          <div className='relative'>
-            <img
-              className='h-64 w-full object-cover sm:rounded-lg'
-              src={Scale}
-              alt='scale'
-            />
-            <div className='opacity-0 hover:opacity-100 flex transition duration-500 ease-in-out items-center justify-center absolute top-0 h-full w-full sm:rounded-lg bg-gray-100 bg-opacity-90'>
-              <span className='text-lg font-bold text-gray-800 pointer-events-none'>
-                COMING SOON
-              </span>
-            </div>
-          </div>
+        <Link to='/brewlog' className='flex flex-col text-center'>
+          <img
+            className='h-64 object-cover sm:rounded-lg'
+            src={Scale}
+            alt='scale'
+          />
           <h2 className='mt-2 text-lg font-medium text-gray-900'>Brew logs</h2>
-        </div>
+        </Link>
       </div>
 
       <div className='lg:grid lg:grid-cols-3 lg:gap-x-8'>

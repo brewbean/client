@@ -14,7 +14,7 @@ const links = [
     to: '/bean',
   },
   {
-    text: 'Brew Log',
+    text: 'Brew Logs',
     to: '/brewlog',
   },
 ]

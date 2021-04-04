@@ -1,14 +1,23 @@
 import { Rating } from 'components/Badge'
 import { Error } from 'components/Icon/Alert'
 import { Loading } from 'components/Utility'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { combineClass } from 'helper/stringHelper'
+import { Link, useRouteMatch, useLocation, matchPath } from 'react-router-dom'
 
 const LinkButton = ({ id, title, date_created, rating }) => {
-  const { url } = useRouteMatch()
+  const { url, path } = useRouteMatch()
+  const { search, pathname } = useLocation()
+  const match = matchPath(pathname, { path: path + '/:id' })
+
   return (
     <Link
-      to={url + '/' + id}
-      className='p-4 bg-gray-50 hover:bg-gray-200 flex justify-between items-center'
+      to={{ pathname: url + '/' + id, search }}
+      className={combineClass(
+        'p-4 bg-gray-50 hover:bg-gray-200 flex justify-between items-center',
+        {
+          'bg-gray-200 cursor-not-allowed': match?.params?.id === `${id}`,
+        }
+      )}
     >
       <div className='flex flex-col'>
         <h1 className='text-sm font-medium text-gray-900'>{title}</h1>
@@ -35,6 +44,13 @@ const Sidebar = ({ loading, error, logs }) =>
     </div>
   ) : (
     <ul className='divide-y divide-gray-200'>
+      {logs.length === 0 && (
+        <div className='p-4 text-gray-700 flex flex-col items-center'>
+          <h1 className='text-sm font-medium'>
+            Create your first entry! ☕ 📝
+          </h1>
+        </div>
+      )}
       {logs.map((log) => (
         <li key={log.id}>
           <LinkButton {...log} />

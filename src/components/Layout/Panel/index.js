@@ -3,3 +3,9 @@ export const BasicCard = ({ children }) => (
     <div className='px-4 py-5 sm:p-8'>{children}</div>
   </div>
 )
+
+export const InfoCard = ({ children }) => (
+  <section>
+    <div className='bg-white shadow sm:rounded-lg'>{children}</div>
+  </section>
+)
