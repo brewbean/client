@@ -17,7 +17,7 @@ export default function Routes() {
       <Route exact path={`${path}/new`}>
         <Import />
       </Route>
-      <Route path={`${path}/:id/edit`}>
+      <Route exact path={`${path}/:id/edit`}>
         <Edit />
       </Route>
     </Switch>
