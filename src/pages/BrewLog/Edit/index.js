@@ -11,6 +11,7 @@ const EditBrewLog = () => {
   const { isVerified, barista } = useAuth()
   // const [showBrewLog, setShowBrewLog] = useStateE
   const [showBrewLog, setBrewLog] = useState(false)
+  const [, setRecipeId] = useState(null)
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BREW_LOG,
@@ -33,6 +34,7 @@ const EditBrewLog = () => {
         <Container
           recipe={data.brew_log_by_pk.recipe}
           isBrewLog={true}
+          setRecipeId={setRecipeId} // unsure if this is needed but is here to break code
           setBrewLog={setBrewLog}
           isNew={false}
         />
