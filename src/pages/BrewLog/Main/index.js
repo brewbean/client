@@ -31,6 +31,9 @@ export default function Main({ fetching, error, data }) {
                   >
                     Brew logs
                   </Link>
+                  <Link to={`${url}/new`} className='btn btn--primary btn--sm'>
+                    Create Brew Log
+                  </Link>
                 </div>
 
                 <nav className='min-h-0 flex-1 overflow-y-auto'>

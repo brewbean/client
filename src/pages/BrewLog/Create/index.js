@@ -128,21 +128,6 @@ const Create = ({ recipe, isImport }) => {
           isNew={true}
         />
       ) : (
-        /* <Form
-          {...recipeMethods}
-          defaultValue={defaultValue}
-          onSubmit={recipeMethods.handleSubmit(submitRecipe)}
-          preload={
-            defaultValue &&
-            defaultValue?.stages !== 0 && {
-              formMounted: true,
-              isHidden: true,
-              stages: defaultValue.stages,
-              serveTime:
-                defaultValue.stages[defaultValue.stages.length - 1].start,
-            }
-          }
-        /> */
         <Form
           {...recipeMethods}
           onSubmit={recipeMethods.handleSubmit(submitRecipe)}

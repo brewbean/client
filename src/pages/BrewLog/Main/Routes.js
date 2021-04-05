@@ -11,11 +11,11 @@ export default function Routes() {
       <Route exact path={path}>
         Main
       </Route>
-      <Route path={`${path}/:id`}>
-        <Detail />
-      </Route>
       <Route exact path={`${path}/new`}>
         <Import />
+      </Route>
+      <Route exact path={`${path}/:id`}>
+        <Detail />
       </Route>
       <Route exact path={`${path}/:id/edit`}>
         <Edit />
