@@ -1,6 +1,6 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import Detail from 'pages/BrewLog/Detail'
-import Import from 'pages/BrewLog/Import'
+import Create from 'pages/BrewLog/Create'
 import Edit from 'pages/BrewLog/Edit'
 
 export default function Routes() {
@@ -12,7 +12,7 @@ export default function Routes() {
         Main
       </Route>
       <Route exact path={`${path}/new`}>
-        <Import />
+        <Create />
       </Route>
       <Route exact path={`${path}/:id`}>
         <Detail />
