@@ -73,27 +73,7 @@ export const updates = {
       cache.invalidate({ __typename: 'brew_log', id: args.id })
     },
     update_brew_log_by_pk: (result, args, cache, info) => {
-      /**
-       * [ TO DO ]
-       * should implement a `writeFragment` instead of this `updateQuery`
-       * lookup if you can construct fragments composing of other fragments
-       */
-      cache.updateQuery(
-        {
-          query: GET_ALL_BREW_LOGS,
-        },
-        (data) => {
-          const updateIndex = data.brew_log.findIndex((b) => b.id === args.id)
-          return {
-            ...data,
-            brew_log: [
-              ...data.brew_log.slice(0, updateIndex),
-              result.update_brew_log_by_pk,
-              ...data.brew_log.slice(updateIndex + 1),
-            ],
-          }
-        }
-      )
+      cache.writeFragment(fragment.brewLogInfo, result.update_brew_log_by_pk)
     },
     update_recipe_by_pk: (result, args, cache, info) => {
       /**

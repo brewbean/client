@@ -1,8 +1,8 @@
-import { useAlert, alertType } from 'context/AlertContext'
+// import { useAlert } from 'context/AlertContext'
 import Form from 'components/Recipe/Form'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { UPDATE_RECIPE_WITH_STAGES } from 'queries'
+import { INSERT_RECIPES_ONE, UPDATE_RECIPE_WITH_STAGES } from 'queries'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from 'components/Recipe/Schema'
@@ -32,11 +32,17 @@ const getDefaultValues = (recipe) => {
   }
 }
 
-export default function Container({ recipe }) {
-  const { addAlert } = useAlert()
-  const { id } = useParams()
+export default function Container({
+  recipe,
+  isBrewLog,
+  setRecipeId,
+  setBrewLog,
+  isNew,
+}) {
+  const { id } = recipe
   const history = useHistory()
 
+  const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
   const [, updateRecipe] = useMutation(UPDATE_RECIPE_WITH_STAGES)
 
   const defaultValues = getDefaultValues(recipe)
@@ -58,19 +64,40 @@ export default function Container({ recipe }) {
           },
         ].map((s) => ({ ...s, recipe_id: id }))
       : [] // change 'null' to empty array to add no new stages; old stages get deleted regardless
+    let dataResult, error
+    if (isNew) {
+      let object = { ...recipe }
 
-    const { error } = await updateRecipe({
-      id,
-      recipe,
-      stages: newStages,
-    })
+      if (stages) {
+        object.stages = {
+          data: [
+            ...stages,
+            {
+              action: 'serve',
+              start: serve,
+              end: serve,
+              weight: stages[stages.length - 1].weight,
+            },
+          ],
+        }
+      }
+      ;({ data: dataResult, error } = await insertRecipe({ object }))
+    } else {
+      ;({ error } = await updateRecipe({
+        id,
+        recipe,
+        stages: newStages,
+      }))
+    }
 
-    if (error) {
-      addAlert({
-        type: alertType.ERROR,
-        header: error.message,
-        close: true,
+    if (error?.message.includes('Uniqueness violation')) {
+      methods.setError('name', {
+        message: 'Recipe name must be unique',
+        shouldFocus: true,
       })
+    } else if (isBrewLog) {
+      isNew ? setRecipeId(dataResult.insert_recipe_one.id) : setRecipeId(id)
+      setBrewLog(true)
     } else {
       history.push(`/recipe/${id}`, { edited: true })
     }

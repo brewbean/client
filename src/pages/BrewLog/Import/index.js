@@ -14,6 +14,7 @@ const Import = () => {
     // Use this might need to change to reducer
     showSearchRecipe: false,
     showCreateForm: false,
+    isImport: false,
     data: {},
   })
 
@@ -28,9 +29,9 @@ const Import = () => {
     }
   }
 
-  const navigateToCreate = (data) => {
+  const navigateToCreate = (data, isImport = false) => {
     if (isVerified) {
-      setState({ ...state, showCreateForm: true, data })
+      setState({ ...state, showCreateForm: true, data, isImport })
     } else if (isAuthenticated) {
       triggerUnverifiedModal()
     } else {
@@ -48,15 +49,19 @@ const Import = () => {
   return (
     <>
       {state.showCreateForm ? (
-        <div>
-          <Create defaultValue={state.data} />
+        <div className='sm:col-span-2'>
+          <Create recipe={state.data} isImport={state.isImport} />
         </div>
       ) : state.showSearchRecipe ? (
         <Search navigateToCreate={navigateToCreate} />
       ) : (
-        <div>
-          <h1>Import</h1>
-          <div>Would you like to import a recipe?</div>
+        <div className='text-center sm:col-span-2'>
+          <h2 className='text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl'>
+            Import
+          </h2>
+          <div className='mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4'>
+            Would you like to import a recipe?
+          </div>
           <button
             onClick={navigateToImport}
             className='my-4 btn btn--primary btn--lg'
@@ -64,10 +69,14 @@ const Import = () => {
             Import Recipe
           </button>
 
-          <h1>Create Your Own</h1>
-          <div>Would you like to create your own brew log?</div>
+          <h2 className='text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl'>
+            Create your own
+          </h2>
+          <div className='mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4'>
+            Would you like to create your own brew log?
+          </div>
           <button
-            onClick={() => navigateToCreate()}
+            onClick={() => navigateToCreate(false)}
             className='my-4 btn btn--primary btn--lg'
           >
             Fresh Brew Log
