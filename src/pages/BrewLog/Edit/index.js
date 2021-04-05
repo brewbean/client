@@ -27,7 +27,7 @@ const EditBrewLog = () => {
     return <Redirect to={`/brewlog`} />
 
   return (
-    <>
+    <div className='sm:col-span-2'>
       {showBrewLog ? (
         <BrewLogContainer brew_log={data.brew_log_by_pk} />
       ) : (
@@ -39,7 +39,7 @@ const EditBrewLog = () => {
           isNew={false}
         />
       )}
-    </>
+    </div>
   )
 }
 

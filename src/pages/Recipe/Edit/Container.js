@@ -39,9 +39,6 @@ export default function Container({
   setBrewLog,
   isNew,
 }) {
-  console.log('Container isBrewLog:', isBrewLog)
-  console.log('Container isNew:', isNew)
-  // const { addAlert } = useAlert()
   const { id } = recipe
   const history = useHistory()
 
@@ -69,7 +66,6 @@ export default function Container({
       : [] // change 'null' to empty array to add no new stages; old stages get deleted regardless
     let dataResult, error
     if (isNew) {
-      console.log('Container Trying to create new')
       let object = { ...recipe }
 
       if (stages) {
@@ -86,22 +82,14 @@ export default function Container({
         }
       }
       ;({ data: dataResult, error } = await insertRecipe({ object }))
-      console.log('Container data:', dataResult)
     } else {
-      console.log('Container Trying to Update')
       ;({ error } = await updateRecipe({
         id,
         recipe,
         stages: newStages,
       }))
     }
-    console.log('Container submitreceipe error', error)
-    // if (error) {
-    //   addAlert({
-    //     type: alertType.ERROR,
-    //     header: error.message,
-    //     close: true,
-    //   })
+
     if (error?.message.includes('Uniqueness violation')) {
       methods.setError('name', {
         message: 'Recipe name must be unique',

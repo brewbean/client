@@ -12,10 +12,7 @@ import { useHistory } from 'react-router-dom'
 import Container from 'pages/Recipe/Edit/Container'
 
 const Create = ({ recipe, isImport }) => {
-  console.log('ISImport:', isImport)
   const history = useHistory()
-  // const location = useLocation()
-  // const { isAuthenticated } = useAuth()
   const [showBrewLog, setBrewLog] = useState(false)
   const [recipe_id, setRecipeId] = useState(null)
   const [state] = useState({
@@ -31,17 +28,9 @@ const Create = ({ recipe, isImport }) => {
   const brewLogMethods = useForm({
     resolver: yupResolver(brewLogSchema),
   })
-  // const cancelBrewLog = () => {
-  //   console.log("Create index cancelBrewLog")
-  //   setState = {
-  //     ...state,
-  //     showBrewLog: false
-  //   }
-  // }
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOG_ONE)
 
   const submitBrewLog = async (data) => {
-    console.log('Submitting Brew Log Data', data)
     const { stages, serve, rating, title, comment } = data
     const object = {
       comment: comment,
@@ -63,7 +52,6 @@ const Create = ({ recipe, isImport }) => {
       }
     }
     const { error } = await insertBrewLog({ object })
-    console.log('Submit Brew Log Error', error)
     if (error?.message.includes('Uniqueness violation')) {
       brewLogMethods.setError('title', {
         message: 'Brew Log title must be unique',
@@ -103,7 +91,6 @@ const Create = ({ recipe, isImport }) => {
       })
     } else if (state.recipeSubmitted) {
     } else {
-      // history.push(`/recipe`, { createdRecipe: true })
       setBrewLog(true)
       setRecipeId(queryData.insert_recipe_one.id)
     }
@@ -112,7 +99,7 @@ const Create = ({ recipe, isImport }) => {
   // if (!location.state || !isAuthenticated) return <Redirect to='/brewlog' />
   // NTS: - have to fix the state here
   return (
-    <>
+    <div>
       {showBrewLog ? (
         <BrewLogForm
           {...brewLogMethods}
@@ -133,7 +120,7 @@ const Create = ({ recipe, isImport }) => {
           onSubmit={recipeMethods.handleSubmit(submitRecipe)}
         />
       )}
-    </>
+    </div>
   )
 }
 

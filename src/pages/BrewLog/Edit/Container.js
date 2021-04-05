@@ -37,7 +37,6 @@ const EditBrewLogContainer = ({ brew_log }) => {
   }
   return (
     <div>
-      Edit Brew Log Container
       <BrewLogForm
         {...methods}
         onSubmit={methods.handleSubmit(submitBrewLog)}
