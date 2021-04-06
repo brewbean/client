@@ -18,7 +18,7 @@ const Detail = () => {
   const history = useHistory()
   const { url } = useRouteMatch()
   const { id } = useParams()
-  const { isAuthenticated, barista: user } = useAuth()
+  const { isAuthenticated, isVerified, barista: user } = useAuth()
   const { isSuccess, isPending, open, content, setContent, reset } = useModal()
 
   const [, deleteRecipe] = useMutation(DELETE_RECIPES)
@@ -101,7 +101,7 @@ const Detail = () => {
             recipeId={id}
             recipeReviews={recipe_reviews}
             canReview={
-              isAuthenticated &&
+              isVerified &&
               !recipe_reviews.find((review) => review.barista.id === user.id)
             }
           />
