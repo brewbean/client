@@ -14,7 +14,7 @@ import { DescriptionSection } from 'components/Layout/Detail'
 const Detail = () => {
   const { id } = useParams()
   const { url } = useRouteMatch()
-  const { isAuthenticated, barista } = useAuth()
+  const { isAuthenticated, isVerified, barista } = useAuth()
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
@@ -72,7 +72,7 @@ const Detail = () => {
             beanId={id}
             beanReviews={bean_reviews}
             canReview={
-              isAuthenticated &&
+              isVerified &&
               !bean_reviews.find((review) => review.barista.id === barista.id) // can't review twice
             }
           />
