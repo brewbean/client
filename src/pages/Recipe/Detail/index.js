@@ -102,7 +102,6 @@ const Detail = () => {
             recipeReviews={recipe_reviews}
             canReview={
               isAuthenticated &&
-              user.id !== barista?.id &&
               !recipe_reviews.find((review) => review.barista.id === user.id)
             }
           />
