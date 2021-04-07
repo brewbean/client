@@ -10,6 +10,7 @@ import {
 
 import {
   beanInfo,
+  beanReviewInfo,
   INSERT_BEAN_ONE,
   UPDATE_BEAN,
   GET_ALL_BEANS,
@@ -51,7 +52,13 @@ export const GET_BARISTA = gql`
   }
 `
 
-const fragment = { recipeInfo, recipeReviewInfo, beanInfo, brewLogInfo }
+const fragment = {
+  recipeInfo,
+  recipeReviewInfo,
+  beanInfo,
+  beanReviewInfo,
+  brewLogInfo,
+}
 
 export {
   fragment,

@@ -1,13 +1,14 @@
+import { Link, useRouteMatch } from 'react-router-dom'
+import { Modal } from 'components/Modal'
 import Sidebar from 'components/BrewLog/Sidebar'
 import { Plus } from 'components/Icon'
 import { Header } from 'components/Layout'
 import Footer from 'components/Layout/Footer'
 import { useQueryParams } from 'components/Utility/Hook'
 import { BasicPagination } from 'components/Utility/List'
-import { Link, useRouteMatch } from 'react-router-dom'
 import Routes from './Routes'
 
-export default function Main({ fetching, error, data }) {
+export default function Main({ fetching, error, data, goToCreate }) {
   const { url } = useRouteMatch()
   const { page } = useQueryParams()
   const currPage = page ? parseInt(page) : 1
@@ -32,13 +33,18 @@ export default function Main({ fetching, error, data }) {
                     Brew logs
                   </Link>
                   <div>
-                    <Link to={`${url}/new`} className='btn btn--white btn--xs'>
+                    <button
+                      type='button'
+                      onClick={goToCreate}
+                      to={`${url}/new`}
+                      className='btn btn--white btn--xs'
+                    >
                       <Plus className='w-5 h-5' />
-                    </Link>
+                    </button>
                   </div>
                 </div>
 
-                <nav className='min-h-0 flex-1 overflow-y-auto'>
+                <nav className='min-h-0 flex-1 overflow-y-auto bg-white'>
                   <Sidebar
                     loading={fetching}
                     error={error}
@@ -62,7 +68,7 @@ export default function Main({ fetching, error, data }) {
               <div className='min-h-0 flex-1 overflow-y-auto'>
                 {/* Content */}
                 <div className='px-4 py-5 sm:px-6'>
-                  <Routes />
+                  <Routes fetching={fetching} />
                 </div>
               </div>
             </section>
@@ -71,6 +77,7 @@ export default function Main({ fetching, error, data }) {
 
         <Footer />
       </div>
+      <Modal />
     </div>
   )
 }

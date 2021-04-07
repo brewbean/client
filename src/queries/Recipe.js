@@ -69,14 +69,21 @@ const INSERT_RECIPES_ONE = gql`
   mutation InsertOneRecipe($object: recipe_insert_input!) {
     insert_recipe_one(object: $object) {
       ...RecipeInfo
+      recipe_reviews(order_by: { date_updated: desc }) {
+        ...RecipeReviewInfo
+      }
     }
   }
   ${recipeInfo}
+  ${recipeReviewInfo}
 `
 const GET_ALL_RECIPES = gql`
   query GetAllRecipes($limit: Int, $offset: Int) {
     recipe(order_by: { id: desc }, limit: $limit, offset: $offset) {
       ...RecipeInfo
+      recipe_reviews(order_by: { date_updated: desc }) {
+        ...RecipeReviewInfo
+      }
     }
     recipe_aggregate {
       aggregate {
@@ -85,26 +92,19 @@ const GET_ALL_RECIPES = gql`
     }
   }
   ${recipeInfo}
+  ${recipeReviewInfo}
 `
 const GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW = gql`
   query GetOneRecipeWithReviews($id: Int!) {
     recipe_by_pk(id: $id) {
       ...RecipeInfo
       recipe_reviews(order_by: { date_updated: desc }) {
-        id
-        recipe_id
-        rating
-        comment
-        date_added
-        barista {
-          id
-          display_name
-          avatar
-        }
+        ...RecipeReviewInfo
       }
     }
   }
   ${recipeInfo}
+  ${recipeReviewInfo}
 `
 const GET_SINGLE_RECIPE = gql`
   query GetOneRecipe($id: Int!) {
@@ -117,20 +117,10 @@ const GET_SINGLE_RECIPE = gql`
 const GET_SINGLE_RECIPE_REVIEW = gql`
   query GetOneRecipeReview($id: Int!) {
     recipe_review_by_pk(id: $id) {
-      id
-      rating
-      comment
-      date_added
-      barista {
-        id
-        display_name
-      }
-      recipe {
-        id
-        name
-      }
+      ...RecipeReviewInfo
     }
   }
+  ${recipeReviewInfo}
 `
 /**
  * Recipe & Recipe Player

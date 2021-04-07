@@ -35,6 +35,19 @@ export const beanInfo = gql`
   }
 `
 
+export const beanReviewInfo = gql`
+  fragment BeanReviewInfo on bean_review {
+    id
+    rating
+    comment
+    date_added
+    barista {
+      id
+      display_name
+    }
+  }
+`
+
 /*
   Bean Queries
 */
@@ -60,6 +73,9 @@ export const GET_ALL_BEANS = gql`
   query GetAllBeans($limit: Int, $offset: Int) {
     bean(order_by: { id: desc }, limit: $limit, offset: $offset) {
       ...BeanInfo
+      bean_reviews(order_by: { date_updated: desc }) {
+        ...BeanReviewInfo
+      }
     }
     bean_aggregate {
       aggregate {
@@ -68,6 +84,7 @@ export const GET_ALL_BEANS = gql`
     }
   }
   ${beanInfo}
+  ${beanReviewInfo}
 `
 
 export const GET_SINGLE_BEAN = gql`
@@ -83,18 +100,12 @@ export const GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW = gql`
     bean_by_pk(id: $id) {
       ...BeanInfo
       bean_reviews(order_by: { date_updated: desc }) {
-        id
-        rating
-        comment
-        date_added
-        barista {
-          id
-          display_name
-        }
+        ...BeanReviewInfo
       }
     }
   }
   ${beanInfo}
+  ${beanReviewInfo}
 `
 /*
   Bean Review Queries

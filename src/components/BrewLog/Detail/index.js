@@ -25,7 +25,11 @@ export const Description = ({
       </DataSection>
 
       <div className='sm:col-span-1 justify-self-end space-x-2'>
-        <button className='btn btn--white btn--sm' onClick={() => onDelete()}>
+        <button
+          type='button'
+          className='btn btn--white btn--sm'
+          onClick={onDelete}
+        >
           Delete
         </button>
         <Link to={`${url}/edit`} className='btn btn--primary btn--sm'>
