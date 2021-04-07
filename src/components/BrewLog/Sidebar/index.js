@@ -13,7 +13,7 @@ const LinkButton = ({ id, title, date_created, rating }) => {
     <Link
       to={{ pathname: url + '/' + id, search }}
       className={combineClass(
-        'p-4 bg-gray-50 hover:bg-gray-200 flex justify-between items-center',
+        'p-4 bg-white hover:bg-gray-200 flex justify-between items-center',
         {
           'bg-gray-200 cursor-not-allowed': match?.params?.id === `${id}`,
         }

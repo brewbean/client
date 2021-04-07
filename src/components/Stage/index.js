@@ -31,13 +31,15 @@ export const StageSection = ({ stages, playerPath }) =>
       <div className='mb-4 flex p-2 rounded-md bg-gray-50 shadow-inner border-gray-300'>
         <Table stages={stages} />
       </div>
-      <Link
-        to={playerPath}
-        type='button'
-        className='w-full btn btn--primary btn--md'
-      >
-        Go to Recipe Player
-      </Link>
+      {playerPath && (
+        <Link
+          to={playerPath}
+          type='button'
+          className='w-full btn btn--primary btn--md'
+        >
+          Go to Recipe Player
+        </Link>
+      )}
     </>
   ) : (
     <p className='text-sm text-gray-900 inline-flex items-center'>

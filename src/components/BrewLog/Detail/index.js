@@ -19,7 +19,7 @@ export const Description = ({
   const { url } = useRouteMatch()
 
   return (
-    <>
+    <dl className='grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2'>
       <DataSection className='sm:col-span-1' label='Title'>
         {title}
       </DataSection>
@@ -127,6 +127,6 @@ export const Description = ({
       >
         {recipe.instructions}
       </DataSection>
-    </>
+    </dl>
   )
 }

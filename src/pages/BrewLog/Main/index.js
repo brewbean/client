@@ -1,6 +1,6 @@
 import Sidebar from 'components/BrewLog/Sidebar'
+import { Plus } from 'components/Icon'
 import { Header } from 'components/Layout'
-import { ContentSection } from 'components/Layout/Detail'
 import Footer from 'components/Layout/Footer'
 import { useQueryParams } from 'components/Utility/Hook'
 import { BasicPagination } from 'components/Utility/List'
@@ -24,16 +24,18 @@ export default function Main({ fetching, error, data }) {
             {/* brew log list*/}
             <aside className='flex-shrink-0'>
               <div className='h-full flex flex-col w-80 bg-gray-50 rounded-lg'>
-                <div className='flex-shrink-0 h-16 px-6 flex flex-col justify-center border-b border-gray-200'>
+                <div className='flex-shrink-0 h-16 px-6 flex justify-between items-center border-b border-gray-200'>
                   <Link
                     to={url}
                     className='text-lg leading-6 font-medium text-gray-900'
                   >
                     Brew logs
                   </Link>
-                  <Link to={`${url}/new`} className='btn btn--primary btn--sm'>
-                    Create Brew Log
-                  </Link>
+                  <div>
+                    <Link to={`${url}/new`} className='btn btn--white btn--xs'>
+                      <Plus className='w-5 h-5' />
+                    </Link>
+                  </div>
                 </div>
 
                 <nav className='min-h-0 flex-1 overflow-y-auto'>
@@ -59,9 +61,9 @@ export default function Main({ fetching, error, data }) {
             <section className='min-w-0 flex-1 h-full flex flex-col overflow-hidden bg-white rounded-lg'>
               <div className='min-h-0 flex-1 overflow-y-auto'>
                 {/* Content */}
-                <ContentSection>
+                <div className='px-4 py-5 sm:px-6'>
                   <Routes />
-                </ContentSection>
+                </div>
               </div>
             </section>
           </main>

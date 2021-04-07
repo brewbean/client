@@ -7,10 +7,8 @@ export const TitleSection = ({ children }) => (
 )
 
 export const ContentSection = ({ children }) => (
-  <div className='px-4 py-5 sm:px-6'>
-    <dl className='grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2'>
-      {children}
-    </dl>
+  <div className='px-4 py-5 sm:px-6 grid grid-cols-1 gap-6 lg:grid-cols-2'>
+    {children}
   </div>
 )
 

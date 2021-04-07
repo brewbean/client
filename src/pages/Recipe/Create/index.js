@@ -54,5 +54,16 @@ export default function CreateRecipe() {
 
   if (!location.state || !isAuthenticated) return <Redirect to='/recipe' />
 
-  return <Form {...methods} onSubmit={methods.handleSubmit(submitRecipe)} />
+  return (
+    <Form
+      {...methods}
+      onCancel={history.goBack}
+      onSubmit={methods.handleSubmit(submitRecipe)}
+      header={{
+        title: 'Create Recipe',
+        subtitle:
+          'Follow the form to list out recipe steps. You may also add playable recipe steps to use the recipe player.',
+      }}
+    />
+  )
 }
