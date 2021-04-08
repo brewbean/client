@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+import { XCircle } from 'components/Icon'
 import { wordCapitalized } from 'helper/stringHelper'
 
 export const Table = ({ stages }) => (
@@ -22,3 +24,26 @@ export const Table = ({ stages }) => (
     </tbody>
   </table>
 )
+
+export const StageSection = ({ stages, playerPath }) =>
+  stages.length > 0 ? (
+    <>
+      <div className='mb-4 flex p-2 rounded-md bg-gray-50 shadow-inner border-gray-300'>
+        <Table stages={stages} />
+      </div>
+      {playerPath && (
+        <Link
+          to={playerPath}
+          type='button'
+          className='w-full btn btn--primary btn--md'
+        >
+          Go to Recipe Player
+        </Link>
+      )}
+    </>
+  ) : (
+    <p className='text-sm text-gray-900 inline-flex items-center'>
+      <XCircle className='w-6 h-6 text-red-600 mr-1' />
+      No playable steps
+    </p>
+  )

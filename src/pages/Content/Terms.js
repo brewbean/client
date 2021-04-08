@@ -14,7 +14,7 @@ export default function Terms() {
         <p>
           These Terms and Conditions ("Terms", "Terms and Conditions") govern
           your relationship with https://brewbean.io website (the "Service")
-          operated by Brewbean LLC ("us", "we", or "our").
+          operated by Brewbean ("us", "we", or "our").
         </p>
 
         <p>
@@ -30,7 +30,7 @@ export default function Terms() {
 
         <p>
           By accessing or using the Service you agree to be bound by these
-          Terms. If you disagree with any part of the terms then you may not
+          Terms. If you disagree with any part of the Terms then you may not
           access the Service.
         </p>
 
@@ -57,7 +57,7 @@ export default function Terms() {
 
         <p>
           You may not use as a username the name of another person or entity or
-          that is not lawfully available for use, a name or trade mark that is
+          that is not lawfully available for use, a name or trademark that is
           subject to any rights of another person or entity other than you
           without appropriate authorization, or a name that is otherwise
           offensive, vulgar or obscene.
@@ -66,27 +66,27 @@ export default function Terms() {
         <h2>Intellectual Property</h2>
         <p>
           The Service and its original content, features and functionality are
-          and will remain the exclusive property of Brewbean LLC and its
-          licensors. The Service is protected by copyright, trademark, and other
-          laws of both the United States of America and foreign countries. Our
+          and will remain the exclusive property of Brewbean and its licensors.
+          The Service is protected by copyright, trademark, and other laws of
+          both the United States of America and foreign countries. Our
           trademarks and trade dress may not be used in connection with any
-          product or service without the prior written consent of Brewbean LLC
+          product or service without the prior written consent of Brewbean
         </p>
 
         <h2>Links To Other Web Sites</h2>
         <p>
           Our Service may contain links to third-party web sites or services
-          that are not owned or controlled by Brewbean LLC
+          that are not owned or controlled by Brewbean
         </p>
 
         <p>
-          Brewbean LLC has no control over, and assumes no responsibility for,
-          the content, privacy policies, or practices of any third party web
-          sites or services. You further acknowledge and agree that Brewbean LLC
-          shall not be responsible or liable, directly or indirectly, for any
-          damage or loss caused or alleged to be caused by or in connection with
-          use of or reliance on any such content, goods or services available on
-          or through any such web sites or services.
+          Brewbean has no control over, and assumes no responsibility for, the
+          content, privacy policies, or practices of any third party web sites
+          or services. You further acknowledge and agree that Brewbean shall not
+          be responsible or liable, directly or indirectly, for any damage or
+          loss caused or alleged to be caused by or in connection with use of or
+          reliance on any such content, goods or services available on or
+          through any such web sites or services.
         </p>
 
         <p>
@@ -109,7 +109,7 @@ export default function Terms() {
 
         <h2>Limitation Of Liability</h2>
         <p>
-          In no event shall Brewbean LLC, nor its directors, shareholders,
+          In no event shall Brewbean, nor its directors, shareholders,
           employees, partners, agents, suppliers, or affiliates, be liable for
           any indirect, incidental, special, consequential or punitive damages,
           including without limitation, loss of profits, data, use, goodwill, or
@@ -134,7 +134,7 @@ export default function Terms() {
         </p>
 
         <p>
-          Brewbean LLC do not warrant that a) the Service will function
+          Brewbean do not warrant that a) the Service will function
           uninterrupted, secure or available at any particular time or location;
           b) any errors or defects will be corrected; c) the Service is free of
           viruses or other harmful components; or d) the results of using the
@@ -162,15 +162,15 @@ export default function Terms() {
         <p>
           We reserve the right, at our sole discretion, to modify or replace
           these Terms at any time. If a revision is material we will try to
-          provide at least 30 days notice prior to any new terms taking effect.
+          provide at least 30 days notice prior to any new Terms taking effect.
           What constitutes a material change will be determined at our sole
           discretion.
         </p>
 
         <p>
           By continuing to access or use our Service after those revisions
-          become effective, you agree to be bound by the revised terms. If you
-          do not agree to the new terms, please stop using the Service.
+          become effective, you agree to be bound by the revised Terms. If you
+          do not agree to the new Terms, please stop using the Service.
         </p>
 
         <p>

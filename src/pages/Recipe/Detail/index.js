@@ -6,10 +6,11 @@ import { useAuth } from 'context/AuthContext'
 import {
   ActivitySection,
   CommentSection,
-  DescriptionSection,
+  Description,
   ModifyRow,
   TitleSection,
 } from 'components/Recipe/Detail'
+import { DescriptionSection } from 'components/Layout/Detail'
 import { useModal } from 'context/ModalContext'
 import { placeholder } from 'image'
 
@@ -17,12 +18,12 @@ const Detail = () => {
   const history = useHistory()
   const { url } = useRouteMatch()
   const { id } = useParams()
-  const { isAuthenticated, barista: user } = useAuth()
+  const { isAuthenticated, isVerified, barista: user } = useAuth()
   const { isSuccess, isPending, open, content, setContent, reset } = useModal()
 
   const [, deleteRecipe] = useMutation(DELETE_RECIPES)
 
-  const onDelete = async () => {
+  const onDelete = () => {
     open()
     setContent('delete')
   }
@@ -40,7 +41,7 @@ const Detail = () => {
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
-    variables: { id },
+    variables: { id: parseInt(id) },
     context: useMemo(
       () => ({
         fetchOptions: {
@@ -65,7 +66,7 @@ const Detail = () => {
   } = data.recipe_by_pk
 
   return (
-    <main className='max-w-3xl mx-auto lg:max-w-7xl sm:px-6'>
+    <main>
       {/*<!-- Page header -->*/}
       <div className='md:flex md:items-center md:justify-between md:space-x-5'>
         <TitleSection
@@ -84,7 +85,9 @@ const Detail = () => {
       <div className='mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3'>
         {/*<!-- Description list-->*/}
         <div className='space-y-6 lg:col-span-2'>
-          <DescriptionSection recipe={data.recipe_by_pk} />
+          <DescriptionSection title='Recipe Details'>
+            <Description {...data.recipe_by_pk} />
+          </DescriptionSection>
         </div>
 
         {/*<!-- Activity Feed -->*/}
@@ -98,8 +101,7 @@ const Detail = () => {
             recipeId={id}
             recipeReviews={recipe_reviews}
             canReview={
-              isAuthenticated &&
-              user.id !== barista?.id &&
+              isVerified &&
               !recipe_reviews.find((review) => review.barista.id === user.id)
             }
           />

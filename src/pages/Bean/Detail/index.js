@@ -6,14 +6,15 @@ import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
 import {
   ModifyRow,
   TitleSection,
-  DescriptionSection,
+  Description,
   CommentSection,
 } from 'components/Bean/Detail'
+import { DescriptionSection } from 'components/Layout/Detail'
 
 const Detail = () => {
   const { id } = useParams()
   const { url } = useRouteMatch()
-  const { isAuthenticated, barista } = useAuth()
+  const { isAuthenticated, isVerified, barista } = useAuth()
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
@@ -42,7 +43,7 @@ const Detail = () => {
   } = data.bean_by_pk
 
   return (
-    <main className='max-w-3xl mx-auto lg:max-w-7xl sm:px-6'>
+    <main>
       {/*<!-- Page header -->*/}
       <div className='md:flex md:items-start md:justify-between md:space-x-5'>
         <TitleSection
@@ -60,7 +61,9 @@ const Detail = () => {
       <div className='mt-6'>
         {/*<!-- Description list-->*/}
         <div className='space-y-6'>
-          <DescriptionSection bean={data.bean_by_pk} />
+          <DescriptionSection title='Bean Details'>
+            <Description {...data.bean_by_pk} />
+          </DescriptionSection>
         </div>
 
         {/*<!-- Comments-->*/}
@@ -69,7 +72,7 @@ const Detail = () => {
             beanId={id}
             beanReviews={bean_reviews}
             canReview={
-              isAuthenticated &&
+              isVerified &&
               !bean_reviews.find((review) => review.barista.id === barista.id) // can't review twice
             }
           />

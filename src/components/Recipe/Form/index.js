@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Section, SectionMap } from 'components/Form/Layout'
 
 import { combineClass } from 'helper/stringHelper'
@@ -15,6 +14,8 @@ export default function Form({
   getValues,
   onSubmit,
   preload,
+  onCancel,
+  header,
 }) {
   const [formMounted, setFormMounted] = useState(
     preload?.formMounted ? preload.formMounted : false
@@ -49,20 +50,18 @@ export default function Form({
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className='max-w-4xl mx-auto mt-2 sm:mt-0 space-y-6 sm:space-y-5'
-    >
+    <form onSubmit={onSubmit} className='mt-2 sm:mt-0 space-y-6 sm:space-y-5'>
       {/* Header */}
-      <div>
-        <h3 className='text-lg leading-6 font-medium text-gray-900'>
-          Create Recipe
-        </h3>
-        <p className='mt-1 max-w-2xl text-sm text-gray-500'>
-          Follow the form to list out recipe steps. You may also add playable
-          recipe steps to use the recipe player.
-        </p>
-      </div>
+      {header && (
+        <div>
+          <h3 className='text-lg leading-6 font-medium text-gray-900'>
+            {header.title}
+          </h3>
+          <p className='mt-1 max-w-2xl text-sm text-gray-500'>
+            {header.subtitle}
+          </p>
+        </div>
+      )}
       {/* Form Inputs */}
       <div className='space-y-6 sm:space-y-5'>
         <SectionMap
@@ -252,12 +251,13 @@ export default function Form({
 
       {/* Button row */}
       <div className='flex justify-end'>
-        <Link
-          to='/recipe'
-          className='bg-white py-2 px-4 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+        <button
+          type='button'
+          onClick={onCancel}
+          className='btn btn--md btn--white'
         >
           Cancel
-        </Link>
+        </button>
         <button
           type='submit'
           disabled={

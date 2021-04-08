@@ -1,3 +1,4 @@
 import Pagination from './Pagination'
+import BasicPagination from './BasicPagination'
 
-export { Pagination }
+export { BasicPagination, Pagination }
