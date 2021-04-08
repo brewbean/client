@@ -59,12 +59,31 @@ export const updates = {
       cache.invalidate({ __typename: 'bean_review', id: args.id })
     },
     insert_brew_log_one: (result, args, cache, info) => {
+      const key = 'Query'
+      cache
+        .inspectFields(key)
+        .filter((field) => field.fieldName === 'brew_log')
+        .forEach((field) => {
+          if (field.arguments.offset !== 0) {
+            cache.invalidate(key, field.fieldKey)
+          }
+        })
       cache.updateQuery(
         {
           query: GET_ALL_BREW_LOGS,
+          variables: {
+            limit: 10,
+            offset: 0,
+          },
         },
         (data) => {
-          data && data.brew_log.push(result.insert_brew_log_one)
+          if (data) {
+            data.brew_log.unshift(result.insert_brew_log_one)
+            if (data.brew_log.length > 10) {
+              data.brew_log.pop()
+            }
+            data.brew_log_aggregate.aggregate.count++
+          }
           return data
         }
       )

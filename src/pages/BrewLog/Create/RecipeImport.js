@@ -2,7 +2,7 @@ import { Header, RecipeSection, Title } from 'components/BrewLog/Form'
 import { BREWLOG_FORM } from 'pages/BrewLog/Create'
 
 export default function RecipeImport({ goBack, goTo, payload }) {
-  const goToBrewlogForm = () =>
+  const goToBrewLogForm = () =>
     goTo(BREWLOG_FORM, {
       recipe: payload,
       subtitle: 'Step 4: Add brew log details',
@@ -23,7 +23,7 @@ export default function RecipeImport({ goBack, goTo, payload }) {
         <button className='btn btn--white btn--sm' onClick={goBack}>
           Cancel
         </button>
-        <button className='btn btn--primary btn--sm' onClick={goToBrewlogForm}>
+        <button className='btn btn--primary btn--sm' onClick={goToBrewLogForm}>
           Confirm
         </button>
       </div>

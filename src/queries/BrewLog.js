@@ -10,30 +10,7 @@ const baristaInfo = gql`
     avatar
   }
 `
-// const recipeInfo = gql`
-//   fragment recipeFragment on recipe {
-//     about
-//     bean_grind
-//     bean_id
-//     bean_name_free
-//     bean_weight
-//     brew_type
-//     date_added
-//     date_updated
-//     device
-//     id
-//     instructions
-//     is_private
-//     name
-//     water_amount
-//     water_temp
-//     barista {
-//       id
-//       display_name
-//       avatar
-//     }
-//   }
-// `
+
 const brewLogInfo = gql`
   fragment BrewLogInfo on brew_log {
     id

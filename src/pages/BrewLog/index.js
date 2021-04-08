@@ -1,10 +1,25 @@
-import { useMemo } from 'react'
+import { useMemo, useCallback, useEffect } from 'react'
+import { useHistory, useRouteMatch } from 'react-router'
 import { useQuery } from 'urql'
 import { GET_ALL_BREW_LOGS } from 'queries'
+import { useAuth } from 'context/AuthContext'
+import { useModal } from 'context/ModalContext'
 import { useQueryParams } from 'components/Utility/Hook'
 import Main from 'pages/BrewLog/Main'
 
-export default function Brewlog() {
+export default function BrewLog() {
+  const { isAuthenticated, isVerified } = useAuth()
+  const {
+    isSuccess,
+    isPending,
+    open,
+    content,
+    setContent,
+    setModalAlert,
+    reset,
+  } = useModal()
+  const { url } = useRouteMatch()
+  const history = useHistory()
   const { page } = useQueryParams()
   const [result] = useQuery({
     query: GET_ALL_BREW_LOGS,
@@ -24,22 +39,32 @@ export default function Brewlog() {
       []
     ),
   })
-  /**
-   * Goal
-   * - container level data fetching
-   * - leave rendering to UI components (agnostic to data)
-   *
-   * Architecture
-   *
-   * Data container (here)
-   * ├── Sidebar (UI only; pass loading/error down)
-   * └── Main viewer
-   *     ├── Detail view - based on clicking on sidebar (UI only; no queries)
-   *     └── Create flow
-   *         ├── Form (data & conditional rendering) container
-   *         └── Form views
-   *
-   */
 
-  return <Main {...result} />
+  const triggerUnverifiedModal = useCallback(() => {
+    open()
+    setModalAlert(false)
+    setContent('unverified')
+  }, [open, setModalAlert, setContent])
+
+  const goToCreate = () => {
+    if (isVerified) {
+      history.push(`${url}/new`)
+    } else if (isAuthenticated) {
+      triggerUnverifiedModal()
+    } else {
+      open()
+      setContent('login', 'You must be logged in to create a recipe')
+    }
+  }
+
+  useEffect(() => {
+    if (!isPending && isSuccess && content === 'login' && isVerified) {
+      // need to clear modal settings so that going back
+      // to this page doesn't retrigger this effect
+      reset()
+      history.push(`${url}/new`)
+    }
+  }, [isPending, isSuccess, content, isVerified, url, history, reset])
+
+  return <Main {...result} goToCreate={goToCreate} />
 }

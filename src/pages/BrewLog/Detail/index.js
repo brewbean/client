@@ -1,59 +1,60 @@
-import { useEffect } from 'react'
-import { useAlert, alertType } from 'context/AlertContext'
-import { useParams, useLocation } from 'react-router'
+import { useEffect, useMemo } from 'react'
+import { useParams, useHistory } from 'react-router'
 import { useQuery, useMutation } from 'urql'
 import { GET_SINGLE_BREW_LOG, DELETE_BREW_LOG } from 'queries'
 import { Error } from 'components/Icon/Alert'
 import { Loading } from 'components/Utility'
 import { Description } from 'components/BrewLog/Detail'
-// import { useModal } from 'context/ModalContext'
+import { useModal } from 'context/ModalContext'
+import { ExclamationCircle } from 'components/Icon'
 
 export default function Detail() {
-  // const history = useHistory()
+  const history = useHistory()
   let { id } = useParams()
-  const location = useLocation()
-  const { addAlert } = useAlert()
-  // const { isSuccess, isPending, open, content, setContent, reset } = useModal()
+
+  const { isSuccess, isPending, open, content, setContent, reset } = useModal()
+
+  const [, deleteBrewLog] = useMutation(DELETE_BREW_LOG)
+
+  const onDelete = () => {
+    open()
+    setContent('delete')
+  }
+
+  useEffect(() => {
+    const execDelete = async () => {
+      await deleteBrewLog({ id })
+      reset()
+      history.push(`/brewlog`)
+    }
+    if (!isPending && isSuccess && content === 'delete') {
+      execDelete()
+    }
+  }, [history, id, content, isPending, isSuccess, reset, deleteBrewLog])
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_BREW_LOG,
     variables: { id: id ? parseInt(id) : null },
+    context: useMemo(
+      () => ({
+        fetchOptions: {
+          headers: {
+            'x-hasura-role': 'all_barista',
+          },
+        },
+      }),
+      []
+    ),
   })
-  const [, deleteBrewLog] = useMutation(DELETE_BREW_LOG)
-  const onDelete = async () => {
-    await deleteBrewLog({ id })
-    // open()
-    // console.log("Setting content")
-    // setContent('delete')
-  }
 
-  // useEffect(() => {
-  //   const execDelete = async () => {
-  //     console.log("Clikced on delete")
-  //     await deleteBrewLog({ id })
-  //     reset()
-  //     history.push(`/brewlog`)
-  //   }
-  //   if (!isPending && isSuccess && content === 'delete') {
-  //     execDelete()
-  //   }
-  // }, [history, id, content, isPending, isSuccess, reset, deleteBrewLog])
-
-  useEffect(() => {
-    if (location.state?.createdBrewLog) {
-      addAlert({
-        type: alertType.SUCCESS,
-        header: 'Brew log successfully created!',
-        close: true,
-      })
-    }
-  }, [addAlert, location])
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-  return fetching || !data ? (
+  return fetching ? (
     <div className='flex flex-col items-center col-span-2'>
       <Loading />
+    </div>
+  ) : !data ? (
+    <div className='text-gray-700 flex flex-col items-center col-span-2'>
+      <ExclamationCircle />
+      <h1 className='mt-2 text-sm font-medium'>No brew log here!</h1>
     </div>
   ) : error ? (
     <div className='text-red-600 flex flex-col items-center col-span-2'>
@@ -61,6 +62,6 @@ export default function Detail() {
       <h1 className='mt-2 text-sm font-medium'>Error fetching brew log</h1>
     </div>
   ) : (
-    <Description {...data?.brew_log_by_pk} onDelete={onDelete} />
+    <Description {...data.brew_log_by_pk} onDelete={onDelete} />
   )
 }

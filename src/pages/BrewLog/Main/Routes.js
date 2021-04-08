@@ -1,15 +1,41 @@
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { useEffect } from 'react'
+import {
+  Route,
+  Switch,
+  useRouteMatch,
+  useLocation,
+  useHistory,
+} from 'react-router-dom'
+import { useAlert, alertType } from 'context/AlertContext'
 import Detail from 'pages/BrewLog/Detail'
 import Create from 'pages/BrewLog/Create'
 import Edit from 'pages/BrewLog/Edit'
+import { Loading } from 'components/Utility'
+import Welcome from './Welcome'
 
-export default function Routes() {
+export default function Routes({ fetching }) {
   const { path } = useRouteMatch()
+  const location = useLocation()
+  const history = useHistory()
+  const { addAlert } = useAlert()
+
+  useEffect(() => {
+    if (location.state?.createdBrewLog) {
+      addAlert({
+        type: alertType.SUCCESS,
+        header: 'Brew log successfully created!',
+        close: true,
+      })
+      history.replace(path, {})
+    }
+  }, [addAlert, location, history, path])
+
+  if (fetching) return <Loading defaultPadding={false} containerClass='p-4' />
 
   return (
     <Switch>
       <Route exact path={path}>
-        Main
+        <Welcome />
       </Route>
       <Route exact path={`${path}/new`}>
         <Create />

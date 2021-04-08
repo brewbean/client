@@ -251,7 +251,11 @@ export default function Form({
 
       {/* Button row */}
       <div className='flex justify-end'>
-        <button onClick={onCancel} className='btn btn--md btn--white'>
+        <button
+          type='button'
+          onClick={onCancel}
+          className='btn btn--md btn--white'
+        >
           Cancel
         </button>
         <button

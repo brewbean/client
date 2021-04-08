@@ -23,7 +23,7 @@ const Detail = () => {
 
   const [, deleteRecipe] = useMutation(DELETE_RECIPES)
 
-  const onDelete = async () => {
+  const onDelete = () => {
     open()
     setContent('delete')
   }
@@ -41,7 +41,7 @@ const Detail = () => {
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
-    variables: { id },
+    variables: { id: parseInt(id) },
     context: useMemo(
       () => ({
         fetchOptions: {
