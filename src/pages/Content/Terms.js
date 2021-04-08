@@ -14,7 +14,7 @@ export default function Terms() {
         <p>
           These Terms and Conditions ("Terms", "Terms and Conditions") govern
           your relationship with https://brewbean.io website (the "Service")
-          operated by Brewbean LLC ("us", "we", or "our").
+          operated by Brewbean ("us", "we", or "our").
         </p>
 
         <p>
@@ -66,27 +66,27 @@ export default function Terms() {
         <h2>Intellectual Property</h2>
         <p>
           The Service and its original content, features and functionality are
-          and will remain the exclusive property of Brewbean LLC and its
-          licensors. The Service is protected by copyright, trademark, and other
-          laws of both the United States of America and foreign countries. Our
+          and will remain the exclusive property of Brewbean and its licensors.
+          The Service is protected by copyright, trademark, and other laws of
+          both the United States of America and foreign countries. Our
           trademarks and trade dress may not be used in connection with any
-          product or service without the prior written consent of Brewbean LLC
+          product or service without the prior written consent of Brewbean
         </p>
 
         <h2>Links To Other Web Sites</h2>
         <p>
           Our Service may contain links to third-party web sites or services
-          that are not owned or controlled by Brewbean LLC
+          that are not owned or controlled by Brewbean
         </p>
 
         <p>
-          Brewbean LLC has no control over, and assumes no responsibility for,
-          the content, privacy policies, or practices of any third party web
-          sites or services. You further acknowledge and agree that Brewbean LLC
-          shall not be responsible or liable, directly or indirectly, for any
-          damage or loss caused or alleged to be caused by or in connection with
-          use of or reliance on any such content, goods or services available on
-          or through any such web sites or services.
+          Brewbean has no control over, and assumes no responsibility for, the
+          content, privacy policies, or practices of any third party web sites
+          or services. You further acknowledge and agree that Brewbean shall not
+          be responsible or liable, directly or indirectly, for any damage or
+          loss caused or alleged to be caused by or in connection with use of or
+          reliance on any such content, goods or services available on or
+          through any such web sites or services.
         </p>
 
         <p>
@@ -109,7 +109,7 @@ export default function Terms() {
 
         <h2>Limitation Of Liability</h2>
         <p>
-          In no event shall Brewbean LLC, nor its directors, shareholders,
+          In no event shall Brewbean, nor its directors, shareholders,
           employees, partners, agents, suppliers, or affiliates, be liable for
           any indirect, incidental, special, consequential or punitive damages,
           including without limitation, loss of profits, data, use, goodwill, or
@@ -134,7 +134,7 @@ export default function Terms() {
         </p>
 
         <p>
-          Brewbean LLC do not warrant that a) the Service will function
+          Brewbean do not warrant that a) the Service will function
           uninterrupted, secure or available at any particular time or location;
           b) any errors or defects will be corrected; c) the Service is free of
           viruses or other harmful components; or d) the results of using the
