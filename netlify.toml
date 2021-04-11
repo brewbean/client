@@ -7,11 +7,13 @@ publish = "build/"
 API_BASE = "https://api.brewbean.io"
 GRAPHQL_API = "https://graphql.brewbean.io/v1/graphql"
 NODE_ENV = "production"
+FATHOM_ID = "BUSDDHEX"
 
 [context.stage.environment]
 API_BASE = "https://staging-api.brewbean.io"
 GRAPHQL_API = "https://staging-graphql.brewbean.io/v1/graphql"
 NODE_ENV = "production"
+FATHOM_ID = "OOJKMVUL"
 
 [[redirects]]
 from = "/*"
