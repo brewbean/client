@@ -8,6 +8,9 @@ export default function PrivacyPolicy() {
       </HeaderSection>
       <div className='mt-6 prose prose-indigo prose-md text-gray-700 mx-auto'>
         <p>
+          <em>Last updated: April 10, 2021</em>
+        </p>
+        <p>
           Brewbean is a privacy-first company. We make money from paying
           customers in our marketplace, along with first-party advertisement
           that does not use any tracking cookies. This means that you will
@@ -60,6 +63,29 @@ export default function PrivacyPolicy() {
           Policy, the terms used in this Privacy Policy have the same meanings
           as in our Terms and Conditions, accessible from https://brewbean.io
         </p>
+        <p>
+          We want to process as little personal information as possible when you
+          use our website. That's why we've chosen Fathom Analytics for our
+          website analytics, which doesn't use cookies and complies with the
+          GDPR, ePrivacy (including PECR), COPPA and CCPA. Using this
+          privacy-friendly website analytics software, your IP address is only
+          briefly processed, and we (running this website) have no way of
+          identifying you. As per the CCPA, your personal information is
+          de-identified. You can read more about this on{' '}
+          <a href='https://usefathom.com/compliance'>
+            Fathom Analytics' website
+          </a>
+          .
+        </p>
+        <p>
+          The purpose of us using this software is to understand our website
+          traffic in the most privacy-friendly way possible so that we can
+          continually improve our website and business. The lawful basis as per
+          the GDPR is "f); where our legitimate interests are to improve our
+          website and business continually." As per the explanation, no personal
+          data is stored over time.
+        </p>
+
         <h2>Definitions</h2>
         <ul>
           <li>

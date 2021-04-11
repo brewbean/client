@@ -8,7 +8,7 @@ export default function Terms() {
       </HeaderSection>
       <div className='mt-6 prose prose-indigo prose-md text-gray-700 mx-auto'>
         <p>
-          <em>Last updated: February 19, 2021</em>
+          <em>Last updated: April 8, 2021</em>
         </p>
 
         <p>
