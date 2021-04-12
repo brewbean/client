@@ -13,9 +13,20 @@ import { About, Contact, PrivacyPolicy, Terms, NotFound } from 'pages/Content'
 import Create from 'components/Recipe/Form'
 import BrewLog from 'pages/BrewLog'
 import BeanPage from 'pages/Bean'
+import { load, trackPageview } from 'fathom-client'
+import { FATHOM_ID } from 'config'
+import { useEffect } from 'react'
+
+load(FATHOM_ID, {
+  excludedDomains: ['localhost'],
+})
 
 function App() {
   const { pathname, search } = useLocation()
+
+  useEffect(() => {
+    trackPageview()
+  }, [pathname, search])
   return (
     <Switch>
       <Redirect from='/:url*(/+)' to={pathname.slice(0, -1) + search} />

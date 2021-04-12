@@ -19,6 +19,7 @@
     "@urql/exchange-graphcache": "^3.3.3",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
+    "fathom-client": "^3.0.0",
     "graphql": "^15.4.0",
     "postcss": "^7.0.35",
     "qs": "^6.9.6",
