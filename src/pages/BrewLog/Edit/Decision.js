@@ -26,7 +26,7 @@ export default function Decision({ goTo }) {
         </p>
       </div>
 
-      <div className='mt-6 flex items-center justify-center'>
+      <div className='mt-6 space-y-2 flex flex-col sm:flex-row sm:space-y-0 items-center justify-center'>
         <button onClick={goToBrewLogEdit} className='btn btn--primary btn--lg'>
           Continue without changes
         </button>

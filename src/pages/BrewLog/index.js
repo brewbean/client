@@ -6,8 +6,12 @@ import { useAuth } from 'context/AuthContext'
 import { useModal } from 'context/ModalContext'
 import { useQueryParams } from 'components/Utility/Hook'
 import Main from 'pages/BrewLog/Main'
+import { setUrqlHeader } from 'helper/header'
+import useIsScreenSize, { SMALL } from 'helper/useIsScreenSize'
+import Mobile from './Main/Mobile'
 
 export default function BrewLog() {
+  const isMobile = useIsScreenSize(SMALL)
   const { isAuthenticated, isVerified } = useAuth()
   const {
     isSuccess,
@@ -21,6 +25,7 @@ export default function BrewLog() {
   const { url } = useRouteMatch()
   const history = useHistory()
   const { page } = useQueryParams()
+
   const [result] = useQuery({
     query: GET_ALL_BREW_LOGS,
     variables: {
@@ -29,13 +34,7 @@ export default function BrewLog() {
         page === undefined || page === '1' ? 0 : (parseInt(page) - 1) * 10,
     },
     context: useMemo(
-      () => ({
-        fetchOptions: {
-          headers: {
-            'x-hasura-role': 'all_barista',
-          },
-        },
-      }),
+      () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
     ),
   })
@@ -66,5 +65,9 @@ export default function BrewLog() {
     }
   }, [isPending, isSuccess, content, isVerified, url, history, reset])
 
-  return <Main {...result} goToCreate={goToCreate} />
+  return isMobile ? (
+    <Mobile {...result} goToCreate={goToCreate} />
+  ) : (
+    <Main {...result} goToCreate={goToCreate} />
+  )
 }

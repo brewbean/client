@@ -7,10 +7,10 @@ import {
   ActivitySection,
   CommentSection,
   Description,
-  ModifyRow,
   TitleSection,
 } from 'components/Recipe/Detail'
 import { DescriptionSection } from 'components/Layout/Detail'
+import { ModifyRow } from 'components/Form/ButtonGroup'
 import { useModal } from 'context/ModalContext'
 import { placeholder } from 'image'
 

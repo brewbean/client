@@ -38,7 +38,7 @@ export default function BrewLogForm({ goBack, payload }) {
     <>
       <Header goBack={goBack} />
       <Title
-        extraClasses='mt-2'
+        extraClasses='mb-4 mt-2 sm:mb-0'
         title='Create a brew log'
         subtitle={payload.subtitle}
       />

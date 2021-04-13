@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
 import { StageSection } from 'components/Stage'
 import { Rating } from 'components/Badge'
@@ -112,19 +111,3 @@ export const TitleSection = ({ img, dateAdded, name, recipeName }) => (
     </div>
   </div>
 )
-
-export const ModifyRow = ({ canModify, onDelete, editPath }) =>
-  canModify ? (
-    <div className='mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3'>
-      <button
-        onClick={onDelete}
-        type='button'
-        className='btn btn--white btn--md'
-      >
-        Delete Recipe
-      </button>
-      <Link to={editPath} className='btn btn--primary btn--md'>
-        Edit Recipe
-      </Link>
-    </div>
-  ) : null
