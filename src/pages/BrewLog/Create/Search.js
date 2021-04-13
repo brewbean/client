@@ -1,20 +1,95 @@
 import { useQuery } from 'urql'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { GET_ALL_RECIPES } from 'queries'
 import { Header, Title } from 'components/BrewLog/Form'
 import { TEMPLATE_FORM, RECIPE_IMPORT } from './index'
+import { setUrqlHeader } from 'helper/header'
+import { Loading } from 'components/Utility'
+import { ExclamationCircle } from 'components/Icon'
+import { combineClass } from 'helper/stringHelper'
 
-const Search = ({ goBack, goTo }) => {
+const RecipeRow = ({ onImport, onTemplate, recipeName, displayName }) => (
+  <li
+    tabIndex='0'
+    className='p-4 flex justify-between items-center rounded-lg hover:bg-gray-200 focus:outline-none'
+  >
+    <div className='whitespace-nowrap overflow-hidden'>
+      <h3 className='text-sm font-medium text-gray-900 truncate'>
+        {recipeName}
+      </h3>
+      <h4 className='text-gray-500 text-xs font-normal'>{displayName}</h4>
+    </div>
+    <div className='space-x-2 whitespace-nowrap'>
+      <button onClick={onImport} className='btn btn--white btn--sm'>
+        Import
+      </button>
+      <button onClick={onTemplate} className='btn btn--white btn--sm'>
+        Template
+      </button>
+    </div>
+  </li>
+)
+
+const ErrorMessage = ({ message }) => (
+  <div className='text-red-600 flex flex-col items-center'>
+    <ExclamationCircle />
+    <h1 className='mt-2 text-sm font-medium'>{message}</h1>
+  </div>
+)
+
+const PaginationRow = ({
+  start,
+  end,
+  total,
+  isFirstPage,
+  onPrevious,
+  onNext,
+}) => (
+  <div className='px-4 mt-2 pt-4 border-t-2 border-gray-200 flex justify-between items-center'>
+    <div>
+      <p className='text-sm text-gray-700'>
+        <span className='font-medium'>
+          {start} - {end}
+        </span>{' '}
+        of <span className='font-medium'>{total} recipes</span>
+      </p>
+    </div>
+    <div className='space-x-2'>
+      <button
+        type='button'
+        className={combineClass('btn btn--sm btn--white', {
+          'opacity-50 pointer-events-none': isFirstPage,
+        })}
+        onClick={onPrevious}
+      >
+        Previous
+      </button>
+
+      <button
+        type='button'
+        className={combineClass('btn btn--sm btn--white', {
+          'opacity-50 pointer-events-none': end === total,
+        })}
+        onClick={onNext}
+      >
+        Next
+      </button>
+    </div>
+  </div>
+)
+
+export default function Search({ goBack, goTo }) {
+  const [page, setPage] = useState(0)
+  const offset = page * 10
+
   const [{ data, fetching, error }] = useQuery({
     query: GET_ALL_RECIPES,
+    variables: {
+      limit: 10,
+      offset,
+    },
     context: useMemo(
-      () => ({
-        fetchOptions: {
-          headers: {
-            'x-hasura-role': 'all_barista',
-          },
-        },
-      }),
+      () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
     ),
   })
@@ -22,10 +97,14 @@ const Search = ({ goBack, goTo }) => {
   const goToImport = (recipe) => () => goTo(RECIPE_IMPORT, recipe)
   const goToTemplate = (recipe) => () => goTo(TEMPLATE_FORM, recipe)
 
-  if (fetching) return <p>Loading...</p>
-  if (error) return <p>Oh no... {error.message}</p>
+  const goToPreviousPage = () => setPage(page - 1)
+  const goToNextPage = () => setPage(page + 1)
+
+  if (fetching) return <Loading />
+  if (error) return <ErrorMessage message={error.message} />
+
   return (
-    <div>
+    <>
       <Header goBack={goBack} />
 
       <Title
@@ -36,38 +115,24 @@ const Search = ({ goBack, goTo }) => {
 
       <ul className='mt-4'>
         {data.recipe.map((r) => (
-          <li
+          <RecipeRow
             key={r.id}
-            tabIndex='0'
-            className='p-4 flex justify-between items-center rounded-lg hover:bg-gray-200 focus:outline-none'
-          >
-            <div className='whitespace-nowrap overflow-hidden'>
-              <h3 className='text-sm font-medium text-gray-900 truncate'>
-                {r.name}
-              </h3>
-              <h4 className='text-gray-500 text-xs font-normal'>
-                {r.barista.display_name}
-              </h4>
-            </div>
-            <div className='space-x-2 whitespace-nowrap'>
-              <button
-                onClick={goToImport(r)}
-                className='btn btn--white btn--sm'
-              >
-                Import
-              </button>
-              <button
-                onClick={goToTemplate(r)}
-                className='btn btn--white btn--sm'
-              >
-                Template
-              </button>
-            </div>
-          </li>
+            recipeName={r.name}
+            displayName={r.barista.display_name}
+            onImport={goToImport(r)}
+            onTemplate={goToTemplate(r)}
+          />
         ))}
       </ul>
-    </div>
+
+      <PaginationRow
+        isFirstPage={page === 0}
+        start={1 + offset}
+        end={data.recipe.length + offset}
+        total={data.recipe_aggregate.aggregate.count}
+        onPrevious={goToPreviousPage}
+        onNext={goToNextPage}
+      />
+    </>
   )
 }
-
-export default Search

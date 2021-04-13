@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { INSERT_BREW_LOG_ONE } from 'queries'
 import { schema } from 'components/BrewLog/Schema'
 import { Form, Header, Title } from 'components/BrewLog/Form'
+import { setUrqlHeader } from 'helper/header'
 
 export default function BrewLogForm({ goBack, payload }) {
   const history = useHistory()
@@ -20,7 +21,10 @@ export default function BrewLogForm({ goBack, payload }) {
       object.template_recipe_id = payload.templateRecipeId
     }
 
-    const { data, error } = await insertBrewLog({ object })
+    const { data, error } = await insertBrewLog(
+      { object },
+      setUrqlHeader({ 'x-hasura-role': 'all_barista' })
+    )
 
     if (error?.message.includes('Uniqueness violation')) {
       methods.setError('title', {
@@ -30,6 +34,7 @@ export default function BrewLogForm({ goBack, payload }) {
     } else {
       history.push(`/brewlog/${data.insert_brew_log_one.id}`, {
         createdBrewLog: true,
+        id: data.insert_brew_log_one.id,
       })
     }
   }
