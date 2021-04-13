@@ -41,13 +41,15 @@ const Search = ({ goBack, goTo }) => {
             tabIndex='0'
             className='p-4 flex justify-between items-center rounded-lg hover:bg-gray-200 focus:outline-none'
           >
-            <div className='whitespace-nowrap'>
-              <h3 className='text-sm font-medium text-gray-900'>{r.name}</h3>
+            <div className='whitespace-nowrap overflow-hidden'>
+              <h3 className='text-sm font-medium text-gray-900 truncate'>
+                {r.name}
+              </h3>
               <h4 className='text-gray-500 text-xs font-normal'>
                 {r.barista.display_name}
               </h4>
             </div>
-            <div className='space-x-2'>
+            <div className='space-x-2 whitespace-nowrap'>
               <button
                 onClick={goToImport(r)}
                 className='btn btn--white btn--sm'

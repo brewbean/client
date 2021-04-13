@@ -12,7 +12,7 @@ export default function Introduction({ goTo }) {
         subtitle='Step 1: Add a recipe'
       />
 
-      <div className='mt-6 flex items-center justify-center'>
+      <div className='mt-6 flex flex-col space-y-2 sm:flex-row sm:space-y-0 items-center justify-center'>
         <button onClick={goToSearchRecipe} className='btn btn--primary btn--lg'>
           Import recipe
         </button>
