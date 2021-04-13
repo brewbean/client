@@ -9,6 +9,7 @@ import { useModal } from 'context/ModalContext'
 import Table from './Table'
 import { range } from 'helper/array'
 import { Pagination } from 'components/Utility/List'
+import { setUrqlHeader } from 'helper/header'
 
 const Recipes = () => {
   const { isAuthenticated, isVerified } = useAuth()
@@ -35,13 +36,7 @@ const Recipes = () => {
         page === undefined || page === '1' ? 0 : (parseInt(page) - 1) * 10,
     },
     context: useMemo(
-      () => ({
-        fetchOptions: {
-          headers: {
-            'x-hasura-role': 'all_barista',
-          },
-        },
-      }),
+      () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
     ),
   })

@@ -15,20 +15,20 @@ import Welcome from './Welcome'
 
 export default function Routes({ fetching }) {
   const { path } = useRouteMatch()
-  const location = useLocation()
+  const { state } = useLocation()
   const history = useHistory()
   const { addAlert } = useAlert()
 
   useEffect(() => {
-    if (location.state?.createdBrewLog) {
+    if (state?.createdBrewLog) {
       addAlert({
         type: alertType.SUCCESS,
         header: 'Brew log successfully created!',
         close: true,
       })
-      history.replace(path, {})
+      history.replace(path + '/' + state.id, {})
     }
-  }, [addAlert, location, history, path])
+  }, [addAlert, state, history, path])
 
   if (fetching) return <Loading defaultPadding={false} containerClass='p-4' />
 
