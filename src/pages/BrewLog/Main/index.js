@@ -16,7 +16,7 @@ export default function Main({ fetching, error, data, goToCreate }) {
 
   return (
     <div className='bg-gray-100'>
-      <div className='max-w-5xl mx-auto h-screen overflow-hidden flex flex-col'>
+      <div className='max-w-5xl mx-auto h-screen overflow-hidden flex flex-col px-4 sm:px-6 lg:px-8'>
         <Header />
 
         {/* Content area */}
