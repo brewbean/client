@@ -32,11 +32,7 @@ export const StageSection = ({ stages, playerPath }) =>
         <Table stages={stages} />
       </div>
       {playerPath && (
-        <Link
-          to={playerPath}
-          type='button'
-          className='w-full btn btn--primary btn--md'
-        >
+        <Link to={playerPath} className='w-full btn btn--primary btn--md'>
           Go to Recipe Player
         </Link>
       )}

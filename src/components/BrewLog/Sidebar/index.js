@@ -36,7 +36,7 @@ const LinkButton = ({ id, title, date_created, rating }) => {
 
 const Sidebar = ({ loading, error, logs }) =>
   loading || !logs ? (
-    <Loading defaultPadding={false} containerClass='p-4 bg-gray-50' />
+    <Loading defaultPadding={false} containerClass='p-4' />
   ) : error ? (
     <div className='p-4 bg-gray-50 text-red-600 flex flex-col items-center'>
       <Error className='h-6 w-6' />

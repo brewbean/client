@@ -31,6 +31,7 @@ import { resolvers, updates, keys } from 'cache'
 import { print } from 'graphql'
 import { useHistory, useLocation } from 'react-router-dom'
 import { createUnverifiedAlert } from 'helper/auth'
+import { authenticateError } from 'helper/error'
 
 const AuthContext = createContext()
 
@@ -184,8 +185,11 @@ function AuthProvider({ children }) {
           } else {
             const barista = data.data.barista[0]
             dispatch(['setBarista', barista])
-
-            if (!barista.is_verified && location.pathname !== '/profile') {
+            if (
+              !barista.is_verified &&
+              location.pathname !== '/profile' &&
+              location.pathname !== '/create-account'
+            ) {
               addAlert(createUnverifiedAlert(barista.email))
             }
           }
@@ -221,19 +225,7 @@ function AuthProvider({ children }) {
 
       if (callback) callback()
     } catch (err) {
-      if (!err.response && err.message === 'Network Error') {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.message,
-          message: 'Our servers or your internet may be down at this time.',
-        })
-      } else {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.response.data.message,
-          message: 'Please retry logging in',
-        })
-      }
+      authenticateError(addAlert, err)
     }
   }
 
@@ -253,19 +245,7 @@ function AuthProvider({ children }) {
 
       if (callback) callback()
     } catch (err) {
-      if (!err.response && err.message === 'Network Error') {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.message,
-          message: 'Our servers or your internet may be down at this time.',
-        })
-      } else {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.response.data.message,
-          message: 'Please try again.',
-        })
-      }
+      authenticateError(addAlert, err)
     }
   }
 
@@ -313,7 +293,10 @@ function AuthProvider({ children }) {
     return null
   }
 
-  const closeIntroModal = () => dispatch(['setIsIntroModalOpen', false])
+  const closeIntroModal = () => {
+    addAlert(createUnverifiedAlert(state.barista.email))
+    dispatch(['setIsIntroModalOpen', false])
+  }
 
   return (
     <AuthContext.Provider
