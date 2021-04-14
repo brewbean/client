@@ -48,9 +48,9 @@ const Recipes = () => {
         header: 'Recipe successfully created!',
         close: true,
       })
+      history.replace(location.path, {})
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [location, history, addAlert])
 
   const triggerUnverifiedModal = useCallback(() => {
     open()

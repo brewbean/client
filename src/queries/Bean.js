@@ -55,9 +55,13 @@ export const INSERT_BEAN_ONE = gql`
   mutation InsertBeanOne($object: bean_insert_input!) {
     insert_bean_one(object: $object) {
       ...BeanInfo
+      bean_reviews(order_by: { date_updated: desc }) {
+        ...BeanReviewInfo
+      }
     }
   }
   ${beanInfo}
+  ${beanReviewInfo}
 `
 
 export const UPDATE_BEAN = gql`

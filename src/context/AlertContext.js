@@ -16,7 +16,9 @@ const AlertProvider = ({ children }) => {
   const location = useLocation()
 
   useEffect(() => {
-    setAlerts([])
+    if (!location.state) {
+      setAlerts([])
+    }
   }, [location])
 
   const clearAlerts = useCallback(() => setAlerts([]), [])
