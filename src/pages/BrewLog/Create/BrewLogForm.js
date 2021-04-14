@@ -7,16 +7,17 @@ import { schema } from 'components/BrewLog/Schema'
 import { Form, Header, Title } from 'components/BrewLog/Form'
 import { setUrqlHeader } from 'helper/header'
 
-export default function BrewLogForm({ goBack, payload }) {
+export default function BrewLogForm({ goBack, payload, store, setStore }) {
   const history = useHistory()
   const methods = useForm({
     resolver: yupResolver(schema),
+    defaultValues: store.brewLog ? store.brewLog : {},
   })
 
   const [, insertBrewLog] = useMutation(INSERT_BREW_LOG_ONE)
 
   const submitBrewLog = async (object) => {
-    object.recipe_id = payload.recipe.id
+    object.recipe_id = payload.recipeId
     if (payload.templateRecipeId) {
       object.template_recipe_id = payload.templateRecipeId
     }
@@ -39,17 +40,22 @@ export default function BrewLogForm({ goBack, payload }) {
     }
   }
 
+  const goBackWithSave = () => {
+    setStore({ ...store, brewLog: methods.getValues() })
+    goBack()
+  }
+
   return (
     <>
-      <Header goBack={goBack} />
+      <Header goBack={goBackWithSave} />
       <Title
         extraClasses='mb-4 mt-2 sm:mb-0'
         title='Create a brew log'
-        subtitle={payload.subtitle}
+        subtitle='Add brew log details'
       />
       <Form
         {...methods}
-        onCancel={goBack}
+        onCancel={goBackWithSave}
         onSubmit={methods.handleSubmit(submitBrewLog)}
       />
     </>

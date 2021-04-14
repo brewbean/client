@@ -5,19 +5,14 @@ import { INSERT_RECIPES_ONE } from 'queries'
 import Form from 'components/Recipe/Form'
 import { Header, Title } from 'components/BrewLog/Form'
 import { schema } from 'components/Recipe/Schema'
-import { getDefaultValues } from 'components/Utility/Form'
 import { addServeToStages } from 'helper/recipe'
 import { BREWLOG_FORM } from 'pages/BrewLog/Create'
 
-export default function TemplateForm({ goBack, goTo, payload }) {
+export default function Create({ goBack, goTo, setStore }) {
   const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
-  const defaultValues = getDefaultValues(payload, [
-    { key: 'name', value: undefined },
-    { key: 'is_private', value: true },
-  ])
   const methods = useForm({
     resolver: yupResolver(schema),
-    defaultValues,
+    defaultValues: { is_private: true },
   })
 
   const submitRecipe = async ({ stages, serve, ...recipe }) => {
@@ -37,10 +32,10 @@ export default function TemplateForm({ goBack, goTo, payload }) {
         shouldFocus: true,
       })
     } else {
+      // in case user wants to go back to edit recipe
+      setStore({ recipe: data.insert_recipe_one, createdRecipeScratch: true })
       goTo(BREWLOG_FORM, {
-        recipe: data.insert_recipe_one,
-        templateRecipeId: payload.id,
-        subtitle: 'Step 4: Add brew log details',
+        recipeId: data.insert_recipe_one.id,
       })
     }
   }
@@ -51,20 +46,12 @@ export default function TemplateForm({ goBack, goTo, payload }) {
       <Title
         extraClasses='mt-2'
         title='Create a brew log'
-        subtitle='Step 3: Modify your template base'
+        subtitle='Step 2: Create a recipe'
       />
       <Form
         {...methods}
         onCancel={goBack}
         onSubmit={methods.handleSubmit(submitRecipe)}
-        preload={
-          defaultValues.serve !== 0 && {
-            formMounted: true,
-            isHidden: true,
-            stages: defaultValues.stages,
-            serveTime: defaultValues.serve,
-          }
-        }
       />
     </>
   )
