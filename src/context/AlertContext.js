@@ -16,9 +16,7 @@ const AlertProvider = ({ children }) => {
   const location = useLocation()
 
   useEffect(() => {
-    if (!location.state) {
-      setAlerts([])
-    }
+    setAlerts([])
   }, [location])
 
   const clearAlerts = useCallback(() => setAlerts([]), [])
@@ -26,20 +24,18 @@ const AlertProvider = ({ children }) => {
   // destructured for clarity - can remove if we implement TypeScript types/interfaces
   // useCallback used here to provide stable reference
   // as 'addAlert' is in the dependency graph of a useEffect block
-  const addAlert = useCallback(
-    (alert) =>
-      setAlerts((prevAlerts) => [
-        ...prevAlerts,
-        {
-          type: alert.type,
-          header: alert.header,
-          message: alert.message,
-          close: alert.close,
-          action: alert.action,
-        },
-      ]),
-    []
-  )
+  const addAlert = useCallback((alert) => {
+    setAlerts((prevAlerts) => [
+      ...prevAlerts,
+      {
+        type: alert.type,
+        header: alert.header,
+        message: alert.message,
+        close: alert.close,
+        action: alert.action,
+      },
+    ])
+  }, [])
 
   const addAlertBulk = (bulk) => setAlerts([...alerts, ...bulk])
 

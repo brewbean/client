@@ -184,8 +184,11 @@ function AuthProvider({ children }) {
           } else {
             const barista = data.data.barista[0]
             dispatch(['setBarista', barista])
-
-            if (!barista.is_verified && location.pathname !== '/profile') {
+            if (
+              !barista.is_verified &&
+              location.pathname !== '/profile' &&
+              location.pathname !== '/create-account'
+            ) {
               addAlert(createUnverifiedAlert(barista.email))
             }
           }
@@ -259,6 +262,12 @@ function AuthProvider({ children }) {
           header: err.message,
           message: 'Our servers or your internet may be down at this time.',
         })
+      } else if (err.response.status === 429) {
+        addAlert({
+          type: alertType.ERROR,
+          header: err.response.statusText,
+          message: 'Try again in an hour.',
+        })
       } else {
         addAlert({
           type: alertType.ERROR,
@@ -313,7 +322,10 @@ function AuthProvider({ children }) {
     return null
   }
 
-  const closeIntroModal = () => dispatch(['setIsIntroModalOpen', false])
+  const closeIntroModal = () => {
+    addAlert(createUnverifiedAlert(state.barista.email))
+    dispatch(['setIsIntroModalOpen', false])
+  }
 
   return (
     <AuthContext.Provider
