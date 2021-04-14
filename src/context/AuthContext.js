@@ -31,6 +31,7 @@ import { resolvers, updates, keys } from 'cache'
 import { print } from 'graphql'
 import { useHistory, useLocation } from 'react-router-dom'
 import { createUnverifiedAlert } from 'helper/auth'
+import { authenticateError } from 'helper/error'
 
 const AuthContext = createContext()
 
@@ -224,19 +225,7 @@ function AuthProvider({ children }) {
 
       if (callback) callback()
     } catch (err) {
-      if (!err.response && err.message === 'Network Error') {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.message,
-          message: 'Our servers or your internet may be down at this time.',
-        })
-      } else {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.response.data.message,
-          message: 'Please retry logging in',
-        })
-      }
+      authenticateError(addAlert, err)
     }
   }
 
@@ -256,25 +245,7 @@ function AuthProvider({ children }) {
 
       if (callback) callback()
     } catch (err) {
-      if (!err.response && err.message === 'Network Error') {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.message,
-          message: 'Our servers or your internet may be down at this time.',
-        })
-      } else if (err.response.status === 429) {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.response.statusText,
-          message: 'Try again in an hour.',
-        })
-      } else {
-        addAlert({
-          type: alertType.ERROR,
-          header: err.response.data.message,
-          message: 'Please try again.',
-        })
-      }
+      authenticateError(addAlert, err)
     }
   }
 
