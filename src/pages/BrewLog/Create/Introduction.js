@@ -9,7 +9,7 @@ export default function Introduction({ goTo }) {
       <Title
         extraClasses='border-none'
         title='Create a brew log'
-        subtitle='Step 1: Add a recipe'
+        subtitle='Add a recipe'
       />
 
       <div className='mt-6 flex flex-col space-y-2 sm:flex-row sm:space-y-0 items-center justify-center'>

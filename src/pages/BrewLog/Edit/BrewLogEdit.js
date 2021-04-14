@@ -6,6 +6,7 @@ import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { schema } from 'components/BrewLog/Schema'
+import { setUrqlHeader } from 'helper/header'
 
 export default function BrewLogEdit({ goBack, store, payload }) {
   const { addAlert } = useAlert()
@@ -32,13 +33,7 @@ export default function BrewLogEdit({ goBack, store, payload }) {
           id,
           brew_log,
         },
-        {
-          fetchOptions: {
-            headers: {
-              'x-hasura-role': 'all_barista',
-            },
-          },
-        }
+        setUrqlHeader({ 'x-hasura-role': 'all_barista' })
       )
       if (error) {
         if (error.message.includes('Uniqueness violation')) {

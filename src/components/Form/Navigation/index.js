@@ -4,7 +4,7 @@ export default function FormNavigation({
   routes,
   defaultPath,
   defaultPayload = null,
-  initialStore = null,
+  initialStore = {},
 }) {
   const [store, setStore] = useState(initialStore)
   const [view, setView] = useState({
