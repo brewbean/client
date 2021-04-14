@@ -30,6 +30,10 @@ export default function Routes({ fetching }) {
     }
   }, [addAlert, state, history, path])
 
+  /**
+   * Simplistic way to wait for sidebar to fetch all brew logs
+   * - result: detail page will likely be fetched from cache (if on same page; common case unless from link)
+   */
   if (fetching) return <Loading defaultPadding={false} containerClass='p-4' />
 
   return (
