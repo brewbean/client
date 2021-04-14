@@ -9,6 +9,7 @@ import { GET_ALL_BEANS } from 'queries'
 import List from 'components/Bean/List'
 import { range } from 'helper/array'
 import { Pagination } from 'components/Utility/List'
+import { setUrqlHeader } from 'helper/header'
 
 export default function Main() {
   const { isAuthenticated, isVerified } = useAuth()
@@ -35,13 +36,7 @@ export default function Main() {
         page === undefined || page === '1' ? 0 : (parseInt(page) - 1) * 10,
     },
     context: useMemo(
-      () => ({
-        fetchOptions: {
-          headers: {
-            'x-hasura-role': 'all_barista',
-          },
-        },
-      }),
+      () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
     ),
   })
@@ -53,9 +48,9 @@ export default function Main() {
         header: 'Bean successfully created!',
         close: true,
       })
+      history.replace(location.path, {})
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [location, history, addAlert])
 
   const triggerUnverifiedModal = useCallback(() => {
     open()
