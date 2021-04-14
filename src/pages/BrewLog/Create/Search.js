@@ -110,7 +110,7 @@ export default function Search({ goBack, goTo }) {
       <Title
         extraClasses='mt-2'
         title='Create a brew log'
-        subtitle='Step 2: Select a recipe to import or use as a template!'
+        subtitle='Select a recipe to import or use as a template'
       />
 
       <ul className='mt-4'>
