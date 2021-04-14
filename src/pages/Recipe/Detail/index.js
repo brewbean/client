@@ -13,6 +13,7 @@ import { DescriptionSection } from 'components/Layout/Detail'
 import { ModifyRow } from 'components/Form/ButtonGroup'
 import { useModal } from 'context/ModalContext'
 import { placeholder } from 'image'
+import { setUrqlHeader } from 'helper/header'
 
 const Detail = () => {
   const history = useHistory()
@@ -43,13 +44,7 @@ const Detail = () => {
     query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
     variables: { id: parseInt(id) },
     context: useMemo(
-      () => ({
-        fetchOptions: {
-          headers: {
-            'x-hasura-role': 'all_barista',
-          },
-        },
-      }),
+      () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
     ),
   })

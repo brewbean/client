@@ -23,8 +23,8 @@ export default function Main({ fetching, error, data, goToCreate }) {
         <div className='min-h-0 flex-1 flex overflow-hidden'>
           <main className='min-w-0 flex-1 flex space-x-4'>
             {/* brew log list*/}
-            <aside className='flex-shrink-0'>
-              <div className='h-full flex flex-col w-80 bg-gray-50 rounded-lg'>
+            <aside className='flex flex-shrink-0'>
+              <div className='flex flex-col w-80 bg-gray-50 rounded-lg'>
                 <div className='flex-shrink-0 h-16 px-6 flex justify-between items-center border-b border-gray-200'>
                   <Link
                     to={url}
@@ -64,7 +64,7 @@ export default function Main({ fetching, error, data, goToCreate }) {
             </aside>
 
             {/* Detail area */}
-            <section className='min-w-0 flex-1 h-full flex flex-col overflow-hidden bg-white rounded-lg'>
+            <section className='min-w-0 flex-1 flex flex-col overflow-hidden bg-white rounded-lg'>
               <div className='min-h-0 flex-1 overflow-y-auto'>
                 {/* Content */}
                 <div className='px-4 py-5 sm:px-6'>
