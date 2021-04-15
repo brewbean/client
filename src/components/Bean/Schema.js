@@ -20,7 +20,7 @@ export const schema = object().shape({
     .transform((value) => (value === '' ? null : value)),
   price: number()
     .nullable(true)
-    .min(0)
+    .positive()
     .transform((value) => (isNaN(value) ? null : value)),
   altitude: number()
     .nullable(true)
