@@ -10,6 +10,7 @@ import Table from './Table'
 import { range } from 'helper/array'
 import { Pagination } from 'components/Utility/List'
 import { setUrqlHeader } from 'helper/header'
+import { ErrorMessage, Loading } from 'components/Utility'
 
 const Recipes = () => {
   const { isAuthenticated, isVerified } = useAuth()
@@ -78,8 +79,8 @@ const Recipes = () => {
     }
   }, [isPending, isSuccess, content, isVerified, url, history, reset])
 
-  if (fetching) return <p>Loading...</p>
-  if (error) return <p>Oh no... {error.message}</p>
+  if (fetching) return <Loading />
+  if (error) return <ErrorMessage message={error.message} />
 
   const totalPages = Math.ceil(data.recipe_aggregate.aggregate.count / 10)
   const pageNumbers = totalPages > 1 ? range(1, totalPages) : []
