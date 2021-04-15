@@ -4,8 +4,7 @@ import { GET_ALL_RECIPES } from 'queries'
 import { Header, Title } from 'components/BrewLog/Form'
 import { TEMPLATE_FORM, RECIPE_IMPORT } from './index'
 import { setUrqlHeader } from 'helper/header'
-import { Loading } from 'components/Utility'
-import { ExclamationCircle } from 'components/Icon'
+import { ErrorMessage, Loading } from 'components/Utility'
 import { combineClass } from 'helper/stringHelper'
 
 const RecipeRow = ({ onImport, onTemplate, recipeName, displayName }) => (
@@ -28,13 +27,6 @@ const RecipeRow = ({ onImport, onTemplate, recipeName, displayName }) => (
       </button>
     </div>
   </li>
-)
-
-const ErrorMessage = ({ message }) => (
-  <div className='text-red-600 flex flex-col items-center'>
-    <ExclamationCircle />
-    <h1 className='mt-2 text-sm font-medium'>{message}</h1>
-  </div>
 )
 
 const PaginationRow = ({

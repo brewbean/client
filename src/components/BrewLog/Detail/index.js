@@ -1,6 +1,6 @@
 import { Link, useRouteMatch } from 'react-router-dom'
 import { Rating } from 'components/Badge'
-import { Eye, EyeOff } from 'components/Icon'
+import { PrivacyIcon } from 'components/Icon'
 import { DataSection } from 'components/Layout/Detail'
 import { StageSection } from 'components/Stage'
 import { combineClass } from 'helper/stringHelper'
@@ -27,19 +27,15 @@ export const Description = ({
       </div>
 
       <dl className='mt-6 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2'>
-        <DataSection className='sm:col-span-1' label='Log Private'>
+        <DataSection className='sm:col-span-1' label='Privacy'>
           <span
             className={combineClass('badge', {
               'badge--gray': is_private,
               'badge--indigo': !is_private,
             })}
           >
-            {is_private.toString()}
-            {is_private ? (
-              <EyeOff className='h-3 w-3 ml-1' />
-            ) : (
-              <Eye className='h-3 w-3 ml-1' />
-            )}
+            {is_private ? 'Private' : 'Public'}
+            <PrivacyIcon isPrivate={is_private} className='h-3 w-3 ml-1' />
           </span>
         </DataSection>
         <DataSection className='sm:col-span-1' label='Rating'>

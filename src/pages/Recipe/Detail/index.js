@@ -58,6 +58,7 @@ const Detail = () => {
     date_added,
     recipe_reviews,
     stages,
+    is_private,
   } = data.recipe_by_pk
 
   return (
@@ -65,9 +66,11 @@ const Detail = () => {
       {/*<!-- Page header -->*/}
       <div className='md:flex md:items-center md:justify-between md:space-x-5'>
         <TitleSection
-          name={barista?.display_name}
+          name={barista.display_name}
           recipeName={name}
           dateAdded={date_added}
+          isPrivate={is_private}
+          showPrivacyBadge={barista.id === user?.id}
           img={{ src: placeholder.cup, alt: 'coffee cup' }}
         />
         <ModifyRow
