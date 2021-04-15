@@ -13,3 +13,13 @@ export const Rating = ({ value }) => (
     {value ? value : 'not rated'}
   </span>
 )
+
+export const TextSymbol = ({ symbol, children }) => {
+  const Symbol = symbol
+  return (
+    <span className='badge badge--indigo'>
+      {children}
+      <Symbol className='h-3 w-3 ml-1' />
+    </span>
+  )
+}

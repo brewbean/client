@@ -4,6 +4,8 @@ import { StageSection } from 'components/Stage'
 import { Rating } from 'components/Badge'
 import { All, Create, Edit } from 'components/Recipe/Review'
 import { DataSection } from 'components/Layout/Detail'
+import { combineClass } from 'helper/stringHelper'
+import { PrivacyIcon } from 'components/Icon'
 
 export const Description = ({
   brew_type,
@@ -99,15 +101,38 @@ export const CommentSection = ({ recipeId, recipeReviews, canReview }) => {
   )
 }
 
-export const TitleSection = ({ img, dateAdded, name, recipeName }) => (
+export const TitleSection = ({
+  img,
+  dateAdded,
+  name,
+  recipeName,
+  showPrivacyBadge,
+  isPrivate,
+}) => (
   <div className='flex items-center space-x-5'>
     <img className='h-16 w-16 rounded-lg shadow' src={img.src} alt={img.alt} />
     <div>
       <h1 className='text-2xl font-bold text-gray-900'>{recipeName}</h1>
-      <p className='text-sm font-medium text-gray-500'>
-        Created by {name} on{' '}
-        <time dateTime={dateAdded}>{dateAdded.substring(0, 10)}</time>
-      </p>
+      <div className='flex flex-col sm:flex-row'>
+        <p className='text-sm font-medium text-gray-500'>
+          Created by {name} on{' '}
+          <time dateTime={dateAdded}>{dateAdded.substring(0, 10)}</time>
+        </p>
+
+        {showPrivacyBadge && (
+          <div className='mt-1 sm:mt-0'>
+            <span
+              className={combineClass('sm:ml-2 badge', {
+                'badge--gray': isPrivate,
+                'badge--indigo': !isPrivate,
+              })}
+            >
+              {isPrivate ? 'Private' : 'Public'}
+              <PrivacyIcon isPrivate={isPrivate} className='h-3 w-3 ml-1' />
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   </div>
 )

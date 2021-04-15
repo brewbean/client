@@ -1,9 +1,12 @@
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
-import { Check, X } from 'components/Icon'
-import { Rating } from 'components/Badge'
+import { Check, PrivacyIcon, X } from 'components/Icon'
+import { Rating, TextSymbol } from 'components/Badge'
+import { useAuth } from 'context/AuthContext'
+import { UserIcon } from '@heroicons/react/solid'
 
 export default function Table({ recipes }) {
+  const { barista: user } = useAuth()
   const { url } = useRouteMatch()
   const history = useHistory()
 
@@ -53,6 +56,7 @@ export default function Table({ recipes }) {
               name,
               about,
               brew_type,
+              is_private,
               stages,
             }) => (
               <tr
@@ -62,18 +66,34 @@ export default function Table({ recipes }) {
                 onClick={() => history.push(url + '/' + id)}
               >
                 <td className='rounded-l-lg px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                  <div>{name}</div>
-                  <div className='text-gray-500 text-xs font-normal'>
-                    {about}
+                  <div className='flex items-center'>
+                    {user?.id === barista.id && (
+                      <PrivacyIcon
+                        isPrivate={is_private}
+                        className='h-5 w-5 mr-3 text-gray-700'
+                      />
+                    )}
+                    <div>
+                      <h1>{name}</h1>
+                      <h2 className='text-gray-500 text-xs font-normal'>
+                        {about}
+                      </h2>
+                    </div>
                   </div>
                 </td>
-                <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                  {barista.display_name}
+                <td className='px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-500'>
+                  {user?.display_name === barista.display_name ? (
+                    <TextSymbol symbol={UserIcon}>
+                      {barista.display_name}
+                    </TextSymbol>
+                  ) : (
+                    barista.display_name
+                  )}
                 </td>
-                <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize'>
+                <td className='px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-500 capitalize'>
                   {brew_type}
                 </td>
-                <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+                <td className='px-6 py-4 whitespace-nowrap'>
                   <Rating
                     value={roundToHalfOrWhole(
                       recipe_reviews_aggregate.aggregate.avg.rating

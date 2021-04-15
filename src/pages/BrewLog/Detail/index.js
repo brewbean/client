@@ -6,7 +6,7 @@ import { Error } from 'components/Icon/Alert'
 import { Loading } from 'components/Utility'
 import { Description } from 'components/BrewLog/Detail'
 import { useModal } from 'context/ModalContext'
-import { ExclamationCircle } from 'components/Icon'
+import { ExclamationCircleIcon } from '@heroicons/react/solid'
 
 export default function Detail() {
   const history = useHistory()
@@ -53,7 +53,7 @@ export default function Detail() {
     </div>
   ) : !data ? (
     <div className='text-gray-700 flex flex-col items-center col-span-2'>
-      <ExclamationCircle />
+      <ExclamationCircleIcon className='w-6 h-6' />
       <h1 className='mt-2 text-sm font-medium'>No brew log here!</h1>
     </div>
   ) : error ? (

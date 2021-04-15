@@ -1,9 +1,9 @@
-import { ExclamationCircle } from 'components/Icon'
+import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { alertType } from 'context/AlertContext'
 
 const Warning = ({ text }) => (
   <div className='flex items-center'>
-    <ExclamationCircle className='text-yellow-500 h-5 w-5' />
+    <ExclamationCircleIcon className='text-yellow-500 h-5 w-5' />
     <span className='ml-1 text-sm text-gray-700'>{text}</span>
   </div>
 )
