@@ -13,6 +13,7 @@ const SectionMap = ({ title, subtitle, register, data }) => (
         defaultValue,
         options,
         rows,
+        step,
         ...rest
       } = input
       const id = createId(input.label)
@@ -47,6 +48,7 @@ const SectionMap = ({ title, subtitle, register, data }) => (
                 className,
                 defaultValue,
                 placeholder,
+                step,
                 ref: register,
               }}
             />
