@@ -91,16 +91,16 @@ export const Description = ({
           {recipe.bean_name_free ? recipe.bean_name_free : 'N/A'}
         </DataSection>
         <DataSection className='sm:col-span-1' label='Bean Weight'>
-          {recipe.bean_weight}g
+          {recipe.bean_weight} g
         </DataSection>
         <DataSection className='sm:col-span-1' label='Bean Grind'>
           {recipe.bean_grind}
         </DataSection>
         <DataSection className='sm:col-span-1' label='Water Amount'>
-          {recipe.water_amount}g
+          {recipe.water_amount} g
         </DataSection>
         <DataSection className='sm:col-span-1' label='Water Temp'>
-          {recipe.water_temp}F
+          {recipe.water_temp} {'\u00b0C'}
         </DataSection>
         <DataSection className='sm:col-span-1' label='Device'>
           {recipe.device ? recipe.device : 'N/A'}

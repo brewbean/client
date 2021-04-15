@@ -98,8 +98,6 @@ export default function Form({ register, errors, onSubmit }) {
           subtitle='Add more fine-grained information'
           register={register}
           data={[
-            // price
-            // altitude
             {
               name: 'process',
               type: 'text',
@@ -119,6 +117,7 @@ export default function Form({ register, errors, onSubmit }) {
             {
               name: 'price',
               type: 'number',
+              step: '0.01',
               label: 'Price',
               isOptional: true,
               className: 'input pr-11',

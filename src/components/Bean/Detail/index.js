@@ -16,39 +16,47 @@ export const Description = ({
   about,
   price,
   bean_reviews_aggregate,
-}) => (
-  <>
-    <DataSection className='sm:col-span-1' label='Roast Type'>
-      {wordCapitalized(roast_type)}
-    </DataSection>
-    <DataSection className='sm:col-span-1' label='Profile Notes'>
-      {profile_note}
-    </DataSection>
-    <DataSection className='sm:col-span-1' label='Region'>
-      {region}
-    </DataSection>
-    <DataSection className='sm:col-span-1' label='Altitude'>
-      {altitude ? `${altitude} km` : 'N/A'}
-    </DataSection>
-    <DataSection className='sm:col-span-1' label='Variety'>
-      {varietal ? varietal : 'N/A'}
-    </DataSection>
-    <DataSection className='sm:col-span-1' label='Process'>
-      {process ? process : 'N/A'}
-    </DataSection>
-    <DataSection className='sm:col-span-1' label='Price'>
-      {price ? `${price} USD` : 'N/A'}
-    </DataSection>
-    <DataSection className='sm:col-span-1' label='Rating'>
-      <Rating
-        value={roundToHalfOrWhole(bean_reviews_aggregate.aggregate.avg.rating)}
-      />
-    </DataSection>
-    <DataSection className='sm:col-span-2 whitespace-pre-line' label='About'>
-      {about ? about : 'N/A'}
-    </DataSection>
-  </>
-)
+}) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  })
+  return (
+    <>
+      <DataSection className='sm:col-span-1' label='Roast Type'>
+        {wordCapitalized(roast_type)}
+      </DataSection>
+      <DataSection className='sm:col-span-1' label='Profile Notes'>
+        {profile_note}
+      </DataSection>
+      <DataSection className='sm:col-span-1' label='Region'>
+        {region}
+      </DataSection>
+      <DataSection className='sm:col-span-1' label='Altitude'>
+        {altitude ? `${altitude} km` : 'N/A'}
+      </DataSection>
+      <DataSection className='sm:col-span-1' label='Variety'>
+        {varietal ? varietal : 'N/A'}
+      </DataSection>
+      <DataSection className='sm:col-span-1' label='Process'>
+        {process ? process : 'N/A'}
+      </DataSection>
+      <DataSection className='sm:col-span-1' label='Price'>
+        {price ? `${formatter.format(price)}` : 'N/A'}
+      </DataSection>
+      <DataSection className='sm:col-span-1' label='Rating'>
+        <Rating
+          value={roundToHalfOrWhole(
+            bean_reviews_aggregate.aggregate.avg.rating
+          )}
+        />
+      </DataSection>
+      <DataSection className='sm:col-span-2 whitespace-pre-line' label='About'>
+        {about ? about : 'N/A'}
+      </DataSection>
+    </>
+  )
+}
 
 export const CommentSection = ({ beanId, beanReviews, canReview }) => {
   const [editReview, setEditReview] = useState(null)

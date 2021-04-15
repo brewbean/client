@@ -32,16 +32,16 @@ const RecipeSection = ({
       {bean_name_free ? bean_name_free : 'N/A'}
     </DataSection>
     <DataSection className='sm:col-span-1' label='Bean Weight'>
-      {bean_weight}g
+      {bean_weight} g
     </DataSection>
     <DataSection className='sm:col-span-1' label='Bean Grind'>
       {bean_grind}
     </DataSection>
     <DataSection className='sm:col-span-1' label='Water Amount'>
-      {water_amount}g
+      {water_amount} g
     </DataSection>
     <DataSection className='sm:col-span-1' label='Water Temp'>
-      {water_temp}F
+      {water_temp} {'\u00b0C'}
     </DataSection>
     <DataSection className='sm:col-span-1' label='Device'>
       {device ? device : 'N/A'}
