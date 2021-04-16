@@ -26,4 +26,8 @@ export const schema = object().shape({
     .nullable(true)
     .min(0)
     .transform((value) => (isNaN(value) ? null : value)),
+  purchase_info: string()
+    .nullable(true)
+    .trim()
+    .transform((value) => (value === '' ? null : value)),
 })
