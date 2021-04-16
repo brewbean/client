@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown'
 import { DataSection } from 'components/Layout/Detail'
 import { StageSection } from 'components/Stage'
 
@@ -49,11 +50,10 @@ const RecipeSection = ({
     <DataSection className='sm:col-span-2' label='Recipe Player'>
       <StageSection stages={stages} />
     </DataSection>
-    <DataSection
-      className='sm:col-span-2 whitespace-pre-line'
-      label='Instructions'
-    >
-      {instructions}
+    <DataSection className='sm:col-span-2' label='Instructions'>
+      <article className='prose prose-sm prose-indigo text-gray-900'>
+        <ReactMarkdown>{instructions}</ReactMarkdown>
+      </article>
     </DataSection>
   </>
 )

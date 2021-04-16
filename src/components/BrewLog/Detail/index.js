@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown'
 import { Link, useRouteMatch } from 'react-router-dom'
 import { Rating } from 'components/Badge'
 import { PrivacyIcon } from 'components/Icon'
@@ -111,11 +112,10 @@ export const Description = ({
             playerPath={`/recipe/${recipe.id}/player`}
           />
         </DataSection>
-        <DataSection
-          className='sm:col-span-2 whitespace-pre-line'
-          label='Instructions'
-        >
-          {recipe.instructions}
+        <DataSection className='sm:col-span-2' label='Instructions'>
+          <article className='prose prose-sm prose-indigo text-gray-900'>
+            <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
+          </article>
         </DataSection>
       </dl>
     </>

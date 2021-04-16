@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { roundToHalfOrWhole } from 'helper/math'
 import { StageSection } from 'components/Stage'
 import { Rating } from 'components/Badge'
@@ -51,11 +52,10 @@ export const Description = ({
     <DataSection className='sm:col-span-2' label='About'>
       {about ? about : 'N/A'}
     </DataSection>
-    <DataSection
-      className='sm:col-span-2 whitespace-pre-line'
-      label='Instructions'
-    >
-      {instructions}
+    <DataSection className='sm:col-span-2' label='Instructions'>
+      <article className='prose prose-sm prose-indigo text-gray-900'>
+        <ReactMarkdown>{instructions}</ReactMarkdown>
+      </article>
     </DataSection>
   </>
 )
