@@ -21,6 +21,7 @@ export const beanInfo = gql`
     roast_type
     varietal
     date_added
+    purchase_info
     author {
       id
       display_name

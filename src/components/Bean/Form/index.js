@@ -52,6 +52,15 @@ export default function Form({ register, errors, onSubmit }) {
               }),
               placeholder: 'e.g. Salento',
             },
+            {
+              label: 'Where to purchase',
+              name: 'purchase_info',
+              type: 'textarea',
+              isOptional: true,
+              className: 'input',
+              placeholder: 'e.g. Find on brewbean marketplace...',
+              rows: '2',
+            },
           ]}
         />
 
