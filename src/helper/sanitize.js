@@ -1,3 +1,5 @@
+import externalLinks from 'remark-external-links'
+
 function convertEmptyStringToNull(obj) {
   let sanitizedObj = {}
   Object.keys(obj).forEach((key) => {
@@ -45,5 +47,15 @@ function checkSchema(schema, obj) {
 
   return result
 }
+
+export const externalLinkPlugin = [
+  [
+    externalLinks,
+    {
+      target: '_blank',
+      rel: ['noopener', 'noreferrer'],
+    },
+  ],
+]
 
 export { convertEmptyStringToNull, checkSchema }

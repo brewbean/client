@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 import { DataSection } from 'components/Layout/Detail'
 import { StageSection } from 'components/Stage'
+import { externalLinkPlugin } from 'helper/sanitize'
 
 const RecipeSection = ({
   name,
@@ -52,7 +53,9 @@ const RecipeSection = ({
     </DataSection>
     <DataSection className='sm:col-span-2' label='Instructions'>
       <article className='prose prose-sm prose-indigo text-gray-900'>
-        <ReactMarkdown>{instructions}</ReactMarkdown>
+        <ReactMarkdown plugins={externalLinkPlugin}>
+          {instructions}
+        </ReactMarkdown>
       </article>
     </DataSection>
   </>

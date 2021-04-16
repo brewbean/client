@@ -6,6 +6,7 @@ import { DataSection } from 'components/Layout/Detail'
 import { StageSection } from 'components/Stage'
 import { combineClass } from 'helper/stringHelper'
 import { ModifyRow } from 'components/Form/ButtonGroup'
+import { externalLinkPlugin } from 'helper/sanitize'
 
 export const Description = ({
   id,
@@ -114,7 +115,9 @@ export const Description = ({
         </DataSection>
         <DataSection className='sm:col-span-2' label='Instructions'>
           <article className='prose prose-sm prose-indigo text-gray-900'>
-            <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
+            <ReactMarkdown plugins={externalLinkPlugin}>
+              {recipe.instructions}
+            </ReactMarkdown>
           </article>
         </DataSection>
       </dl>

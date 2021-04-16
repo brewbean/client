@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { All, Create, Edit } from 'components/Bean/Review'
@@ -5,6 +6,7 @@ import { Rating } from 'components/Badge'
 import { roundToHalfOrWhole } from 'helper/math'
 import { wordCapitalized } from 'helper/stringHelper'
 import { DataSection } from 'components/Layout/Detail'
+import { externalLinkPlugin } from 'helper/sanitize'
 
 export const Description = ({
   altitude,
@@ -16,6 +18,7 @@ export const Description = ({
   about,
   price,
   bean_reviews_aggregate,
+  purchase_info,
 }) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -51,8 +54,19 @@ export const Description = ({
           )}
         />
       </DataSection>
-      <DataSection className='sm:col-span-2 whitespace-pre-line' label='About'>
-        {about ? about : 'N/A'}
+      <DataSection className='sm:col-span-2' label='About'>
+        <article className='prose prose-sm prose-indigo text-gray-900'>
+          <ReactMarkdown plugins={externalLinkPlugin}>
+            {about ? about : 'N/A'}
+          </ReactMarkdown>
+        </article>
+      </DataSection>
+      <DataSection className='sm:col-span-2' label='Where to purchase'>
+        <article className='prose prose-sm prose-indigo text-gray-900'>
+          <ReactMarkdown plugins={externalLinkPlugin}>
+            {purchase_info ? purchase_info : 'N/A'}
+          </ReactMarkdown>
+        </article>
       </DataSection>
     </>
   )

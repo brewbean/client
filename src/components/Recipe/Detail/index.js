@@ -7,6 +7,7 @@ import { All, Create, Edit } from 'components/Recipe/Review'
 import { DataSection } from 'components/Layout/Detail'
 import { combineClass } from 'helper/stringHelper'
 import { PrivacyIcon } from 'components/Icon'
+import { externalLinkPlugin } from 'helper/sanitize'
 
 export const Description = ({
   brew_type,
@@ -54,7 +55,9 @@ export const Description = ({
     </DataSection>
     <DataSection className='sm:col-span-2' label='Instructions'>
       <article className='prose prose-sm prose-indigo text-gray-900'>
-        <ReactMarkdown>{instructions}</ReactMarkdown>
+        <ReactMarkdown plugins={externalLinkPlugin}>
+          {instructions}
+        </ReactMarkdown>
       </article>
     </DataSection>
   </>

@@ -75,7 +75,7 @@ export default function List({ beans }) {
                 <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize'>
                   {region}
                 </td>
-                <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+                <td className='rounded-r-lg px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
                   <Rating
                     value={roundToHalfOrWhole(
                       bean_reviews_aggregate.aggregate.avg.rating
