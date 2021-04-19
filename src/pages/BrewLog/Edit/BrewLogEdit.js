@@ -1,7 +1,7 @@
 import { useAlert, alertType } from 'context/AlertContext'
 import { useParams, useHistory } from 'react-router-dom'
 import { Form as BrewLogForm, Header, Title } from 'components/BrewLog/Form'
-import { UPDATE_BREW_LOG } from 'queries'
+import { UPDATE_BREW_LOG } from 'queries/BrewLog'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'

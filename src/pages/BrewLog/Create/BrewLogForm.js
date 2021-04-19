@@ -2,7 +2,7 @@ import { useMutation } from 'urql'
 import { useHistory } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { INSERT_BREW_LOG_ONE } from 'queries'
+import { INSERT_BREW_LOG } from 'queries/BrewLog'
 import { schema } from 'components/BrewLog/Schema'
 import { Form, Header, Title } from 'components/BrewLog/Form'
 import { setUrqlHeader } from 'helper/header'
@@ -14,7 +14,7 @@ export default function BrewLogForm({ goBack, payload, store, setStore }) {
     defaultValues: store.brewLog ? store.brewLog : {},
   })
 
-  const [, insertBrewLog] = useMutation(INSERT_BREW_LOG_ONE)
+  const [, insertBrewLog] = useMutation(INSERT_BREW_LOG)
 
   const submitBrewLog = async (object) => {
     object.recipe_id = payload.recipeId

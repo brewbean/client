@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useMutation } from 'urql'
-import { UPDATE_BEAN_REVIEW } from 'queries'
+import { UPDATE_BEAN_REVIEW } from 'queries/Bean'
 import InputRow from 'components/InputRow'
 import { PlaceHolder } from 'components/Icon'
 

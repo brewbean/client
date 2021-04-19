@@ -1,10 +1,9 @@
 import { useMutation } from 'urql'
-import { UPDATE_RECIPE_REVIEW } from 'queries'
-import { PlaceHolder } from 'components/Icon'
-
-import Form from 'components/Recipe/Review/Form'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { PlaceHolder } from 'components/Icon'
+import Form from 'components/Recipe/Review/Form'
+import { UPDATE_RECIPE_REVIEW } from 'queries/Recipe'
 import { schema } from './Schema'
 
 const Edit = ({ review, close }) => {

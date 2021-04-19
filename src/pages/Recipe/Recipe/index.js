@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useCallback } from 'react'
 import { useQuery } from 'urql'
 import qs from 'qs'
-import { GET_ALL_RECIPES } from 'queries'
+import { GET_ALL_RECIPES } from 'queries/Recipe'
 import { useRouteMatch, useLocation, useHistory } from 'react-router-dom'
 import { useAlert, alertType } from 'context/AlertContext'
 import { useAuth } from 'context/AuthContext'

@@ -2,7 +2,7 @@ import { useMutation } from 'urql'
 import { useForm } from 'react-hook-form'
 import { useHistory, useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { UPDATE_RECIPE_WITH_STAGES } from 'queries'
+import { UPDATE_RECIPE } from 'queries/Recipe'
 import { useAlert, alertType } from 'context/AlertContext'
 import { schema } from 'components/Recipe/Schema'
 import Form from 'components/Recipe/Form'
@@ -14,7 +14,7 @@ export default function Container({ recipe }) {
   const { id } = useParams()
   const history = useHistory()
 
-  const [, updateRecipe] = useMutation(UPDATE_RECIPE_WITH_STAGES)
+  const [, updateRecipe] = useMutation(UPDATE_RECIPE)
 
   const defaultValues = getDefaultValues(recipe)
   const methods = useForm({

@@ -2,7 +2,7 @@ import { useAuth } from 'context/AuthContext'
 import Form from 'components/Recipe/Form'
 import { useHistory, useLocation, Redirect } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { INSERT_RECIPES_ONE } from 'queries'
+import { INSERT_RECIPE } from 'queries/Recipe'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from 'components/Recipe/Schema'
@@ -20,7 +20,7 @@ export default function CreateRecipe() {
     },
   })
 
-  const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
+  const [, insertRecipe] = useMutation(INSERT_RECIPE)
 
   const submitRecipe = async (data) => {
     const { stages, serve, ...recipe } = data

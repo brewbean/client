@@ -3,15 +3,8 @@ import { recipeInfo } from 'queries/Recipe'
 /*
   Brew Logs Queries
 */
-const baristaInfo = gql`
-  fragment BaristaInfo on barista {
-    display_name
-    id
-    avatar
-  }
-`
 
-const brewLogInfo = gql`
+export const brewLogInfo = gql`
   fragment BrewLogInfo on brew_log {
     id
     comment
@@ -19,55 +12,33 @@ const brewLogInfo = gql`
     date_created
     is_private
     rating
-  }
-`
-const fragment = {
-  baristaInfo,
-  recipeInfo,
-  brewLogInfo,
-}
-
-const INSERT_BREW_LOG_ONE = gql`
-  mutation($object: brew_log_insert_input!) {
-    insert_brew_log_one(object: $object) {
+    barista {
       id
-      comment
-      title
-      date_created
-      is_private
-      rating
-      barista {
-        ...BaristaInfo
-      }
-      recipe {
-        ...RecipeInfo
-      }
-      template_recipe {
-        ...RecipeInfo
-      }
+      display_name
+      avatar
+    }
+    recipe {
+      ...RecipeInfo
+    }
+    template_recipe {
+      ...RecipeInfo
     }
   }
-  ${fragment.recipeInfo}
-  ${fragment.baristaInfo}
+  ${recipeInfo}
 `
-const GET_ALL_BREW_LOGS = gql`
+
+export const INSERT_BREW_LOG = gql`
+  mutation InsertBrewLog($object: brew_log_insert_input!) {
+    insert_brew_log_one(object: $object) {
+      ...BrewLogInfo
+    }
+  }
+  ${brewLogInfo}
+`
+export const GET_ALL_BREW_LOGS = gql`
   query GetAllBrewLogs($limit: Int, $offset: Int) {
     brew_log(order_by: { id: desc }, limit: $limit, offset: $offset) {
-      id
-      comment
-      title
-      date_created
-      is_private
-      rating
-      barista {
-        ...BaristaInfo
-      }
-      recipe {
-        ...RecipeInfo
-      }
-      template_recipe {
-        ...RecipeInfo
-      }
+      ...BrewLogInfo
     }
     brew_log_aggregate {
       aggregate {
@@ -75,64 +46,28 @@ const GET_ALL_BREW_LOGS = gql`
       }
     }
   }
-  ${fragment.recipeInfo}
-  ${fragment.baristaInfo}
+  ${brewLogInfo}
 `
-const GET_SINGLE_BREW_LOG = gql`
-  query($id: Int!) {
+export const GET_BREW_LOG = gql`
+  query GetBrewLog($id: Int!) {
     brew_log_by_pk(id: $id) {
-      id
-      comment
-      title
-      date_created
-      is_private
-      rating
-      barista {
-        ...BaristaInfo
-      }
-      recipe {
-        ...RecipeInfo
-      }
-      template_recipe {
-        ...RecipeInfo
-      }
+      ...BrewLogInfo
     }
   }
-  ${fragment.recipeInfo}
-  ${fragment.baristaInfo}
+  ${brewLogInfo}
 `
-const UPDATE_BREW_LOG = gql`
-  mutation($id: Int!, $brew_log: brew_log_set_input) {
+export const UPDATE_BREW_LOG = gql`
+  mutation UpdateBrewLog($id: Int!, $brew_log: brew_log_set_input) {
     update_brew_log_by_pk(pk_columns: { id: $id }, _set: $brew_log) {
       ...BrewLogInfo
-      barista {
-        ...BaristaInfo
-      }
-      recipe {
-        ...RecipeInfo
-      }
-      template_recipe {
-        ...RecipeInfo
-      }
     }
   }
-  ${fragment.recipeInfo}
-  ${fragment.baristaInfo}
-  ${fragment.brewLogInfo}
+  ${brewLogInfo}
 `
-const DELETE_BREW_LOG = gql`
-  mutation($id: Int!) {
+export const DELETE_BREW_LOG = gql`
+  mutation DeleteBrewLog($id: Int!) {
     delete_brew_log_by_pk(id: $id) {
       id
     }
   }
 `
-
-export {
-  brewLogInfo,
-  INSERT_BREW_LOG_ONE,
-  GET_ALL_BREW_LOGS,
-  GET_SINGLE_BREW_LOG,
-  UPDATE_BREW_LOG,
-  DELETE_BREW_LOG,
-}

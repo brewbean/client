@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { DELETE_RECIPE_REVIEW } from 'queries'
+import { DELETE_RECIPE_REVIEW } from 'queries/Recipe'
 import { useMutation } from 'urql'
 import { useAuth } from 'context/AuthContext'
 import { PlaceHolder } from 'components/Icon'

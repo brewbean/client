@@ -1,15 +1,16 @@
 import { useAuth } from 'context/AuthContext'
 import { Redirect, useParams } from 'react-router-dom'
-import { GET_SINGLE_BEAN } from 'queries'
+import { GET_BEAN } from 'queries/Bean'
 import { useQuery } from 'urql'
 import Container from './Container'
 
 export default function EditBean() {
-  const { id } = useParams()
+  const params = useParams()
+  const id = parseInt(params.id)
   const { isVerified, barista } = useAuth()
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_SINGLE_BEAN,
+    query: GET_BEAN,
     variables: { id },
   })
 

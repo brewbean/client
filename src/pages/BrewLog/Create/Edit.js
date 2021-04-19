@@ -1,7 +1,7 @@
 import { useMutation } from 'urql'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { UPDATE_RECIPE_WITH_STAGES } from 'queries'
+import { UPDATE_RECIPE } from 'queries/Recipe'
 import Form from 'components/Recipe/Form'
 import { Header, Title } from 'components/BrewLog/Form'
 import { schema } from 'components/Recipe/Schema'
@@ -12,7 +12,7 @@ import { alertType, useAlert } from 'context/AlertContext'
 
 export default function Edit({ goBack, goTo, store, setStore, payload }) {
   const { addAlert } = useAlert()
-  const [, updateRecipe] = useMutation(UPDATE_RECIPE_WITH_STAGES)
+  const [, updateRecipe] = useMutation(UPDATE_RECIPE)
 
   const defaultValues = getDefaultValues(store.recipe)
   const methods = useForm({

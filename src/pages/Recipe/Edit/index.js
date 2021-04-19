@@ -1,15 +1,16 @@
 import { useAuth } from 'context/AuthContext'
 import { Redirect, useParams } from 'react-router-dom'
-import { GET_SINGLE_RECIPE } from 'queries'
+import { GET_RECIPE } from 'queries/Recipe'
 import { useQuery } from 'urql'
 import Container from './Container'
 
 export default function EditRecipe() {
-  const { id } = useParams()
+  const params = useParams()
+  const id = parseInt(params.id)
   const { isVerified, barista } = useAuth()
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_SINGLE_RECIPE,
+    query: GET_RECIPE,
     variables: { id },
   })
 
