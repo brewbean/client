@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useQuery } from 'urql'
 import { useParams, useRouteMatch } from 'react-router-dom'
 import { useAuth } from 'context/AuthContext'
-import { GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW } from 'queries'
+import { GET_BEAN } from 'queries/Bean'
 import {
   ModifyRow,
   TitleSection,
@@ -10,23 +10,19 @@ import {
   CommentSection,
 } from 'components/Bean/Detail'
 import { DescriptionSection } from 'components/Layout/Detail'
+import { setUrqlHeader } from 'helper/header'
 
 const Detail = () => {
-  const { id } = useParams()
+  const params = useParams()
+  const id = parseInt(params.id)
   const { url } = useRouteMatch()
   const { isAuthenticated, isVerified, barista } = useAuth()
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_SINGLE_BEAN_AND_BEAN_REVIEWS_AVG_BEAN_REVIEW,
+    query: GET_BEAN,
     variables: { id },
     context: useMemo(
-      () => ({
-        fetchOptions: {
-          headers: {
-            'x-hasura-role': 'all_barista',
-          },
-        },
-      }),
+      () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
     ),
   })

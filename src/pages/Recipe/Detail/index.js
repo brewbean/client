@@ -1,5 +1,5 @@
 import { useMemo, useEffect } from 'react'
-import { GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW, DELETE_RECIPES } from 'queries'
+import { GET_RECIPE, DELETE_RECIPE } from 'queries/Recipe'
 import { useQuery, useMutation } from 'urql'
 import { useHistory, useParams, useRouteMatch } from 'react-router-dom'
 import { useAuth } from 'context/AuthContext'
@@ -22,7 +22,7 @@ const Detail = () => {
   const { isAuthenticated, isVerified, barista: user } = useAuth()
   const { isSuccess, isPending, open, content, setContent, reset } = useModal()
 
-  const [, deleteRecipe] = useMutation(DELETE_RECIPES)
+  const [, deleteRecipe] = useMutation(DELETE_RECIPE)
 
   const onDelete = () => {
     open()
@@ -41,7 +41,7 @@ const Detail = () => {
   }, [history, id, content, isPending, isSuccess, reset, deleteRecipe])
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_SINGLE_RECIPE_REVIEWS_AVG_REVIEW,
+    query: GET_RECIPE,
     variables: { id: parseInt(id) },
     context: useMemo(
       () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),

@@ -1,7 +1,7 @@
 import { useAlert, alertType } from 'context/AlertContext'
 import { useHistory, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { UPDATE_BEAN } from 'queries'
+import { UPDATE_BEAN } from 'queries/Bean'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Form from 'components/Bean/Form'

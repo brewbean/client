@@ -1,6 +1,6 @@
 import { useAuth } from 'context/AuthContext'
 import { Redirect, useParams } from 'react-router-dom'
-import { GET_SINGLE_BREW_LOG } from 'queries'
+import { GET_BREW_LOG } from 'queries/BrewLog'
 import { useQuery } from 'urql'
 import BrewLogEdit from 'pages/BrewLog/Edit/BrewLogEdit'
 import FormNavigation from 'components/Form/Navigation'
@@ -19,7 +19,7 @@ const Edit = () => {
   const { isVerified, barista } = useAuth()
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_SINGLE_BREW_LOG,
+    query: GET_BREW_LOG,
     variables: { id: parseInt(id) },
   })
 

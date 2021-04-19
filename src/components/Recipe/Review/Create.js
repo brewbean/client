@@ -1,5 +1,5 @@
 import { useMutation } from 'urql'
-import { INSERT_RECIPE_REVIEW_ONE } from 'queries'
+import { INSERT_RECIPE_REVIEW } from 'queries/Recipe'
 import { useAuth } from 'context/AuthContext'
 import { PlaceHolder } from 'components/Icon'
 
@@ -15,7 +15,7 @@ const Create = ({ id }) => {
     resolver: yupResolver(schema),
   })
 
-  const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW_ONE)
+  const [, insertRecipeReview] = useMutation(INSERT_RECIPE_REVIEW)
 
   const submitReview = async ({ rating, comment }) => {
     await insertRecipeReview({

@@ -2,7 +2,7 @@ import { useAuth } from 'context/AuthContext'
 import Form from 'components/Bean/Form'
 import { useHistory, useLocation, Redirect } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { INSERT_BEAN_ONE } from 'queries'
+import { INSERT_BEAN } from 'queries/Bean'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from 'components/Bean/Schema'
@@ -16,7 +16,7 @@ export default function CreateBean() {
     resolver: yupResolver(schema),
   })
 
-  const [, insertBean] = useMutation(INSERT_BEAN_ONE)
+  const [, insertBean] = useMutation(INSERT_BEAN)
 
   const submitBean = async (object) => {
     const { error } = await insertBean({ object })

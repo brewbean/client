@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useMutation } from 'urql'
-import { INSERT_BEAN_REVIEW_ONE } from 'queries'
+import { INSERT_BEAN_REVIEW } from 'queries/Bean'
 import InputRow from 'components/InputRow'
 import { useAuth } from 'context/AuthContext'
 import { PlaceHolder } from 'components/Icon'
@@ -11,7 +11,7 @@ const Create = ({ id }) => {
     comment: '',
   })
   const { barista } = useAuth()
-  const [, insertBeanReview] = useMutation(INSERT_BEAN_REVIEW_ONE)
+  const [, insertBeanReview] = useMutation(INSERT_BEAN_REVIEW)
   const onChangeGenerator = (attr) => (e) => {
     setState({
       ...state,

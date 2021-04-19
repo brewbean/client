@@ -26,7 +26,7 @@ import {
   logoutAPI,
 } from 'helper/auth'
 import { AUTH_API, GRAPHQL_API } from 'config'
-import { GET_BARISTA } from 'queries'
+import { GET_BARISTA } from 'queries/Barista'
 import { resolvers, updates, keys } from 'cache'
 import { print } from 'graphql'
 import { useHistory, useLocation } from 'react-router-dom'

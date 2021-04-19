@@ -1,7 +1,7 @@
 import { useMutation } from 'urql'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { INSERT_RECIPES_ONE } from 'queries'
+import { INSERT_RECIPE } from 'queries/Recipe'
 import Form from 'components/Recipe/Form'
 import { Header, Title } from 'components/BrewLog/Form'
 import { schema } from 'components/Recipe/Schema'
@@ -10,7 +10,7 @@ import { addServeToStages } from 'helper/recipe'
 import { BREWLOG_FORM } from 'pages/BrewLog/Create'
 
 export default function Create({ goBack, goTo, payload, setStore }) {
-  const [, insertRecipe] = useMutation(INSERT_RECIPES_ONE)
+  const [, insertRecipe] = useMutation(INSERT_RECIPE)
   const defaultValues = getDefaultValues(payload, [
     { key: 'name', value: undefined },
     { key: 'is_private', value: true },

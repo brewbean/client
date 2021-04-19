@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useParams, useHistory } from 'react-router'
 import { useQuery, useMutation } from 'urql'
-import { GET_SINGLE_BREW_LOG, DELETE_BREW_LOG } from 'queries'
+import { GET_BREW_LOG, DELETE_BREW_LOG } from 'queries/BrewLog'
 import { Error } from 'components/Icon/Alert'
 import { Loading } from 'components/Utility'
 import { Description } from 'components/BrewLog/Detail'
@@ -33,7 +33,7 @@ export default function Detail() {
   }, [history, id, content, isPending, isSuccess, reset, deleteBrewLog])
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_SINGLE_BREW_LOG,
+    query: GET_BREW_LOG,
     variables: { id: id ? parseInt(id) : null },
     context: useMemo(
       () => ({
