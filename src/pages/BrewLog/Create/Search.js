@@ -1,6 +1,6 @@
 import { useQuery } from 'urql'
 import { useMemo, useState } from 'react'
-import { GET_ALL_RECIPES } from 'queries'
+import { GET_ALL_RECIPES } from 'queries/Recipe'
 import { Header, Title } from 'components/BrewLog/Form'
 import { TEMPLATE_FORM, RECIPE_IMPORT } from './index'
 import { setUrqlHeader } from 'helper/header'

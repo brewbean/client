@@ -2,7 +2,7 @@ import { useMutation } from 'urql'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { UPDATE_RECIPE_WITH_STAGES } from 'queries'
+import { UPDATE_RECIPE } from 'queries/Recipe'
 import { useAlert, alertType } from 'context/AlertContext'
 import { schema } from 'components/Recipe/Schema'
 import RecipeForm from 'components/Recipe/Form'
@@ -15,7 +15,7 @@ export default function NormalEdit({ store, goTo }) {
   const { addAlert } = useAlert()
   const history = useHistory()
 
-  const [, updateRecipe] = useMutation(UPDATE_RECIPE_WITH_STAGES)
+  const [, updateRecipe] = useMutation(UPDATE_RECIPE)
 
   const defaultValues = getDefaultValues(store.brewLog.recipe)
   const methods = useForm({

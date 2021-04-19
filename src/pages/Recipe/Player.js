@@ -1,6 +1,6 @@
 import Player from 'components/Player'
 import { useQuery } from 'urql'
-import { GET_RECIPE_BY_ID } from 'queries'
+import { GET_RECIPE } from 'queries/Recipe'
 import { useParams } from 'react-router-dom'
 import { Message } from 'components/Message'
 import { alertType } from 'context/AlertContext'
@@ -9,7 +9,7 @@ const PlayerContainer = () => {
   const { id } = useParams()
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_RECIPE_BY_ID,
+    query: GET_RECIPE,
     variables: { id },
   })
 

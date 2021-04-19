@@ -1,7 +1,7 @@
 import { useMemo, useCallback, useEffect } from 'react'
 import { useHistory, useRouteMatch } from 'react-router'
 import { useQuery } from 'urql'
-import { GET_ALL_BREW_LOGS } from 'queries'
+import { GET_ALL_BREW_LOGS } from 'queries/BrewLog'
 import { useAuth } from 'context/AuthContext'
 import { useModal } from 'context/ModalContext'
 import { useQueryParams } from 'components/Utility/Hook'
