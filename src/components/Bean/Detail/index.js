@@ -36,7 +36,7 @@ export const Description = ({
         {region}
       </DataSection>
       <DataSection className='sm:col-span-1' label='Altitude'>
-        {altitude ? `${altitude} km` : 'N/A'}
+        {altitude ? `${altitude} meters` : 'N/A'}
       </DataSection>
       <DataSection className='sm:col-span-1' label='Variety'>
         {varietal ? varietal : 'N/A'}

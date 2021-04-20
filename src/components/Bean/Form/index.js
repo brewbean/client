@@ -140,7 +140,7 @@ export default function Form({ register, errors, onSubmit }) {
               isOptional: true,
               className: 'input pr-9',
               placeholder: 'e.g. 1000',
-              symbol: 'km',
+              symbol: 'meters',
             },
           ]}
         />
