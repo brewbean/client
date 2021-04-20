@@ -9,7 +9,8 @@ import { DataSection } from 'components/Layout/Detail'
 import { externalLinkPlugin } from 'helper/sanitize'
 
 export const Description = ({
-  altitude,
+  altitude_start,
+  altitude_end,
   varietal,
   process,
   profile_note,
@@ -36,7 +37,11 @@ export const Description = ({
         {region}
       </DataSection>
       <DataSection className='sm:col-span-1' label='Altitude'>
-        {altitude ? `${altitude} m` : 'N/A'}
+        {altitude_start && altitude_end
+          ? `${altitude_start} - ${altitude_end} m`
+          : altitude_start
+          ? `${altitude_start} m`
+          : 'N/A'}
       </DataSection>
       <DataSection className='sm:col-span-1' label='Variety'>
         {varietal ? varietal : 'N/A'}

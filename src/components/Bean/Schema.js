@@ -22,12 +22,16 @@ export const schema = object().shape({
     .nullable(true)
     .positive()
     .transform((value) => (isNaN(value) ? null : value)),
-  altitude: number()
-    .nullable(true)
-    .min(0)
-    .transform((value) => (isNaN(value) ? null : value)),
   purchase_info: string()
     .nullable(true)
     .trim()
     .transform((value) => (value === '' ? null : value)),
+  altitude_start: number()
+    .nullable()
+    .min(0, 'Altitude must be non-negative')
+    .transform((value) => (isNaN(value) ? null : value)),
+  altitude_end: number()
+    .nullable()
+    .positive('Altitude end must be positive')
+    .transform((value) => (isNaN(value) ? null : value)),
 })
