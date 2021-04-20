@@ -138,9 +138,9 @@ export default function Form({ register, errors, onSubmit }) {
               type: 'number',
               label: 'Altitude',
               isOptional: true,
-              className: 'input pr-9',
+              className: 'input pr-7',
               placeholder: 'e.g. 1000',
-              symbol: 'meters',
+              symbol: 'm',
             },
           ]}
         />
