@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { SectionMap } from 'components/Form/Layout'
-
+import { Section, SectionMap } from 'components/Form/Layout'
 import { combineClass } from 'helper/stringHelper'
+import Altitude from './Altitude'
 
 export default function Form({ register, errors, onSubmit }) {
   return (
@@ -133,18 +133,13 @@ export default function Form({ register, errors, onSubmit }) {
               placeholder: 'e.g. 20',
               symbol: 'USD',
             },
-            {
-              name: 'altitude',
-              type: 'number',
-              label: 'Altitude',
-              isOptional: true,
-              className: 'input pr-9',
-              placeholder: 'e.g. 1000',
-              symbol: 'km',
-            },
           ]}
         />
       </div>
+
+      <Section title='Elevation'>
+        <Altitude isOptional register={register} errors={errors} />
+      </Section>
 
       {/* Button row */}
       <div className='flex justify-end'>

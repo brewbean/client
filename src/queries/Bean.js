@@ -21,7 +21,8 @@ export const beanInfo = gql`
   fragment BeanInfo on bean {
     id
     about
-    altitude
+    altitude_start
+    altitude_end
     company_name
     country_id
     farm_id
