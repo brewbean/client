@@ -9,7 +9,7 @@ const PlayerContainer = () => {
   const { id } = useParams()
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_RECIPE,
+    query: GET_RECIPE, // can get to this player page from a brew log with a deleted recipe
     variables: { id },
   })
 

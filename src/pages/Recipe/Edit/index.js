@@ -19,7 +19,11 @@ export default function EditRecipe() {
   if (!data?.recipe_by_pk) return null
 
   // needs to be last or else it will always redirect because query is slower
-  if (!isVerified || data?.recipe_by_pk.barista_id !== barista?.id)
+  if (
+    !isVerified ||
+    data.recipe_by_pk.barista_id !== barista?.id ||
+    data.recipe_by_pk.is_deleted
+  )
     return <Redirect to={`/recipe/${id}`} />
 
   return <Container recipe={data.recipe_by_pk} />

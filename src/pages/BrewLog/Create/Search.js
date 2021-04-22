@@ -110,7 +110,7 @@ export default function Search({ goBack, goTo }) {
           <RecipeRow
             key={r.id}
             recipeName={r.name}
-            displayName={r.barista.display_name}
+            displayName={r.barista ? r.barista.display_name : '[ DELETED ]'}
             onImport={goToImport(r)}
             onTemplate={goToTemplate(r)}
           />

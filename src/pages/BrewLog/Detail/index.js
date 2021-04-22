@@ -7,10 +7,12 @@ import { Loading } from 'components/Utility'
 import { Description } from 'components/BrewLog/Detail'
 import { useModal } from 'context/ModalContext'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import { setUrqlHeader } from 'helper/header'
 
 export default function Detail() {
   const history = useHistory()
-  let { id } = useParams()
+  const params = useParams()
+  const id = parseInt(params.id)
 
   const { isSuccess, isPending, open, content, setContent, reset } = useModal()
 
@@ -34,15 +36,9 @@ export default function Detail() {
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_BREW_LOG,
-    variables: { id: id ? parseInt(id) : null },
+    variables: { id },
     context: useMemo(
-      () => ({
-        fetchOptions: {
-          headers: {
-            'x-hasura-role': 'all_barista',
-          },
-        },
-      }),
+      () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
     ),
   })

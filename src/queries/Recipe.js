@@ -35,6 +35,7 @@ export const recipeInfo = gql`
     name
     instructions
     bean_name_free
+    is_deleted
     stages {
       id
       action
@@ -79,10 +80,15 @@ export const INSERT_RECIPE = gql`
 `
 export const GET_ALL_RECIPES = gql`
   query GetAllRecipes($limit: Int, $offset: Int) {
-    recipe(order_by: { id: desc }, limit: $limit, offset: $offset) {
+    recipe(
+      order_by: { id: desc }
+      where: { is_deleted: { _eq: false } }
+      limit: $limit
+      offset: $offset
+    ) {
       ...RecipeInfo
     }
-    recipe_aggregate {
+    recipe_aggregate(where: { is_deleted: { _eq: false } }) {
       aggregate {
         count
       }
@@ -109,11 +115,15 @@ export const UPDATE_RECIPE_REVIEW = gql`
   ${recipeReviewInfo}
 `
 export const DELETE_RECIPE = gql`
-  mutation DeleteRecipe($id: Int!) {
-    delete_recipe_by_pk(id: $id) {
-      id
+  mutation DeleteRecipe($id: Int!, $name: String!) {
+    update_recipe_by_pk(
+      pk_columns: { id: $id }
+      _set: { name: $name, is_deleted: true }
+    ) {
+      ...RecipeInfo
     }
   }
+  ${recipeInfo}
 `
 /*
   Recipe Review Queries

@@ -9,7 +9,6 @@ import { ModifyRow } from 'components/Form/ButtonGroup'
 import { externalLinkPlugin } from 'helper/sanitize'
 
 export const Description = ({
-  id,
   comment,
   title,
   date_created,
@@ -56,15 +55,23 @@ export const Description = ({
         <div className='sm:col-span-2 border-t border-gray-200'></div>
 
         <DataSection className='sm:col-span-1' label='Recipe Name'>
-          <Link
-            className='text-indigo-600 font-medium hover:underline inline-flex items-center'
-            to={'/recipe/' + recipe.id}
-          >
-            {recipe.name}
-          </Link>
+          {recipe.is_deleted ? (
+            recipe.name
+          ) : (
+            <Link
+              className='text-indigo-600 font-medium hover:underline inline-flex items-center'
+              to={'/recipe/' + recipe.id}
+            >
+              {recipe.name}
+            </Link>
+          )}
         </DataSection>
         <DataSection className='sm:col-span-1' label='Author'>
-          {recipe.barista.display_name}
+          {recipe.barista?.display_name ? (
+            recipe.barista?.display_name
+          ) : (
+            <span className='font-medium'>[ DELETED ]</span>
+          )}
         </DataSection>
 
         {template_recipe && (
@@ -78,7 +85,7 @@ export const Description = ({
               </Link>
             </DataSection>
             <DataSection className='sm:col-span-1' label='Template Author'>
-              {template_recipe.barista.display_name}
+              {template_recipe.barista?.display_name}
             </DataSection>
           </>
         )}
