@@ -6,8 +6,12 @@ import { INSERT_RECIPE } from 'queries/Recipe'
 import { useMutation } from 'urql'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from 'components/Recipe/Schema'
+import { addServeToStages } from 'helper/recipe'
+import { useAlert } from 'context/AlertContext'
+import { recipeError } from 'helper/error'
 
 export default function CreateRecipe() {
+  const { addAlert } = useAlert()
   const history = useHistory()
   const location = useLocation()
   const { isAuthenticated } = useAuth()
@@ -28,25 +32,14 @@ export default function CreateRecipe() {
 
     if (stages) {
       object.stages = {
-        data: [
-          ...stages,
-          {
-            action: 'serve',
-            start: serve,
-            end: serve,
-            weight: stages[stages.length - 1].weight,
-          },
-        ],
+        data: addServeToStages(stages, serve),
       }
     }
 
     const { error } = await insertRecipe({ object })
 
-    if (error?.message.includes('Uniqueness violation')) {
-      methods.setError('name', {
-        message: 'Recipe name must be unique',
-        shouldFocus: true,
-      })
+    if (error) {
+      recipeError(addAlert, error, methods.setError)
     } else {
       history.push(`/recipe`, { createdRecipe: true })
     }

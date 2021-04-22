@@ -4,8 +4,10 @@ import { Section, SectionMap } from 'components/Form/Layout'
 import { combineClass } from 'helper/stringHelper'
 import { Create as CreatePlayerStages } from 'components/Player/Form'
 import PlayerInfo from './PlayerInfo'
+import { ExclamationCircleIcon } from '@heroicons/react/outline'
 
 export default function Form({
+  watch,
   register,
   control,
   errors,
@@ -16,6 +18,7 @@ export default function Form({
   preload,
   onCancel,
   header,
+  publicLocked,
 }) {
   const [formMounted, setFormMounted] = useState(
     preload?.formMounted ? preload.formMounted : false
@@ -48,6 +51,13 @@ export default function Form({
   const onEdit = () => {
     setIsHidden(false)
   }
+
+  // select options always strings
+  const watchIsPrivate = watch('is_private')
+  const isPrivate =
+    typeof watchIsPrivate === 'boolean'
+      ? watchIsPrivate
+      : watchIsPrivate === 'true'
 
   return (
     <form onSubmit={onSubmit} className='mt-2 sm:mt-0 space-y-6 sm:space-y-5'>
@@ -235,18 +245,31 @@ export default function Form({
           register={register}
           data={[
             {
+              readOnly: publicLocked,
               label: 'Privacy',
               name: 'is_private',
-              className: 'input',
+              className: combineClass('input', {
+                'pointer-events-none opacity-50': publicLocked,
+              }),
               type: 'select',
-              defaultValue: false,
               options: [
-                { value: false, text: 'Public' },
                 { value: true, text: 'Private' },
+                { value: false, text: 'Public' },
               ],
             },
           ]}
-        />
+        >
+          {!isPrivate && (
+            <div className='mt-1 flex items-center text-yellow-600'>
+              <ExclamationCircleIcon className='w-5 h-5' />
+              <p className='ml-1 text-sm'>
+                {publicLocked
+                  ? 'Privacy is locked as public.'
+                  : 'Note: once a recipe is set as public, it cannot be set back to private'}
+              </p>
+            </div>
+          )}
+        </SectionMap>
       </div>
 
       {/* Button row */}

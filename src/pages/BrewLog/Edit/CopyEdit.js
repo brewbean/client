@@ -8,13 +8,17 @@ import { schema } from 'components/Recipe/Schema'
 import { getDefaultValues } from 'components/Utility/Form'
 import { addServeToStages } from 'helper/recipe'
 import { BREW_LOG_EDIT } from './index'
+import { useAlert } from 'context/AlertContext'
+import { recipeError } from 'helper/error'
 
 export default function CopyEdit({ goBack, goTo, store }) {
+  const { addAlert } = useAlert()
   const [, insertRecipe] = useMutation(INSERT_RECIPE)
   const defaultValues = getDefaultValues(store.brewLog.recipe, [
     { key: 'name', value: undefined },
     { key: 'is_private', value: true },
   ])
+
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues,
@@ -31,11 +35,8 @@ export default function CopyEdit({ goBack, goTo, store }) {
 
     const { data, error } = await insertRecipe({ object })
 
-    if (error?.message.includes('Uniqueness violation')) {
-      methods.setError('name', {
-        message: 'Recipe name must be unique',
-        shouldFocus: true,
-      })
+    if (error) {
+      recipeError(addAlert, error, methods.setError)
     } else {
       goTo(BREW_LOG_EDIT, {
         recipe: data.insert_recipe_one,

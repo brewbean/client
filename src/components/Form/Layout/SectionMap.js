@@ -2,10 +2,11 @@ import { createId } from 'helper/stringHelper'
 import Section from './Section'
 import TwoColumnInput from './TwoColumnInput'
 
-const SectionMap = ({ title, subtitle, register, data }) => (
+const SectionMap = ({ title, subtitle, register, data, children }) => (
   <Section {...{ title, subtitle }}>
     {data.map((input) => {
       const {
+        readOnly,
         name,
         className,
         placeholder,
@@ -20,7 +21,16 @@ const SectionMap = ({ title, subtitle, register, data }) => (
       return (
         <TwoColumnInput key={input.name} htmlFor={id} {...rest}>
           {type === 'select' ? (
-            <select {...{ id, name, className, defaultValue, ref: register }}>
+            <select
+              {...{
+                id,
+                name,
+                className,
+                defaultValue,
+                readOnly,
+                ref: register,
+              }}
+            >
               {options.map(({ value, text }) => (
                 <option key={value} value={value}>
                   {text}
@@ -56,6 +66,7 @@ const SectionMap = ({ title, subtitle, register, data }) => (
         </TwoColumnInput>
       )
     })}
+    {children}
   </Section>
 )
 

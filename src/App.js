@@ -10,7 +10,6 @@ import Profile from 'pages/Profile'
 import Reset from 'pages/Reset'
 import Guide from 'pages/Guide'
 import { About, Contact, PrivacyPolicy, Terms, NotFound } from 'pages/Content'
-import Create from 'components/Recipe/Form'
 import BrewLog from 'pages/BrewLog'
 import BeanPage from 'pages/Bean'
 import { load, trackPageview } from 'fathom-client'
@@ -53,9 +52,6 @@ function App() {
       <AuthRoute path='/profile'>
         <Profile />
       </AuthRoute>
-      <ContainerRoute path='/test'>
-        <Create />
-      </ContainerRoute>
       <ContainerRoute path='/about'>
         <About />
       </ContainerRoute>
