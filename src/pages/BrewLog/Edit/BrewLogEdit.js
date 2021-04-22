@@ -1,4 +1,4 @@
-import { useAlert, alertType } from 'context/AlertContext'
+import { useAlert } from 'context/AlertContext'
 import { useParams, useHistory } from 'react-router-dom'
 import { Form as BrewLogForm, Header, Title } from 'components/BrewLog/Form'
 import { UPDATE_BREW_LOG } from 'queries/BrewLog'
@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { schema } from 'components/BrewLog/Schema'
 import { setUrqlHeader } from 'helper/header'
+import { brewLogError } from 'helper/error'
 
 export default function BrewLogEdit({ goBack, store, payload }) {
   const { addAlert } = useAlert()
@@ -23,31 +24,17 @@ export default function BrewLogEdit({ goBack, store, payload }) {
   const { isDirty } = methods.formState
 
   const submitBrewLog = async (brew_log) => {
-    if (isDirty) {
-      if (payload?.recipe && payload?.templateRecipeId) {
+    if (isDirty || payload) {
+      if (payload.recipe && payload.templateRecipeId) {
         brew_log.recipe_id = payload.recipe.id
         brew_log.template_recipe_id = payload.templateRecipeId
       }
       const { error } = await updateBrewLog(
-        {
-          id,
-          brew_log,
-        },
+        { id, brew_log },
         setUrqlHeader({ 'x-hasura-role': 'all_barista' })
       )
       if (error) {
-        if (error.message.includes('Uniqueness violation')) {
-          methods.setError('title', {
-            message: 'This brew log title already exist',
-            shouldFocus: true,
-          })
-        } else {
-          addAlert({
-            type: alertType.ERROR,
-            header: error.message,
-            close: true,
-          })
-        }
+        brewLogError(addAlert, error, methods.setError)
         return
       }
     }

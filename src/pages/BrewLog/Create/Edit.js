@@ -5,10 +5,11 @@ import { UPDATE_RECIPE } from 'queries/Recipe'
 import Form from 'components/Recipe/Form'
 import { Header, Title } from 'components/BrewLog/Form'
 import { schema } from 'components/Recipe/Schema'
-import { addServeToStages } from 'helper/recipe'
+import { normalizeStages } from 'helper/recipe'
 import { BREWLOG_FORM } from 'pages/BrewLog/Create'
 import { getDefaultValues } from 'components/Utility/Form'
-import { alertType, useAlert } from 'context/AlertContext'
+import { useAlert } from 'context/AlertContext'
+import { recipeError } from 'helper/error'
 
 export default function Edit({ goBack, goTo, store, setStore, payload }) {
   const { addAlert } = useAlert()
@@ -26,32 +27,15 @@ export default function Edit({ goBack, goTo, store, setStore, payload }) {
     const { id } = store.recipe
 
     if (isDirty) {
-      const newStages = stages
-        ? addServeToStages(stages, serve).map((s) => ({
-            ...s,
-            recipe_id: id,
-          }))
-        : [] // change 'null' to empty array to add no new stages; old stages get deleted regardless
-
-      let { data, error } = await updateRecipe({
+      const newStages = normalizeStages(stages, serve, id)
+      const { data, error } = await updateRecipe({
         id,
         recipe,
         stages: newStages,
       })
 
       if (error) {
-        if (error.message.includes('Uniqueness violation')) {
-          methods.setError('name', {
-            message: 'This recipe name already exist',
-            shouldFocus: true,
-          })
-        } else {
-          addAlert({
-            type: alertType.ERROR,
-            header: error.message,
-            close: true,
-          })
-        }
+        recipeError(addAlert, error, methods.setError)
         return
       } else {
         // in case user wants to go back to edit recipe

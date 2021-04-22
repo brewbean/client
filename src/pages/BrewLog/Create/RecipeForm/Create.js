@@ -7,8 +7,11 @@ import { Header, Title } from 'components/BrewLog/Form'
 import { schema } from 'components/Recipe/Schema'
 import { addServeToStages } from 'helper/recipe'
 import { BREWLOG_FORM } from 'pages/BrewLog/Create'
+import { useAlert } from 'context/AlertContext'
+import { recipeError } from 'helper/error'
 
 export default function Create({ goBack, goTo, setStore }) {
+  const { addAlert } = useAlert()
   const [, insertRecipe] = useMutation(INSERT_RECIPE)
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -26,11 +29,8 @@ export default function Create({ goBack, goTo, setStore }) {
 
     const { data, error } = await insertRecipe({ object })
 
-    if (error?.message.includes('Uniqueness violation')) {
-      methods.setError('name', {
-        message: 'Recipe name must be unique',
-        shouldFocus: true,
-      })
+    if (error) {
+      recipeError(addAlert, error, methods.setError)
     } else {
       // in case user wants to go back to edit recipe
       setStore({ recipe: data.insert_recipe_one, createdRecipeScratch: true })
