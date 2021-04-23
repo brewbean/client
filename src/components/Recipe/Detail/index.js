@@ -118,7 +118,7 @@ export const TitleSection = ({
       <h1 className='text-2xl font-bold text-gray-900'>{recipeName}</h1>
       <div className='flex flex-col sm:flex-row'>
         <p className='text-sm font-medium text-gray-500'>
-          Created by {name} on{' '}
+          Created by {name ? name : '[ DELETED ]'} on{' '}
           <time dateTime={dateAdded}>{dateAdded.substring(0, 10)}</time>
         </p>
 

@@ -114,8 +114,10 @@ export const updates = {
         }
       )
     },
-    delete_recipe_by_pk: (result, args, cache, info) => {
-      cache.invalidate({ __typename: 'recipe', id: args.id })
+    update_recipe_by_pk: (result, args, cache, info) => {
+      if (args._set.is_deleted) {
+        cache.invalidate({ __typename: 'recipe', id: args.pk_columns.id })
+      }
     },
     insert_recipe_review_one: (result, args, cache, info) => {
       let recipeFragment = cache.readFragment(recipeInfo, {

@@ -3,15 +3,17 @@ import { useForm } from 'react-hook-form'
 import { useHistory, useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { UPDATE_RECIPE } from 'queries/Recipe'
-import { useAlert, alertType } from 'context/AlertContext'
+import { useAlert } from 'context/AlertContext'
 import { schema } from 'components/Recipe/Schema'
 import Form from 'components/Recipe/Form'
 import { getDefaultValues } from 'components/Utility/Form'
-import { addServeToStages } from 'helper/recipe'
+import { normalizeStages } from 'helper/recipe'
+import { recipeError } from 'helper/error'
 
 export default function Container({ recipe }) {
   const { addAlert } = useAlert()
-  const { id } = useParams()
+  const params = useParams()
+  const id = parseInt(params.id)
   const history = useHistory()
 
   const [, updateRecipe] = useMutation(UPDATE_RECIPE)
@@ -23,22 +25,15 @@ export default function Container({ recipe }) {
   })
 
   const submitRecipe = async ({ stages, serve, ...recipe }) => {
-    const newStages = stages
-      ? addServeToStages(stages, serve).map((s) => ({ ...s, recipe_id: id }))
-      : [] // change 'null' to empty array to add no new stages; old stages get deleted regardless
-
-    let { error } = await updateRecipe({
+    const newStages = normalizeStages(stages, serve, id)
+    const { error } = await updateRecipe({
       id,
       recipe,
       stages: newStages,
     })
 
     if (error) {
-      addAlert({
-        type: alertType.ERROR,
-        header: error.message,
-        close: true,
-      })
+      recipeError(addAlert, error, methods.setError)
     } else {
       history.push(`/recipe/${id}`, { edited: true })
     }
@@ -47,6 +42,7 @@ export default function Container({ recipe }) {
   return (
     <Form
       {...methods}
+      publicLocked={!defaultValues.is_private}
       onCancel={history.goBack}
       onSubmit={methods.handleSubmit(submitRecipe)}
       header={{
