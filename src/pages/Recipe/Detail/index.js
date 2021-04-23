@@ -1,7 +1,12 @@
 import { useMemo, useEffect } from 'react'
 import { GET_RECIPE, DELETE_RECIPE } from 'queries/Recipe'
 import { useQuery, useMutation } from 'urql'
-import { useHistory, useParams, useRouteMatch } from 'react-router-dom'
+import {
+  Redirect,
+  useHistory,
+  useParams,
+  useRouteMatch,
+} from 'react-router-dom'
 import { useAuth } from 'context/AuthContext'
 import {
   ActivitySection,
@@ -18,31 +23,45 @@ import { setUrqlHeader } from 'helper/header'
 const Detail = () => {
   const history = useHistory()
   const { url } = useRouteMatch()
-  const { id } = useParams()
+  const params = useParams()
+  const id = parseInt(params.id)
   const { isAuthenticated, isVerified, barista: user } = useAuth()
-  const { isSuccess, isPending, open, content, setContent, reset } = useModal()
+  const {
+    isSuccess,
+    isPending,
+    open,
+    content,
+    setContent,
+    reset,
+    setKey,
+    key,
+  } = useModal()
 
   const [, deleteRecipe] = useMutation(DELETE_RECIPE)
 
-  const onDelete = () => {
+  const onDelete = (recipeName) => () => {
     open()
+    setKey(recipeName)
     setContent('delete')
   }
 
   useEffect(() => {
     const execDelete = async () => {
-      await deleteRecipe({ id })
+      await deleteRecipe({
+        id,
+        name: `${key} [ARCHIVED ${new Date().toLocaleDateString()}]`,
+      })
       reset()
       history.push(`/recipe`)
     }
     if (!isPending && isSuccess && content === 'delete') {
       execDelete()
     }
-  }, [history, id, content, isPending, isSuccess, reset, deleteRecipe])
+  }, [history, id, content, isPending, isSuccess, reset, key, deleteRecipe])
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_RECIPE,
-    variables: { id: parseInt(id) },
+    variables: { id },
     context: useMemo(
       () => setUrqlHeader({ 'x-hasura-role': 'all_barista' }),
       []
@@ -52,6 +71,8 @@ const Detail = () => {
   if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
 
+  if (!data?.recipe_by_pk) return null
+
   const {
     name,
     barista,
@@ -59,23 +80,26 @@ const Detail = () => {
     recipe_reviews,
     stages,
     is_private,
+    is_deleted,
   } = data.recipe_by_pk
 
-  return (
+  return is_deleted ? (
+    <Redirect to='/recipe' />
+  ) : (
     <main>
       {/*<!-- Page header -->*/}
       <div className='md:flex md:items-center md:justify-between md:space-x-5'>
         <TitleSection
-          name={barista.display_name}
+          name={barista?.display_name}
           recipeName={name}
           dateAdded={date_added}
           isPrivate={is_private}
-          showPrivacyBadge={barista.id === user?.id}
+          showPrivacyBadge={barista?.id === user?.id}
           img={{ src: placeholder.cup, alt: 'coffee cup' }}
         />
         <ModifyRow
           canModify={isAuthenticated && user.id === barista?.id}
-          onDelete={onDelete}
+          onDelete={onDelete(name)}
           editPath={`${url}/edit`}
         />
       </div>

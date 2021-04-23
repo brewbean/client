@@ -67,7 +67,7 @@ export default function Table({ recipes }) {
               >
                 <td className='rounded-l-lg px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                   <div className='flex items-center'>
-                    {user?.id === barista.id && (
+                    {user?.id === barista?.id && (
                       <PrivacyIcon
                         isPrivate={is_private}
                         className='h-5 w-5 mr-3 text-gray-700'
@@ -82,12 +82,14 @@ export default function Table({ recipes }) {
                   </div>
                 </td>
                 <td className='px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-500'>
-                  {user?.display_name === barista.display_name ? (
+                  {user?.display_name === barista?.display_name ? (
                     <TextSymbol symbol={UserIcon}>
-                      {barista.display_name}
+                      {user?.display_name}
                     </TextSymbol>
-                  ) : (
+                  ) : barista ? (
                     barista.display_name
+                  ) : (
+                    '[ DELETED ]'
                   )}
                 </td>
                 <td className='px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-500 capitalize'>
