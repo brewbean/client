@@ -1,3 +1,4 @@
+import { DESC } from 'constants/query'
 import { beanInfo, GET_ALL_BEANS } from 'queries/Bean'
 import { GET_ALL_BREW_LOGS } from 'queries/BrewLog'
 import { GET_ALL_RECIPES, recipeInfo } from 'queries/Recipe'
@@ -21,6 +22,8 @@ export const updates = {
           variables: {
             limit: 10,
             offset: 0,
+            query: '%%',
+            orderBy: { id: DESC },
           },
         },
         (data) => {
