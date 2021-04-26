@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useCallback } from 'react'
+import { useMemo, useEffect, useCallback, useState } from 'react'
 import { useRouteMatch, useLocation, useHistory } from 'react-router-dom'
 import { useQuery } from 'urql'
 import qs from 'qs'
@@ -10,6 +10,13 @@ import List from 'components/Bean/List'
 import { range } from 'helper/array'
 import { Pagination } from 'components/Utility/List'
 import { setUrqlHeader } from 'helper/header'
+import { Loading } from 'components/Utility'
+import { ASC, DESC } from 'constants/query'
+
+const getPageNumbers = (count) => {
+  const totalPages = Math.ceil(count / 10)
+  return totalPages > 1 ? range(1, totalPages) : []
+}
 
 export default function Main() {
   const { isAuthenticated, isVerified } = useAuth()
@@ -27,10 +34,16 @@ export default function Main() {
   const location = useLocation()
   const history = useHistory()
   const { page } = qs.parse(location.search, { ignoreQueryPrefix: true })
+  const [searchText, setSearchText] = useState('')
+  const [query, setQuery] = useState('%%')
+  const [orderBy, setOrderBy] = useState([{ id: DESC }])
+  const [filters, setFilters] = useState({})
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_ALL_BEANS,
     variables: {
+      query,
+      orderBy,
       limit: 10,
       offset:
         page === undefined || page === '1' ? 0 : (parseInt(page) - 1) * 10,
@@ -69,6 +82,47 @@ export default function Main() {
     }
   }
 
+  const executeSearch = (e) => {
+    e.preventDefault()
+    setQuery('%' + searchText.trim() + '%')
+  }
+
+  const onSearchChange = ({ target }) => {
+    if (target.value === '') {
+      setQuery('%%')
+    }
+    setSearchText(target.value)
+  }
+
+  const sortHandler = (property) => () => {
+    let newFilters = { ...filters }
+    if (property === 'bean_reviews_aggregate') {
+      newFilters.bean_reviews_aggregate = !filters.bean_reviews_aggregate
+        ? { avg: { rating: DESC } }
+        : filters.bean_reviews_aggregate.avg.rating === DESC
+        ? { avg: { rating: ASC } }
+        : null
+    } else {
+      newFilters[property] = !filters[property]
+        ? DESC
+        : filters[property] === DESC
+        ? ASC
+        : null
+    }
+    const newOrderBy = Object.keys(newFilters)
+      .reduce(
+        (arr, key) => [
+          ...arr,
+          newFilters[key] ? { [key]: newFilters[key] } : null,
+        ],
+        []
+      )
+      .filter((beanOrderBy) => beanOrderBy !== null)
+
+    setFilters(newFilters)
+    setOrderBy(newOrderBy.length > 0 ? newOrderBy : [{ id: DESC }])
+  }
+
   useEffect(() => {
     if (!isPending && isSuccess && content === 'login' && isVerified) {
       // need to clear modal settings so that going back
@@ -78,11 +132,7 @@ export default function Main() {
     }
   }, [isPending, isSuccess, content, isVerified, url, history, reset])
 
-  if (fetching) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
-
-  const totalPages = Math.ceil(data.bean_aggregate.aggregate.count / 10)
-  const pageNumbers = totalPages > 1 ? range(1, totalPages) : []
 
   return (
     <div className='my-8 space-y-8'>
@@ -101,9 +151,39 @@ export default function Main() {
         </button>
       </div>
 
-      <List beans={data.bean} />
+      <form
+        onSubmit={executeSearch}
+        className='sm:mx-auto sm:w-2/3 flex flex-wrap space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-nowrap'
+      >
+        <input
+          type='text'
+          className='input'
+          value={searchText}
+          onChange={onSearchChange}
+        />
+        <button
+          type='submit'
+          className='btn btn--md btn--primary w-full sm:w-auto'
+        >
+          {fetching ? (
+            <Loading defaultPadding={false} className='h-5 w-5 text-white' />
+          ) : (
+            'Search'
+          )}
+        </button>
+      </form>
 
-      {pageNumbers.length > 1 && <Pagination pageNumbers={pageNumbers} />}
+      {!fetching && !error && (
+        <>
+          <List beans={data.bean} sortHandler={sortHandler} filters={filters} />
+
+          {getPageNumbers(data.bean_aggregate.aggregate.count).length > 1 && (
+            <Pagination
+              pageNumbers={getPageNumbers(data.bean_aggregate.aggregate.count)}
+            />
+          )}
+        </>
+      )}
     </div>
   )
 }

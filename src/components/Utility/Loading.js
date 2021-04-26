@@ -1,5 +1,5 @@
 const Loading = ({
-  sizeClass = 'h-5 w-5',
+  className = 'h-5 w-5 text-indigo-600',
   defaultPadding = true,
   containerClass = '',
 }) => {
@@ -7,7 +7,7 @@ const Loading = ({
   return (
     <div className={defaultPadding ? containerBase + ' p-5' : containerBase}>
       <svg
-        className={'animate-spin text-indigo-600 ' + sizeClass}
+        className={'animate-spin ' + className}
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 24 24'

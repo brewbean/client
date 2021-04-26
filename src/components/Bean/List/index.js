@@ -1,8 +1,29 @@
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
 import { Rating } from 'components/Badge'
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid'
+import { combineClass } from 'helper/stringHelper'
+import { ASC } from 'constants/query'
 
-export default function List({ beans }) {
+const Sort = ({ onClick, direction }) => {
+  return (
+    <button
+      onClick={onClick}
+      type='button'
+      className={combineClass('focus:outline-none font-bold rounded-full p-1', {
+        'bg-indigo-100 text-indigo-700': direction,
+      })}
+    >
+      {direction === ASC ? (
+        <ChevronUpIcon className='h-5 w-5' />
+      ) : (
+        <ChevronDownIcon className='h-5 w-5 ' />
+      )}
+    </button>
+  )
+}
+
+export default function List({ beans, sortHandler, filters }) {
   const { url } = useRouteMatch()
   const history = useHistory()
 
@@ -15,31 +36,58 @@ export default function List({ beans }) {
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Name
+              <div className='flex justify-between items-center'>
+                Name
+                <Sort direction={filters.name} onClick={sortHandler('name')} />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Company
+              <div className='flex justify-between items-center'>
+                Company
+                <Sort
+                  direction={filters.company_name}
+                  onClick={sortHandler('company_name')}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Roast
+              <div className='flex justify-between items-center'>
+                Roast
+                <Sort
+                  direction={filters.roast_type}
+                  onClick={sortHandler('roast_type')}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Region
+              <div className='flex justify-between items-center'>
+                Region
+                <Sort
+                  direction={filters.region}
+                  onClick={sortHandler('region')}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Rating
+              <div className='flex justify-between items-center'>
+                Rating
+                <Sort
+                  direction={filters.bean_reviews_aggregate?.avg.rating}
+                  onClick={sortHandler('bean_reviews_aggregate')}
+                />
+              </div>
             </th>
           </tr>
         </thead>
