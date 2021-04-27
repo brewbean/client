@@ -30,7 +30,7 @@ export default function Main() {
     reset,
   } = useModal()
   const { url } = useRouteMatch()
-  const { addAlert } = useAlert()
+  const { addAlert, clearAlerts } = useAlert()
   const location = useLocation()
   const history = useHistory()
   const { page } = qs.parse(location.search, { ignoreQueryPrefix: true })
@@ -73,6 +73,7 @@ export default function Main() {
 
   const navigateToCreate = () => {
     if (isVerified) {
+      clearAlerts()
       history.push(`${url}/new`, { fromBean: true })
     } else if (isAuthenticated) {
       triggerUnverifiedModal()
@@ -128,9 +129,19 @@ export default function Main() {
       // need to clear modal settings so that going back
       // to this page doesn't retrigger this effect
       reset()
-      history.push(`${url}/new`, { fromRecipe: true })
+      clearAlerts()
+      history.push(`${url}/new`, { fromBean: true })
     }
-  }, [isPending, isSuccess, content, isVerified, url, history, reset])
+  }, [
+    isPending,
+    isSuccess,
+    content,
+    isVerified,
+    url,
+    history,
+    reset,
+    clearAlerts,
+  ])
 
   if (error) return <p>Oh no... {error.message}</p>
 
