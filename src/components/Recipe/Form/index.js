@@ -80,6 +80,7 @@ export default function Form({
           register={register}
           data={[
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               label: 'Recipe Name',
               error: errors.name,
               name: 'name',
@@ -87,7 +88,7 @@ export default function Form({
               className: combineClass('input', {
                 'input--state-error': errors.name,
               }),
-              placeholder: 'e.g. My favorite pour over recipe',
+              placeholder: 'e.g. Amazing pour over',
             },
             {
               label: 'About',
@@ -104,6 +105,7 @@ export default function Form({
           title='Bean'
           subtitle='Add details about your coffee bean'
           register={register}
+          sectionClass='sm:col-span-1'
           data={[
             {
               name: 'bean_name_free',
@@ -111,7 +113,7 @@ export default function Form({
               label: 'Bean Name',
               isOptional: true,
               className: 'input',
-              placeholder: 'e.g. Kurasu House Blend Dark',
+              placeholder: 'e.g. My House Blend',
             },
             {
               name: 'bean_grind',
@@ -146,6 +148,7 @@ export default function Form({
           title='Tools'
           subtitle='What device should we be using?'
           register={register}
+          sectionClass='sm:col-span-1'
           data={[
             {
               label: 'Brewing Style',
@@ -172,6 +175,7 @@ export default function Form({
           register={register}
           data={[
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               label: 'Serving Amount',
               symbol: 'grams',
               error: errors.water_amount,
@@ -183,6 +187,7 @@ export default function Form({
               placeholder: 'e.g. 200',
             },
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               label: 'Water Temperature',
               symbol: '\u00b0C',
               error: errors.water_temp,
@@ -202,7 +207,7 @@ export default function Form({
                 'input--state-error': errors.instructions,
               }),
               placeholder: 'e.g. Step 1: wet the filter...',
-              rows: '3',
+              rows: '10',
             },
           ]}
         />
@@ -223,7 +228,7 @@ export default function Form({
               }}
             />
           ) : (
-            <div className='flex justify-between'>
+            <div className='flex items-center'>
               <button
                 onClick={() => setFormMounted(true)}
                 type='button'
@@ -231,7 +236,7 @@ export default function Form({
               >
                 Add recipe steps
               </button>
-              <p className='text-xs text-gray-500 italic'>optional</p>
+              <p className='ml-6 text-xs text-gray-500 italic'>optional</p>
             </div>
           )}
           {isHidden && (
@@ -243,6 +248,7 @@ export default function Form({
           title='Privacy'
           subtitle="Set your recipe's visibility"
           register={register}
+          sectionClass='sm:col-span-1'
           data={[
             {
               readOnly: publicLocked,
