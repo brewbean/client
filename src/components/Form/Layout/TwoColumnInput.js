@@ -8,17 +8,20 @@ const TwoColumnInput = ({
   description,
   descriptionId,
   label,
+  rowClass,
   children,
 }) => (
-  <div>
-    <div className='flex justify-between items-center'>
+  <div className={rowClass}>
+    <div className='flex justify-start items-center'>
       <label
         htmlFor={htmlFor}
         className='block text-sm font-medium text-gray-700'
       >
         {label}
       </label>
-      {isOptional && <p className='text-xs text-gray-500 italic'>optional</p>}
+      {isOptional && (
+        <p className='ml-4 text-xs text-gray-500 italic'>optional</p>
+      )}
     </div>
     <div className={`mt-1 ${symbol ? 'relative' : ''}`.trimEnd()}>
       {children}

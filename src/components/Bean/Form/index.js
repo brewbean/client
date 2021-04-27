@@ -23,6 +23,7 @@ export default function Form({ register, errors, onSubmit }) {
           register={register}
           data={[
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               label: 'Coffee Name',
               name: 'name',
               error: errors.name,
@@ -33,6 +34,7 @@ export default function Form({ register, errors, onSubmit }) {
               placeholder: 'e.g. House Blend',
             },
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               label: 'Company name',
               name: 'company_name',
               error: errors.company_name,
@@ -43,6 +45,7 @@ export default function Form({ register, errors, onSubmit }) {
               placeholder: 'e.g. Hot Bean Water Co.',
             },
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               name: 'region',
               label: 'Region',
               error: errors.region,
@@ -59,7 +62,7 @@ export default function Form({ register, errors, onSubmit }) {
               isOptional: true,
               className: 'input',
               placeholder: 'e.g. Find on brewbean marketplace...',
-              rows: '2',
+              rows: '3',
             },
           ]}
         />
@@ -70,6 +73,7 @@ export default function Form({ register, errors, onSubmit }) {
           register={register}
           data={[
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               name: 'roast_type',
               type: 'select',
               defaultValue: 'light',
@@ -83,6 +87,7 @@ export default function Form({ register, errors, onSubmit }) {
               ],
             },
             {
+              rowClass: 'w-full sm:w-1/2 sm:pr-2',
               name: 'profile_note',
               label: 'Profile Notes',
               error: errors.profile_note,
@@ -105,6 +110,7 @@ export default function Form({ register, errors, onSubmit }) {
         <SectionMap
           title='Details'
           subtitle='Add more fine-grained information'
+          sectionClass='sm:col-span-1'
           register={register}
           data={[
             {
@@ -137,7 +143,7 @@ export default function Form({ register, errors, onSubmit }) {
         />
       </div>
 
-      <Section title='Elevation'>
+      <Section title='Elevation' sectionClass='sm:col-span-1'>
         <Altitude isOptional register={register} errors={errors} />
       </Section>
 
