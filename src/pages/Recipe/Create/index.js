@@ -46,7 +46,8 @@ export default function CreateRecipe() {
     }
   }
 
-  if (!location.state || !isAuthenticated) return <Redirect to='/recipe' />
+  if (!location.state?.fromRecipe || !isAuthenticated)
+    return <Redirect to='/recipe' />
 
   return (
     <Form
