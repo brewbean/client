@@ -13,6 +13,7 @@ export default function Main({ fetching, error, data, goToCreate }) {
   const { page } = useQueryParams()
   const currPage = page ? parseInt(page) : 1
   const offset = (currPage - 1) * 10
+  const start = (data?.brew_log.length != 0) ? 1 : 0
 
   return (
     <div className='bg-gray-100'>
@@ -55,7 +56,7 @@ export default function Main({ fetching, error, data, goToCreate }) {
                 {/* Pagination controls */}
                 <div className='flex-shrink-0 h-16 px-6 flex flex-col justify-center border-t border-gray-200'>
                   <BasicPagination
-                    start={1 + offset}
+                    start={start + offset}
                     end={data?.brew_log.length + offset}
                     total={data?.brew_log_aggregate?.aggregate?.count}
                   />
