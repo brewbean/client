@@ -118,7 +118,7 @@ const Recipes = () => {
         ],
         []
       )
-      .filter((beanOrderBy) => beanOrderBy !== null)
+      .filter((recipeOrderBy) => recipeOrderBy !== null)
 
     setFilters(newFilters)
     setOrderBy(newOrderBy.length > 0 ? newOrderBy : [{ id: DESC }])
@@ -143,7 +143,6 @@ const Recipes = () => {
     clearAlerts,
   ])
 
-  if (fetching) return <Loading />
   if (error) return <ErrorMessage message={error.message} />
 
   return (
