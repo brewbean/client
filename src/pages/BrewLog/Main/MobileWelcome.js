@@ -10,6 +10,7 @@ export default function MobileWelcome({ fetching, error, data, goToCreate }) {
   const { page } = useQueryParams()
   const currPage = page ? parseInt(page) : 1
   const offset = (currPage - 1) * 10
+  const start = (data?.brew_log.length != 0) ? 1 : 0
 
   return (
     <>
@@ -40,7 +41,7 @@ export default function MobileWelcome({ fetching, error, data, goToCreate }) {
 
         <div className='py-4 px-6'>
           <BasicPagination
-            start={1 + offset}
+            start={start + offset}
             end={data?.brew_log.length + offset}
             total={data?.brew_log_aggregate?.aggregate?.count}
           />
