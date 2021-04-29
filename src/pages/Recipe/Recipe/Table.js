@@ -4,8 +4,29 @@ import { Check, PrivacyIcon, X } from 'components/Icon'
 import { Rating, TextSymbol } from 'components/Badge'
 import { useAuth } from 'context/AuthContext'
 import { UserIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid'
+import { combineClass } from 'helper/stringHelper'
+import { ASC } from 'constants/query'
 
-export default function Table({ recipes }) {
+const Sort = ({ onClick, direction }) => {
+  return (
+    <button
+      onClick={onClick}
+      type='button'
+      className={combineClass('focus:outline-none font-bold rounded-full p-1', {
+        'bg-indigo-100 text-indigo-700': direction,
+      })}
+    >
+      {direction === ASC ? (
+        <ChevronUpIcon className='h-5 w-5' />
+      ) : (
+        <ChevronDownIcon className='h-5 w-5 ' />
+      )}
+    </button>
+  )
+}
+
+export default function Table({ recipes, sortHandler, filters }) {
   const { barista: user } = useAuth()
   const { url } = useRouteMatch()
   const history = useHistory()
@@ -19,31 +40,60 @@ export default function Table({ recipes }) {
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Name
+              <div className='flex justify-between items-center'>
+                Name
+                <Sort direction={filters.name} onClick={sortHandler('name')} />
+              </div>
+            </th>
+
+            <th
+              scope='col'
+              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
+            >
+              <div className='flex justify-between items-center'>
+                Writer
+                <Sort
+                  direction={filters.barista}
+                  onClick={sortHandler('barista')}
+                />
+              </div>
+            </th>
+
+            <th
+              scope='col'
+              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
+            >
+              <div className='flex justify-between items-center'>
+                Brew Type
+                <Sort
+                  direction={filters.brew_type}
+                  onClick={sortHandler('brew_type')}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Writer
+              <div className='flex justify-between items-center'>
+                Rating
+                <Sort
+                  direction={filters.recipe_reviews_aggregate?.avg.rating}
+                  onClick={sortHandler('recipe_reviews_aggregate')}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Brew Type
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
-            >
-              Rating
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
-            >
-              Playable?
+              <div className='flex justify-between items-center'>
+                Playable
+                <Sort
+                  direction={filters.playable}
+                  onClick={sortHandler('playable')}
+                />
+              </div>
             </th>
           </tr>
         </thead>
