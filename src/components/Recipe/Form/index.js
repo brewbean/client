@@ -137,6 +137,7 @@ export default function Form({
               }),
               placeholder: 'e.g. 12',
               symbol: 'grams',
+              min: '0',
               error: errors.bean_weight,
             },
           ]}
@@ -181,6 +182,7 @@ export default function Form({
                 'input--state-error': errors.water_amount,
               }),
               placeholder: 'e.g. 200',
+              min: '0',
             },
             {
               label: 'Water Temperature',
@@ -192,6 +194,7 @@ export default function Form({
                 'input--state-error': errors.water_temp,
               }),
               placeholder: 'e.g. 100',
+              min: '0',
             },
             {
               label: 'Brewer Instructions',
