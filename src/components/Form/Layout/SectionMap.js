@@ -22,6 +22,7 @@ const SectionMap = ({
         options,
         rows,
         step,
+        min,
         ...rest
       } = input
       const id = createId(input.label)
@@ -66,6 +67,7 @@ const SectionMap = ({
                 defaultValue,
                 placeholder,
                 step,
+                min,
                 ref: register,
               }}
             />
