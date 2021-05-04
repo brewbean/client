@@ -10,7 +10,7 @@ export const Rating = ({ value }) => (
         : 'bg-red-200 text-red-800'
     }`}
   >
-    {value ? value : 'not rated'}
+    {value !== null ? value : 'not rated'}
   </span>
 )
 
