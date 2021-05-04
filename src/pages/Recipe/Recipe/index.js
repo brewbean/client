@@ -97,7 +97,13 @@ const Recipes = () => {
 
   const sortHandler = (property) => () => {
     let newFilters = { ...filters }
-    if (property === 'recipe_reviews_aggregate') {
+    if (property === 'barista') {
+      newFilters.barista = !filters.barista
+        ? { display_name: DESC }
+        : filters.barista.display_name === DESC
+        ? { display_name: ASC }
+        : null
+    } else if (property === 'recipe_reviews_aggregate') {
       newFilters.recipe_reviews_aggregate = !filters.recipe_reviews_aggregate
         ? { avg: { rating: DESC } }
         : filters.recipe_reviews_aggregate.avg.rating === DESC

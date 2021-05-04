@@ -53,7 +53,7 @@ export default function Table({ recipes, sortHandler, filters }) {
               <div className='flex justify-between items-center'>
                 Writer
                 <Sort
-                  direction={filters.barista}
+                  direction={filters.barista?.display_name}
                   onClick={sortHandler('barista')}
                 />
               </div>
