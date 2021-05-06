@@ -1,29 +1,9 @@
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
 import { Rating } from 'components/Badge'
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid'
-import { combineClass } from 'helper/stringHelper'
-import { ASC } from 'constants/query'
+import { Sort, sortHandler } from 'components/Search/Sort'
 
-const Sort = ({ onClick, direction }) => {
-  return (
-    <button
-      onClick={onClick}
-      type='button'
-      className={combineClass('focus:outline-none font-bold rounded-full p-1', {
-        'bg-indigo-100 text-indigo-700': direction,
-      })}
-    >
-      {direction === ASC ? (
-        <ChevronUpIcon className='h-5 w-5' />
-      ) : (
-        <ChevronDownIcon className='h-5 w-5 ' />
-      )}
-    </button>
-  )
-}
-
-export default function List({ beans, sortHandler, filters }) {
+export default function List({ beans, filters, setFilters, setOrderBy }) {
   const { url } = useRouteMatch()
   const history = useHistory()
 
@@ -38,7 +18,10 @@ export default function List({ beans, sortHandler, filters }) {
             >
               <div className='flex justify-between items-center'>
                 Name
-                <Sort direction={filters.name} onClick={sortHandler('name')} />
+                <Sort
+                  direction={filters.name}
+                  onClick={sortHandler('name', filters, setFilters, setOrderBy)}
+                />
               </div>
             </th>
             <th
@@ -49,7 +32,12 @@ export default function List({ beans, sortHandler, filters }) {
                 Company
                 <Sort
                   direction={filters.company_name}
-                  onClick={sortHandler('company_name')}
+                  onClick={sortHandler(
+                    'company_name',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
                 />
               </div>
             </th>
@@ -61,7 +49,12 @@ export default function List({ beans, sortHandler, filters }) {
                 Roast
                 <Sort
                   direction={filters.roast_type}
-                  onClick={sortHandler('roast_type')}
+                  onClick={sortHandler(
+                    'roast_type',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
                 />
               </div>
             </th>
@@ -73,7 +66,12 @@ export default function List({ beans, sortHandler, filters }) {
                 Region
                 <Sort
                   direction={filters.region}
-                  onClick={sortHandler('region')}
+                  onClick={sortHandler(
+                    'region',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
                 />
               </div>
             </th>
@@ -85,7 +83,12 @@ export default function List({ beans, sortHandler, filters }) {
                 Rating
                 <Sort
                   direction={filters.bean_reviews_aggregate?.avg.rating}
-                  onClick={sortHandler('bean_reviews_aggregate')}
+                  onClick={sortHandler(
+                    'bean_reviews_aggregate',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
                 />
               </div>
             </th>

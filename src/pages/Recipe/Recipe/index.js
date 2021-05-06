@@ -157,9 +157,9 @@ const Recipes = () => {
         <>
           <Table
             recipes={data.recipe}
-            setOrderBy={setOrderBy}
             filters={filters}
             setFilters={setFilters}
+            setOrderBy={setOrderBy}
           />
 
           {getPageNumbers(data.recipe_aggregate.aggregate.count).length > 1 && (

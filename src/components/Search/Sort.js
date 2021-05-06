@@ -21,8 +21,8 @@ export const Sort = ({ onClick, direction }) => {
 }
 
 export const sortHandler = (
-  filters,
   property,
+  filters,
   setFilters,
   setOrderBy
 ) => () => {
@@ -37,6 +37,12 @@ export const sortHandler = (
     newFilters.recipe_reviews_aggregate = !filters.recipe_reviews_aggregate
       ? { avg: { rating: DESC } }
       : filters.recipe_reviews_aggregate.avg.rating === DESC
+      ? { avg: { rating: ASC } }
+      : null
+  } else if (property === 'bean_reviews_aggregate') {
+    newFilters.bean_reviews_aggregate = !filters.bean_reviews_aggregate
+      ? { avg: { rating: DESC } }
+      : filters.bean_reviews_aggregate.avg.rating === DESC
       ? { avg: { rating: ASC } }
       : null
   } else {
@@ -54,7 +60,7 @@ export const sortHandler = (
       ],
       []
     )
-    .filter((recipeOrderBy) => recipeOrderBy !== null)
+    .filter((orderBy) => orderBy !== null)
 
   setFilters(newFilters)
   setOrderBy(newOrderBy.length > 0 ? newOrderBy : [{ id: DESC }])
