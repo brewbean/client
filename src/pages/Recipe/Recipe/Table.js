@@ -88,9 +88,9 @@ export default function Table({ recipes, filters, setFilters, setOrderBy }) {
               <div className='flex justify-between items-center'>
                 Playable
                 <Sort
-                  direction={filters.playable}
+                  direction={filters.stages_aggregate?.count}
                   onClick={sortHandler(
-                    'playable',
+                    'stages_aggregate',
                     filters,
                     setFilters,
                     setOrderBy

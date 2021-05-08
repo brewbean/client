@@ -39,6 +39,12 @@ export const sortHandler = (
       : filters.recipe_reviews_aggregate.avg.rating === DESC
       ? { avg: { rating: ASC } }
       : null
+  } else if (property === 'stages_aggregate') {
+    newFilters.stages_aggregate = !filters.stages_aggregate
+      ? { count: DESC }
+      : filters.stages_aggregate === DESC
+      ? { count: ASC }
+      : null
   } else if (property === 'bean_reviews_aggregate') {
     newFilters.bean_reviews_aggregate = !filters.bean_reviews_aggregate
       ? { avg: { rating: DESC } }
