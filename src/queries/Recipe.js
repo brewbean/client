@@ -79,16 +79,37 @@ export const INSERT_RECIPE = gql`
   ${recipeInfo}
 `
 export const GET_ALL_RECIPES = gql`
-  query GetAllRecipes($limit: Int, $offset: Int) {
+  query GetAllRecipes(
+    $limit: Int
+    $offset: Int
+    $query: String
+    $orderBy: [recipe_order_by!]
+  ) {
     recipe(
-      order_by: { id: desc }
-      where: { is_deleted: { _eq: false } }
+      order_by: $orderBy
       limit: $limit
       offset: $offset
+      where: {
+        is_deleted: { _eq: false }
+        _or: [
+          { name: { _ilike: $query } }
+          { barista: { display_name: { _ilike: $query } } }
+          { brew_type: { _ilike: $query } }
+        ]
+      }
     ) {
       ...RecipeInfo
     }
-    recipe_aggregate(where: { is_deleted: { _eq: false } }) {
+    recipe_aggregate(
+      where: {
+        is_deleted: { _eq: false }
+        _or: [
+          { name: { _ilike: $query } }
+          { barista: { display_name: { _ilike: $query } } }
+          { brew_type: { _ilike: $query } }
+        ]
+      }
+    ) {
       aggregate {
         count
       }

@@ -11,7 +11,7 @@ import { range } from 'helper/array'
 import { Pagination } from 'components/Utility/List'
 import { setUrqlHeader } from 'helper/header'
 import { Loading } from 'components/Utility'
-import { ASC, DESC } from 'constants/query'
+import { DESC } from 'constants/query'
 
 const getPageNumbers = (count) => {
   const totalPages = Math.ceil(count / 10)
@@ -95,35 +95,6 @@ export default function Main() {
     setSearchText(target.value)
   }
 
-  const sortHandler = (property) => () => {
-    let newFilters = { ...filters }
-    if (property === 'bean_reviews_aggregate') {
-      newFilters.bean_reviews_aggregate = !filters.bean_reviews_aggregate
-        ? { avg: { rating: DESC } }
-        : filters.bean_reviews_aggregate.avg.rating === DESC
-        ? { avg: { rating: ASC } }
-        : null
-    } else {
-      newFilters[property] = !filters[property]
-        ? DESC
-        : filters[property] === DESC
-        ? ASC
-        : null
-    }
-    const newOrderBy = Object.keys(newFilters)
-      .reduce(
-        (arr, key) => [
-          ...arr,
-          newFilters[key] ? { [key]: newFilters[key] } : null,
-        ],
-        []
-      )
-      .filter((beanOrderBy) => beanOrderBy !== null)
-
-    setFilters(newFilters)
-    setOrderBy(newOrderBy.length > 0 ? newOrderBy : [{ id: DESC }])
-  }
-
   useEffect(() => {
     if (!isPending && isSuccess && content === 'login' && isVerified) {
       // need to clear modal settings so that going back
@@ -186,7 +157,12 @@ export default function Main() {
 
       {!fetching && !error && (
         <>
-          <List beans={data.bean} sortHandler={sortHandler} filters={filters} />
+          <List
+            beans={data.bean}
+            filters={filters}
+            setFilters={setFilters}
+            setOrderBy={setOrderBy}
+          />
 
           {getPageNumbers(data.bean_aggregate.aggregate.count).length > 1 && (
             <Pagination

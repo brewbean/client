@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useCallback } from 'react'
+import { useMemo, useEffect, useCallback, useState } from 'react'
 import { useQuery } from 'urql'
 import qs from 'qs'
 import { GET_ALL_RECIPES } from 'queries/Recipe'
@@ -11,6 +11,12 @@ import { range } from 'helper/array'
 import { Pagination } from 'components/Utility/List'
 import { setUrqlHeader } from 'helper/header'
 import { ErrorMessage, Loading } from 'components/Utility'
+import { DESC } from 'constants/query'
+
+const getPageNumbers = (count) => {
+  const totalPages = Math.ceil(count / 10)
+  return totalPages > 1 ? range(1, totalPages) : []
+}
 
 const Recipes = () => {
   const { isAuthenticated, isVerified } = useAuth()
@@ -28,10 +34,16 @@ const Recipes = () => {
   const location = useLocation()
   const history = useHistory()
   const { page } = qs.parse(location.search, { ignoreQueryPrefix: true })
+  const [searchText, setSearchText] = useState('')
+  const [query, setQuery] = useState('%%')
+  const [orderBy, setOrderBy] = useState([{ id: DESC }])
+  const [filters, setFilters] = useState({})
 
   const [{ data, fetching, error }] = useQuery({
     query: GET_ALL_RECIPES,
     variables: {
+      query,
+      orderBy,
       limit: 10,
       offset:
         page === undefined || page === '1' ? 0 : (parseInt(page) - 1) * 10,
@@ -71,6 +83,18 @@ const Recipes = () => {
     }
   }
 
+  const executeSearch = (e) => {
+    e.preventDefault()
+    setQuery('%' + searchText.trim() + '%')
+  }
+
+  const onSearchChange = ({ target }) => {
+    if (target.value === '') {
+      setQuery('%%')
+    }
+    setSearchText(target.value)
+  }
+
   useEffect(() => {
     if (!isPending && isSuccess && content === 'login' && isVerified) {
       // need to clear modal settings so that going back
@@ -90,11 +114,7 @@ const Recipes = () => {
     clearAlerts,
   ])
 
-  if (fetching) return <Loading />
   if (error) return <ErrorMessage message={error.message} />
-
-  const totalPages = Math.ceil(data.recipe_aggregate.aggregate.count / 10)
-  const pageNumbers = totalPages > 1 ? range(1, totalPages) : []
 
   return (
     <div className='my-8 space-y-8'>
@@ -112,10 +132,45 @@ const Recipes = () => {
           Create Recipe
         </button>
       </div>
+      <form
+        onSubmit={executeSearch}
+        className='sm:mx-auto sm:w-2/3 flex flex-wrap space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-nowrap'
+      >
+        <input
+          type='text'
+          className='input'
+          value={searchText}
+          onChange={onSearchChange}
+        />
+        <button
+          type='submit'
+          className='btn btn--md btn--primary w-full sm:w-auto'
+        >
+          {fetching ? (
+            <Loading defaultPadding={false} className='h-5 w-5 text-white' />
+          ) : (
+            'Search'
+          )}
+        </button>
+      </form>
+      {!fetching && !error && (
+        <>
+          <Table
+            recipes={data.recipe}
+            filters={filters}
+            setFilters={setFilters}
+            setOrderBy={setOrderBy}
+          />
 
-      <Table recipes={data.recipe} />
-
-      {pageNumbers.length > 1 && <Pagination pageNumbers={pageNumbers} />}
+          {getPageNumbers(data.recipe_aggregate.aggregate.count).length > 1 && (
+            <Pagination
+              pageNumbers={getPageNumbers(
+                data.recipe_aggregate.aggregate.count
+              )}
+            />
+          )}
+        </>
+      )}
     </div>
   )
 }
