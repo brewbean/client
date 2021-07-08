@@ -35,6 +35,7 @@ const CreateAccountForm = ({ callback, loginCallback }) => {
   }
 
   const goToLoginPage = () => {
+    if (hasAlert) closeAlert()
     if (loginCallback) {
       loginCallback()
     } else {

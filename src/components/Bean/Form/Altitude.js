@@ -19,14 +19,16 @@ export default function Altitude({ register, isOptional, errors }) {
 
   return (
     <div>
-      <div className='flex justify-between items-center mb-1'>
+      <div className='flex items-center mb-1'>
         <label
           className='block text-sm font-medium text-gray-700'
           htmlFor='altitude'
         >
           Altitude
         </label>
-        {isOptional && <p className='text-xs text-gray-500 italic'>optional</p>}
+        {isOptional && (
+          <p className='ml-4 text-xs text-gray-500 italic'>optional</p>
+        )}
       </div>
       {isRange ? (
         <>

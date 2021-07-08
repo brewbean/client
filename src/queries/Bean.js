@@ -76,11 +76,37 @@ export const UPDATE_BEAN = gql`
 `
 
 export const GET_ALL_BEANS = gql`
-  query GetAllBeans($limit: Int, $offset: Int) {
-    bean(order_by: { id: desc }, limit: $limit, offset: $offset) {
+  query GetAllBeans(
+    $limit: Int
+    $offset: Int
+    $query: String
+    $orderBy: [bean_order_by!]
+  ) {
+    bean(
+      order_by: $orderBy
+      limit: $limit
+      offset: $offset
+      where: {
+        _or: [
+          { name: { _ilike: $query } }
+          { company_name: { _ilike: $query } }
+          { roast_type: { _ilike: $query } }
+          { region: { _ilike: $query } }
+        ]
+      }
+    ) {
       ...BeanInfo
     }
-    bean_aggregate {
+    bean_aggregate(
+      where: {
+        _or: [
+          { name: { _ilike: $query } }
+          { company_name: { _ilike: $query } }
+          { roast_type: { _ilike: $query } }
+          { region: { _ilike: $query } }
+        ]
+      }
+    ) {
       aggregate {
         count
       }

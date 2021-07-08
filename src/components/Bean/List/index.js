@@ -1,8 +1,9 @@
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { roundToHalfOrWhole } from 'helper/math'
 import { Rating } from 'components/Badge'
+import { Sort, sortHandler } from 'components/Search/Sort'
 
-export default function List({ beans }) {
+export default function List({ beans, filters, setFilters, setOrderBy }) {
   const { url } = useRouteMatch()
   const history = useHistory()
 
@@ -15,31 +16,81 @@ export default function List({ beans }) {
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Name
+              <div className='flex justify-between items-center'>
+                Name
+                <Sort
+                  direction={filters.name}
+                  onClick={sortHandler('name', filters, setFilters, setOrderBy)}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Company
+              <div className='flex justify-between items-center'>
+                Company
+                <Sort
+                  direction={filters.company_name}
+                  onClick={sortHandler(
+                    'company_name',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Roast
+              <div className='flex justify-between items-center'>
+                Roast
+                <Sort
+                  direction={filters.roast_type}
+                  onClick={sortHandler(
+                    'roast_type',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Region
+              <div className='flex justify-between items-center'>
+                Region
+                <Sort
+                  direction={filters.region}
+                  onClick={sortHandler(
+                    'region',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Rating
+              <div className='flex justify-between items-center'>
+                Rating
+                <Sort
+                  direction={filters.bean_reviews_aggregate?.avg.rating}
+                  onClick={sortHandler(
+                    'bean_reviews_aggregate',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
             </th>
           </tr>
         </thead>

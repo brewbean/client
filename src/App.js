@@ -1,4 +1,7 @@
+import { useEffect } from 'react'
 import { Switch, Redirect, Route, useLocation } from 'react-router-dom'
+import { load, trackPageview } from 'fathom-client'
+import { FATHOM_ID } from 'config'
 import { AuthRoute, ContainerRoute, RedirectIf } from 'navigation'
 import { NewUserModal } from 'components/Modal'
 import Home from 'pages/Home'
@@ -12,9 +15,7 @@ import Guide from 'pages/Guide'
 import { About, Contact, PrivacyPolicy, Terms, NotFound } from 'pages/Content'
 import BrewLog from 'pages/BrewLog'
 import BeanPage from 'pages/Bean'
-import { load, trackPageview } from 'fathom-client'
-import { FATHOM_ID } from 'config'
-import { useEffect } from 'react'
+import Cafe from 'pages/Cafe'
 
 load(FATHOM_ID, {
   excludedDomains: ['localhost'],
@@ -26,6 +27,7 @@ function App() {
   useEffect(() => {
     trackPageview()
   }, [pathname, search])
+
   return (
     <Switch>
       <Redirect from='/:url*(/+)' to={pathname.slice(0, -1) + search} />
@@ -52,6 +54,9 @@ function App() {
       <AuthRoute path='/profile'>
         <Profile />
       </AuthRoute>
+      <ContainerRoute path='/cafe/:slug'>
+        <Cafe />
+      </ContainerRoute>
       <ContainerRoute path='/about'>
         <About />
       </ContainerRoute>

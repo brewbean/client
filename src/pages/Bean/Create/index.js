@@ -31,7 +31,8 @@ export default function CreateBean() {
     }
   }
 
-  if (!location.state || !isAuthenticated) return <Redirect to='/bean' />
+  if (!location.state?.fromBean || !isAuthenticated)
+    return <Redirect to='/bean' />
 
   return <Form {...methods} onSubmit={methods.handleSubmit(submitBean)} />
 }

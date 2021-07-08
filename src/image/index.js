@@ -5,6 +5,13 @@ import { lossy } from '@cloudinary/base/qualifiers/flag'
 import { autoBest, auto as qAuto } from '@cloudinary/base/qualifiers/quality'
 import { scale } from '@cloudinary/base/actions/resize'
 
+export const getCloudinaryURL = (imageName) =>
+  cld
+    .image(imageName)
+    .delivery(format(auto()))
+    .delivery(quality(qAuto()))
+    .toURL()
+
 export const Beans = cld
   .image('beans_hredk9.jpg')
   .delivery(format(auto()))

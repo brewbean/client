@@ -19,6 +19,7 @@ export default function CreateRecipe() {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
+      is_private: true,
       stages: [{ action: 'pour', start: 0, end: 0, weight: 0 }],
       serve: 0,
     },
@@ -45,7 +46,8 @@ export default function CreateRecipe() {
     }
   }
 
-  if (!location.state || !isAuthenticated) return <Redirect to='/recipe' />
+  if (!location.state?.fromRecipe || !isAuthenticated)
+    return <Redirect to='/recipe' />
 
   return (
     <Form

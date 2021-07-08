@@ -2,8 +2,15 @@ import { createId } from 'helper/stringHelper'
 import Section from './Section'
 import TwoColumnInput from './TwoColumnInput'
 
-const SectionMap = ({ title, subtitle, register, data, children }) => (
-  <Section {...{ title, subtitle }}>
+const SectionMap = ({
+  sectionClass,
+  title,
+  subtitle,
+  register,
+  data,
+  children,
+}) => (
+  <Section {...{ title, subtitle, sectionClass }}>
     {data.map((input) => {
       const {
         readOnly,
@@ -15,6 +22,7 @@ const SectionMap = ({ title, subtitle, register, data, children }) => (
         options,
         rows,
         step,
+        min,
         ...rest
       } = input
       const id = createId(input.label)
@@ -59,6 +67,7 @@ const SectionMap = ({ title, subtitle, register, data, children }) => (
                 defaultValue,
                 placeholder,
                 step,
+                min,
                 ref: register,
               }}
             />

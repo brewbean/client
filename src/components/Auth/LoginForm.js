@@ -24,6 +24,7 @@ function LoginForm({ callback, signupCallback, forgotPWCallback }) {
     await login(email, password, callback)
   }
   const goToCreateAccount = () => {
+    if (hasAlert) closeAlert()
     if (signupCallback) {
       signupCallback()
     } else {
@@ -31,6 +32,7 @@ function LoginForm({ callback, signupCallback, forgotPWCallback }) {
     }
   }
   const goToForgotPassword = () => {
+    if (hasAlert) closeAlert()
     if (forgotPWCallback) {
       forgotPWCallback()
     } else {

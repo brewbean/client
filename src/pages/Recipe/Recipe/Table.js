@@ -4,8 +4,9 @@ import { Check, PrivacyIcon, X } from 'components/Icon'
 import { Rating, TextSymbol } from 'components/Badge'
 import { useAuth } from 'context/AuthContext'
 import { UserIcon } from '@heroicons/react/solid'
+import { Sort, sortHandler } from 'components/Search/Sort'
 
-export default function Table({ recipes }) {
+export default function Table({ recipes, filters, setFilters, setOrderBy }) {
   const { barista: user } = useAuth()
   const { url } = useRouteMatch()
   const history = useHistory()
@@ -19,31 +20,83 @@ export default function Table({ recipes }) {
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Name
+              <div className='flex justify-between items-center'>
+                Name
+                <Sort
+                  direction={filters.name}
+                  onClick={sortHandler('name', filters, setFilters, setOrderBy)}
+                />
+              </div>
+            </th>
+
+            <th
+              scope='col'
+              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
+            >
+              <div className='flex justify-between items-center'>
+                Writer
+                <Sort
+                  direction={filters.barista?.display_name}
+                  onClick={sortHandler(
+                    'barista',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
+            </th>
+
+            <th
+              scope='col'
+              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
+            >
+              <div className='flex justify-between items-center'>
+                Brew Type
+                <Sort
+                  direction={filters.brew_type}
+                  onClick={sortHandler(
+                    'brew_type',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Writer
+              <div className='flex justify-between items-center'>
+                Rating
+                <Sort
+                  direction={filters.recipe_reviews_aggregate?.avg.rating}
+                  onClick={sortHandler(
+                    'recipe_reviews_aggregate',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
             </th>
             <th
               scope='col'
               className='px-6 py-3 text-left text-sm font-medium text-gray-600'
             >
-              Brew Type
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
-            >
-              Rating
-            </th>
-            <th
-              scope='col'
-              className='px-6 py-3 text-left text-sm font-medium text-gray-600'
-            >
-              Playable?
+              <div className='flex justify-between items-center'>
+                Playable
+                <Sort
+                  direction={filters.stages_aggregate?.count}
+                  onClick={sortHandler(
+                    'stages_aggregate',
+                    filters,
+                    setFilters,
+                    setOrderBy
+                  )}
+                />
+              </div>
             </th>
           </tr>
         </thead>
