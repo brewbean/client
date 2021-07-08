@@ -22,7 +22,7 @@
     "axios": "^0.21.1",
     "fathom-client": "^3.0.0",
     "graphql": "^15.4.0",
-    "postcss": "^7.0.35",
+    "postcss": "^7.0.36",
     "qs": "^6.9.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
